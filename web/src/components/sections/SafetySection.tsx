@@ -6,7 +6,8 @@ import { ScrollReveal } from '../common/ScrollReveal';
 export const SafetySection: React.FC = () => {
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language || 'fr';
-  const isAr = currentLang === 'ar';
+  const isAr = currentLang.startsWith('ar');
+  const isEn = currentLang.startsWith('en');
 
   return (
     <section id="safety" className="py-24 bg-[#F5F6F3] border-y border-[#172B46]/08 scroll-mt-20 relative overflow-hidden">
@@ -109,7 +110,7 @@ export const SafetySection: React.FC = () => {
               </div>
               <div className="pt-4 mt-2 border-t border-[#A9C5D8]/20 flex items-center gap-1.5 text-xs text-emerald-800 font-bold">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span>{isAr ? 'مطابق للقانون 18-07' : 'Conformité Loi 18-07'}</span>
+                <span>{isAr ? 'منسجم مع مبادئ القانون 18-07' : isEn ? 'Aligned with Law 18-07 Principles' : 'Aligné sur les principes de la Loi 18-07'}</span>
               </div>
             </div>
           </ScrollReveal>
@@ -129,7 +130,7 @@ export const SafetySection: React.FC = () => {
               </div>
               <div className="pt-4 mt-2 border-t border-[#A9C5D8]/20 flex items-center gap-1.5 text-xs text-[#2868C7] font-bold">
                 <span className="w-2 h-2 rounded-full bg-[#2868C7] animate-pulse" />
-                <span>{isAr ? 'عزل كامل بين ملفات الإخوة' : 'Isolation étanche garantie'}</span>
+                <span>{isAr ? 'مبدأ الفصل التام بين عوالم الإخوة' : isEn ? 'Sibling World Architectural Isolation' : 'Principe d\'isolation étanche des univers'}</span>
               </div>
             </div>
           </ScrollReveal>

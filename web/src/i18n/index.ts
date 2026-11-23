@@ -5,7 +5,10 @@ import fr from './locales/fr.json';
 import ar from './locales/ar.json';
 import en from './locales/en.json';
 
-const savedLang = localStorage.getItem('ofoq_language') || 'fr';
+const urlParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
+const urlLang = urlParams?.get('lang');
+const validLang = urlLang && ['ar', 'fr', 'en'].includes(urlLang) ? urlLang : null;
+const savedLang = validLang || localStorage.getItem('ofoq_language') || 'ar';
 
 i18n
   .use(initReactI18next)
