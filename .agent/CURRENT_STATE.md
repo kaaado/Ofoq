@@ -31,6 +31,8 @@
 - `9ae6677`: feat(audio-api): implement status 200/404/500 fetch handling and natural human voice in Algerian Darija, French & English
 - `563f433`: docs(state): record commit 9ae6677 in operational state
 - `dd56af9`: fix(forms-ux): make waitlist modal responsive, accept flexible phone formats, eliminate 401 error blocks, and add explicit postgres grants
+- `75296ac`: fix(forms-ux): amend state and synchronize git history with remote repository
+- `1722e86`: feat(darija-voice): apply authentic Algerian Darija to pictograms, add phonetic tashkeel, and enhance voice engine accuracy
 **Publishing Status:** Deployed to Vercel Production (`https://ofoq-delta.vercel.app`). Remote Git repository synchronized (`https://github.com/kaaado/Ofoq.git`).  
 
 ---

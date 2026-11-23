@@ -163,13 +163,22 @@ const playTactileFeedback = (type: 'pop' | 'chime' | 'uncheck' | 'celebrate' | '
 // ----------------------------------------------------
 // NATURAL HUMAN SPEECH SYNTHESIS ENGINE (NOT ROBOTIC AI)
 // ----------------------------------------------------
+// Pre-cache speech synthesis voices when available in browser
+let cachedVoices: SpeechSynthesisVoice[] = [];
+if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+  cachedVoices = window.speechSynthesis.getVoices();
+  window.speechSynthesis.onvoiceschanged = () => {
+    cachedVoices = window.speechSynthesis.getVoices();
+  };
+}
+
 const speakHumanVoice = ({
   text,
   lang,
   onStart,
   onEnd,
-  rate = 0.88,
-  pitch = 1.02
+  rate = 0.92,
+  pitch = 1.0
 }: {
   text: string;
   lang: 'ar' | 'fr' | 'en';
@@ -192,37 +201,76 @@ const speakHumanVoice = ({
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.rate = rate;
     utterance.pitch = pitch;
-    utterance.volume = 0.95;
+    utterance.volume = 1.0;
 
     // Detect and select warm, natural, human neural voices
-    const voices = window.speechSynthesis.getVoices();
+    const allVoices = (cachedVoices && cachedVoices.length > 0) ? cachedVoices : window.speechSynthesis.getVoices();
     let selectedVoice: SpeechSynthesisVoice | null = null;
 
     if (lang === 'ar') {
-      utterance.lang = 'ar-DZ';
+      const arVoices = allVoices.filter(v => v.lang.toLowerCase().startsWith('ar'));
       selectedVoice =
-        voices.find(v => v.lang.startsWith('ar') && (v.name.toLowerCase().includes('natural') || v.name.toLowerCase().includes('online') || v.name.toLowerCase().includes('amina') || v.name.toLowerCase().includes('salma') || v.name.toLowerCase().includes('neural') || v.name.toLowerCase().includes('tariq') || v.name.toLowerCase().includes('naayf'))) ||
-        voices.find(v => v.lang.startsWith('ar') && (v.name.toLowerCase().includes('google') || v.name.toLowerCase().includes('apple') || v.name.toLowerCase().includes('maged'))) ||
-        voices.find(v => v.lang.startsWith('ar')) ||
+        arVoices.find(v => {
+          const name = v.name.toLowerCase();
+          return name.includes('natural') || name.includes('neural') || name.includes('online');
+        }) ||
+        arVoices.find(v => {
+          const name = v.name.toLowerCase();
+          return name.includes('naayf') || name.includes('salma') || name.includes('tariq') || name.includes('amina') || name.includes('zariyah') || name.includes('hoda');
+        }) ||
+        arVoices.find(v => {
+          const name = v.name.toLowerCase();
+          return name.includes('google') || name.includes('apple') || name.includes('maged');
+        }) ||
+        arVoices[0] ||
         null;
-    } else if (lang === 'fr') {
-      utterance.lang = 'fr-FR';
-      selectedVoice =
-        voices.find(v => v.lang.startsWith('fr') && (v.name.toLowerCase().includes('natural') || v.name.toLowerCase().includes('online') || v.name.toLowerCase().includes('denise') || v.name.toLowerCase().includes('henri') || v.name.toLowerCase().includes('neural') || v.name.toLowerCase().includes('paul'))) ||
-        voices.find(v => v.lang.startsWith('fr') && (v.name.toLowerCase().includes('google') || v.name.toLowerCase().includes('thomas') || v.name.toLowerCase().includes('julie') || v.name.toLowerCase().includes('hortense'))) ||
-        voices.find(v => v.lang.startsWith('fr')) ||
-        null;
-    } else {
-      utterance.lang = 'en-US';
-      selectedVoice =
-        voices.find(v => v.lang.startsWith('en') && (v.name.toLowerCase().includes('natural') || v.name.toLowerCase().includes('online') || v.name.toLowerCase().includes('jenny') || v.name.toLowerCase().includes('guy') || v.name.toLowerCase().includes('aria') || v.name.toLowerCase().includes('neural'))) ||
-        voices.find(v => v.lang.startsWith('en') && (v.name.toLowerCase().includes('google') || v.name.toLowerCase().includes('samantha') || v.name.toLowerCase().includes('serena'))) ||
-        voices.find(v => v.lang.startsWith('en')) ||
-        null;
-    }
 
-    if (selectedVoice) {
-      utterance.voice = selectedVoice;
+      if (selectedVoice) {
+        utterance.voice = selectedVoice;
+        utterance.lang = selectedVoice.lang;
+      } else {
+        utterance.lang = 'ar-SA';
+      }
+    } else if (lang === 'fr') {
+      const frVoices = allVoices.filter(v => v.lang.toLowerCase().startsWith('fr'));
+      selectedVoice =
+        frVoices.find(v => {
+          const name = v.name.toLowerCase();
+          return name.includes('natural') || name.includes('online') || name.includes('denise') || name.includes('henri') || name.includes('neural') || name.includes('paul');
+        }) ||
+        frVoices.find(v => {
+          const name = v.name.toLowerCase();
+          return name.includes('google') || name.includes('thomas') || name.includes('julie') || name.includes('hortense');
+        }) ||
+        frVoices[0] ||
+        null;
+
+      if (selectedVoice) {
+        utterance.voice = selectedVoice;
+        utterance.lang = selectedVoice.lang;
+      } else {
+        utterance.lang = 'fr-FR';
+      }
+    } else {
+      const enVoices = allVoices.filter(v => v.lang.toLowerCase().startsWith('en'));
+      selectedVoice =
+        enVoices.find(v => {
+          const name = v.name.toLowerCase();
+          return name.includes('natural') || name.includes('online') || name.includes('jenny') || name.includes('guy') || name.includes('aria') || name.includes('neural');
+        }) ||
+        enVoices.find(v => {
+          const name = v.name.toLowerCase();
+          return name.includes('google') || name.includes('samantha') || name.includes('serena');
+        }) ||
+        enVoices[0] ||
+        null;
+
+      if (selectedVoice) {
+        utterance.voice = selectedVoice;
+        utterance.lang = selectedVoice.lang;
+      } else {
+        utterance.lang = 'en-US';
+      }
     }
 
     if (onStart) {
@@ -242,24 +290,33 @@ const speakHumanVoice = ({
   }
 };
 
-// Authentic Algerian Darija Spoken Pictogram Map
+// Authentic Algerian Darija Spoken Pictogram Map with accurate phonetic vocalization (Tashkeel)
 const DARIJA_PICTO_SPOKEN: Record<string, string> = {
-  water: 'حبيت نشرب ماء',
-  apple: 'حبيت ناكل تفاحة',
-  listen: 'راني نسمع مليح للصوت',
-  speak: 'نعاود الكلمة بالعقل',
-  puzzle: 'نلعب بالألعاب والتركيبات',
-  happy: 'فرحان بزاف بنطقي وخدمتي',
-  help: 'عاونوني ربي يحفظكم',
-  break: 'حبيت نريّح ونرتاح شوية',
-  hug: 'حبيت عناق حنين ودافي',
-  snack: 'حبيت ناكل وجبة خفيفة',
-  rest: 'استراحة هادئة ومريحة',
-  play: 'نلعب بلطف وبالشوية',
-  draw: 'نرسم بالألوان الزينة',
-  sleep: 'وقت الرقاد والنوم الهادي',
-  wash: 'نغسل يديّ بالماء والصابون',
-  outdoor: 'نخرج للحديقة نلعب'
+  water: 'حَبِّيتْ نَشْرَبْ مَاءْ',
+  apple: 'حَبِّيتْ نَاكُلْ تُفَّاحَة',
+  listen: 'نِسْمَعْ مْلِيحْ لِلصَّوْتْ',
+  speak: 'نْعَاوَدْ الْكَلِمَة بِالْعَقْلْ',
+  puzzle: 'نِلْعَبْ بِالتَّرْكِيبَاتْ وَالْأَلْعَابْ',
+  happy: 'فَرْحَانْ بْزَافْ بْنُطْقِي',
+  help: 'عَاوْنُونِي رَبِّي يَحْفَظْكُمْ',
+  break: 'حَبِّيتْ نْرَيَّحْ شْوِيَّة',
+  hug: 'تَحْضِينَة حْنِينَة وَدَافْيَة',
+  snack: 'حَبِّيتْ لُمْجَة خَفِيفَة',
+  rest: 'نْرَيَّحْ وَنِرْتَاحْ شْوِيَّة',
+  play: 'نِلْعَبْ بِالْعَقْلْ وَبِالشْوِيَّة',
+  draw: 'نِرْسُمْ بِالْأَلْوَانْ الشَّابَّة',
+  sleep: 'وِقْتْ الرُّقَادْ وَالرَّاحَة',
+  wash: 'نِغْسِلْ يَدَيَّ بِالْمَاءْ وَالصَّابُونْ',
+  outdoor: 'نُخْرُجْ لِلْجْنِينَة نِلْعَبْ',
+  breathe: 'نِتْنَفَّسْ بِالْعَقْلْ وَبِالرَّاحَة',
+  music: 'نِسْمَعْ مُوسِيقَى هَادْيَة',
+  safe: 'رَانِي فِي أَمَانْ وَرَاحَة',
+  smile: 'رَانِي مِرْتَاحْ وَفَرْحَانْ',
+  walk: 'نِمْشِي بِالْعَقْلْ',
+  story: 'قِصَّة مُصَوَّرَة شَابَّة',
+  bravo: 'يَعْطِيكْ الصِّحَّة يَا بَطَلْ',
+  share: 'نْشَارِكْ مَعَ مَامَا وَبَابَا',
+  star: 'نَجْمَة الشَّاطِرْ'
 };
 
 // ----------------------------------------------------
@@ -361,15 +418,15 @@ const THEMES: Record<ThemeKey, ThemeConfig> = {
     cardGradient: 'from-[#172B46]/10 via-[#2868C7]/15 to-[#A9C5D8]/20',
     swatches: ['#172B46', '#2868C7', '#A9C5D8', '#D8BE83'],
     pictos: [
-      { id: 'water', iconName: 'droplets', color: 'text-[#2868C7]', bgTint: 'bg-[#2868C7]/10', labelAr: 'أريد ماء', labelFr: 'Boire de l\'eau', labelEn: 'Drink water', category: 'needs' },
-      { id: 'apple', iconName: 'apple', color: 'text-[#D58C7A]', bgTint: 'bg-[#D58C7A]/10', labelAr: 'أريد تفاحة', labelFr: 'Manger une pomme', labelEn: 'Eat apple', category: 'needs' },
-      { id: 'listen', iconName: 'headphones', color: 'text-[#7C3AED]', bgTint: 'bg-[#7C3AED]/10', labelAr: 'أستمع للصوت', labelFr: 'Écouter le son', labelEn: 'Listen to sound', category: 'activities' },
-      { id: 'speak', iconName: 'volume2', color: 'text-[#2563EB]', bgTint: 'bg-[#2563EB]/10', labelAr: 'أكرر الكلمة', labelFr: 'Répéter le mot', labelEn: 'Repeat word', category: 'activities' },
-      { id: 'puzzle', iconName: 'puzzle', color: 'text-[#F59E0B]', bgTint: 'bg-[#F59E0B]/10', labelAr: 'ألعب بالتركيبات', labelFr: 'Faire un puzzle', labelEn: 'Play puzzle', category: 'activities' },
-      { id: 'happy', iconName: 'sparkles', color: 'text-[#D8BE83]', bgTint: 'bg-[#D8BE83]/15', labelAr: 'أنا فخور بنطقي', labelFr: 'Je suis fier', labelEn: 'I feel proud', category: 'feelings' },
-      { id: 'help', iconName: 'help', color: 'text-[#DC2626]', bgTint: 'bg-[#DC2626]/10', labelAr: 'أحتاج مساعدة', labelFr: 'Besoin d\'aide', labelEn: 'Need help', category: 'needs' },
-      { id: 'break', iconName: 'coffee', color: 'text-[#D97706]', bgTint: 'bg-[#D97706]/10', labelAr: 'استراحة هادئة', labelFr: 'Temps calme', labelEn: 'Quiet break', category: 'needs' },
-      { id: 'hug', iconName: 'heart', color: 'text-[#E11D48]', bgTint: 'bg-[#E11D48]/10', labelAr: 'عناق دافئ', labelFr: 'Besoin d\'un câlin', labelEn: 'Need a hug', category: 'feelings' },
+      { id: 'water', iconName: 'droplets', color: 'text-[#2868C7]', bgTint: 'bg-[#2868C7]/10', labelAr: 'حبيت نشرب ماء', labelFr: 'Boire de l\'eau', labelEn: 'Drink water', category: 'needs' },
+      { id: 'apple', iconName: 'apple', color: 'text-[#D58C7A]', bgTint: 'bg-[#D58C7A]/10', labelAr: 'حبيت تفاحة', labelFr: 'Manger une pomme', labelEn: 'Eat apple', category: 'needs' },
+      { id: 'listen', iconName: 'headphones', color: 'text-[#7C3AED]', bgTint: 'bg-[#7C3AED]/10', labelAr: 'نسمع الصوت', labelFr: 'Écouter le son', labelEn: 'Listen to sound', category: 'activities' },
+      { id: 'speak', iconName: 'volume2', color: 'text-[#2563EB]', bgTint: 'bg-[#2563EB]/10', labelAr: 'نعاود الكلمة', labelFr: 'Répéter le mot', labelEn: 'Repeat word', category: 'activities' },
+      { id: 'puzzle', iconName: 'puzzle', color: 'text-[#F59E0B]', bgTint: 'bg-[#F59E0B]/10', labelAr: 'نلعب بالتركيبات', labelFr: 'Faire un puzzle', labelEn: 'Play puzzle', category: 'activities' },
+      { id: 'happy', iconName: 'sparkles', color: 'text-[#D8BE83]', bgTint: 'bg-[#D8BE83]/15', labelAr: 'فرحان بنطقي', labelFr: 'Je suis fier', labelEn: 'I feel proud', category: 'feelings' },
+      { id: 'help', iconName: 'help', color: 'text-[#DC2626]', bgTint: 'bg-[#DC2626]/10', labelAr: 'عاونوني', labelFr: 'Besoin d\'aide', labelEn: 'Need help', category: 'needs' },
+      { id: 'break', iconName: 'coffee', color: 'text-[#D97706]', bgTint: 'bg-[#D97706]/10', labelAr: 'نريّح شوية', labelFr: 'Temps calme', labelEn: 'Quiet break', category: 'needs' },
+      { id: 'hug', iconName: 'heart', color: 'text-[#E11D48]', bgTint: 'bg-[#E11D48]/10', labelAr: 'تحضينة دافية', labelFr: 'Besoin d\'un câlin', labelEn: 'Need a hug', category: 'feelings' },
     ]
   },
   nature: {
@@ -385,15 +442,15 @@ const THEMES: Record<ThemeKey, ThemeConfig> = {
     cardGradient: 'from-[#172B46]/10 via-[#2D7A58]/15 to-[#D58C7A]/15',
     swatches: ['#172B46', '#2D7A58', '#A9C5D8', '#D58C7A'],
     pictos: [
-      { id: 'snack', iconName: 'utensils', color: 'text-[#2D7A58]', bgTint: 'bg-[#2D7A58]/10', labelAr: 'وجبة خفيفة', labelFr: 'Goûter', labelEn: 'Snack time', category: 'needs' },
-      { id: 'rest', iconName: 'sun', color: 'text-[#D8BE83]', bgTint: 'bg-[#D8BE83]/15', labelAr: 'استراحة هادئة', labelFr: 'Temps calme', labelEn: 'Quiet break', category: 'needs' },
-      { id: 'play', iconName: 'boxes', color: 'text-[#0D9488]', bgTint: 'bg-[#0D9488]/10', labelAr: 'ألعب بلطف', labelFr: 'Jouer doucement', labelEn: 'Play gently', category: 'activities' },
-      { id: 'draw', iconName: 'palette', color: 'text-[#D58C7A]', bgTint: 'bg-[#D58C7A]/10', labelAr: 'أرسم بالألوان', labelFr: 'Dessiner', labelEn: 'Draw pictures', category: 'activities' },
-      { id: 'hug', iconName: 'heart', color: 'text-[#E11D48]', bgTint: 'bg-[#E11D48]/10', labelAr: 'عناق دافئ', labelFr: 'Besoin d\'un câlin', labelEn: 'Need a hug', category: 'feelings' },
-      { id: 'sleep', iconName: 'moon', color: 'text-[#4F46E5]', bgTint: 'bg-[#4F46E5]/10', labelAr: 'وقت النوم', labelFr: 'Dormir', labelEn: 'Bedtime', category: 'needs' },
-      { id: 'water', iconName: 'droplets', color: 'text-[#0284C7]', bgTint: 'bg-[#0284C7]/10', labelAr: 'أشرب ماء', labelFr: 'Boire de l\'eau', labelEn: 'Drink water', category: 'needs' },
-      { id: 'wash', iconName: 'bath', color: 'text-[#059669]', bgTint: 'bg-[#059669]/10', labelAr: 'غسل اليدين', labelFr: 'Se laver les mains', labelEn: 'Wash hands', category: 'activities' },
-      { id: 'outdoor', iconName: 'footprints', color: 'text-[#16A34A]', bgTint: 'bg-[#16A34A]/10', labelAr: 'الذهاب للحديقة', labelFr: 'Aller au jardin', labelEn: 'Go to garden', category: 'activities' },
+      { id: 'snack', iconName: 'utensils', color: 'text-[#2D7A58]', bgTint: 'bg-[#2D7A58]/10', labelAr: 'لمجة خفيفة', labelFr: 'Goûter', labelEn: 'Snack time', category: 'needs' },
+      { id: 'rest', iconName: 'sun', color: 'text-[#D8BE83]', bgTint: 'bg-[#D8BE83]/15', labelAr: 'نريّح شوية', labelFr: 'Temps calme', labelEn: 'Quiet break', category: 'needs' },
+      { id: 'play', iconName: 'boxes', color: 'text-[#0D9488]', bgTint: 'bg-[#0D9488]/10', labelAr: 'نلعب بالعقل', labelFr: 'Jouer doucement', labelEn: 'Play gently', category: 'activities' },
+      { id: 'draw', iconName: 'palette', color: 'text-[#D58C7A]', bgTint: 'bg-[#D58C7A]/10', labelAr: 'نرسم بالألوان', labelFr: 'Dessiner', labelEn: 'Draw pictures', category: 'activities' },
+      { id: 'hug', iconName: 'heart', color: 'text-[#E11D48]', bgTint: 'bg-[#E11D48]/10', labelAr: 'تحضينة دافية', labelFr: 'Besoin d\'un câlin', labelEn: 'Need a hug', category: 'feelings' },
+      { id: 'sleep', iconName: 'moon', color: 'text-[#4F46E5]', bgTint: 'bg-[#4F46E5]/10', labelAr: 'نرقد ونرتاح', labelFr: 'Dormir', labelEn: 'Bedtime', category: 'needs' },
+      { id: 'water', iconName: 'droplets', color: 'text-[#0284C7]', bgTint: 'bg-[#0284C7]/10', labelAr: 'نشرب ماء', labelFr: 'Boire de l\'eau', labelEn: 'Drink water', category: 'needs' },
+      { id: 'wash', iconName: 'bath', color: 'text-[#059669]', bgTint: 'bg-[#059669]/10', labelAr: 'نغسل يديّ', labelFr: 'Se laver les mains', labelEn: 'Wash hands', category: 'activities' },
+      { id: 'outdoor', iconName: 'footprints', color: 'text-[#16A34A]', bgTint: 'bg-[#16A34A]/10', labelAr: 'نخرج للجنينة', labelFr: 'Aller au jardin', labelEn: 'Go to garden', category: 'activities' },
     ]
   },
   ocean: {
@@ -409,15 +466,15 @@ const THEMES: Record<ThemeKey, ThemeConfig> = {
     cardGradient: 'from-[#172B46]/10 via-[#0284C7]/15 to-[#A9C5D8]/20',
     swatches: ['#172B46', '#0284C7', '#A9C5D8', '#D8BE83'],
     pictos: [
-      { id: 'breathe', iconName: 'wind', color: 'text-[#0284C7]', bgTint: 'bg-[#0284C7]/10', labelAr: 'أتنفس بعمق', labelFr: 'Respirer calmement', labelEn: 'Deep breath', category: 'feelings' },
-      { id: 'water', iconName: 'droplets', color: 'text-[#0369A1]', bgTint: 'bg-[#0369A1]/10', labelAr: 'أشرب ماء', labelFr: 'Boire un verre d\'eau', labelEn: 'Glass of water', category: 'needs' },
-      { id: 'music', iconName: 'headphones', color: 'text-[#4F46E5]', bgTint: 'bg-[#4F46E5]/10', labelAr: 'أستمع لموسيقى هادئة', labelFr: 'Musique douce', labelEn: 'Calm music', category: 'activities' },
-      { id: 'safe', iconName: 'shield', color: 'text-[#059669]', bgTint: 'bg-[#059669]/10', labelAr: 'أنا في أمان', labelFr: 'Je suis en sécurité', labelEn: 'I am safe', category: 'feelings' },
-      { id: 'break', iconName: 'coffee', color: 'text-[#D97706]', bgTint: 'bg-[#D97706]/10', labelAr: 'أحتاج هدنة', labelFr: 'Pause sensorielle', labelEn: 'Sensory pause', category: 'needs' },
-      { id: 'smile', iconName: 'smile', color: 'text-[#D8BE83]', bgTint: 'bg-[#D8BE83]/15', labelAr: 'أشعر بالراحة', labelFr: 'Tout va bien', labelEn: 'Feeling good', category: 'feelings' },
-      { id: 'help', iconName: 'help', color: 'text-[#DC2626]', bgTint: 'bg-[#DC2626]/10', labelAr: 'أحتاج مساعدة', labelFr: 'Besoin d\'aide', labelEn: 'Need help', category: 'needs' },
-      { id: 'hug', iconName: 'heart', color: 'text-[#E11D48]', bgTint: 'bg-[#E11D48]/10', labelAr: 'عناق مطمئن', labelFr: 'Câlin réconfortant', labelEn: 'Comfort hug', category: 'feelings' },
-      { id: 'walk', iconName: 'footprints', color: 'text-[#0284C7]', bgTint: 'bg-[#0284C7]/10', labelAr: 'مشي هادئ', labelFr: 'Marche douce', labelEn: 'Calm walk', category: 'activities' },
+      { id: 'breathe', iconName: 'wind', color: 'text-[#0284C7]', bgTint: 'bg-[#0284C7]/10', labelAr: 'نتنفس بالعقل', labelFr: 'Respirer calmement', labelEn: 'Deep breath', category: 'feelings' },
+      { id: 'water', iconName: 'droplets', color: 'text-[#0369A1]', bgTint: 'bg-[#0369A1]/10', labelAr: 'نشرب ماء', labelFr: 'Boire un verre d\'eau', labelEn: 'Glass of water', category: 'needs' },
+      { id: 'music', iconName: 'headphones', color: 'text-[#4F46E5]', bgTint: 'bg-[#4F46E5]/10', labelAr: 'نسمع موسيقى هادية', labelFr: 'Musique douce', labelEn: 'Calm music', category: 'activities' },
+      { id: 'safe', iconName: 'shield', color: 'text-[#059669]', bgTint: 'bg-[#059669]/10', labelAr: 'راني في أمان', labelFr: 'Je suis en sécurité', labelEn: 'I am safe', category: 'feelings' },
+      { id: 'break', iconName: 'coffee', color: 'text-[#D97706]', bgTint: 'bg-[#D97706]/10', labelAr: 'وقفة راحة', labelFr: 'Pause sensorielle', labelEn: 'Sensory pause', category: 'needs' },
+      { id: 'smile', iconName: 'smile', color: 'text-[#D8BE83]', bgTint: 'bg-[#D8BE83]/15', labelAr: 'راني مرتاح', labelFr: 'Tout va bien', labelEn: 'Feeling good', category: 'feelings' },
+      { id: 'help', iconName: 'help', color: 'text-[#DC2626]', bgTint: 'bg-[#DC2626]/10', labelAr: 'عاونوني', labelFr: 'Besoin d\'aide', labelEn: 'Need help', category: 'needs' },
+      { id: 'hug', iconName: 'heart', color: 'text-[#E11D48]', bgTint: 'bg-[#E11D48]/10', labelAr: 'تحضينة دافية', labelFr: 'Câlin réconfortant', labelEn: 'Comfort hug', category: 'feelings' },
+      { id: 'walk', iconName: 'footprints', color: 'text-[#0284C7]', bgTint: 'bg-[#0284C7]/10', labelAr: 'نمشي بالعقل', labelFr: 'Marche douce', labelEn: 'Calm walk', category: 'activities' },
     ]
   },
   creative: {
@@ -433,15 +490,15 @@ const THEMES: Record<ThemeKey, ThemeConfig> = {
     cardGradient: 'from-[#172B46]/10 via-[#D58C7A]/20 to-[#D8BE83]/20',
     swatches: ['#172B46', '#D58C7A', '#D8BE83', '#A9C5D8'],
     pictos: [
-      { id: 'story', iconName: 'book', color: 'text-[#D58C7A]', bgTint: 'bg-[#D58C7A]/10', labelAr: 'أقرأ قصة مصورة', labelFr: 'Lire une histoire', labelEn: 'Story time', category: 'activities' },
-      { id: 'draw', iconName: 'palette', color: 'text-[#C27765]', bgTint: 'bg-[#C27765]/10', labelAr: 'ألون لوحتي', labelFr: 'Peindre', labelEn: 'Painting', category: 'activities' },
-      { id: 'puzzle', iconName: 'puzzle', color: 'text-[#D8BE83]', bgTint: 'bg-[#D8BE83]/15', labelAr: 'أركب الصور', labelFr: 'Assembler le puzzle', labelEn: 'Assemble puzzle', category: 'activities' },
-      { id: 'bravo', iconName: 'trophy', color: 'text-[#F59E0B]', bgTint: 'bg-[#F59E0B]/10', labelAr: 'أحسنت يا بطل', labelFr: 'Bravo à moi', labelEn: 'Great effort', category: 'feelings' },
-      { id: 'share', iconName: 'heart', color: 'text-[#E11D48]', bgTint: 'bg-[#E11D48]/10', labelAr: 'أشارك مع أمي وأبي', labelFr: 'Partager avec mes parents', labelEn: 'Share with family', category: 'feelings' },
-      { id: 'star', iconName: 'sparkles', color: 'text-[#EAB308]', bgTint: 'bg-[#EAB308]/10', labelAr: 'نجمة الإنجاز', labelFr: 'Étoile de réussite', labelEn: 'Achievement star', category: 'feelings' },
-      { id: 'music', iconName: 'headphones', color: 'text-[#8B5CF6]', bgTint: 'bg-[#8B5CF6]/10', labelAr: 'أغنية جميلة', labelFr: 'Jolie chanson', labelEn: 'Nice song', category: 'activities' },
-      { id: 'help', iconName: 'help', color: 'text-[#DC2626]', bgTint: 'bg-[#DC2626]/10', labelAr: 'ساعدني في الرسم', labelFr: 'M\'aider à dessiner', labelEn: 'Help me draw', category: 'needs' },
-      { id: 'smile', iconName: 'smile', color: 'text-[#F59E0B]', bgTint: 'bg-[#F59E0B]/10', labelAr: 'أنا سعيد بنتيجتي', labelFr: 'Fier du résultat', labelEn: 'Proud of result', category: 'feelings' },
+      { id: 'story', iconName: 'book', color: 'text-[#D58C7A]', bgTint: 'bg-[#D58C7A]/10', labelAr: 'قصة شابة', labelFr: 'Lire une histoire', labelEn: 'Story time', category: 'activities' },
+      { id: 'draw', iconName: 'palette', color: 'text-[#C27765]', bgTint: 'bg-[#C27765]/10', labelAr: 'نرسم لوحتي', labelFr: 'Peindre', labelEn: 'Painting', category: 'activities' },
+      { id: 'puzzle', iconName: 'puzzle', color: 'text-[#D8BE83]', bgTint: 'bg-[#D8BE83]/15', labelAr: 'نركب الصور', labelFr: 'Assembler le puzzle', labelEn: 'Assemble puzzle', category: 'activities' },
+      { id: 'bravo', iconName: 'trophy', color: 'text-[#F59E0B]', bgTint: 'bg-[#F59E0B]/10', labelAr: 'يعطيك الصحة يا بطل', labelFr: 'Bravo à moi', labelEn: 'Great effort', category: 'feelings' },
+      { id: 'share', iconName: 'heart', color: 'text-[#E11D48]', bgTint: 'bg-[#E11D48]/10', labelAr: 'نشارك مع ماما وبابا', labelFr: 'Partager avec mes parents', labelEn: 'Share with family', category: 'feelings' },
+      { id: 'star', iconName: 'sparkles', color: 'text-[#EAB308]', bgTint: 'bg-[#EAB308]/10', labelAr: 'نجمة الشاطر', labelFr: 'Étoile de réussite', labelEn: 'Achievement star', category: 'feelings' },
+      { id: 'music', iconName: 'headphones', color: 'text-[#8B5CF6]', bgTint: 'bg-[#8B5CF6]/10', labelAr: 'غنية شابة', labelFr: 'Jolie chanson', labelEn: 'Nice song', category: 'activities' },
+      { id: 'help', iconName: 'help', color: 'text-[#DC2626]', bgTint: 'bg-[#DC2626]/10', labelAr: 'عاونوني في الرسم', labelFr: 'M\'aider à dessiner', labelEn: 'Help me draw', category: 'needs' },
+      { id: 'smile', iconName: 'smile', color: 'text-[#F59E0B]', bgTint: 'bg-[#F59E0B]/10', labelAr: 'فرحان بخدمتي', labelFr: 'Fier du résultat', labelEn: 'Proud of result', category: 'feelings' },
     ]
   }
 };
@@ -576,7 +633,7 @@ export const UnifiedChildWorldExperience: React.FC = () => {
     playTactileFeedback('chime');
 
     const guidanceSpokenText = isAr
-      ? `توجيه الطبيب بن علي: اليوم في الدار، نولفو ${currentProfile.nameAr} يربط بين بطاقة الماء وحبيت نشرب كي يعطش، ونشجعوه يورّي بيدو ويهدر بالعقل وبلا ضغط.`
+      ? `تَوْجِيهْ الدُّكْتُورْ بْنْ عَلِي: الْيَوْمْ فِي الدَّارْ، نْوَلْفُو ${currentProfile.nameAr} يَرْبُطْ بَيْنَ بِطَاقَة الْمَاءْ وَحَبِّيتْ نَشْرَبْ كِي يَعْطَشْ، وَنْشَجَّعُوهْ يَوَرِّي بْيَدُّو وَيَهْدَرْ بِالْعَقْلْ وَبْلَا ضَغْطْ.`
       : isEn
       ? `Guidance from Dr. Benali: Practice combining water and want cards at home when thirsty, taking time with zero pressure.`
       : `Consigne du Dr. Benali : Encourageons ${currentProfile.nameFr} à la maison à associer le geste et la parole pour exprimer ses besoins en douceur, sans pression.`;
@@ -584,8 +641,8 @@ export const UnifiedChildWorldExperience: React.FC = () => {
     speakHumanVoice({
       text: guidanceSpokenText,
       lang: isAr ? 'ar' : isEn ? 'en' : 'fr',
-      rate: 0.88,
-      pitch: 1.02,
+      rate: 0.92,
+      pitch: 1.0,
       onStart: () => setIsPlayingGuidance(true),
       onEnd: () => setIsPlayingGuidance(false)
     });
@@ -673,11 +730,11 @@ export const UnifiedChildWorldExperience: React.FC = () => {
 
     let spokenSentence = '';
     if (isAr) {
-      // Authentic Algerian Darija natural pronunciation
+      // Authentic Algerian Darija natural pronunciation with phonetic tashkeel
       const darijaWords = selectedPictoIds
         .map((id) => DARIJA_PICTO_SPOKEN[id] || (currentThemeConfig.pictos.find((p) => p.id === id)?.labelAr || ''))
         .filter(Boolean);
-      spokenSentence = darijaWords.join(' ، و');
+      spokenSentence = darijaWords.join(' ، وَ ');
     } else if (isEn) {
       const enWords = selectedPictoIds
         .map((id) => currentThemeConfig.pictos.find((p) => p.id === id)?.labelEn)
@@ -696,8 +753,8 @@ export const UnifiedChildWorldExperience: React.FC = () => {
     speakHumanVoice({
       text: spokenSentence,
       lang: isAr ? 'ar' : isEn ? 'en' : 'fr',
-      rate: 0.86, // deliberate, gentle, calm pace for speech therapy
-      pitch: 1.02,
+      rate: 0.92, // deliberate, gentle, calm pace for speech therapy
+      pitch: 1.0,
       onEnd: () => {
         setIsVocalizing(false);
         setNourMode('idle');
@@ -714,8 +771,8 @@ export const UnifiedChildWorldExperience: React.FC = () => {
     if (intent === 'greeting') {
       setNourMode('greeting');
       if (isAr) {
-        spokenText = `يا هلا بيك يا ${childName}! واش راك يا الشاطر؟ أنا باني صحيبك، راني فرحان بزاف اللي راك معايا اليوم فهاد العالم الزين. هيا نلعبو ونتعلمو الهدرة مع بعض!`;
-        bubbleText = `يا هلا بيك يا ${childName}! أنا باني، صحيبك لي راح نلعبو ونتعلمو الهدرة مع بعض. واش رايك نبسطو اليوم؟`;
+        spokenText = `يَا أَهْلًا بِيكْ يَا ${childName}! وَاشْ رَاكْ يَا الشَّاطِرْ؟ أَنَا بَانِي صْحِيبَكْ، رَانِي فَرْحَانْ بْزَافْ اللِّي رَاكْ مْعَايَا الْيَوْمْ فِي هَاذْ الْعَالَمْ الزِّينْ. هَيَّا نِلْعَبُو وَنِتْعَلَّمُو الْهَدْرَة مَعَ بَعْضْ!`;
+        bubbleText = `يا أهلاً بيك يا ${childName}! واش راك يا الشاطر؟ أنا باني صحيبك، راني فرحان بزاف اللي راك معايا اليوم. هيا نلعبو ونتعلمو الهدرة مع بعض!`;
       } else if (isEn) {
         spokenText = `Hello my friend ${childName}! I'm Bunny, your gentle friend. I'm so happy to be here with you today! Let's play and discover new words together.`;
         bubbleText = `Hello ${childName}! I am Bunny, your encouraging friend for speech, play and growing together.`;
@@ -726,8 +783,8 @@ export const UnifiedChildWorldExperience: React.FC = () => {
     } else if (intent === 'encouragement') {
       setNourMode('talking');
       if (isAr) {
-        spokenText = `يعطيك الصحة يا بطل! راك فور بزاف وخدمتك هايلة. كل كلمة تقولها وكل بطاقة تخيرها رانا فرحانين بيك وبنطقك، كمل هكذا يا الشاطر راك شرفتنا!`;
-        bubbleText = `يعطيك الصحة يا بطل! راك فور بزاف.. كل كلمة تقولها وكل بطاقة تخيرها رانا فرحانين بيك وبنطقك، كمل هكذا راك شاطر!`;
+        spokenText = `يَعْطِيكْ الصِّحَّة يَا بَطَلْ! رَاكْ فُورْ بْزَافْ وَخِدْمَتْكَ هَايْلَة. كُلّْ كَلِمَة تْقُولْهَا وَكُلّْ بِطَاقَة تْخَيَّرْهَا رَانَا فَرْحَانِينْ بِيكْ وَبْنُطْقَكْ، كَمِّلْ هَاكْذَا يَا الشَّاطِرْ رَاكْ فَرْحَتْنَا!`;
+        bubbleText = `يعطيك الصحة يا بطل! راك فور بزاف وخدمتك هايلة. كل كلمة تقولها وكل بطاقة تخيرها رانا فرحانين بيك وبنطقك، كمل هكذا يا الشاطر!`;
       } else if (isEn) {
         spokenText = `You are doing amazing, little champion! Every single word you try and card you share makes us all so proud. Keep shining!`;
         bubbleText = `Amazing effort! Every card you choose and word you try is a wonderful milestone to celebrate together.`;
@@ -738,8 +795,8 @@ export const UnifiedChildWorldExperience: React.FC = () => {
     } else {
       setNourMode('calm');
       if (isAr) {
-        spokenText = `أهيا نتنفسو مع بعض بالشوية وبالراحة... تنفس بالعقل شهيق هادي... وخرج النفس زفير لطيف... راك في أمان وهنا عالمك راه مرتاح ومحمي.`;
-        bubbleText = `أهيا نتنفسو مع بعض بالشوية وبالراحة... تنفس بالعقل شهيق هادي... وخرج النفس زفير لطيف... راك في أمان وعالمك راه مرتاح ومحمي.`;
+        spokenText = `هَيَّا نِتْنَفَّسُو مَعَ بَعْضْ بِالشْوِيَّة وَبِالرَّاحَة... تْنَفَّسْ بِالْعَقْلْ... شَهِيقْ هَادِي... وَخَرَّجْ النَّفَسْ... زَفِيرْ لَطِيفْ... رَاكْ فِي أَمَانْ وَعَالَمَكْ رَاهْ مُرْتَاحْ وَمَحْمِي.`;
+        bubbleText = `هيا نتنفسو مع بعض بالشوية وبالراحة... تنفس بالعقل شهيق هادي... وخرج النفس زفير لطيف... راك في أمان وعالمك راه مرتاح ومحمي.`;
       } else if (isEn) {
         spokenText = `Let's take a slow, gentle breath together... Breathe in calmly... and breathe out softly... You are completely safe and comfortable here.`;
         bubbleText = `Let's take a gentle, deep breath together... Your world is calm, safe, and entirely yours.`;
@@ -754,8 +811,8 @@ export const UnifiedChildWorldExperience: React.FC = () => {
     speakHumanVoice({
       text: spokenText,
       lang: isAr ? 'ar' : isEn ? 'en' : 'fr',
-      rate: intent === 'calm' ? 0.82 : 0.88,
-      pitch: 1.02,
+      rate: intent === 'calm' ? 0.84 : 0.92,
+      pitch: 1.0,
       onEnd: () => setNourMode(intent === 'calm' ? 'calm' : 'idle')
     });
   };
