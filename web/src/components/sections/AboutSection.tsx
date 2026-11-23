@@ -7,6 +7,7 @@ export const AboutSection: React.FC = () => {
   const { i18n } = useTranslation();
   const currentLang = i18n.language || 'fr';
   const isAr = currentLang === 'ar';
+  const isEn = currentLang === 'en';
 
   return (
     <section id="about" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 space-y-14 scroll-mt-24">
@@ -82,12 +83,18 @@ export const AboutSection: React.FC = () => {
               <ShieldCheck size={24} />
             </div>
             <h3 className="text-lg font-heading font-bold text-[#172B46]">
-              {isAr ? 'حماية وخصوصية المعطيات (قانون 18-07)' : 'Souveraineté Parentale & Loi 18-07'}
+              {isAr
+                ? 'حماية وخصوصية المعطيات (مبادئ القانون 18-07)'
+                : isEn
+                ? 'Parental Sovereignty & Law 18-07 Principles'
+                : 'Souveraineté Parentale & Principes Loi 18-07'}
             </h3>
             <p className="text-sm text-[#5B6E85] leading-relaxed">
               {isAr
-                ? 'البيانات التطورية والشخصية للأطفال خط أحمر. نمتثل تماماً للقانون الجزائري 18-07 مع عزل تقني تام بين العوالم وحرية سحب الأذونات فوراً.'
-                : 'Les données développementales des enfants sont hautement sensibles. Nous appliquons rigoureusement la loi 18-07 avec un cloisonnement strict et un consentement révocable.'}
+                ? 'البيانات التطورية والشخصية للأطفال خط أحمر. تصميمنا مبني على مبادئ القانون 18-07: عزل تقني تام بين العوالم، تقليل البيانات، وموافقة أبوية قابلة للإلغاء فوراً.'
+                : isEn
+                ? 'Children developmental data is sensitive. Our architecture is aligned with Law 18-07 principles: strict minimization, child world isolation, and revocable consent.'
+                : 'Les données développementales des enfants sont hautement sensibles. Notre architecture intègre les principes de la Loi 18-07 : minimisation, cloisonnement des mondes et consentement révocable.'}
             </p>
           </div>
         </ScrollReveal>

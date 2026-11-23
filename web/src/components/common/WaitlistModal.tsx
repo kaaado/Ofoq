@@ -62,10 +62,17 @@ export const WaitlistModal: React.FC<WaitlistModalProps> = ({
 
     setIsSubmitting(true);
 
+    const selectedWilayaObj = ALGERIAN_WILAYAS.find((w) => w.code === wilaya);
+    const wilayaLabel = selectedWilayaObj
+      ? isAr
+        ? selectedWilayaObj.nameAr
+        : selectedWilayaObj.nameFr
+      : wilaya;
+
     const submission: WaitlistSubmission = {
       fullName: fullName.trim(),
       contactValue: contactValue.trim(),
-      wilaya: `Alger (${wilaya})`,
+      wilaya: wilayaLabel,
       interestType,
       message: message.trim() || undefined,
       consentAccepted,

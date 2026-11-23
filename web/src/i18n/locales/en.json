@@ -25,7 +25,8 @@
     "title_highlight": "horizon to thrive.",
     "subtitle": "OFOQ builds a living bridge between professional therapy sessions and daily domestic routines. Augmentative communication (AAC), personalized child workspaces, and coordinated care for autistic children and children with speech delays.",
     "cta_family": "I am a Parent",
-    "cta_pro": "I am a Specialist",
+    "cta_pro": "Specialists & Centers Portal",
+    "cta_companion": "Specialists & Centers Portal",
     "stat_trust": "Strict parent-controlled permissions",
     "stat_tracking": "Real-time clinic-to-home continuity",
     "stat_human": "Absolute respect for child dignity and pace"
@@ -116,8 +117,8 @@
   "trust": {
     "tag": "Security & Absolute Confidentiality",
     "title": "Your child's privacy at the core of our architecture",
-    "card1_title": "Algerian Law 18-07 Compliance",
-    "card1_desc": "Full compliance with Law 18-07 regarding personal data protection. Child records are minimized and safeguarded.",
+    "card1_title": "Principles Aligned with Law 18-07",
+    "card1_desc": "Privacy-by-design architecture: strict data minimization, explicit parental consent, and regulatory readiness for ANPDP formalities upon operational launch.",
     "card2_title": "Complete Child World Isolation",
     "card2_desc": "Every child's space is technically isolated. Zero data leakage across siblings; specialists only see assigned children.",
     "card3_title": "Parental Consent Revocable Anytime",
@@ -132,6 +133,7 @@
     "form_type": "You are signing up as:",
     "type_family": "Parent / Family of a child with speech difficulties or autism",
     "type_pro": "Professional (Speech Therapist, Educator, Clinic)",
+    "type_companion": "Specialist / Clinic (Speech Therapy, Special Education, Center)",
     "form_message": "Tell us about your needs or your child's situation (optional)",
     "form_consent": "I agree to be contacted by OFOQ regarding service launch in accordance with the Privacy Policy.",
     "btn_submit": "Confirm Priority Registration",
@@ -198,5 +200,25 @@
     "privacy": "Privacy Policy",
     "legal": "Legal Notice",
     "contact": "Contact Us"
+  },
+  "contact": {
+    "tag": "Contact & Inquiries",
+    "title": "Have a question? Reach out to the OFOQ team",
+    "subtitle": "Our team is here to answer your questions regarding the project, partnerships, or early access.",
+    "email_label": "By Email",
+    "email_sub": "Response within 24 to 48 business hours",
+    "phone_label": "Phone Support",
+    "phone_sub": "Assistance helpline (being activated)",
+    "area_label": "Service Area",
+    "area_sub": "Initial perimeter",
+    "area_detail": "Algiers wilaya and surrounding areas (gradual rollout)",
+    "send_another": "Send another message"
+  },
+  "modals": {
+    "close": "Close",
+    "privacy_title": "Privacy Policy & Data Governance",
+    "privacy_subtitle": "Data minimization and governance principles aligned with Law 18-07",
+    "legal_title": "Legal Notice & Ethical Framework",
+    "legal_subtitle": "Regulatory details and platform scope"
   }
 }

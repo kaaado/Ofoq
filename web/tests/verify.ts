@@ -52,12 +52,45 @@ const frKeys = new Set(getNestedKeys(fr));
 const arKeys = new Set(getNestedKeys(ar));
 const enKeys = new Set(getNestedKeys(en));
 
-// Check parity
+// Check parity bidirectionally
 const missingInAr = [...frKeys].filter((k) => !arKeys.has(k));
 const missingInEn = [...frKeys].filter((k) => !enKeys.has(k));
+const extraInAr = [...arKeys].filter((k) => !frKeys.has(k));
+const extraInEn = [...enKeys].filter((k) => !frKeys.has(k));
 
 assert(missingInAr.length === 0, `All FR keys present in AR (missing: ${missingInAr.join(', ') || 'none'})`);
 assert(missingInEn.length === 0, `All FR keys present in EN (missing: ${missingInEn.join(', ') || 'none'})`);
+assert(extraInAr.length === 0, `All AR keys present in FR (extra in AR: ${extraInAr.join(', ') || 'none'})`);
+assert(extraInEn.length === 0, `All EN keys present in FR (extra in EN: ${extraInEn.join(', ') || 'none'})`);
+
+// 2b. Check that all t('key') calls in src/ exist in locales
+function getSourceFiles(dir: string): string[] {
+  let results: string[] = [];
+  const list = fs.readdirSync(dir);
+  for (const file of list) {
+    const full = path.join(dir, file);
+    const stat = fs.statSync(full);
+    if (stat && stat.isDirectory()) results = results.concat(getSourceFiles(full));
+    else if (full.endsWith('.tsx') || full.endsWith('.ts')) results.push(full);
+  }
+  return results;
+}
+
+const srcDir = fs.existsSync(path.resolve('web/src')) ? path.resolve('web/src') : path.resolve('src');
+const srcFiles = getSourceFiles(srcDir);
+const keyRegex = /\bt\(['"]([a-zA-Z0-9_.]+)['"]/g;
+const usedKeysInCode = new Set<string>();
+
+srcFiles.forEach((f) => {
+  const content = fs.readFileSync(f, 'utf8');
+  let match;
+  while ((match = keyRegex.exec(content)) !== null) {
+    usedKeysInCode.add(match[1]);
+  }
+});
+
+const missingUsedInFr = [...usedKeysInCode].filter((k) => !frKeys.has(k));
+assert(missingUsedInFr.length === 0, `All code t() keys (${usedKeysInCode.size}) exist in locales (missing: ${missingUsedInFr.join(', ') || 'none'})`);
 
 // 3. Form response contract keys presence
 const requiredFormKeys = [

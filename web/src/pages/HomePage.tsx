@@ -223,7 +223,11 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenWaitlist }) => {
                         </span>
                       </div>
                       <p className="text-[11px] text-[#172B46]/60 font-medium">
-                        {isAr ? 'حساب العائلة • ملف الطفل النشط' : 'Compte Famille • Profil Actif'}
+                        {isAr
+                          ? 'عالم الطفل (نموذج تفاعلي) • حساب العائلة'
+                          : isEn
+                          ? 'Child World (Interactive Demo) • Family Account'
+                          : 'Monde Enfant (Démo interactive) • Compte Famille'}
                       </p>
                     </div>
                   </div>
@@ -350,10 +354,18 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenWaitlist }) => {
                 </div>
                 <div className="text-start">
                   <p className="text-xs font-bold text-[#172B46]">
-                    {isAr ? 'د. أمل ك. • أرطوفونيا' : 'Dr. Amel K. • Orthophonie'}
+                    {isAr
+                      ? 'متابعة الأخصائي (نموذج توضيحي)'
+                      : isEn
+                      ? 'Specialist Coordination (Concept)'
+                      : 'Suivi Spécialiste (Exemple conceptuel)'}
                   </p>
                   <p className="text-[10px] text-[#172B46]/70 font-medium">
-                    {isAr ? 'تم تحديث أهداف الجلسة' : '3 nouveaux pictos validés'}
+                    {isAr
+                      ? 'تنسيق الأنشطة وتحديث اللوحات'
+                      : isEn
+                      ? 'Synced pictograms & goals'
+                      : 'Coordination pictos & objectifs'}
                   </p>
                 </div>
               </motion.div>

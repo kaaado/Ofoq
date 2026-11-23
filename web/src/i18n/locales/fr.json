@@ -25,7 +25,8 @@
     "title_highlight": "horizon d'épanouissement.",
     "subtitle": "OFOQ crée un pont vivant entre les séances spécialisées et le quotidien familial. Communication alternative (CAA), mondes personnalisés et coordination bienveillante pour les enfants avec autisme et troubles de la parole.",
     "cta_family": "Je suis un parent",
-    "cta_pro": "Je suis un spécialiste",
+    "cta_pro": "Espace Spécialistes & Centres",
+    "cta_companion": "Espace Spécialistes & Centres",
     "stat_trust": "Accès strictement encadré par les parents",
     "stat_tracking": "Continuité maison-cabinet en temps réel",
     "stat_human": "Respect de la dignité et du rythme de l'enfant"
@@ -116,8 +117,8 @@
   "trust": {
     "tag": "Protection & Confidentialité",
     "title": "La sécurité de votre enfant au cœur de notre conception",
-    "card1_title": "Conformité Loi 18-07 Algérie",
-    "card1_desc": "Respect scrupuleux de la loi n° 18-07 sur la protection des données personnelles. Données de l'enfant minimisées et strictement protégées.",
+    "card1_title": "Principes alignés sur la Loi 18-07",
+    "card1_desc": "Conception orientée protection des données : minimisation stricte, consentement parental préalable et préparation aux formalités ANPDP lors du déploiement.",
     "card2_title": "Cloisonnement des Mondes Enfants",
     "card2_desc": "Chaque monde est isolé. Aucune fuite d'informations entre enfants, et les spécialistes accèdent uniquement aux profils autorisés.",
     "card3_title": "Consentement Parental Révoqué à Tout Moment",
@@ -132,6 +133,7 @@
     "form_type": "Vous vous inscrivez en tant que :",
     "type_family": "Parent / Famille d'un enfant avec difficultés d'élocution ou autisme",
     "type_pro": "Professionnel (Orthophoniste, Éducateur, Psychomotricien, Centre)",
+    "type_companion": "Professionnel / Centre spécialisé (Orthophonie, Éducation, Centre)",
     "form_message": "Parlez-nous de vos attentes ou de la situation de votre enfant (facultatif)",
     "form_consent": "J'accepte d'être contacté(e) par OFOQ pour le lancement du service conformément à la politique de confidentialité.",
     "btn_submit": "Confirmer ma demande d'accès prioritaire",
@@ -198,5 +200,25 @@
     "privacy": "Politique de Confidentialité",
     "legal": "Mentions Légales",
     "contact": "Contactez-nous"
+  },
+  "contact": {
+    "tag": "Contact & Support",
+    "title": "Une question ? Écrivez à l'équipe OFOQ",
+    "subtitle": "Notre équipe vous répond pour toute question relative au projet, aux partenariats ou à l'accès anticipé.",
+    "email_label": "Par Email",
+    "email_sub": "Réponse sous 24 à 48 heures ouvrées",
+    "phone_label": "Assistance Téléphonique",
+    "phone_sub": "Ligne d'assistance (en cours d'activation)",
+    "area_label": "Territoire d'Écoute",
+    "area_sub": "Périmètre initial",
+    "area_detail": "Wilaya d'Alger et wilayas limitrophes (déploiement progressif)",
+    "send_another": "Envoyer un autre message"
+  },
+  "modals": {
+    "close": "Fermer",
+    "privacy_title": "Politique de Confidentialité & Protection des Données",
+    "privacy_subtitle": "Principes de minimisation et de gouvernance des données sous la Loi 18-07",
+    "legal_title": "Mentions Légales & Cadre Déontologique",
+    "legal_subtitle": "Informations réglementaires et limites de responsabilité"
   }
 }

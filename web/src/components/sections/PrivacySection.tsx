@@ -24,7 +24,11 @@ export const PrivacySection: React.FC = () => {
                 {isAr ? 'سياسة حماية المعطيات والخصوصية (القانون 18-07)' : isEn ? 'Privacy Policy & Data Protection (Law 18-07)' : 'Politique de Confidentialité'}
               </h2>
               <p className="text-xs text-[#172B46]/70 mt-1">
-                {isAr ? 'متطابقة مع أحكام القانون الجزائري رقم 18-07 الصادر في 10 جوان 2018' : 'Conforme à la Loi algérienne n° 18-07 du 10 juin 2018 relative à la protection des données.'}
+                {isAr
+                  ? 'مبادئ توجيهية مستندة إلى القانون الجزائري رقم 18-07 المتعلق بحماية المعطيات الشخصية'
+                  : isEn
+                  ? 'Principles designed in alignment with Algerian Law No. 18-07 on personal data protection.'
+                  : 'Principes de gouvernance conçus en référence à la Loi algérienne n° 18-07 relative à la protection des données.'}
               </p>
             </div>
             <button
