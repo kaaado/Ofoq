@@ -1387,7 +1387,7 @@ export const UnifiedChildWorldExperience: React.FC = () => {
                 <div className="relative rounded-2xl overflow-hidden bg-gradient-to-b from-[#172B46]/05 to-[#2868C7]/10 border border-[#A9C5D8]/30">
                   <Suspense
                     fallback={
-                      <div className="h-[300px] sm:h-[340px] flex flex-col items-center justify-center p-6 bg-white/60 backdrop-blur-xs space-y-3">
+                      <div className="h-[320px] sm:h-[360px] flex flex-col items-center justify-center p-6 bg-white/60 backdrop-blur-xs space-y-3">
                         <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-[#172B46] to-[#2868C7] flex items-center justify-center shadow-lg animate-pulse">
                           <Bot size={34} className="text-[#D8BE83]" />
                         </div>
@@ -1406,7 +1406,7 @@ export const UnifiedChildWorldExperience: React.FC = () => {
                         playTactileFeedback('click');
                         handleNourInteraction('greeting');
                       }}
-                      className="h-[300px] sm:h-[340px]"
+                      className="h-[320px] sm:h-[360px]"
                     />
                   </Suspense>
                 </div>
