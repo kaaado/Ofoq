@@ -18,6 +18,7 @@
 - `4b4b268`: feat(ui): update typography, 2-line hero headline, mobile widget, and 3D companion refinements
 - `cd33f3a`: feat(phase02.4): enterprise visual refinement, glassmorphism tokens, code-split 3D companion, and trilingual parity
 - `e8dfa53`: feat(experience): directional hero mobile tilt, 3D companion repositioning, Lucide simulation icons, tactile audio, and stop speech control
+- `e283d78`: perf(hero): offload mobile float to GPU compositor and eliminate transform transition conflicts
 **Publishing Status:** Local implementation completed; remote push is not authorized.  
 
 ---
@@ -65,7 +66,8 @@
      - Deep Midnight Navy linear gradient (`#0F1E32` to `#0A1422`) with gold radiant accent line (`#D8BE83`).
      - Circular official logo badge, organized navigation groups, accessible focus rings, and explicit non-diagnostic boundary notice.
    - **Interactive 3D Simulation & UX Polish:**
-     - **Hero Mobile Directional Tilt:** Slanted `mobile.png` with smooth transitions (`rotate-[4.5deg]` in RTL left-to-right; `-rotate-[4.5deg]` in LTR right-to-left).
+     - **Hero Mobile Directional Tilt & Compositor Float:** Slanted `mobile.png` with isolated directional tilt (`rotate-[4.5deg]` in RTL left-to-right; `-rotate-[4.5deg]` in LTR right-to-left). Separated continuous floating oscillation into dedicated GPU compositor layer (`.animate-float-phone` via `translate3d`), completely eliminating transform collision with CSS transitions and achieving butter-smooth 60/120fps rendering.
+     - **Hero Floating Badges Isolation:** Floating badges isolated into dedicated hardware-accelerated outer wrappers (`.animate-float-badge-1`, `.animate-float-badge-2`), decoupling hover interactions from float translation loops.
      - **3D Companion Headroom:** Scaled model to `1.82` and shifted base Y to `-0.36` in `Nour3DCanvas.tsx` to completely resolve robot rabbit ear cutoff.
      - **Pure Lucide Icons Across Simulation:** Replaced all unicode emojis across Family Hub, Sibling Switcher, Theme Wizard, Pictogram Cards, Routine Checklist, and Companion Action Chips with dedicated Lucide SVG icons.
      - **9 Tactile Pictograms Per Theme:** Expanded AAC communication grid to 9 cards per theme with themed badge tints.
