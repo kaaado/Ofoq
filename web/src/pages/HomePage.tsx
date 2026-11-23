@@ -177,7 +177,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenWaitlist }) => {
                 </div>
               </motion.div>
 
-              {/* Freestanding Floating Mobile Device (Unboxed - Native Alpha Transparency) */}
+              {/* Freestanding Floating Mobile Device (Unboxed - Native Alpha Transparency & Directional Tilt) */}
               <motion.div
                 initial={{ opacity: 0, y: 30, scale: 0.94 }}
                 animate={{ opacity: 1, y: [-8, 8, -8], scale: 1 }}
@@ -186,7 +186,11 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenWaitlist }) => {
                   scale: { duration: 0.8 },
                   y: { duration: 7, repeat: Infinity, ease: 'easeInOut' }
                 }}
-                className="relative z-10 w-full flex justify-center items-center cursor-pointer group"
+                className={`relative z-10 w-full flex justify-center items-center cursor-pointer group transition-transform duration-700 ease-out ${
+                  isAr
+                    ? 'rotate-[4.5deg] hover:rotate-[1.5deg]'
+                    : '-rotate-[4.5deg] hover:-rotate-[1.5deg]'
+                }`}
                 onClick={() => {
                   const target = document.querySelector('#experience');
                   if (target) {

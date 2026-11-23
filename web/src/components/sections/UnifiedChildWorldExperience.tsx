@@ -9,26 +9,46 @@ import {
   CheckCircle2,
   RotateCcw,
   Play,
+  Square,
   Users,
   UserPlus,
   Heart,
   Orbit,
+  Sprout,
+  Waves,
+  Palette,
   ArrowRight,
   ArrowLeft,
   Star,
   Moon,
-  Palette,
   Smile,
   MessageCircle,
   ChevronRight,
   Utensils,
-  GlassWater,
+  Droplets,
+  Apple,
+  Headphones,
   Puzzle,
   Mic,
   BookOpen,
   Music,
   Wind,
-  Loader2
+  Loader2,
+  Bot,
+  Sunrise,
+  Layers,
+  Boxes,
+  Sun,
+  Trophy,
+  Coffee,
+  HelpCircle,
+  Footprints,
+  Bath,
+  Hand,
+  ThumbsUp,
+  Award,
+  Stethoscope,
+  Check
 } from 'lucide-react';
 import { ScrollReveal } from '../common/ScrollReveal';
 
@@ -36,9 +56,132 @@ import { ScrollReveal } from '../common/ScrollReveal';
 const Nour3DCanvas = lazy(() => import('../3d/Nour3DCanvas').then(m => ({ default: m.Nour3DCanvas })));
 
 // ----------------------------------------------------
+// TACTILE WEB AUDIO API SYNTHESIZER (ZERO EXTERNAL ASSETS)
+// ----------------------------------------------------
+const playTactileFeedback = (type: 'pop' | 'chime' | 'uncheck' | 'celebrate' | 'click' = 'click') => {
+  try {
+    const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+    if (!AudioCtx) return;
+    const ctx = new AudioCtx();
+    const now = ctx.currentTime;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+
+    if (type === 'click' || type === 'pop') {
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(540, now);
+      osc.frequency.exponentialRampToValueAtTime(760, now + 0.08);
+      gain.gain.setValueAtTime(0.08, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+      osc.start(now);
+      osc.stop(now + 0.08);
+    } else if (type === 'chime') {
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(440, now);
+      osc.frequency.setValueAtTime(660, now + 0.08);
+      osc.frequency.exponentialRampToValueAtTime(880, now + 0.2);
+      gain.gain.setValueAtTime(0.09, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+      osc.start(now);
+      osc.stop(now + 0.25);
+    } else if (type === 'uncheck') {
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(480, now);
+      osc.frequency.exponentialRampToValueAtTime(320, now + 0.08);
+      gain.gain.setValueAtTime(0.06, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+      osc.start(now);
+      osc.stop(now + 0.08);
+    } else if (type === 'celebrate') {
+      [523.25, 659.25, 783.99, 1046.5].forEach((freq, i) => {
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.type = 'sine';
+        o.frequency.setValueAtTime(freq, now + i * 0.06);
+        g.gain.setValueAtTime(0.06, now + i * 0.06);
+        g.gain.exponentialRampToValueAtTime(0.001, now + i * 0.06 + 0.3);
+        o.connect(g);
+        g.connect(ctx.destination);
+        o.start(now + i * 0.06);
+        o.stop(now + i * 0.06 + 0.35);
+      });
+    }
+  } catch {
+    // Autoplay restrictions or silent mode fallback
+  }
+};
+
+// ----------------------------------------------------
+// LUCIDE ICON RENDERERS FOR THE 3D SIMULATION
+// ----------------------------------------------------
+const renderPictoIcon = (iconName: string, className = "w-5 h-5") => {
+  switch (iconName) {
+    case 'droplets': return <Droplets className={className} />;
+    case 'apple': return <Apple className={className} />;
+    case 'headphones': return <Headphones className={className} />;
+    case 'volume2': return <Volume2 className={className} />;
+    case 'puzzle': return <Puzzle className={className} />;
+    case 'sparkles': return <Sparkles className={className} />;
+    case 'help': return <HelpCircle className={className} />;
+    case 'coffee': return <Coffee className={className} />;
+    case 'heart': return <Heart className={className} />;
+    case 'utensils': return <Utensils className={className} />;
+    case 'sun': return <Sun className={className} />;
+    case 'boxes': return <Boxes className={className} />;
+    case 'palette': return <Palette className={className} />;
+    case 'moon': return <Moon className={className} />;
+    case 'bath': return <Bath className={className} />;
+    case 'footprints': return <Footprints className={className} />;
+    case 'wind': return <Wind className={className} />;
+    case 'shield': return <ShieldCheck className={className} />;
+    case 'smile': return <Smile className={className} />;
+    case 'book': return <BookOpen className={className} />;
+    case 'trophy': return <Trophy className={className} />;
+    default: return <Sparkles className={className} />;
+  }
+};
+
+const renderThemeIcon = (themeKey: ThemeKey, className = "w-5 h-5") => {
+  switch (themeKey) {
+    case 'space': return <Orbit className={className} />;
+    case 'nature': return <Sprout className={className} />;
+    case 'ocean': return <Waves className={className} />;
+    case 'creative': return <Palette className={className} />;
+    default: return <Orbit className={className} />;
+  }
+};
+
+const renderRoutineIcon = (iconName: string, className = "w-3.5 h-3.5") => {
+  switch (iconName) {
+    case 'sunrise': return <Sunrise className={className} />;
+    case 'bot': return <Bot className={className} />;
+    case 'layers': return <Layers className={className} />;
+    case 'boxes': return <Boxes className={className} />;
+    case 'sun': return <Sun className={className} />;
+    case 'utensils': return <Utensils className={className} />;
+    case 'wind': return <Wind className={className} />;
+    case 'book': return <BookOpen className={className} />;
+    default: return <CheckCircle2 className={className} />;
+  }
+};
+
+// ----------------------------------------------------
 // THEMES & INTERFACE TYPES
 // ----------------------------------------------------
 type ThemeKey = 'space' | 'nature' | 'ocean' | 'creative';
+
+export interface PictoCard {
+  id: string;
+  iconName: string;
+  color: string;
+  bgTint: string;
+  labelAr: string;
+  labelFr: string;
+  labelEn: string;
+  category: 'needs' | 'activities' | 'feelings';
+}
 
 interface ThemeConfig {
   id: ThemeKey;
@@ -48,19 +191,11 @@ interface ThemeConfig {
   subtitleAr: string;
   subtitleFr: string;
   subtitleEn: string;
-  emoji: string;
   primaryColor: string;
   gradientBg: string;
   cardGradient: string;
   swatches: string[];
-  pictos: {
-    id: string;
-    emoji: string;
-    labelAr: string;
-    labelFr: string;
-    labelEn: string;
-    category: 'needs' | 'activities' | 'feelings';
-  }[];
+  pictos: PictoCard[];
 }
 
 const THEMES: Record<ThemeKey, ThemeConfig> = {
@@ -72,18 +207,20 @@ const THEMES: Record<ThemeKey, ThemeConfig> = {
     subtitleAr: 'مستوحى من عوالم سبيستون • تحفيز مخارج الحروف وبناء الجمل',
     subtitleFr: 'Thème immersif • Phonation & Étoiles',
     subtitleEn: 'Immersive Theme • Speech & Stars',
-    emoji: '🪐',
     primaryColor: '#2868C7',
     gradientBg: 'from-[#172B46] via-[#1E54A3] to-[#2868C7]',
     cardGradient: 'from-[#172B46]/10 via-[#2868C7]/15 to-[#A9C5D8]/20',
     swatches: ['#172B46', '#2868C7', '#A9C5D8', '#D8BE83'],
     pictos: [
-      { id: 'water', emoji: '🥤', labelAr: 'أريد ماء', labelFr: 'Boire de l\'eau', labelEn: 'Drink water', category: 'needs' },
-      { id: 'apple', emoji: '🍎', labelAr: 'أريد تفاحة', labelFr: 'Manger une pomme', labelEn: 'Eat apple', category: 'needs' },
-      { id: 'listen', emoji: '🎵', labelAr: 'أستمع للصوت', labelFr: 'Écouter le son', labelEn: 'Listen to sound', category: 'activities' },
-      { id: 'speak', emoji: '🗣️', labelAr: 'أكرر الكلمة', labelFr: 'Répéter le mot', labelEn: 'Repeat word', category: 'activities' },
-      { id: 'puzzle', emoji: '🧩', labelAr: 'ألعب بالتركيبات', labelFr: 'Faire un puzzle', labelEn: 'Play puzzle', category: 'activities' },
-      { id: 'happy', emoji: '⭐', labelAr: 'أنا فخور بنطقي', labelFr: 'Je suis fier', labelEn: 'I feel proud', category: 'feelings' },
+      { id: 'water', iconName: 'droplets', color: 'text-[#2868C7]', bgTint: 'bg-[#2868C7]/10', labelAr: 'أريد ماء', labelFr: 'Boire de l\'eau', labelEn: 'Drink water', category: 'needs' },
+      { id: 'apple', iconName: 'apple', color: 'text-[#D58C7A]', bgTint: 'bg-[#D58C7A]/10', labelAr: 'أريد تفاحة', labelFr: 'Manger une pomme', labelEn: 'Eat apple', category: 'needs' },
+      { id: 'listen', iconName: 'headphones', color: 'text-[#7C3AED]', bgTint: 'bg-[#7C3AED]/10', labelAr: 'أستمع للصوت', labelFr: 'Écouter le son', labelEn: 'Listen to sound', category: 'activities' },
+      { id: 'speak', iconName: 'volume2', color: 'text-[#2563EB]', bgTint: 'bg-[#2563EB]/10', labelAr: 'أكرر الكلمة', labelFr: 'Répéter le mot', labelEn: 'Repeat word', category: 'activities' },
+      { id: 'puzzle', iconName: 'puzzle', color: 'text-[#F59E0B]', bgTint: 'bg-[#F59E0B]/10', labelAr: 'ألعب بالتركيبات', labelFr: 'Faire un puzzle', labelEn: 'Play puzzle', category: 'activities' },
+      { id: 'happy', iconName: 'sparkles', color: 'text-[#D8BE83]', bgTint: 'bg-[#D8BE83]/15', labelAr: 'أنا فخور بنطقي', labelFr: 'Je suis fier', labelEn: 'I feel proud', category: 'feelings' },
+      { id: 'help', iconName: 'help', color: 'text-[#DC2626]', bgTint: 'bg-[#DC2626]/10', labelAr: 'أحتاج مساعدة', labelFr: 'Besoin d\'aide', labelEn: 'Need help', category: 'needs' },
+      { id: 'break', iconName: 'coffee', color: 'text-[#D97706]', bgTint: 'bg-[#D97706]/10', labelAr: 'استراحة هادئة', labelFr: 'Temps calme', labelEn: 'Quiet break', category: 'needs' },
+      { id: 'hug', iconName: 'heart', color: 'text-[#E11D48]', bgTint: 'bg-[#E11D48]/10', labelAr: 'عناق دافئ', labelFr: 'Besoin d\'un câlin', labelEn: 'Need a hug', category: 'feelings' },
     ]
   },
   nature: {
@@ -94,18 +231,20 @@ const THEMES: Record<ThemeKey, ThemeConfig> = {
     subtitleAr: 'بيئة نباتية مريحة حسياً • تنظيم محطات اليوم والروتين العائلي',
     subtitleFr: 'Thème immersif • Régulation & Douceur',
     subtitleEn: 'Immersive Theme • Sensory Peace',
-    emoji: '🌿',
     primaryColor: '#2D7A58',
     gradientBg: 'from-[#172B46] via-[#1E5B40] to-[#2D7A58]',
     cardGradient: 'from-[#172B46]/10 via-[#2D7A58]/15 to-[#D58C7A]/15',
     swatches: ['#172B46', '#2D7A58', '#A9C5D8', '#D58C7A'],
     pictos: [
-      { id: 'snack', emoji: '🥪', labelAr: 'وجبة خفيفة', labelFr: 'Goûter', labelEn: 'Snack time', category: 'needs' },
-      { id: 'rest', emoji: '🛋️', labelAr: 'استراحة هادئة', labelFr: 'Temps calme', labelEn: 'Quiet break', category: 'needs' },
-      { id: 'play', emoji: '🧸', labelAr: 'ألعب بلطف', labelFr: 'Jouer doucement', labelEn: 'Play gently', category: 'activities' },
-      { id: 'draw', emoji: '🎨', labelAr: 'أرسم بالألوان', labelFr: 'Dessiner', labelEn: 'Draw pictures', category: 'activities' },
-      { id: 'hug', emoji: '🤗', labelAr: 'عناق دافئ', labelFr: 'Besoin d\'un câlin', labelEn: 'Need a hug', category: 'feelings' },
-      { id: 'sleep', emoji: '🌙', labelAr: 'وقت النوم', labelFr: 'Dormir', labelEn: 'Bedtime', category: 'needs' },
+      { id: 'snack', iconName: 'utensils', color: 'text-[#2D7A58]', bgTint: 'bg-[#2D7A58]/10', labelAr: 'وجبة خفيفة', labelFr: 'Goûter', labelEn: 'Snack time', category: 'needs' },
+      { id: 'rest', iconName: 'sun', color: 'text-[#D8BE83]', bgTint: 'bg-[#D8BE83]/15', labelAr: 'استراحة هادئة', labelFr: 'Temps calme', labelEn: 'Quiet break', category: 'needs' },
+      { id: 'play', iconName: 'boxes', color: 'text-[#0D9488]', bgTint: 'bg-[#0D9488]/10', labelAr: 'ألعب بلطف', labelFr: 'Jouer doucement', labelEn: 'Play gently', category: 'activities' },
+      { id: 'draw', iconName: 'palette', color: 'text-[#D58C7A]', bgTint: 'bg-[#D58C7A]/10', labelAr: 'أرسم بالألوان', labelFr: 'Dessiner', labelEn: 'Draw pictures', category: 'activities' },
+      { id: 'hug', iconName: 'heart', color: 'text-[#E11D48]', bgTint: 'bg-[#E11D48]/10', labelAr: 'عناق دافئ', labelFr: 'Besoin d\'un câlin', labelEn: 'Need a hug', category: 'feelings' },
+      { id: 'sleep', iconName: 'moon', color: 'text-[#4F46E5]', bgTint: 'bg-[#4F46E5]/10', labelAr: 'وقت النوم', labelFr: 'Dormir', labelEn: 'Bedtime', category: 'needs' },
+      { id: 'water', iconName: 'droplets', color: 'text-[#0284C7]', bgTint: 'bg-[#0284C7]/10', labelAr: 'أشرب ماء', labelFr: 'Boire de l\'eau', labelEn: 'Drink water', category: 'needs' },
+      { id: 'wash', iconName: 'bath', color: 'text-[#059669]', bgTint: 'bg-[#059669]/10', labelAr: 'غسل اليدين', labelFr: 'Se laver les mains', labelEn: 'Wash hands', category: 'activities' },
+      { id: 'outdoor', iconName: 'footprints', color: 'text-[#16A34A]', bgTint: 'bg-[#16A34A]/10', labelAr: 'الذهاب للحديقة', labelFr: 'Aller au jardin', labelEn: 'Go to garden', category: 'activities' },
     ]
   },
   ocean: {
@@ -116,18 +255,20 @@ const THEMES: Record<ThemeKey, ThemeConfig> = {
     subtitleAr: 'أمواج هادئة وألوان مائية • تنظيم المشاعر والتعبير بدون إجهاد',
     subtitleFr: 'Thème immersif • Vagues & Respiration',
     subtitleEn: 'Immersive Theme • Waves & Calm',
-    emoji: '🌊',
     primaryColor: '#0284C7',
     gradientBg: 'from-[#172B46] via-[#0369A1] to-[#0284C7]',
     cardGradient: 'from-[#172B46]/10 via-[#0284C7]/15 to-[#A9C5D8]/20',
     swatches: ['#172B46', '#0284C7', '#A9C5D8', '#D8BE83'],
     pictos: [
-      { id: 'breathe', emoji: '🌸', labelAr: 'أتنفس بعمق', labelFr: 'Respirer calmement', labelEn: 'Deep breath', category: 'feelings' },
-      { id: 'water', emoji: '🥤', labelAr: 'أشرب ماء', labelFr: 'Boire un verre d\'eau', labelEn: 'Glass of water', category: 'needs' },
-      { id: 'music', emoji: '🎧', labelAr: 'أستمع لموسيقى هادئة', labelFr: 'Musique douce', labelEn: 'Calm music', category: 'activities' },
-      { id: 'safe', emoji: '🛡️', labelAr: 'أنا في أمان', labelFr: 'Je suis en sécurité', labelEn: 'I am safe', category: 'feelings' },
-      { id: 'break', emoji: '🛋️', labelAr: 'أحتاج هدنة', labelFr: 'Pause tranquille', labelEn: 'Sensory pause', category: 'needs' },
-      { id: 'smile', emoji: '😊', labelAr: 'أشعر بالراحة', labelFr: 'Tout va bien', labelEn: 'Feeling good', category: 'feelings' },
+      { id: 'breathe', iconName: 'wind', color: 'text-[#0284C7]', bgTint: 'bg-[#0284C7]/10', labelAr: 'أتنفس بعمق', labelFr: 'Respirer calmement', labelEn: 'Deep breath', category: 'feelings' },
+      { id: 'water', iconName: 'droplets', color: 'text-[#0369A1]', bgTint: 'bg-[#0369A1]/10', labelAr: 'أشرب ماء', labelFr: 'Boire un verre d\'eau', labelEn: 'Glass of water', category: 'needs' },
+      { id: 'music', iconName: 'headphones', color: 'text-[#4F46E5]', bgTint: 'bg-[#4F46E5]/10', labelAr: 'أستمع لموسيقى هادئة', labelFr: 'Musique douce', labelEn: 'Calm music', category: 'activities' },
+      { id: 'safe', iconName: 'shield', color: 'text-[#059669]', bgTint: 'bg-[#059669]/10', labelAr: 'أنا في أمان', labelFr: 'Je suis en sécurité', labelEn: 'I am safe', category: 'feelings' },
+      { id: 'break', iconName: 'coffee', color: 'text-[#D97706]', bgTint: 'bg-[#D97706]/10', labelAr: 'أحتاج هدنة', labelFr: 'Pause sensorielle', labelEn: 'Sensory pause', category: 'needs' },
+      { id: 'smile', iconName: 'smile', color: 'text-[#D8BE83]', bgTint: 'bg-[#D8BE83]/15', labelAr: 'أشعر بالراحة', labelFr: 'Tout va bien', labelEn: 'Feeling good', category: 'feelings' },
+      { id: 'help', iconName: 'help', color: 'text-[#DC2626]', bgTint: 'bg-[#DC2626]/10', labelAr: 'أحتاج مساعدة', labelFr: 'Besoin d\'aide', labelEn: 'Need help', category: 'needs' },
+      { id: 'hug', iconName: 'heart', color: 'text-[#E11D48]', bgTint: 'bg-[#E11D48]/10', labelAr: 'عناق مطمئن', labelFr: 'Câlin réconfortant', labelEn: 'Comfort hug', category: 'feelings' },
+      { id: 'walk', iconName: 'footprints', color: 'text-[#0284C7]', bgTint: 'bg-[#0284C7]/10', labelAr: 'مشي هادئ', labelFr: 'Marche douce', labelEn: 'Calm walk', category: 'activities' },
     ]
   },
   creative: {
@@ -138,18 +279,20 @@ const THEMES: Record<ThemeKey, ThemeConfig> = {
     subtitleAr: 'فضاء حيوي ودافئ • التعبير المصور، الرسم، والاحتفال بالإنجازات',
     subtitleFr: 'Thème immersif • Dessin & Expression',
     subtitleEn: 'Immersive Theme • Art & Stories',
-    emoji: '🎨',
     primaryColor: '#D58C7A',
     gradientBg: 'from-[#172B46] via-[#C27765] to-[#D58C7A]',
     cardGradient: 'from-[#172B46]/10 via-[#D58C7A]/20 to-[#D8BE83]/20',
     swatches: ['#172B46', '#D58C7A', '#D8BE83', '#A9C5D8'],
     pictos: [
-      { id: 'story', emoji: '📖', labelAr: 'أقرأ قصة مصورة', labelFr: 'Lire une histoire', labelEn: 'Story time', category: 'activities' },
-      { id: 'draw', emoji: '🖌️', labelAr: 'ألون لوحتي', labelFr: 'Peindre', labelEn: 'Painting', category: 'activities' },
-      { id: 'puzzle', emoji: '🧩', labelAr: 'أركب الصور', labelFr: 'Assembler le puzzle', labelEn: 'Assemble puzzle', category: 'activities' },
-      { id: 'bravo', emoji: '👏', labelAr: 'أحسنت يا بطل', labelFr: 'Bravo à moi', labelEn: 'Great effort', category: 'feelings' },
-      { id: 'share', emoji: '💖', labelAr: 'أشارك مع أمي وأبي', labelFr: 'Partager avec mes parents', labelEn: 'Share with family', category: 'feelings' },
-      { id: 'star', emoji: '⭐', labelAr: 'نجمة الإنجاز', labelFr: 'Étoile de réussite', labelEn: 'Achievement star', category: 'feelings' },
+      { id: 'story', iconName: 'book', color: 'text-[#D58C7A]', bgTint: 'bg-[#D58C7A]/10', labelAr: 'أقرأ قصة مصورة', labelFr: 'Lire une histoire', labelEn: 'Story time', category: 'activities' },
+      { id: 'draw', iconName: 'palette', color: 'text-[#C27765]', bgTint: 'bg-[#C27765]/10', labelAr: 'ألون لوحتي', labelFr: 'Peindre', labelEn: 'Painting', category: 'activities' },
+      { id: 'puzzle', iconName: 'puzzle', color: 'text-[#D8BE83]', bgTint: 'bg-[#D8BE83]/15', labelAr: 'أركب الصور', labelFr: 'Assembler le puzzle', labelEn: 'Assemble puzzle', category: 'activities' },
+      { id: 'bravo', iconName: 'trophy', color: 'text-[#F59E0B]', bgTint: 'bg-[#F59E0B]/10', labelAr: 'أحسنت يا بطل', labelFr: 'Bravo à moi', labelEn: 'Great effort', category: 'feelings' },
+      { id: 'share', iconName: 'heart', color: 'text-[#E11D48]', bgTint: 'bg-[#E11D48]/10', labelAr: 'أشارك مع أمي وأبي', labelFr: 'Partager avec mes parents', labelEn: 'Share with family', category: 'feelings' },
+      { id: 'star', iconName: 'sparkles', color: 'text-[#EAB308]', bgTint: 'bg-[#EAB308]/10', labelAr: 'نجمة الإنجاز', labelFr: 'Étoile de réussite', labelEn: 'Achievement star', category: 'feelings' },
+      { id: 'music', iconName: 'headphones', color: 'text-[#8B5CF6]', bgTint: 'bg-[#8B5CF6]/10', labelAr: 'أغنية جميلة', labelFr: 'Jolie chanson', labelEn: 'Nice song', category: 'activities' },
+      { id: 'help', iconName: 'help', color: 'text-[#DC2626]', bgTint: 'bg-[#DC2626]/10', labelAr: 'ساعدني في الرسم', labelFr: 'M\'aider à dessiner', labelEn: 'Help me draw', category: 'needs' },
+      { id: 'smile', iconName: 'smile', color: 'text-[#F59E0B]', bgTint: 'bg-[#F59E0B]/10', labelAr: 'أنا سعيد بنتيجتي', labelFr: 'Fier du résultat', labelEn: 'Proud of result', category: 'feelings' },
     ]
   }
 };
@@ -161,7 +304,6 @@ interface ChildProfileData {
   nameEn: string;
   age: number;
   theme: ThemeKey;
-  avatarChar: string;
   speechGoalAr: string;
   speechGoalFr: string;
   speechGoalEn: string;
@@ -171,6 +313,7 @@ interface ChildProfileData {
   specialistRoleEn: string;
   routines: {
     id: string;
+    iconName: string;
     titleAr: string;
     titleFr: string;
     titleEn: string;
@@ -186,7 +329,6 @@ const DEFAULT_PROFILES: Record<'yanis' | 'amina', ChildProfileData> = {
     nameEn: 'Yanis',
     age: 6,
     theme: 'space',
-    avatarChar: '🪐',
     speechGoalAr: 'تدريب مخارج الحروف وبناء جملة من كلمتين (ماء + أريد)',
     speechGoalFr: 'Articulation des phonèmes et phrase à deux éléments (Boire + Eau)',
     speechGoalEn: 'Phonetic articulation and two-word requests (Drink + Water)',
@@ -195,10 +337,10 @@ const DEFAULT_PROFILES: Record<'yanis' | 'amina', ChildProfileData> = {
     specialistRoleFr: 'Orthophoniste diplômé (Cabinet El-Amel)',
     specialistRoleEn: 'Certified Speech Therapist (El-Amel Clinic)',
     routines: [
-      { id: 'r1', titleAr: 'الاستيقاظ والروتين الصباحي', titleFr: 'Réveil et étirements doux', titleEn: 'Gentle morning routine', completed: true },
-      { id: 'r2', titleAr: 'بصمة الصوت مع الرفيق باني', titleFr: 'Exercice sonore avec le robot Bunny', titleEn: 'Phonation practice with Bunny', completed: true },
-      { id: 'r3', titleAr: 'تسمية بطاقتين على شريط التواصل', titleFr: 'Composition de 2 pictogrammes', titleEn: 'Compose 2 AAC cards', completed: false },
-      { id: 'r4', titleAr: 'ترتيب المكعبات والاحتفال بالنجمة', titleFr: 'Rangement ludique & étoile', titleEn: 'Toy cleanup & victory star', completed: false }
+      { id: 'r1', iconName: 'sunrise', titleAr: 'الاستيقاظ والروتين الصباحي', titleFr: 'Réveil et étirements doux', titleEn: 'Gentle morning routine', completed: true },
+      { id: 'r2', iconName: 'bot', titleAr: 'بصمة الصوت مع الرفيق باني', titleFr: 'Exercice sonore avec le robot Bunny', titleEn: 'Phonation practice with Bunny', completed: true },
+      { id: 'r3', iconName: 'layers', titleAr: 'تسمية بطاقتين على شريط التواصل', titleFr: 'Composition de 2 pictogrammes', titleEn: 'Compose 2 AAC cards', completed: false },
+      { id: 'r4', iconName: 'boxes', titleAr: 'ترتيب المكعبات والاحتفال بالنجمة', titleFr: 'Rangement ludique & étoile', titleEn: 'Toy cleanup & victory star', completed: false }
     ]
   },
   amina: {
@@ -208,7 +350,6 @@ const DEFAULT_PROFILES: Record<'yanis' | 'amina', ChildProfileData> = {
     nameEn: 'Amina',
     age: 4,
     theme: 'nature',
-    avatarChar: '🌿',
     speechGoalAr: 'التعبير عن الاحتياجات الأساسية بالصور وتخفيف التوتر الحسي',
     speechGoalFr: 'Expression spontanée des besoins par pictogrammes et apaisement sensoriel',
     speechGoalEn: 'Spontaneous need expression via pictograms and sensory calming',
@@ -217,10 +358,10 @@ const DEFAULT_PROFILES: Record<'yanis' | 'amina', ChildProfileData> = {
     specialistRoleFr: 'Psychomotricienne & Éducatrice Spécialisée',
     specialistRoleEn: 'Occupational Therapist & Special Educator',
     routines: [
-      { id: 'a1', titleAr: 'فترة الهدوء الصباحي وشرب الماء', titleFr: 'Temps calme et verre d\'eau', titleEn: 'Calm morning pause & water', completed: true },
-      { id: 'a2', titleAr: 'اختيار بطاقة الوجبة الخفيفة', titleFr: 'Choix du goûter par pictogramme', titleEn: 'Snack pictogram choice', completed: true },
-      { id: 'a3', titleAr: 'تمرين التنفس البطيء مع باني', titleFr: 'Respiration synchronisée avec Bunny', titleEn: 'Deep breathing with Bunny', completed: true },
-      { id: 'a4', titleAr: 'وقت القصة المصورة قبل القيلولة', titleFr: 'Histoire imagée avant la sieste', titleEn: 'Picture story before rest', completed: false }
+      { id: 'a1', iconName: 'sun', titleAr: 'فترة الهدوء الصباحي وشرب الماء', titleFr: 'Temps calme et verre d\'eau', titleEn: 'Calm morning pause & water', completed: true },
+      { id: 'a2', iconName: 'utensils', titleAr: 'اختيار بطاقة الوجبة الخفيفة', titleFr: 'Choix du goûter par pictogramme', titleEn: 'Snack pictogram choice', completed: true },
+      { id: 'a3', iconName: 'wind', titleAr: 'تمرين التنفس البطيء مع باني', titleFr: 'Respiration synchronisée avec Bunny', titleEn: 'Deep breathing with Bunny', completed: true },
+      { id: 'a4', iconName: 'book', titleAr: 'وقت القصة المصورة قبل القيلولة', titleFr: 'Histoire imagée avant la sieste', titleEn: 'Picture story before rest', completed: false }
     ]
   }
 };
@@ -268,13 +409,22 @@ export const UnifiedChildWorldExperience: React.FC = () => {
   const [nourMode, setNourMode] = useState<'idle' | 'greeting' | 'calm' | 'talking' | 'listening'>('idle');
   const [companionBubble, setCompanionBubble] = useState<string | null>(null);
 
-  // Toggle routine item completion
+  // Toggle routine item completion with tactile sound & celebration
   const handleToggleRoutine = (routineId: string) => {
     if (activeProfileId === 'custom') {
       if (!customProfile) return;
       const updated = customProfile.routines.map((r) =>
         r.id === routineId ? { ...r, completed: !r.completed } : r
       );
+      const isDone = updated.find((r) => r.id === routineId)?.completed;
+      const allDone = updated.every((r) => r.completed);
+      if (allDone) {
+        playTactileFeedback('celebrate');
+      } else if (isDone) {
+        playTactileFeedback('chime');
+      } else {
+        playTactileFeedback('uncheck');
+      }
       setCustomProfile({ ...customProfile, routines: updated });
       return;
     }
@@ -283,6 +433,15 @@ export const UnifiedChildWorldExperience: React.FC = () => {
       const updatedRoutines = child.routines.map((r) =>
         r.id === routineId ? { ...r, completed: !r.completed } : r
       );
+      const isDone = updatedRoutines.find((r) => r.id === routineId)?.completed;
+      const allDone = updatedRoutines.every((r) => r.completed);
+      if (allDone) {
+        playTactileFeedback('celebrate');
+      } else if (isDone) {
+        playTactileFeedback('chime');
+      } else {
+        playTactileFeedback('uncheck');
+      }
       return {
         ...prev,
         [activeProfileId]: { ...child, routines: updatedRoutines }
@@ -290,11 +449,13 @@ export const UnifiedChildWorldExperience: React.FC = () => {
     });
   };
 
-  // Add/remove card from sentence builder
+  // Add/remove card from sentence builder with tactile sound
   const togglePicto = (pictoId: string) => {
     if (selectedPictoIds.includes(pictoId)) {
+      playTactileFeedback('uncheck');
       setSelectedPictoIds(selectedPictoIds.filter((id) => id !== pictoId));
     } else {
+      playTactileFeedback('pop');
       if (selectedPictoIds.length >= 4) {
         setSelectedPictoIds([...selectedPictoIds.slice(1), pictoId]);
       } else {
@@ -303,9 +464,20 @@ export const UnifiedChildWorldExperience: React.FC = () => {
     }
   };
 
+  // Stop vocalizing speech synthesis immediately
+  const handleStopVocalizing = () => {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+    }
+    setIsVocalizing(false);
+    setNourMode('idle');
+    playTactileFeedback('uncheck');
+  };
+
   // Read sentence builder out loud using Web Speech API
   const handleVocalizeSentence = () => {
     if (selectedPictoIds.length === 0) return;
+    playTactileFeedback('chime');
     const pictoMap = new Map(currentThemeConfig.pictos.map((p) => [p.id, p]));
     const words = selectedPictoIds
       .map((id) => pictoMap.get(id))
@@ -382,6 +554,7 @@ export const UnifiedChildWorldExperience: React.FC = () => {
   // Launch Genesis Generation Sequence
   const handleLaunchGenesis = () => {
     if (wizardName.trim().length < 3) return;
+    playTactileFeedback('chime');
     setIsGeneratingWorld(true);
     setGenerationStep(1);
 
@@ -396,7 +569,6 @@ export const UnifiedChildWorldExperience: React.FC = () => {
         nameEn: wizardName.trim(),
         age: wizardAge,
         theme: wizardTheme,
-        avatarChar: THEMES[wizardTheme].emoji,
         speechGoalAr: 'اكتشاف مفردات مخصصة والتواصل اللمسي السلس',
         speechGoalFr: 'Communication sensorielle sur mesure et enrichissement lexical',
         speechGoalEn: 'Tailored sensory communication and progressive vocabulary',
@@ -405,15 +577,16 @@ export const UnifiedChildWorldExperience: React.FC = () => {
         specialistRoleFr: 'Orthophoniste Référent',
         specialistRoleEn: 'Consulting Specialist',
         routines: [
-          { id: 'c1', titleAr: 'استكشاف العالم الرقمي الجديد', titleFr: 'Découverte du nouvel univers 3D', titleEn: 'Explore the new 3D world', completed: true },
-          { id: 'c2', titleAr: 'لقاء الرفيق باني وتبادل التحية', titleFr: 'Première salutation avec Bunny', titleEn: 'First greeting with Bunny', completed: true },
-          { id: 'c3', titleAr: 'بناء أول جملة تواصل معبرة', titleFr: 'Première phrase sur la bande CAA', titleEn: 'First phrase on AAC strip', completed: false }
+          { id: 'c1', iconName: 'sunrise', titleAr: 'استكشاف العالم الرقمي الجديد', titleFr: 'Découverte du nouvel univers 3D', titleEn: 'Explore the new 3D world', completed: true },
+          { id: 'c2', iconName: 'bot', titleAr: 'لقاء الرفيق باني وتبادل التحية', titleFr: 'Première salutation avec Bunny', titleEn: 'First greeting with Bunny', completed: true },
+          { id: 'c3', iconName: 'layers', titleAr: 'بناء أول جملة تواصل معبرة', titleFr: 'Première phrase sur la bande CAA', titleEn: 'First phrase on AAC strip', completed: false }
         ]
       };
       setCustomProfile(newCustom);
       setActiveProfileId('custom');
       setIsGeneratingWorld(false);
       setActiveTab('world');
+      playTactileFeedback('celebrate');
     }, 2400);
   };
 
@@ -534,47 +707,50 @@ export const UnifiedChildWorldExperience: React.FC = () => {
             <div className="flex items-center gap-1 bg-[#F5F6F3] p-1 rounded-full border border-[#A9C5D8]/40 text-xs">
               <button
                 onClick={() => {
+                  playTactileFeedback('chime');
                   setActiveProfileId('yanis');
                   setActiveTab('world');
                 }}
-                className={`px-2.5 py-1 rounded-full font-bold transition-all cursor-pointer flex items-center gap-1 ${
+                className={`px-2.5 py-1 rounded-full font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
                   activeProfileId === 'yanis'
                     ? 'bg-[#2868C7] text-white shadow-xs'
                     : 'text-[#172B46]/70 hover:text-[#172B46]'
                 }`}
               >
-                <span>🪐</span>
+                <Orbit size={13} />
                 <span>{isAr ? 'يانيس (6 سنوات)' : 'Yanis (6 ans)'}</span>
               </button>
 
               <button
                 onClick={() => {
+                  playTactileFeedback('chime');
                   setActiveProfileId('amina');
                   setActiveTab('world');
                 }}
-                className={`px-2.5 py-1 rounded-full font-bold transition-all cursor-pointer flex items-center gap-1 ${
+                className={`px-2.5 py-1 rounded-full font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
                   activeProfileId === 'amina'
                     ? 'bg-[#2D7A58] text-white shadow-xs'
                     : 'text-[#172B46]/70 hover:text-[#172B46]'
                 }`}
               >
-                <span>🌿</span>
+                <Sprout size={13} />
                 <span>{isAr ? 'أمينة (4 سنوات)' : 'Amina (4 ans)'}</span>
               </button>
 
               {customProfile && (
                 <button
                   onClick={() => {
+                    playTactileFeedback('chime');
                     setActiveProfileId('custom');
                     setActiveTab('world');
                   }}
-                  className={`px-2.5 py-1 rounded-full font-bold transition-all cursor-pointer flex items-center gap-1 ${
+                  className={`px-2.5 py-1 rounded-full font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
                     activeProfileId === 'custom'
                       ? 'bg-[#D58C7A] text-white shadow-xs'
                       : 'text-[#172B46]/70 hover:text-[#172B46]'
                   }`}
                 >
-                  <span>{customProfile.avatarChar}</span>
+                  <Sparkles size={13} />
                   <span>{isAr ? customProfile.nameAr : customProfile.nameFr}</span>
                 </button>
               )}
@@ -582,6 +758,7 @@ export const UnifiedChildWorldExperience: React.FC = () => {
 
             <button
               onClick={() => {
+                playTactileFeedback('uncheck');
                 setProfiles(DEFAULT_PROFILES);
                 setActiveProfileId('yanis');
                 setActiveTab('world');
@@ -611,8 +788,8 @@ export const UnifiedChildWorldExperience: React.FC = () => {
             {/* Account Card Header */}
             <div className="bg-gradient-to-r from-[#172B46] to-[#1E3A5F] rounded-3xl p-6 sm:p-8 text-white flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-xl">
               <div className="flex items-center gap-4">
-                <div className="w-14 h-14 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center text-2xl shadow-inner">
-                  👨‍👩‍👧‍👦
+                <div className="w-14 h-14 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center text-[#D8BE83] shadow-inner">
+                  <Users size={28} />
                 </div>
                 <div>
                   <div className="flex items-center gap-2 flex-wrap">
@@ -669,7 +846,9 @@ export const UnifiedChildWorldExperience: React.FC = () => {
                 <div className="absolute top-0 end-0 w-32 h-32 bg-[#2868C7]/10 rounded-full blur-2xl pointer-events-none" />
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <span className="text-3xl">🪐</span>
+                    <div className="w-11 h-11 rounded-2xl bg-[#2868C7]/15 border border-[#2868C7]/30 flex items-center justify-center text-[#2868C7] shadow-xs">
+                      <Orbit size={24} />
+                    </div>
                     <div>
                       <h4 className="text-lg font-black text-[#172B46]">
                         {isAr ? 'يانيس' : 'Yanis'}
@@ -697,10 +876,11 @@ export const UnifiedChildWorldExperience: React.FC = () => {
 
                 <button
                   onClick={() => {
+                    playTactileFeedback('chime');
                     setActiveProfileId('yanis');
                     setActiveTab('world');
                   }}
-                  className="w-full py-3 rounded-2xl bg-[#2868C7] hover:bg-[#1f54a3] text-white font-extrabold text-sm transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
+                  className="w-full py-3 rounded-2xl bg-[#2868C7] hover:bg-[#1f54a3] text-white font-extrabold text-sm transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer active:scale-98"
                 >
                   <span>{isAr ? 'الدخول إلى عالم يانيس 3D' : isEn ? 'Enter Yanis\' 3D World' : 'Entrer dans le monde de Yanis 3D'}</span>
                   <ArrowRight size={16} className="rtl:rotate-180" />
@@ -712,7 +892,9 @@ export const UnifiedChildWorldExperience: React.FC = () => {
                 <div className="absolute top-0 end-0 w-32 h-32 bg-[#2D7A58]/10 rounded-full blur-2xl pointer-events-none" />
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <span className="text-3xl">🌿</span>
+                    <div className="w-11 h-11 rounded-2xl bg-[#2D7A58]/15 border border-[#2D7A58]/30 flex items-center justify-center text-[#2D7A58] shadow-xs">
+                      <Sprout size={24} />
+                    </div>
                     <div>
                       <h4 className="text-lg font-black text-[#172B46]">
                         {isAr ? 'أمينة' : 'Amina'}
@@ -740,10 +922,11 @@ export const UnifiedChildWorldExperience: React.FC = () => {
 
                 <button
                   onClick={() => {
+                    playTactileFeedback('chime');
                     setActiveProfileId('amina');
                     setActiveTab('world');
                   }}
-                  className="w-full py-3 rounded-2xl bg-[#2D7A58] hover:bg-[#236045] text-white font-extrabold text-sm transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
+                  className="w-full py-3 rounded-2xl bg-[#2D7A58] hover:bg-[#236045] text-white font-extrabold text-sm transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer active:scale-98"
                 >
                   <span>{isAr ? 'الدخول إلى عالم أمينة 3D' : isEn ? 'Enter Amina\'s 3D World' : 'Entrer dans le monde d\'Amina 3D'}</span>
                   <ArrowRight size={16} className="rtl:rotate-180" />
@@ -754,8 +937,11 @@ export const UnifiedChildWorldExperience: React.FC = () => {
             {/* Action Bar */}
             <div className="pt-2 flex justify-center">
               <button
-                onClick={() => setActiveTab('wizard')}
-                className="bg-white hover:bg-gray-50 text-[#172B46] border-2 border-dashed border-[#2868C7]/50 hover:border-[#2868C7] font-bold text-sm px-6 py-3.5 rounded-2xl transition-all flex items-center gap-2 cursor-pointer shadow-xs"
+                onClick={() => {
+                  playTactileFeedback('click');
+                  setActiveTab('wizard');
+                }}
+                className="bg-white hover:bg-gray-50 text-[#172B46] border-2 border-dashed border-[#2868C7]/50 hover:border-[#2868C7] font-bold text-sm px-6 py-3.5 rounded-2xl transition-all flex items-center gap-2 cursor-pointer shadow-xs active:scale-98"
               >
                 <UserPlus size={16} className="text-[#2868C7]" />
                 <span>{isAr ? '+ إضافة وتخصيص عالم لطفل جديد' : isEn ? '+ Configure New Child World' : '+ Configurer un nouvel univers enfant'}</span>
@@ -780,8 +966,8 @@ export const UnifiedChildWorldExperience: React.FC = () => {
               <div className="py-16 text-center space-y-6 max-w-md mx-auto">
                 <div className="relative w-32 h-32 mx-auto">
                   <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-[#2868C7] via-[#D8BE83] to-[#D58C7A] animate-spin blur-md opacity-80" />
-                  <div className="relative w-full h-full rounded-full bg-[#172B46] flex items-center justify-center text-5xl shadow-2xl border-2 border-white/20">
-                    {THEMES[wizardTheme].emoji}
+                  <div className="relative w-full h-full rounded-full bg-[#172B46] flex items-center justify-center shadow-2xl border-2 border-white/20 text-white">
+                    {renderThemeIcon(wizardTheme, 'w-14 h-14 text-white drop-shadow-md')}
                   </div>
                 </div>
 
@@ -855,10 +1041,10 @@ export const UnifiedChildWorldExperience: React.FC = () => {
                         )}
                       </div>
 
-                      {/* Age direct number input 0 to 100 limit */}
+                      {/* Age direct number input */}
                       <div className="space-y-1.5">
                         <div className="flex items-center justify-between text-xs font-bold text-[#172B46]">
-                          <span>{isAr ? 'عمر الطفل (من 0 إلى 100 سنة)' : isEn ? 'Child Age (0 to 100)' : 'Âge de l\'enfant (0 à 100 ans)'}</span>
+                          <span>{isAr ? 'عمر الطفل' : isEn ? 'Child Age' : 'Âge de l\'enfant'}</span>
                           <span className="text-[#2868C7] font-black">{wizardAge} {isAr ? 'سنوات' : 'ans'}</span>
                         </div>
                         <div className="flex items-center gap-3">
@@ -916,7 +1102,10 @@ export const UnifiedChildWorldExperience: React.FC = () => {
                           <button
                             key={themeKey}
                             type="button"
-                            onClick={() => setWizardTheme(themeKey)}
+                            onClick={() => {
+                              playTactileFeedback('click');
+                              setWizardTheme(themeKey);
+                            }}
                             className={`p-3.5 rounded-2xl border text-start transition-all cursor-pointer flex flex-col justify-between gap-3 relative overflow-hidden backdrop-blur-md bg-gradient-to-br ${th.cardGradient} ${
                               isSelected
                                 ? 'border-[#2868C7] shadow-lg ring-2 ring-[#2868C7]/30 scale-102 bg-white'
@@ -924,7 +1113,9 @@ export const UnifiedChildWorldExperience: React.FC = () => {
                             }`}
                           >
                             <div className="flex items-center justify-between w-full">
-                              <span className="text-2xl drop-shadow-xs">{th.emoji}</span>
+                              <div className="w-9 h-9 rounded-xl bg-white/80 border border-white/60 flex items-center justify-center text-[#172B46] shadow-2xs">
+                                {renderThemeIcon(themeKey, 'w-5 h-5 text-[#2868C7]')}
+                              </div>
                               {/* Palette Swatches */}
                               <div className="flex items-center gap-1">
                                 {th.swatches.map((color, idx) => (
@@ -962,7 +1153,10 @@ export const UnifiedChildWorldExperience: React.FC = () => {
                 {/* Launch Button */}
                 <div className="flex items-center justify-between pt-4 border-t border-gray-200 flex-wrap gap-4">
                   <button
-                    onClick={() => setActiveTab('hub')}
+                    onClick={() => {
+                      playTactileFeedback('click');
+                      setActiveTab('hub');
+                    }}
                     className="text-xs font-bold text-gray-500 hover:text-[#172B46] flex items-center gap-1.5 cursor-pointer"
                   >
                     <ArrowLeft size={14} className="rtl:rotate-180" />
@@ -974,12 +1168,12 @@ export const UnifiedChildWorldExperience: React.FC = () => {
                     disabled={wizardName.trim().length < 3}
                     className={`font-extrabold text-sm px-8 py-3.5 rounded-full shadow-xl transition-all flex items-center gap-2 cursor-pointer ${
                       wizardName.trim().length >= 3
-                        ? 'bg-gradient-to-r from-[#2868C7] to-[#172B46] hover:from-[#1f54a3] hover:to-[#0f1e32] text-white hover:scale-102'
+                        ? 'bg-gradient-to-r from-[#2868C7] to-[#172B46] hover:from-[#1f54a3] hover:to-[#0f1e32] text-white hover:scale-102 active:scale-98'
                         : 'bg-gray-200 text-gray-400 cursor-not-allowed'
                     }`}
                   >
                     <Sparkles size={16} className="text-[#D8BE83]" />
-                    <span>{isAr ? 'توليد العالم ثلاثي الأبعاد الآن 🚀' : isEn ? 'Generate 3D World Now 🚀' : 'Donner vie au Monde 3D 🚀'}</span>
+                    <span>{isAr ? 'توليد العالم ثلاثي الأبعاد الآن' : isEn ? 'Generate 3D World Now' : 'Donner vie au Monde 3D'}</span>
                   </button>
                 </div>
               </div>
@@ -1001,8 +1195,8 @@ export const UnifiedChildWorldExperience: React.FC = () => {
             {/* World Header Bar */}
             <div className={`p-4 sm:p-5 rounded-3xl bg-gradient-to-r ${currentThemeConfig.gradientBg} text-white shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 relative overflow-hidden`}>
               <div className="flex items-center gap-3.5 z-10">
-                <div className="w-12 h-12 rounded-2xl bg-white/15 border border-white/30 backdrop-blur-md flex items-center justify-center text-2xl shadow-inner">
-                  {currentProfile.avatarChar}
+                <div className="w-12 h-12 rounded-2xl bg-white/15 border border-white/30 backdrop-blur-md flex items-center justify-center text-white shadow-inner">
+                  {renderThemeIcon(currentProfile.theme, 'w-6 h-6 text-white drop-shadow-xs')}
                 </div>
                 <div className="text-start">
                   <div className="flex items-center gap-2 flex-wrap">
@@ -1029,16 +1223,32 @@ export const UnifiedChildWorldExperience: React.FC = () => {
                     {isAr ? 'تبديل الأخ:' : isEn ? 'Switch child:' : 'Changer d\'enfant :'}
                   </span>
                   <button
-                    onClick={() => setActiveProfileId(activeProfileId === 'yanis' ? 'amina' : 'yanis')}
+                    onClick={() => {
+                      playTactileFeedback('chime');
+                      setActiveProfileId(activeProfileId === 'yanis' ? 'amina' : 'yanis');
+                    }}
                     className="bg-white/20 hover:bg-white/30 text-white font-bold px-3 py-1 rounded-xl transition-all cursor-pointer flex items-center gap-1.5"
                   >
-                    <span>{activeProfileId === 'yanis' ? '🌿 أمينة (4)' : '🪐 يانيس (6)'}</span>
+                    {activeProfileId === 'yanis' ? (
+                      <>
+                        <Sprout size={14} className="text-[#A9C5D8]" />
+                        <span>{isAr ? 'أمينة (4 سنوات)' : 'Amina (4 ans)'}</span>
+                      </>
+                    ) : (
+                      <>
+                        <Orbit size={14} className="text-[#D8BE83]" />
+                        <span>{isAr ? 'يانيس (6 سنوات)' : 'Yanis (6 ans)'}</span>
+                      </>
+                    )}
                     <ChevronRight size={14} className="rtl:rotate-180" />
                   </button>
                 </div>
 
                 <button
-                  onClick={() => setActiveTab('hub')}
+                  onClick={() => {
+                    playTactileFeedback('click');
+                    setActiveTab('hub');
+                  }}
                   className="bg-white/10 hover:bg-white/20 text-white p-2 rounded-xl border border-white/20 transition-all cursor-pointer"
                   title="Retour Espace Famille"
                 >
@@ -1097,7 +1307,10 @@ export const UnifiedChildWorldExperience: React.FC = () => {
                           {isAr ? 'باني يتحدث إليك:' : isEn ? 'Bunny says:' : 'Bunny vous parle :'}
                         </span>
                         <button
-                          onClick={() => setCompanionBubble(null)}
+                          onClick={() => {
+                            playTactileFeedback('uncheck');
+                            setCompanionBubble(null);
+                          }}
                           className="text-gray-400 hover:text-gray-600 p-0.5 text-xs cursor-pointer"
                         >
                           ✕
@@ -1126,9 +1339,9 @@ export const UnifiedChildWorldExperience: React.FC = () => {
                 <div className="relative rounded-2xl overflow-hidden bg-gradient-to-b from-[#172B46]/05 to-[#2868C7]/10 border border-[#A9C5D8]/30">
                   <Suspense
                     fallback={
-                      <div className="h-[280px] sm:h-[320px] flex flex-col items-center justify-center p-6 bg-white/60 backdrop-blur-xs space-y-3">
-                        <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-[#172B46] to-[#2868C7] flex items-center justify-center text-3xl shadow-lg animate-pulse">
-                          🐰
+                      <div className="h-[300px] sm:h-[340px] flex flex-col items-center justify-center p-6 bg-white/60 backdrop-blur-xs space-y-3">
+                        <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-[#172B46] to-[#2868C7] flex items-center justify-center shadow-lg animate-pulse">
+                          <Bot size={34} className="text-[#D8BE83]" />
                         </div>
                         <div className="flex items-center gap-2 text-xs font-bold text-[#172B46]">
                           <Loader2 size={16} className="animate-spin text-[#2868C7]" />
@@ -1141,8 +1354,11 @@ export const UnifiedChildWorldExperience: React.FC = () => {
                       theme={currentProfile.theme}
                       mode={nourMode}
                       isAr={isAr}
-                      onClickCompanion={() => handleNourInteraction('greeting')}
-                      className="h-[280px] sm:h-[320px]"
+                      onClickCompanion={() => {
+                        playTactileFeedback('click');
+                        handleNourInteraction('greeting');
+                      }}
+                      className="h-[300px] sm:h-[340px]"
                     />
                   </Suspense>
                 </div>
@@ -1157,26 +1373,35 @@ export const UnifiedChildWorldExperience: React.FC = () => {
                   </p>
                   <div className="grid grid-cols-3 gap-2">
                     <button
-                      onClick={() => handleNourInteraction('greeting')}
+                      onClick={() => {
+                        playTactileFeedback('click');
+                        handleNourInteraction('greeting');
+                      }}
                       className="p-2.5 rounded-2xl bg-white hover:bg-[#2868C7]/05 border border-gray-200 text-center transition-all text-xs font-bold text-[#172B46] hover:border-[#2868C7] flex flex-col items-center gap-1 cursor-pointer shadow-2xs active:scale-95"
                     >
-                      <Smile size={16} className="text-[#2868C7]" />
+                      <Hand size={18} className="text-[#2868C7]" />
                       <span className="text-[10px] leading-tight font-black">{isAr ? 'تحية' : isEn ? 'Greet' : 'Saluer'}</span>
                     </button>
 
                     <button
-                      onClick={() => handleNourInteraction('encouragement')}
+                      onClick={() => {
+                        playTactileFeedback('chime');
+                        handleNourInteraction('encouragement');
+                      }}
                       className="p-2.5 rounded-2xl bg-white hover:bg-[#D8BE83]/10 border border-gray-200 text-center transition-all text-xs font-bold text-[#172B46] hover:border-[#D8BE83] flex flex-col items-center gap-1 cursor-pointer shadow-2xs active:scale-95"
                     >
-                      <Star size={16} className="text-[#D8BE83]" />
+                      <ThumbsUp size={18} className="text-[#D8BE83]" />
                       <span className="text-[10px] leading-tight font-black">{isAr ? 'تشجيع' : isEn ? 'Praise' : 'Bravo'}</span>
                     </button>
 
                     <button
-                      onClick={() => handleNourInteraction('calm')}
+                      onClick={() => {
+                        playTactileFeedback('pop');
+                        handleNourInteraction('calm');
+                      }}
                       className="p-2.5 rounded-2xl bg-white hover:bg-[#2D7A58]/05 border border-gray-200 text-center transition-all text-xs font-bold text-[#172B46] hover:border-[#2D7A58] flex flex-col items-center gap-1 cursor-pointer shadow-2xs active:scale-95"
                     >
-                      <Moon size={16} className="text-[#2D7A58]" />
+                      <Wind size={18} className="text-[#2D7A58]" />
                       <span className="text-[10px] leading-tight font-black">{isAr ? 'تنفس هادئ' : isEn ? 'Calm' : 'Apaiser'}</span>
                     </button>
                   </div>
@@ -1196,7 +1421,10 @@ export const UnifiedChildWorldExperience: React.FC = () => {
                       </h4>
                     </div>
                     <button
-                      onClick={() => setSelectedPictoIds([])}
+                      onClick={() => {
+                        playTactileFeedback('uncheck');
+                        setSelectedPictoIds([]);
+                      }}
                       className="text-xs text-gray-400 hover:text-[#D58C7A] flex items-center gap-1 cursor-pointer"
                       title="Effacer"
                     >
@@ -1208,81 +1436,105 @@ export const UnifiedChildWorldExperience: React.FC = () => {
                   {/* Sentence Strip Container */}
                   <div className="min-h-[64px] bg-[#F5F6F3] rounded-2xl p-2.5 flex items-center justify-between gap-2 border-2 border-dashed border-[#A9C5D8]/60">
                     <div className="flex items-center gap-2 flex-wrap flex-1">
-                      {selectedPictos.length === 0 ? (
-                        <p className="text-xs text-[#172B46]/40 italic px-2">
-                          {isAr
-                            ? 'المس بطاقة من الأسفل لتركيب جملة التعبير...'
-                            : isEn
-                            ? 'Tap pictogram cards below to compose a request...'
-                            : 'Touchez des cartes ci-dessous pour composer une phrase...'}
-                        </p>
-                      ) : (
-                        selectedPictos.map((picto) => (
-                          <motion.div
-                            key={picto.id}
-                            initial={{ scale: 0.8, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 1 }}
-                            className="bg-white px-3 py-1.5 rounded-xl border border-[#2868C7]/30 shadow-xs flex items-center gap-1.5"
+                      <AnimatePresence>
+                        {selectedPictos.length === 0 ? (
+                          <motion.p
+                            key="empty-hint"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            className="text-xs text-[#172B46]/40 italic px-2"
                           >
-                            <span className="text-base select-none">{picto.emoji}</span>
-                            <span className="text-xs font-black text-[#172B46]">
-                              {isAr ? picto.labelAr : isEn ? picto.labelEn : picto.labelFr}
-                            </span>
-                          </motion.div>
-                        ))
-                      )}
+                            {isAr
+                              ? 'المس بطاقة من الأسفل لتركيب جملة التعبير...'
+                              : isEn
+                              ? 'Tap pictogram cards below to compose a request...'
+                              : 'Touchez des cartes ci-dessous pour composer une phrase...'}
+                          </motion.p>
+                        ) : (
+                          selectedPictos.map((picto) => (
+                            <motion.div
+                              key={picto.id}
+                              layout
+                              initial={{ scale: 0.7, opacity: 0, y: 6 }}
+                              animate={{ scale: 1, opacity: 1, y: 0 }}
+                              exit={{ scale: 0.7, opacity: 0 }}
+                              transition={{ type: 'spring', stiffness: 450, damping: 25 }}
+                              className="bg-white px-2.5 py-1.5 rounded-xl border border-[#2868C7]/30 shadow-xs flex items-center gap-2 group"
+                            >
+                              <span className={`w-6 h-6 rounded-lg ${picto.bgTint} ${picto.color} flex items-center justify-center shrink-0`}>
+                                {renderPictoIcon(picto.iconName, 'w-3.5 h-3.5')}
+                              </span>
+                              <span className="text-xs font-black text-[#172B46]">
+                                {isAr ? picto.labelAr : isEn ? picto.labelEn : picto.labelFr}
+                              </span>
+                            </motion.div>
+                          ))
+                        )}
+                      </AnimatePresence>
                     </div>
 
-                    <button
-                      onClick={handleVocalizeSentence}
-                      disabled={selectedPictos.length === 0 || isVocalizing}
-                      className={`px-4 py-2.5 rounded-xl font-bold text-xs transition-all shadow-md shrink-0 flex items-center gap-2 cursor-pointer ${
-                        selectedPictos.length === 0
-                          ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                          : isVocalizing
-                          ? 'bg-[#D58C7A] text-white scale-105'
-                          : 'bg-[#2868C7] hover:bg-[#1f54a3] text-white'
-                      }`}
-                      aria-label="Vocaliser la phrase"
-                    >
+                    {/* Vocalize / Stop Action Buttons */}
+                    <div className="flex items-center gap-2">
                       {isVocalizing ? (
-                        <>
-                          <Volume2 size={16} className="animate-bounce" />
-                          <span>{isAr ? 'ينطق...' : isEn ? 'Speaking...' : 'Vocalise...'}</span>
-                        </>
+                        <button
+                          onClick={handleStopVocalizing}
+                          className="px-4 py-2.5 rounded-xl font-bold text-xs transition-all shadow-md shrink-0 flex items-center gap-2 cursor-pointer bg-[#D58C7A] hover:bg-[#c47a68] text-white active:scale-95 animate-pulse"
+                          aria-label="Arrêter la voix"
+                          title={isAr ? 'إيقاف نطق الجملة' : isEn ? 'Stop Speaking' : 'Arrêter la lecture'}
+                        >
+                          <Square size={14} className="fill-current text-white" />
+                          <span>{isAr ? 'إيقاف الصوت' : isEn ? 'Stop' : 'Arrêter'}</span>
+                        </button>
                       ) : (
-                        <>
+                        <button
+                          onClick={handleVocalizeSentence}
+                          disabled={selectedPictos.length === 0}
+                          className={`px-4 py-2.5 rounded-xl font-bold text-xs transition-all shadow-md shrink-0 flex items-center gap-2 cursor-pointer ${
+                            selectedPictos.length === 0
+                              ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                              : 'bg-[#2868C7] hover:bg-[#1f54a3] text-white active:scale-95'
+                          }`}
+                          aria-label="Vocaliser la phrase"
+                        >
                           <Play size={16} className="fill-current" />
                           <span>{isAr ? 'نطق الجملة' : isEn ? 'Speak Out Loud' : 'Lire à voix haute'}</span>
-                        </>
+                        </button>
                       )}
-                    </button>
+                    </div>
                   </div>
 
-                  {/* 6 Tactile Pictogram Grid */}
+                  {/* 9 Tactile Pictogram Grid */}
                   <div className="space-y-2">
-                    <p className="text-[11px] font-bold text-gray-500">
-                      {isAr
-                        ? `بطاقات اليوم المعززة لعالم "${currentProfile.nameAr}":`
-                        : isEn
-                        ? `Communication cards for ${currentProfile.nameEn}'s universe:`
-                        : `Cartes de communication pour l'univers de ${currentProfile.nameFr} :`}
-                    </p>
-                    <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+                    <div className="flex items-center justify-between">
+                      <p className="text-[11px] font-bold text-gray-500">
+                        {isAr
+                          ? `بطاقات اليوم المعززة لعالم "${currentProfile.nameAr}":`
+                          : isEn
+                          ? `Communication cards for ${currentProfile.nameEn}'s universe:`
+                          : `Cartes de communication pour l'univers de ${currentProfile.nameFr} :`}
+                      </p>
+                      <span className="text-[10px] text-gray-400 font-bold">
+                        {selectedPictoIds.length} {isAr ? 'محددة' : isEn ? 'selected' : 'sélectionnées'}
+                      </span>
+                    </div>
+                    <div className="grid grid-cols-3 sm:grid-cols-9 gap-2">
                       {currentThemeConfig.pictos.map((picto) => {
                         const isSelected = selectedPictoIds.includes(picto.id);
                         return (
                           <motion.button
                             key={picto.id}
-                            whileTap={{ scale: 0.94 }}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.92 }}
                             onClick={() => togglePicto(picto.id)}
-                            className={`p-2.5 rounded-2xl border text-center transition-all cursor-pointer flex flex-col items-center justify-center gap-1 ${
+                            className={`p-2 rounded-2xl border text-center transition-all cursor-pointer flex flex-col items-center justify-center gap-1.5 ${
                               isSelected
-                                ? 'bg-white border-[#2868C7] shadow-md ring-2 ring-[#2868C7]/20 scale-102'
-                                : 'bg-[#F5F6F3]/80 hover:bg-white border-gray-200 shadow-2xs'
+                                ? 'bg-white border-[#2868C7] shadow-md ring-2 ring-[#2868C7]/30 scale-102'
+                                : 'bg-[#F5F6F3]/80 hover:bg-white border-gray-200/80 shadow-2xs'
                             }`}
                           >
-                            <span className="text-2xl select-none">{picto.emoji}</span>
+                            <div className={`w-9 h-9 rounded-xl ${picto.bgTint} ${picto.color} flex items-center justify-center transition-transform group-hover:scale-110 shadow-2xs`}>
+                              {renderPictoIcon(picto.iconName, 'w-4 h-4')}
+                            </div>
                             <span className="text-[10px] font-black text-[#172B46] leading-tight line-clamp-1">
                               {isAr ? picto.labelAr : isEn ? picto.labelEn : picto.labelFr}
                             </span>
@@ -1303,31 +1555,38 @@ export const UnifiedChildWorldExperience: React.FC = () => {
                           <CheckCircle2 size={14} className="text-[#2868C7]" />
                           {isAr ? 'الروتين اليومي المصور' : isEn ? 'Visual Routine' : 'Routine Visuelle'}
                         </span>
-                        <span className="text-[10px] text-gray-400 font-bold">
-                          {currentProfile.routines.filter((r) => r.completed).length} / {currentProfile.routines.length} ⭐
+                        <span className="text-[10px] text-gray-500 font-extrabold flex items-center gap-1 bg-[#F5F6F3] px-2 py-0.5 rounded-full border border-gray-200">
+                          <span>{currentProfile.routines.filter((r) => r.completed).length} / {currentProfile.routines.length}</span>
+                          <Star size={11} className="text-[#D8BE83] fill-[#D8BE83]" />
                         </span>
                       </div>
 
                       <div className="space-y-1.5">
                         {currentProfile.routines.map((routine) => (
-                          <button
+                          <motion.button
                             key={routine.id}
+                            whileTap={{ scale: 0.98 }}
                             onClick={() => handleToggleRoutine(routine.id)}
-                            className={`w-full p-2 rounded-xl text-xs font-semibold text-start flex items-center justify-between transition-all cursor-pointer ${
+                            className={`w-full p-2.5 rounded-xl text-xs font-semibold text-start flex items-center justify-between transition-all cursor-pointer ${
                               routine.completed
-                                ? 'bg-emerald-50 text-emerald-900 border border-emerald-200/60'
-                                : 'bg-[#F5F6F3] text-gray-700 hover:bg-gray-100'
+                                ? 'bg-emerald-50 text-emerald-900 border border-emerald-200/80 shadow-xs'
+                                : 'bg-[#F5F6F3] text-gray-700 hover:bg-gray-100 border border-transparent'
                             }`}
                           >
-                            <span className="line-clamp-1">
-                              {isAr ? routine.titleAr : isEn ? routine.titleEn : routine.titleFr}
-                            </span>
-                            <span className={`w-4 h-4 rounded-full flex items-center justify-center text-[10px] ${
-                              routine.completed ? 'bg-emerald-500 text-white font-bold' : 'border border-gray-300'
+                            <div className="flex items-center gap-2">
+                              <span className={`p-1 rounded-lg ${routine.completed ? 'bg-emerald-500/15 text-emerald-700' : 'bg-white text-gray-500'} shadow-2xs`}>
+                                {renderRoutineIcon(routine.iconName, 'w-3.5 h-3.5')}
+                              </span>
+                              <span className="line-clamp-1 font-bold">
+                                {isAr ? routine.titleAr : isEn ? routine.titleEn : routine.titleFr}
+                              </span>
+                            </div>
+                            <span className={`w-5 h-5 rounded-full flex items-center justify-center transition-all ${
+                              routine.completed ? 'bg-emerald-500 text-white font-bold shadow-xs scale-105' : 'border-2 border-gray-300 hover:border-[#2868C7]'
                             }`}>
-                              {routine.completed ? '✓' : ''}
+                              {routine.completed && <Check size={12} className="stroke-[3]" />}
                             </span>
-                          </button>
+                          </motion.button>
                         ))}
                       </div>
                     </div>
@@ -1338,27 +1597,33 @@ export const UnifiedChildWorldExperience: React.FC = () => {
                     <div>
                       <div className="flex items-center justify-between pb-1.5 border-b border-gray-100 mb-2">
                         <span className="text-xs font-black text-[#D58C7A] flex items-center gap-1.5">
-                          <Users size={14} />
+                          <Stethoscope size={14} className="text-[#D58C7A]" />
                           {isAr ? 'مساهمة الأخصائي المعتمد' : isEn ? 'Specialist Portal' : 'Portail Spécialiste'}
                         </span>
-                        <span className="text-[9px] bg-blue-50 text-blue-700 font-bold px-2 py-0.5 rounded-full">
-                          {isAr ? 'موافقة نشطة' : isEn ? 'Consent Active' : 'Consentement actif'}
+                        <span className="text-[9px] bg-emerald-50 text-emerald-700 font-bold px-2 py-0.5 rounded-full flex items-center gap-1 border border-emerald-200/60">
+                          <CheckCircle2 size={10} className="text-emerald-500" />
+                          <span>{isAr ? 'موافقة نشطة' : isEn ? 'Consent Active' : 'Consentement actif'}</span>
                         </span>
                       </div>
 
                       <div className="space-y-1.5 text-xs">
-                        <div>
-                          <p className="font-extrabold text-[#172B46]">{currentProfile.specialistName}</p>
-                          <p className="text-[10px] text-gray-400">
-                            {isAr ? currentProfile.specialistRoleAr : isEn ? currentProfile.specialistRoleEn : currentProfile.specialistRoleFr}
-                          </p>
+                        <div className="flex items-center gap-2">
+                          <div className="w-8 h-8 rounded-full bg-[#172B46]/10 flex items-center justify-center text-[#172B46] font-bold text-xs shrink-0">
+                            <Award size={16} className="text-[#2868C7]" />
+                          </div>
+                          <div>
+                            <p className="font-extrabold text-[#172B46]">{currentProfile.specialistName}</p>
+                            <p className="text-[10px] text-gray-500">
+                              {isAr ? currentProfile.specialistRoleAr : isEn ? currentProfile.specialistRoleEn : currentProfile.specialistRoleFr}
+                            </p>
+                          </div>
                         </div>
 
-                        <div className="bg-[#F5F6F3] p-2 rounded-xl space-y-1 text-[11px]">
+                        <div className="bg-[#F5F6F3] p-2.5 rounded-xl space-y-1 mt-2">
                           <span className="text-[10px] font-bold text-gray-500 block">
-                            {isAr ? 'الهدف الموصى به للمنزل:' : isEn ? 'Recommended Home Target:' : 'Cible clinique recommandée :'}
+                            {isAr ? 'الهدف الموصى به للمنزل:' : isEn ? 'Prescribed Home Target:' : 'Cible préconisée à domicile :'}
                           </span>
-                          <p className="font-semibold text-[#172B46] leading-tight">
+                          <p className="text-[#172B46] font-semibold text-xs leading-relaxed">
                             {isAr ? currentProfile.speechGoalAr : isEn ? currentProfile.speechGoalEn : currentProfile.speechGoalFr}
                           </p>
                         </div>
@@ -1366,8 +1631,8 @@ export const UnifiedChildWorldExperience: React.FC = () => {
                     </div>
 
                     <div className="flex items-center gap-1.5 text-[10px] text-emerald-800 font-bold pt-1 border-t border-gray-100">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                      <span>{isAr ? 'استمرارية حية بين الجلسة والبيت' : isEn ? 'Live clinic-to-home continuity' : 'Continuité cabinet-foyer en direct'}</span>
+                      <Sparkles size={11} className="text-emerald-600 shrink-0" />
+                      <span>{isAr ? 'استمرارية حية بين الجلسة والبيت' : isEn ? 'Live session-to-home continuity' : 'Continuité cabinet-domicile active'}</span>
                     </div>
                   </div>
                 </div>

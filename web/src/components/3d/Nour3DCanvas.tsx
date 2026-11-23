@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { Sparkles, Loader2, Volume2, Shield } from 'lucide-react';
+import { Sparkles, Loader2, Volume2, Shield, Bot } from 'lucide-react';
 
 interface Nour3DCanvasProps {
   mode?: 'idle' | 'greeting' | 'calm' | 'talking' | 'listening';
@@ -61,9 +61,10 @@ export const Nour3DCanvas: React.FC<Nour3DCanvasProps> = ({
     const scene = new THREE.Scene();
     sceneRef.current = scene;
 
-    // 2. Camera
+    // 2. Camera - positioned with generous top headroom for rabbit ears
     const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 100);
-    camera.position.set(0, 0.5, 3.7);
+    camera.position.set(0, 0.35, 3.8);
+    camera.lookAt(0, -0.15, 0);
 
     // 3. Renderer with high performance & power efficiency
     const renderer = new THREE.WebGLRenderer({
@@ -109,13 +110,13 @@ export const Nour3DCanvas: React.FC<Nour3DCanvasProps> = ({
         const size = box.getSize(new THREE.Vector3());
 
         const maxDim = Math.max(size.x, size.y, size.z);
-        const scale = 2.05 / maxDim;
+        const scale = 1.82 / maxDim; // scaled down to prevent ear cutoff
         baseScaleRef.current = scale;
         model.scale.set(scale, scale, scale);
 
-        // Center on X and Z, adjust Y so it rests nicely on floor plane
+        // Center on X and Z, adjust Y lower so it sits comfortably without clipping
         model.position.x = -center.x * scale;
-        model.position.y = -center.y * scale - 0.12;
+        model.position.y = -center.y * scale - 0.36;
         model.position.z = -center.z * scale;
 
         scene.add(model);
@@ -168,8 +169,8 @@ export const Nour3DCanvas: React.FC<Nour3DCanvasProps> = ({
 
       if (modelRef.current) {
         if (!prefersReducedMotion) {
-          // Base position
-          const baseY = -0.12;
+          // Base position - positioned lower to ensure head & ears remain completely in frame
+          const baseY = -0.36;
 
           // Mode-specific animations
           if (mode === 'talking') {
@@ -281,8 +282,8 @@ export const Nour3DCanvas: React.FC<Nour3DCanvasProps> = ({
           {/* Animated 3D/CSS Companion Fallback with glowing aura */}
           <div className="relative">
             <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-tr from-[#172B46] via-[#2868C7] to-[#D8BE83] p-1 shadow-2xl animate-pulse">
-              <div className="w-full h-full rounded-full bg-[#172B46] flex items-center justify-center text-4xl sm:text-5xl border border-white/20">
-                🐰
+              <div className="w-full h-full rounded-full bg-[#172B46] flex items-center justify-center border border-white/20">
+                <Bot size={44} className="text-[#D8BE83]" />
               </div>
             </div>
             {/* Orbital Rings */}

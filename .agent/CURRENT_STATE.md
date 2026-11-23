@@ -17,6 +17,7 @@
 - `ced9efa`: feat(phase02.3): unify 3D child world experience, integrate GLB companion model, and streamline landing page navigation
 - `4b4b268`: feat(ui): update typography, 2-line hero headline, mobile widget, and 3D companion refinements
 - `cd33f3a`: feat(phase02.4): enterprise visual refinement, glassmorphism tokens, code-split 3D companion, and trilingual parity
+- `[Pending Commit]`: feat(experience): directional hero mobile tilt, 3D companion repositioning, Lucide simulation icons, tactile audio, and stop speech control
 **Publishing Status:** Local implementation completed; remote push is not authorized.  
 
 ---
@@ -63,6 +64,15 @@
    - **Midnight Navy Global Footer (Gate 8):**
      - Deep Midnight Navy linear gradient (`#0F1E32` to `#0A1422`) with gold radiant accent line (`#D8BE83`).
      - Circular official logo badge, organized navigation groups, accessible focus rings, and explicit non-diagnostic boundary notice.
+   - **Interactive 3D Simulation & UX Polish:**
+     - **Hero Mobile Directional Tilt:** Slanted `mobile.png` with smooth transitions (`rotate-[4.5deg]` in RTL left-to-right; `-rotate-[4.5deg]` in LTR right-to-left).
+     - **3D Companion Headroom:** Scaled model to `1.82` and shifted base Y to `-0.36` in `Nour3DCanvas.tsx` to completely resolve robot rabbit ear cutoff.
+     - **Pure Lucide Icons Across Simulation:** Replaced all unicode emojis across Family Hub, Sibling Switcher, Theme Wizard, Pictogram Cards, Routine Checklist, and Companion Action Chips with dedicated Lucide SVG icons.
+     - **9 Tactile Pictograms Per Theme:** Expanded AAC communication grid to 9 cards per theme with themed badge tints.
+     - **Tactile Audio Feedback Engine:** Integrated zero-dependency Web Audio API synthesizer for tactile pop, chime, uncheck, and celebration sounds.
+     - **Interactive Daily Routine Checklist:** Interactive item completion toggles, animated checkboxes, and star count tracking with celebratory fanfare on completion.
+     - **Speech Synthesis Stop Control:** Added immediate "Stop" vocalization button (`Square`) with `window.speechSynthesis.cancel()`.
+     - **Child Age Label:** Cleaned up label to `عمر الطفل` / `Child Age` / `Âge de l'enfant`, removing `(من 0 إلى 100 سنة)`.
    - **Engineering QA & Security Standards:**
      - 46 automated assertions passing (`npm test`).
      - 100% bidirectional translation parity across AR, FR, EN with zero missing keys and pure Arabic brand naming (no mixed Latin).
