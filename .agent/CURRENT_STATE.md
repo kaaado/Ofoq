@@ -26,6 +26,7 @@
 - `4ead3a0`: fix(3d): scale companion model up to 2.05 and center perfectly in canvas viewport
 - `cc69d96`: fix(3d): adjust companion model baseY to -0.42 and scale to 1.78 to guarantee generous top ear headroom
 - `5646a9f`: fix(3d): shift companion base position to Y=-0.70 with camera looking at Y=-0.40 for deep top clearance
+- `d61aeb3`: fix(3d): ground companion model in lower viewport with level camera perspective and generous top clearance
 **Publishing Status:** Local implementation completed; remote push is not authorized.  
 
 ---
