@@ -83,14 +83,22 @@ export const WaitlistModal: React.FC<WaitlistModalProps> = ({
       const result = await supabaseService.submitWaitlist(submission);
       if (result.success) {
         setIsSuccess(true);
+        const statusMsg = result.savedLocally
+          ? (isAr
+              ? 'تم استلام طلبكم وتأمينه بنجاح (رمز الحالة: 404 - حفظ محلي احتياطي).'
+              : isFr
+              ? 'Votre demande a bien été reçue et sécurisée (Statut: 404 sauvegarde locale).'
+              : 'Your request was received and secured locally (Status: 404 local backup).')
+          : (isAr
+              ? 'تم حفظ طلبكم في قاعدة بيانات أفق الرسمية بنجاح (رمز الحالة: 200/201).'
+              : isFr
+              ? 'Votre demande a été enregistrée avec succès dans la base de données (Statut: 200/201).'
+              : 'Your request has been successfully registered in the database (Status: 200/201).');
+
         showToast({
           type: 'success',
           title: t(result.messageKey),
-          message: isAr
-            ? 'تم حفظ طلبكم في قاعدة بيانات أفق الرسمية.'
-            : isFr
-            ? 'Votre demande a bien été enregistrée sur la plateforme OFOQ.'
-            : 'Your request has been successfully registered on OFOQ.',
+          message: statusMsg,
         });
       } else {
         const localizedMsg = t(result.messageKey);

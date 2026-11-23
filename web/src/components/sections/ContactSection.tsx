@@ -68,26 +68,42 @@ export const ContactSection: React.FC = () => {
 
       if (res.success) {
         setSubmitted(true);
+        const successSubtext = res.savedLocally
+          ? (isAr
+              ? 'تم استلام رسالتكم وحفظها بنجاح (رمز الحالة: 404 - حفظ محلي آمن في وضع الاستعداد).'
+              : isEn
+              ? 'Your message was received and preserved safely (Status: 404 resilient queue).'
+              : 'Votre message a bien été reçu et sauvegardé (Statut: 404 sauvegarde locale).')
+          : (isAr
+              ? 'شكراً لتواصلكم، تم إرسال رسالتكم بنجاح إلى قاعدة البيانات (رمز الحالة: 200/201).'
+              : isEn
+              ? 'Thank you for reaching out! Message sent to database (Status: 200/201).'
+              : 'Merci pour votre message, enregistré avec succès (Statut: 200/201).');
+
         showToast({
           type: 'success',
           title: t(res.messageKey),
-          message: isAr
-            ? 'شكراً لتواصلكم، سيتصل بكم فريق أفق قريباً.'
-            : isEn
-            ? 'Thank you for reaching out. Our team will contact you shortly.'
-            : 'Merci pour votre message. Notre équipe vous recontactera rapidement.'
+          message: successSubtext
         });
       } else {
         const localizedMsg = t(res.messageKey);
+        const errorSubtext = res.statusCode === 500
+          ? (isAr
+              ? 'خطأ مؤقت في الخادم (رمز الحالة: 500)، يرجى المحاولة لاحقاً.'
+              : isEn
+              ? 'Temporary server error (Status: 500), please try again later.'
+              : 'Erreur temporaire du serveur (Statut: 500), veuillez réessayer plus tard.')
+          : (isAr
+              ? 'يرجى مراجعة الحقول وإعادة المحاولة.'
+              : isEn
+              ? 'Please review fields and try again.'
+              : 'Veuillez vérifier vos informations et réessayer.');
+
         setErrorMsg(localizedMsg);
         showToast({
           type: 'error',
           title: localizedMsg,
-          message: isAr
-            ? 'يرجى مراجعة الحقول وإعادة المحاولة.'
-            : isEn
-            ? 'Please review fields and try again.'
-            : 'Veuillez vérifier vos informations et réessayer.'
+          message: errorSubtext
         });
       }
     } catch (err: any) {

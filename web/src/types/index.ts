@@ -34,12 +34,17 @@ export type FormResponse =
       success: true;
       messageKey: 'forms.success.waitlist' | 'forms.success.contact';
       recordId?: string;
+      statusCode?: number;
+      savedLocally?: boolean;
+      rawError?: string;
     }
   | {
       success: false;
       messageKey: FormResponseKey;
       fieldErrors?: Record<string, string>;
       rawError?: string;
+      statusCode?: number;
+      savedLocally?: boolean;
     };
 
 // Backward-compatible alias for existing imports

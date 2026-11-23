@@ -58,7 +58,7 @@ import { ScrollReveal } from '../common/ScrollReveal';
 const Nour3DCanvas = lazy(() => import('../3d/Nour3DCanvas').then(m => ({ default: m.Nour3DCanvas })));
 
 // ----------------------------------------------------
-// TACTILE WEB AUDIO API SYNTHESIZER (ZERO EXTERNAL ASSETS)
+// CALM ACOUSTIC WEB AUDIO SYNTHESIZER (ORGANIC WOODEN MARIMBA & TIBETAN CHIME)
 // ----------------------------------------------------
 const playTactileFeedback = (type: 'pop' | 'chime' | 'uncheck' | 'celebrate' | 'click' = 'click') => {
   try {
@@ -66,53 +66,200 @@ const playTactileFeedback = (type: 'pop' | 'chime' | 'uncheck' | 'celebrate' | '
     if (!AudioCtx) return;
     const ctx = new AudioCtx();
     const now = ctx.currentTime;
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.connect(gain);
-    gain.connect(ctx.destination);
+
+    // Organic low-pass filter to remove any harsh digital edge or synthetic click
+    const filter = ctx.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.setValueAtTime(1400, now);
+    filter.connect(ctx.destination);
 
     if (type === 'click' || type === 'pop') {
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(540, now);
-      osc.frequency.exponentialRampToValueAtTime(760, now + 0.08);
-      gain.gain.setValueAtTime(0.08, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
-      osc.start(now);
-      osc.stop(now + 0.08);
+      // Warm acoustic wooden marimba drop
+      const osc1 = ctx.createOscillator();
+      const osc2 = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      osc1.type = 'sine';
+      osc2.type = 'triangle';
+      osc1.frequency.setValueAtTime(440, now);
+      osc1.frequency.exponentialRampToValueAtTime(580, now + 0.06);
+      osc2.frequency.setValueAtTime(880, now);
+      osc2.frequency.exponentialRampToValueAtTime(1160, now + 0.06);
+
+      gain.gain.setValueAtTime(0.001, now);
+      gain.gain.linearRampToValueAtTime(0.07, now + 0.012); // gentle organic attack
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.12); // smooth acoustic decay
+
+      osc1.connect(gain);
+      osc2.connect(gain);
+      gain.connect(filter);
+
+      osc1.start(now);
+      osc2.start(now);
+      osc1.stop(now + 0.13);
+      osc2.stop(now + 0.13);
     } else if (type === 'chime') {
-      osc.type = 'triangle';
-      osc.frequency.setValueAtTime(440, now);
-      osc.frequency.setValueAtTime(660, now + 0.08);
-      osc.frequency.exponentialRampToValueAtTime(880, now + 0.2);
-      gain.gain.setValueAtTime(0.09, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
-      osc.start(now);
-      osc.stop(now + 0.25);
-    } else if (type === 'uncheck') {
+      // Soothing Tibetan singing bowl / calm bell resonance
+      const osc = ctx.createOscillator();
+      const sub = ctx.createOscillator();
+      const gain = ctx.createGain();
+
       osc.type = 'sine';
-      osc.frequency.setValueAtTime(480, now);
-      osc.frequency.exponentialRampToValueAtTime(320, now + 0.08);
-      gain.gain.setValueAtTime(0.06, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+      sub.type = 'sine';
+      osc.frequency.setValueAtTime(528, now); // 528Hz calming tone
+      sub.frequency.setValueAtTime(264, now); // warm lower octave foundation
+
+      gain.gain.setValueAtTime(0.001, now);
+      gain.gain.linearRampToValueAtTime(0.08, now + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.55);
+
+      osc.connect(gain);
+      sub.connect(gain);
+      gain.connect(filter);
+
       osc.start(now);
-      osc.stop(now + 0.08);
+      sub.start(now);
+      osc.stop(now + 0.6);
+      sub.stop(now + 0.6);
+    } else if (type === 'uncheck') {
+      // Soft downward raindrop
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(420, now);
+      osc.frequency.exponentialRampToValueAtTime(280, now + 0.09);
+
+      gain.gain.setValueAtTime(0.001, now);
+      gain.gain.linearRampToValueAtTime(0.05, now + 0.01);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.1);
+
+      osc.connect(gain);
+      gain.connect(filter);
+      osc.start(now);
+      osc.stop(now + 0.11);
     } else if (type === 'celebrate') {
-      [523.25, 659.25, 783.99, 1046.5].forEach((freq, i) => {
+      // Gentle acoustic wind chimes progression (pentatonic warmth)
+      [440, 528, 660, 880].forEach((freq, i) => {
         const o = ctx.createOscillator();
         const g = ctx.createGain();
         o.type = 'sine';
-        o.frequency.setValueAtTime(freq, now + i * 0.06);
-        g.gain.setValueAtTime(0.06, now + i * 0.06);
-        g.gain.exponentialRampToValueAtTime(0.001, now + i * 0.06 + 0.3);
+        o.frequency.setValueAtTime(freq, now + i * 0.07);
+
+        g.gain.setValueAtTime(0.001, now + i * 0.07);
+        g.gain.linearRampToValueAtTime(0.06, now + i * 0.07 + 0.015);
+        g.gain.exponentialRampToValueAtTime(0.0001, now + i * 0.07 + 0.45);
+
         o.connect(g);
-        g.connect(ctx.destination);
-        o.start(now + i * 0.06);
-        o.stop(now + i * 0.06 + 0.35);
+        g.connect(filter);
+        o.start(now + i * 0.07);
+        o.stop(now + i * 0.07 + 0.5);
       });
     }
   } catch {
     // Autoplay restrictions or silent mode fallback
   }
+};
+
+// ----------------------------------------------------
+// NATURAL HUMAN SPEECH SYNTHESIS ENGINE (NOT ROBOTIC AI)
+// ----------------------------------------------------
+const speakHumanVoice = ({
+  text,
+  lang,
+  onStart,
+  onEnd,
+  rate = 0.88,
+  pitch = 1.02
+}: {
+  text: string;
+  lang: 'ar' | 'fr' | 'en';
+  onStart?: () => void;
+  onEnd?: () => void;
+  rate?: number;
+  pitch?: number;
+}) => {
+  if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
+    if (onStart) onStart();
+    setTimeout(() => {
+      if (onEnd) onEnd();
+    }, 1800);
+    return;
+  }
+
+  try {
+    window.speechSynthesis.cancel();
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = rate;
+    utterance.pitch = pitch;
+    utterance.volume = 0.95;
+
+    // Detect and select warm, natural, human neural voices
+    const voices = window.speechSynthesis.getVoices();
+    let selectedVoice: SpeechSynthesisVoice | null = null;
+
+    if (lang === 'ar') {
+      utterance.lang = 'ar-DZ';
+      selectedVoice =
+        voices.find(v => v.lang.startsWith('ar') && (v.name.toLowerCase().includes('natural') || v.name.toLowerCase().includes('online') || v.name.toLowerCase().includes('amina') || v.name.toLowerCase().includes('salma') || v.name.toLowerCase().includes('neural') || v.name.toLowerCase().includes('tariq') || v.name.toLowerCase().includes('naayf'))) ||
+        voices.find(v => v.lang.startsWith('ar') && (v.name.toLowerCase().includes('google') || v.name.toLowerCase().includes('apple') || v.name.toLowerCase().includes('maged'))) ||
+        voices.find(v => v.lang.startsWith('ar')) ||
+        null;
+    } else if (lang === 'fr') {
+      utterance.lang = 'fr-FR';
+      selectedVoice =
+        voices.find(v => v.lang.startsWith('fr') && (v.name.toLowerCase().includes('natural') || v.name.toLowerCase().includes('online') || v.name.toLowerCase().includes('denise') || v.name.toLowerCase().includes('henri') || v.name.toLowerCase().includes('neural') || v.name.toLowerCase().includes('paul'))) ||
+        voices.find(v => v.lang.startsWith('fr') && (v.name.toLowerCase().includes('google') || v.name.toLowerCase().includes('thomas') || v.name.toLowerCase().includes('julie') || v.name.toLowerCase().includes('hortense'))) ||
+        voices.find(v => v.lang.startsWith('fr')) ||
+        null;
+    } else {
+      utterance.lang = 'en-US';
+      selectedVoice =
+        voices.find(v => v.lang.startsWith('en') && (v.name.toLowerCase().includes('natural') || v.name.toLowerCase().includes('online') || v.name.toLowerCase().includes('jenny') || v.name.toLowerCase().includes('guy') || v.name.toLowerCase().includes('aria') || v.name.toLowerCase().includes('neural'))) ||
+        voices.find(v => v.lang.startsWith('en') && (v.name.toLowerCase().includes('google') || v.name.toLowerCase().includes('samantha') || v.name.toLowerCase().includes('serena'))) ||
+        voices.find(v => v.lang.startsWith('en')) ||
+        null;
+    }
+
+    if (selectedVoice) {
+      utterance.voice = selectedVoice;
+    }
+
+    if (onStart) {
+      utterance.onstart = onStart;
+    }
+    utterance.onend = () => {
+      if (onEnd) onEnd();
+    };
+    utterance.onerror = () => {
+      if (onEnd) onEnd();
+    };
+
+    window.speechSynthesis.speak(utterance);
+  } catch (err) {
+    console.warn('Speech synthesis playback error:', err);
+    if (onEnd) onEnd();
+  }
+};
+
+// Authentic Algerian Darija Spoken Pictogram Map
+const DARIJA_PICTO_SPOKEN: Record<string, string> = {
+  water: 'حبيت نشرب ماء',
+  apple: 'حبيت ناكل تفاحة',
+  listen: 'راني نسمع مليح للصوت',
+  speak: 'نعاود الكلمة بالعقل',
+  puzzle: 'نلعب بالألعاب والتركيبات',
+  happy: 'فرحان بزاف بنطقي وخدمتي',
+  help: 'عاونوني ربي يحفظكم',
+  break: 'حبيت نريّح ونرتاح شوية',
+  hug: 'حبيت عناق حنين ودافي',
+  snack: 'حبيت ناكل وجبة خفيفة',
+  rest: 'استراحة هادئة ومريحة',
+  play: 'نلعب بلطف وبالشوية',
+  draw: 'نرسم بالألوان الزينة',
+  sleep: 'وقت الرقاد والنوم الهادي',
+  wash: 'نغسل يديّ بالماء والصابون',
+  outdoor: 'نخرج للحديقة نلعب'
 };
 
 // ----------------------------------------------------
@@ -415,7 +562,7 @@ export const UnifiedChildWorldExperience: React.FC = () => {
   const [homePracticeLogged, setHomePracticeLogged] = useState<boolean>(false);
   const [isPlayingGuidance, setIsPlayingGuidance] = useState<boolean>(false);
 
-  // Play spoken clinical guidance from Dr. Benali
+  // Play spoken clinical guidance from Dr. Benali with calm, human voice
   const handlePlaySpecialistGuidance = () => {
     if (isPlayingGuidance) {
       if ('speechSynthesis' in window) {
@@ -428,23 +575,20 @@ export const UnifiedChildWorldExperience: React.FC = () => {
     setIsPlayingGuidance(true);
     playTactileFeedback('chime');
 
-    const guidanceText = isAr
-      ? `توجيه ${currentProfile.specialistName}: نركز اليوم في البيت على ربط كلمتي ماء وأريد عند العطش، مع تشجيع ${currentProfile.nameAr} على الإشارة للبطاقة ونطقها بهدوء.`
+    const guidanceSpokenText = isAr
+      ? `توجيه الطبيب بن علي: اليوم في الدار، نولفو ${currentProfile.nameAr} يربط بين بطاقة الماء وحبيت نشرب كي يعطش، ونشجعوه يورّي بيدو ويهدر بالعقل وبلا ضغط.`
       : isEn
-      ? `Guidance from ${currentProfile.specialistName}: Practice combining water and want cards at home when thirsty.`
-      : `Consigne du ${currentProfile.specialistName} : Associer les pictogrammes eau et vouloir au quotidien sans pression.`;
+      ? `Guidance from Dr. Benali: Practice combining water and want cards at home when thirsty, taking time with zero pressure.`
+      : `Consigne du Dr. Benali : Encourageons ${currentProfile.nameFr} à la maison à associer le geste et la parole pour exprimer ses besoins en douceur, sans pression.`;
 
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(guidanceText);
-      utterance.lang = isAr ? 'ar-SA' : isEn ? 'en-US' : 'fr-FR';
-      utterance.rate = 0.95;
-      utterance.onend = () => setIsPlayingGuidance(false);
-      utterance.onerror = () => setIsPlayingGuidance(false);
-      window.speechSynthesis.speak(utterance);
-    } else {
-      setTimeout(() => setIsPlayingGuidance(false), 3000);
-    }
+    speakHumanVoice({
+      text: guidanceSpokenText,
+      lang: isAr ? 'ar' : isEn ? 'en' : 'fr',
+      rate: 0.88,
+      pitch: 1.02,
+      onStart: () => setIsPlayingGuidance(true),
+      onEnd: () => setIsPlayingGuidance(false)
+    });
   };
 
   const handleToggleHomePractice = () => {
@@ -522,81 +666,98 @@ export const UnifiedChildWorldExperience: React.FC = () => {
     playTactileFeedback('uncheck');
   };
 
-  // Read sentence builder out loud using Web Speech API
+  // Read sentence builder out loud using natural, calm human voice (with authentic Darija in Arabic mode)
   const handleVocalizeSentence = () => {
     if (selectedPictoIds.length === 0) return;
     playTactileFeedback('chime');
-    const pictoMap = new Map(currentThemeConfig.pictos.map((p) => [p.id, p]));
-    const words = selectedPictoIds
-      .map((id) => pictoMap.get(id))
-      .filter((p): p is typeof currentThemeConfig.pictos[0] => p !== undefined)
-      .map((p) => (isAr ? p.labelAr : isEn ? p.labelEn : p.labelFr));
 
-    const sentence = words.join(isAr ? ' ، ' : ', ');
+    let spokenSentence = '';
+    if (isAr) {
+      // Authentic Algerian Darija natural pronunciation
+      const darijaWords = selectedPictoIds
+        .map((id) => DARIJA_PICTO_SPOKEN[id] || (currentThemeConfig.pictos.find((p) => p.id === id)?.labelAr || ''))
+        .filter(Boolean);
+      spokenSentence = darijaWords.join(' ، و');
+    } else if (isEn) {
+      const enWords = selectedPictoIds
+        .map((id) => currentThemeConfig.pictos.find((p) => p.id === id)?.labelEn)
+        .filter(Boolean);
+      spokenSentence = enWords.join(', and ');
+    } else {
+      const frWords = selectedPictoIds
+        .map((id) => currentThemeConfig.pictos.find((p) => p.id === id)?.labelFr)
+        .filter(Boolean);
+      spokenSentence = frWords.join(', et ');
+    }
+
     setIsVocalizing(true);
     setNourMode('talking');
 
-    if ('speechSynthesis' in window) {
-      const utterance = new SpeechSynthesisUtterance(sentence);
-      utterance.lang = isAr ? 'ar-SA' : isEn ? 'en-US' : 'fr-FR';
-      utterance.rate = 0.85;
-      window.speechSynthesis.cancel();
-      window.speechSynthesis.speak(utterance);
-      utterance.onend = () => {
+    speakHumanVoice({
+      text: spokenSentence,
+      lang: isAr ? 'ar' : isEn ? 'en' : 'fr',
+      rate: 0.86, // deliberate, gentle, calm pace for speech therapy
+      pitch: 1.02,
+      onEnd: () => {
         setIsVocalizing(false);
         setNourMode('idle');
-      };
-      utterance.onerror = () => {
-        setIsVocalizing(false);
-        setNourMode('idle');
-      };
-    } else {
-      setTimeout(() => {
-        setIsVocalizing(false);
-        setNourMode('idle');
-      }, 1600);
-    }
+      }
+    });
   };
 
-  // Interact with Bunny companion
+  // Interact with Bunny companion (warm human voice in Darija, French & English)
   const handleNourInteraction = (intent: 'greeting' | 'encouragement' | 'calm') => {
-    let text = '';
+    let spokenText = '';
+    let bubbleText = '';
     const childName = isAr ? currentProfile.nameAr : isEn ? currentProfile.nameEn : currentProfile.nameFr;
 
     if (intent === 'greeting') {
       setNourMode('greeting');
-      text = isAr
-        ? `مرحباً يا ${childName}! أنا باني، رفيقك في رحلة التعبير واكتشاف الكلمات اليوم.`
-        : isEn
-        ? `Hello ${childName}! I am Bunny, your encouraging friend for speech and games.`
-        : `Bonjour ${childName} ! Je suis Bunny, ton compagnon bienveillant pour t'exprimer.`;
+      if (isAr) {
+        spokenText = `يا هلا بيك يا ${childName}! واش راك يا الشاطر؟ أنا باني صحيبك، راني فرحان بزاف اللي راك معايا اليوم فهاد العالم الزين. هيا نلعبو ونتعلمو الهدرة مع بعض!`;
+        bubbleText = `يا هلا بيك يا ${childName}! أنا باني، صحيبك لي راح نلعبو ونتعلمو الهدرة مع بعض. واش رايك نبسطو اليوم؟`;
+      } else if (isEn) {
+        spokenText = `Hello my friend ${childName}! I'm Bunny, your gentle friend. I'm so happy to be here with you today! Let's play and discover new words together.`;
+        bubbleText = `Hello ${childName}! I am Bunny, your encouraging friend for speech, play and growing together.`;
+      } else {
+        spokenText = `Bonjour mon petit ${childName} ! C'est Bunny, ton compagnon bienveillant. Je suis tellement heureux d'être avec toi aujourd'hui ! Viens, on va s'amuser et explorer les mots ensemble.`;
+        bubbleText = `Bonjour ${childName} ! Je suis Bunny, ton compagnon bienveillant pour t'exprimer et explorer en toute confiance.`;
+      }
     } else if (intent === 'encouragement') {
       setNourMode('talking');
-      text = isAr
-        ? 'أحسنت يا بطل! كل محاولة نطق وكل بطاقة تختارها هي خطوة عظيمة نفتخر بها جميعاً.'
-        : isEn
-        ? 'Amazing effort! Every card you choose and word you try is a milestone to celebrate.'
-        : 'Bravo champion ! Chaque carte posée et chaque mot tenté est une magnifique victoire.';
+      if (isAr) {
+        spokenText = `يعطيك الصحة يا بطل! راك فور بزاف وخدمتك هايلة. كل كلمة تقولها وكل بطاقة تخيرها رانا فرحانين بيك وبنطقك، كمل هكذا يا الشاطر راك شرفتنا!`;
+        bubbleText = `يعطيك الصحة يا بطل! راك فور بزاف.. كل كلمة تقولها وكل بطاقة تخيرها رانا فرحانين بيك وبنطقك، كمل هكذا راك شاطر!`;
+      } else if (isEn) {
+        spokenText = `You are doing amazing, little champion! Every single word you try and card you share makes us all so proud. Keep shining!`;
+        bubbleText = `Amazing effort! Every card you choose and word you try is a wonderful milestone to celebrate together.`;
+      } else {
+        spokenText = `Bravo champion ! Tu fais des progrès formidables. Chaque mot prononcé et chaque carte choisie est une vraie victoire, je suis très fier de toi !`;
+        bubbleText = `Bravo champion ! Chaque carte posée et chaque mot tenté est une magnifique victoire dont nous sommes fiers.`;
+      }
     } else {
       setNourMode('calm');
-      text = isAr
-        ? 'دعنا نأخذ نفساً هادئاً وعميقاً معاً... عالمك هنا آمن ومريح، خذ كل وقتك.'
-        : isEn
-        ? 'Let\'s take a gentle, deep breath together... Your world is calm, safe, and entirely yours.'
-        : 'Prenons une profonde inspiration douce ensemble... Ton monde est apaisé et bienveillant.';
+      if (isAr) {
+        spokenText = `أهيا نتنفسو مع بعض بالشوية وبالراحة... تنفس بالعقل شهيق هادي... وخرج النفس زفير لطيف... راك في أمان وهنا عالمك راه مرتاح ومحمي.`;
+        bubbleText = `أهيا نتنفسو مع بعض بالشوية وبالراحة... تنفس بالعقل شهيق هادي... وخرج النفس زفير لطيف... راك في أمان وعالمك راه مرتاح ومحمي.`;
+      } else if (isEn) {
+        spokenText = `Let's take a slow, gentle breath together... Breathe in calmly... and breathe out softly... You are completely safe and comfortable here.`;
+        bubbleText = `Let's take a gentle, deep breath together... Your world is calm, safe, and entirely yours.`;
+      } else {
+        spokenText = `Respirons tout doucement ensemble... Une douce inspiration paisible... et souffle calmement... Tu es en totale sécurité, détends-toi.`;
+        bubbleText = `Prenons une profonde inspiration douce ensemble... Ton monde est apaisé, sécurisant et bienveillant.`;
+      }
     }
 
-    setCompanionBubble(text);
+    setCompanionBubble(bubbleText);
 
-    if ('speechSynthesis' in window) {
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = isAr ? 'ar-SA' : isEn ? 'en-US' : 'fr-FR';
-      utterance.rate = 0.9;
-      window.speechSynthesis.cancel();
-      window.speechSynthesis.speak(utterance);
-      utterance.onend = () => setNourMode(intent === 'calm' ? 'calm' : 'idle');
-      utterance.onerror = () => setNourMode(intent === 'calm' ? 'calm' : 'idle');
-    }
+    speakHumanVoice({
+      text: spokenText,
+      lang: isAr ? 'ar' : isEn ? 'en' : 'fr',
+      rate: intent === 'calm' ? 0.82 : 0.88,
+      pitch: 1.02,
+      onEnd: () => setNourMode(intent === 'calm' ? 'calm' : 'idle')
+    });
   };
 
   // Launch Genesis Generation Sequence
