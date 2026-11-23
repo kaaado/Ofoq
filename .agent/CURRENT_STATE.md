@@ -14,6 +14,8 @@
 - `73e3170`: feat(phase02): implement interactive 6-step Child World creator, 3D companion avatar, and Phase 02 architecture
 - `04133b6`: docs(state): update current operational state with phase 02 implementation commit
 - `b258191`: feat(ui): implement 3-mobile flower layout, 58 wilayas, Saida pilot, circular logo, and pure language parity
+- `ced9efa`: feat(phase02.3): unify 3D child world experience, integrate GLB companion model, and streamline landing page navigation
+- `4b4b268`: feat(ui): update typography, 2-line hero headline, mobile widget, and 3D companion refinements
 **Publishing Status:** Local implementation completed; remote push is not authorized.  
 
 ---
@@ -40,6 +42,23 @@
    - **Streamlined Navigation & Landing Page:**
      - Streamlined `Header.tsx` and `HomePage.tsx` with a single `#experience` navigation anchor.
      - Retained backward-compatible internal anchors (`#creator`, `#child-world`, `#ai-companion`).
+   - **UI/UX, Typography & 3D Companion Refinements (`4b4b268`):**
+     - **Typography:** Configured `Cairo` for Arabic typography across all elements; `Poppins` for headings/UI and `Lato` for body prose across Latin scripts (FR/EN).
+     - **Hero Headline:** Enforced strict 2-line rendering across English, French, and Arabic.
+     - **Hero CTAs & Navigation:** Removed `[Expérience 3D ↓]`; rendered single-row buttons with padding and `whitespace-nowrap`.
+     - **Hero Mobile Visual:** Replaced CSS 3-phone layout with high-resolution floating mobile widget featuring `resources/mobile.png`.
+     - **3D Companion Overhaul:**
+       - Replaced deprecated `THREE.Clock` with high-precision `performance.now()`, removing all console warnings.
+       - Renamed companion to "Bunny" (`باني` in Arabic, `Bunny` in FR/EN).
+       - Removed "Bunny-Bot 3000" and CC-BY-4.0 badges/labels.
+       - Added synchronized speech animation (head bob/nod, ear movement, speech-frequency oscillation) during voice vocalization.
+       - Fixed speech bubble positioning cleanly above Bunny with downward pointer without head occlusion.
+       - Added interactive click support directly on Bunny (happy nod/bob + vocal greeting).
+     - **Language Purity:** Guaranteed 100% pure language per active locale with zero Arabic/French mix in dialogs, routines, and specialist cards.
+     - **Card Heights & Sizing:** Equalized heights across Safety cards, Professional Onboarding steps (1-4), and Value cards.
+     - **Child World Setup Form:** Min/max name validation (3-200), removed "(Sans mot de passe)", number input for age (0-100), beautified theme universe cards with gradient glassmorphism and color swatches.
+     - **Deployment Scope:** Updated footer note to progressive national deployment across all 58 wilayas.
+     - **Official Logo:** Enhanced circular container with `object-contain` for `resources/logo.png`.
    - **Engineering QA & Security Standards:**
      - 46 automated assertions passing (`npm test`).
      - 100% bidirectional translation parity across AR, FR, EN with zero missing keys and pure Arabic brand naming (no mixed Latin).
