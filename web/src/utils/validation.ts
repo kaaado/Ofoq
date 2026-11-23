@@ -60,13 +60,21 @@ export const ALGERIAN_WILAYAS = [
 ];
 
 export function validateContact(value: string): boolean {
-  if (!value || value.trim().length < 5) return false;
+  if (!value || typeof value !== 'string') return false;
   const trimmed = value.trim();
+  if (trimmed.length < 5) return false;
   
-  // Algerian phone regex (05/06/07 followed by 8 digits, or +213 format)
-  const phoneRegex = /^(0|\+213)[567][0-9]{8}$/;
-  // Standard email regex
+  // 1. Standard email check
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (emailRegex.test(trimmed)) return true;
 
-  return phoneRegex.test(trimmed.replace(/[\s-]/g, '')) || emailRegex.test(trimmed);
+  // 2. Flexible phone check:
+  // Strip common phone punctuation (+, spaces, hyphens, dots, parentheses)
+  const digitsOnly = trimmed.replace(/[\s\-.()+]/g, '');
+
+  // Accept valid phone numbers: 8 to 15 digits
+  // Covers Algerian mobile (05/06/07 + 8 digits = 10 digits), landline (9 digits),
+  // international format (+213... = 11-12 digits), and variations with extra digits.
+  const phoneDigitsRegex = /^\d{8,15}$/;
+  return phoneDigitsRegex.test(digitsOnly);
 }

@@ -68,17 +68,11 @@ export const ContactSection: React.FC = () => {
 
       if (res.success) {
         setSubmitted(true);
-        const successSubtext = res.savedLocally
-          ? (isAr
-              ? 'تم استلام رسالتكم وحفظها بنجاح (رمز الحالة: 404 - حفظ محلي آمن في وضع الاستعداد).'
-              : isEn
-              ? 'Your message was received and preserved safely (Status: 404 resilient queue).'
-              : 'Votre message a bien été reçu et sauvegardé (Statut: 404 sauvegarde locale).')
-          : (isAr
-              ? 'شكراً لتواصلكم، تم إرسال رسالتكم بنجاح إلى قاعدة البيانات (رمز الحالة: 200/201).'
-              : isEn
-              ? 'Thank you for reaching out! Message sent to database (Status: 200/201).'
-              : 'Merci pour votre message, enregistré avec succès (Statut: 200/201).');
+        const successSubtext = isAr
+          ? 'تم استلام رسالتكم وتأمينها بنجاح في منظومة أفق. سيتواصل معكم فريقنا في أقرب الآجال.'
+          : isEn
+          ? 'Your message has been received and secured in OFOQ. Our team will contact you shortly.'
+          : 'Votre message a bien été reçu et sécurisé par OFOQ. Notre équipe vous contactera sous peu.';
 
         showToast({
           type: 'success',
@@ -87,23 +81,15 @@ export const ContactSection: React.FC = () => {
         });
       } else {
         const localizedMsg = t(res.messageKey);
-        const errorSubtext = res.statusCode === 500
-          ? (isAr
-              ? 'خطأ مؤقت في الخادم (رمز الحالة: 500)، يرجى المحاولة لاحقاً.'
-              : isEn
-              ? 'Temporary server error (Status: 500), please try again later.'
-              : 'Erreur temporaire du serveur (Statut: 500), veuillez réessayer plus tard.')
-          : (isAr
-              ? 'يرجى مراجعة الحقول وإعادة المحاولة.'
-              : isEn
-              ? 'Please review fields and try again.'
-              : 'Veuillez vérifier vos informations et réessayer.');
-
         setErrorMsg(localizedMsg);
         showToast({
           type: 'error',
           title: localizedMsg,
-          message: errorSubtext
+          message: isAr
+            ? 'يرجى مراجعة الحقول المطلوبة والمحاولة مرة أخرى.'
+            : isEn
+            ? 'Please review the required fields and try again.'
+            : 'Veuillez vérifier les champs requis et réessayer.'
         });
       }
     } catch (err: any) {

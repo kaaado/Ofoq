@@ -75,3 +75,13 @@ USING (false);
 
 -- Reload PostgREST schema cache
 NOTIFY pgrst, 'reload schema';
+
+-- ==============================================================================
+-- 3. Explicit Grants for PostgREST anon and authenticated roles
+-- (Required in PostgreSQL so anon role can execute INSERT before RLS checks)
+-- ==============================================================================
+GRANT USAGE ON SCHEMA public TO anon, authenticated;
+GRANT INSERT ON TABLE public.waitlist_submissions TO anon, authenticated;
+GRANT INSERT ON TABLE public.contact_submissions TO anon, authenticated;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO anon, authenticated;
+

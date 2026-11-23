@@ -29,6 +29,8 @@
 - `d61aeb3`: fix(3d): ground companion model in lower viewport with level camera perspective and generous top clearance
 - `8c9d407`: feat(supabase): connect dedicated project credentials, add schema migration, and configure vercel hosting
 - `9ae6677`: feat(audio-api): implement status 200/404/500 fetch handling and natural human voice in Algerian Darija, French & English
+- `563f433`: docs(state): record commit 9ae6677 in operational state
+- `dd56af9`: fix(forms-ux): make waitlist modal responsive, accept flexible phone formats, eliminate 401 error blocks, and add explicit postgres grants
 **Publishing Status:** Deployed to Vercel Production (`https://ofoq-delta.vercel.app`). Remote Git repository synchronized (`https://github.com/kaaado/Ofoq.git`).  
 
 ---

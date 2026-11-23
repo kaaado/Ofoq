@@ -1,6 +1,14 @@
 import { SupabaseService } from '../src/services/supabaseService';
+import { validateContact } from '../src/utils/validation';
 
 async function testFetchHandling() {
+  console.log('=== TESTING CONTACT VALIDATION ===');
+  console.log('05921340404 valid:', validateContact('05921340404'));
+  console.log('0550121212 valid:', validateContact('0550121212'));
+  console.log('zaeaze valid:', validateContact('zaeaze'));
+  console.log('0505050505 valid:', validateContact('0505050505'));
+  console.log('test@email.com valid:', validateContact('test@email.com'));
+
   console.log('=== TESTING SUPABASE SERVICE FETCH & STATUS CODE HANDLING ===');
 
   const service = new SupabaseService();
