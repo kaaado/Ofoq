@@ -28,6 +28,7 @@
 - `5646a9f`: fix(3d): shift companion base position to Y=-0.70 with camera looking at Y=-0.40 for deep top clearance
 - `d61aeb3`: fix(3d): ground companion model in lower viewport with level camera perspective and generous top clearance
 - `8c9d407`: feat(supabase): connect dedicated project credentials, add schema migration, and configure vercel hosting
+- `9ae6677`: feat(audio-api): implement status 200/404/500 fetch handling and natural human voice in Algerian Darija, French & English
 **Publishing Status:** Deployed to Vercel Production (`https://ofoq-delta.vercel.app`). Remote Git repository synchronized (`https://github.com/kaaado/Ofoq.git`).  
 
 ---
