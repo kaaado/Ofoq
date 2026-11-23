@@ -8,8 +8,10 @@
   },
   "nav": {
     "home": "Home",
-    "ecosystem": "The Ecosystem",
+    "creator": "3D Simulator",
     "child_world": "Child Worlds (AAC)",
+    "ai_companion": "AI Companion",
+    "ecosystem": "The Ecosystem",
     "pillars": "Our Pillars",
     "families": "For Families",
     "professionals": "For Professionals",

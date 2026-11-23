@@ -59,28 +59,31 @@ To maintain a serene, premium atmosphere, the palette is applied with intentiona
 
 ### 2.2 Complete Color Matrix & Derived Tones
 
-To satisfy WCAG 2.1 AA accessibility and provide robust UI states, the five core colors are extended into derived functional tones:
+To satisfy WCAG 2.1 AA accessibility and provide robust UI states, the core palette is extended into derived functional tones:
 
 | Token | Hex Value | Role / Usage | Contrast Ratio vs Porcelain (`#F5F6F3`) |
 | :--- | :--- | :--- | :---: |
-| **`navy.base`** *(Official)* | `#172B46` | Primary headers, dark surfaces, authoritative containers | **12.4:1 (Passes AAA)** |
+| **`navy.base`** *(Primary)* | `#172B46` | Primary headers, dark surfaces, authoritative containers | **12.4:1 (Passes AAA)** |
 | `navy.dark` | `#0F1E32` | High-contrast dark mode canvas, footer background | 15.1:1 (Passes AAA) |
 | `navy.light` | `#223B5E` | Elevated dark glass panels, secondary dark buttons | 9.8:1 (Passes AAA) |
 | `navy.muted` | `#5B6E85` | Subtitles, secondary body copy, helper text | 4.9:1 (Passes AA) |
-| **`blue.base`** *(Official)* | `#A9C5D8` | Secondary brand surface, atmospheric glow, inactive tabs | 1.6:1 (Decorative / Tint) |
-| `blue.light` | `#DCE8F0` | Subtle background tint for informational cards | 1.2:1 (Surface) |
-| `blue.ultralight`| `#EDF4F8` | Very soft hover states and alternate row striping | 1.05:1 (Surface) |
-| `blue.dark` | `#4B728F` | Accessible text on light blue surfaces, links | 4.8:1 (Passes AA) |
-| **`coral.base`** *(Official)* | `#D58C7A` | Primary interactive buttons, key conversion CTAs | 2.5:1 (Component / Large) |
-| `coral.hover` | `#C27765` | Active hover state for primary buttons | 3.1:1 (Large text / UI) |
+| **`royal.base`** *(Secondary)* | `#2868C7` | Hope, technology, active buttons, planet halos, primary CTAs | **4.6:1 (Passes AA)** |
+| `royal.hover` | `#1E54A3` | Hover state on royal blue interactive elements | 6.2:1 (Passes AA) |
+| `royal.dark` | `#153C78` | Deep focus rings, borders on glowing components | 8.7:1 (Passes AAA) |
+| `royal.soft` | `#E9F1FC` | Soft tint behind interactive cards and tabs | 1.1:1 (Surface) |
+| **`cloud.base`** *(Supporting)* | `#A9C5D8` | Calm surfaces, atmospheric glow, translucent glass borders | 1.6:1 (Decorative / Tint) |
+| `cloud.light` | `#DCE8F0` | Subtle background tint for informational cards | 1.2:1 (Surface) |
+| `cloud.dark` | `#4B728F` | Accessible text on light blue surfaces, secondary links | 4.8:1 (Passes AA) |
+| **`coral.base`** *(Human Accent)* | `#D58C7A` | Human warmth, empathy highlights, AAC tactile feedback | 2.5:1 (Component / Large) |
+| `coral.hover` | `#C27765` | Active hover state for warm buttons | 3.1:1 (Large text / UI) |
 | `coral.dark` | `#9E4E3D` | Accessible coral text on light surfaces | 5.2:1 (Passes AA) |
 | `coral.soft` | `#F8E7E3` | Badge container fill, highlighted notification tint | 1.1:1 (Decorative) |
-| **`gold.base`** *(Official)* | `#D8BE83` | Achievement stars, premium badges, milestone rings | 1.6:1 (Accent / Icon) |
+| **`gold.base`** *(Accent)* | `#D8BE83` | Achievement stars, Spacetoon planet rings, milestone badges | 1.6:1 (Accent / Icon) |
 | `gold.dark` | `#8C733E` | Accessible gold text, milestone labels | 4.6:1 (Passes AA) |
 | `gold.soft` | `#FAF4E8` | Trophy / celebration container fill | 1.05:1 (Surface) |
-| **`porcelain.base`** *(Official)*| `#F5F6F3`| Master application background (light mode canvas) | Base Canvas |
+| **`porcelain.base`** *(Canvas)* | `#F5F6F3` | Master application background (light mode canvas) | Base Canvas |
 | `porcelain.pure` | `#FFFFFF` | Solid elevated card surface, input background | 1.05:1 (Card surface) |
-| `porcelain.darker`| `#E5E7E0`| Subtle dividers, card borders, inactive outlines | 1.2:1 (Borders) |
+| `porcelain.darker` | `#E5E7E0` | Subtle dividers, card borders, inactive outlines | 1.2:1 (Borders) |
 
 ### 2.3 Semantic Tokens
 
@@ -88,11 +91,24 @@ To satisfy WCAG 2.1 AA accessibility and provide robust UI states, the five core
 :root {
   /* Brand Tokens */
   --ofoq-brand-primary: #172B46;
-  --ofoq-brand-secondary: #A9C5D8;
-  --ofoq-brand-accent: #D58C7A;
-  --ofoq-brand-premium: #D8BE83;
+  --ofoq-brand-secondary: #2868C7;
+  --ofoq-brand-supporting: #A9C5D8;
+  --ofoq-brand-accent: #D8BE83;
+  --ofoq-brand-human: #D58C7A;
+  --ofoq-canvas: #F5F6F3;
 
   /* Surfaces */
+  --ofoq-surface-card: rgba(255, 255, 255, 0.85);
+  --ofoq-surface-glass: rgba(255, 255, 255, 0.7);
+  --ofoq-surface-glow: rgba(40, 104, 199, 0.2);
+
+  /* Functional Status */
+  --ofoq-status-success: #2D7A58;
+  --ofoq-status-warning: #C4841D;
+  --ofoq-status-error: #BA3C3C;
+  --ofoq-status-info: #2868C7;
+}
+```
   --ofoq-surface-canvas: #F5F6F3;
   --ofoq-surface-card: #FFFFFF;
   --ofoq-surface-glass-light: rgba(255, 255, 255, 0.72);

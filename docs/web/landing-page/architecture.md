@@ -14,23 +14,27 @@ The official OFOQ web platform is built as a unified, sensory-friendly single-pa
 ```
 [ Header & Dynamic Brand / Nav ]
              │
-[ 1. Hero: Ecosystem Vision & 3D Child World AAC Card ]
+[ 1. Hero: Ecosystem Vision & 3D Child World Glimpse ]
              │
-[ 2. Spacetoon-Inspired 3D Child Worlds Showcase ]
+[ 2. Interactive World Creator: 6-Step Parent-to-Child-World Journey ]
              │
-[ 3. How It Works: 3-Step Connected Architecture ]
+[ 3. Spacetoon-Inspired 3D Child Worlds Showcase ]
              │
-[ 4. About OFOQ: Mission & Clinic-to-Home Bridge ]
+[ 4. Conceptual 3D AI Companion (Noor) Interactive Showcase ]
              │
-[ 5. The 6 Core Ecosystem Pillars ]
+[ 5. How It Works: 3-Step Connected Architecture ]
              │
-[ 6. Trust & Privacy: Law 18-07 & Non-Diagnostic Boundary ]
+[ 6. The 6 Core Ecosystem Pillars ]
              │
-[ 7. Specialists & Clinics Partnership Portal ]
+[ 7. About OFOQ: Mission & Clinic-to-Home Bridge ]
              │
-[ 8. Frequently Asked Questions (FAQ) ]
+[ 8. Trust & Privacy: Law 18-07 & Non-Diagnostic Boundary ]
              │
-[ 9. Contact & Inquiries (Algiers Pilot Support) ]
+[ 9. Specialists & Clinics Partnership Portal ]
+             │
+[ 10. Frequently Asked Questions (FAQ) ]
+             │
+[ 11. Contact & Inquiries (Algiers Pilot Support) ]
              │
 [ Footer, Legal Notice & Privacy Policy Modals ]
 ```
@@ -49,7 +53,9 @@ The official OFOQ web platform is built as a unified, sensory-friendly single-pa
 | `Header` | `web/src/components/layout/Header.tsx` | Sticky glassmorphic navbar, official logo, language selector, waitlist trigger. |
 | `Footer` | `web/src/components/layout/Footer.tsx` | Ecosystem links, non-diagnostic notice, Law 18-07 privacy modal trigger. |
 | `HomePage` | `web/src/pages/HomePage.tsx` | Main orchestrator assembling all sections with shared waitlist modal state. |
-| `ChildWorldSection` | `web/src/components/sections/ChildWorldSection.tsx` | **3D Spacetoon-style Child World showcase**: demonstrates profile creation, personalized celestial planet themes, AAC cards, and routine stars. |
+| `InteractiveWorldCreator` | `web/src/components/sections/InteractiveWorldCreator.tsx` | **6-step parent-to-child-world simulator**: Demonstrates account $\to$ profile creation $\to$ world choice $\to$ animation $\to$ exploration $\to$ sibling switching. |
+| `ChildWorldsShowcase` | `web/src/components/sections/ChildWorldsShowcase.tsx` | **3D Spacetoon-style Child World showcase**: demonstrates celestial planet themes, AAC cards, and routine stars. |
+| `AiCompanionSection` | `web/src/components/sections/AiCompanionSection.tsx` | **Conceptual 3D AI Companion (Noor)**: Floating avatar, friendly reactions, non-clinical speech practice demo, and parental safety lock. |
 | `HowItWorksSection` | `web/src/components/sections/HowItWorksSection.tsx` | Visualizes the 3-step connection: 1. Family Account $\to$ 2. Child Worlds $\to$ 3. Specialist Permissions. |
 | `ServicesSection` | `web/src/components/sections/ServicesSection.tsx` | The 6 core functional pillars of the OFOQ ecosystem. |
 | `AboutSection` | `web/src/components/sections/AboutSection.tsx` | Mission, clinic-to-home bridge, and non-diagnostic educational commitment. |

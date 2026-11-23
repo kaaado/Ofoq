@@ -8,8 +8,10 @@
   },
   "nav": {
     "home": "Accueil",
-    "ecosystem": "L'Écosystème",
+    "creator": "Simulateur 3D",
     "child_world": "Mondes Enfants (CAA)",
+    "ai_companion": "Compagnon IA",
+    "ecosystem": "L'Écosystème",
     "pillars": "Nos Piliers",
     "families": "Pour les Familles",
     "professionals": "Pour les Spécialistes",

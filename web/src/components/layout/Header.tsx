@@ -29,12 +29,13 @@ export const Header: React.FC<HeaderProps> = ({ onOpenWaitlist, activeSection = 
 
   const navLinks = [
     { href: '#home', id: 'home', label: t('nav.home') },
+    { href: '#creator', id: 'creator', label: t('nav.creator') },
     { href: '#child-world', id: 'child-world', label: t('nav.child_world') },
+    { href: '#ai-companion', id: 'ai-companion', label: t('nav.ai_companion') },
     { href: '#ecosystem', id: 'ecosystem', label: t('nav.ecosystem') },
     { href: '#pillars', id: 'pillars', label: t('nav.pillars') },
-    { href: '#families', id: 'families', label: t('nav.families') },
-    { href: '#professionals', id: 'professionals', label: t('nav.professionals') },
     { href: '#safety', id: 'safety', label: t('nav.safety') },
+    { href: '#professionals', id: 'professionals', label: t('nav.professionals') },
     { href: '#faq', id: 'faq', label: t('nav.faq') },
     { href: '#contact', id: 'contact', label: t('nav.contact') },
   ];

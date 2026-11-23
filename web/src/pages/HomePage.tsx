@@ -16,7 +16,9 @@ import {
 import { ScrollReveal } from '../components/common/ScrollReveal';
 
 // Consolidated Single-Page Sections
+import { InteractiveWorldCreator } from '../components/sections/InteractiveWorldCreator';
 import { ChildWorldsShowcase } from '../components/sections/ChildWorldsShowcase';
+import { AiCompanionSection } from '../components/sections/AiCompanionSection';
 import { HowItWorksSection } from '../components/sections/HowItWorksSection';
 import { AboutSection } from '../components/sections/AboutSection';
 import { ServicesSection } from '../components/sections/ServicesSection';
@@ -399,10 +401,16 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenWaitlist }) => {
         </div>
       </section>
 
-      {/* 2. 3D SPACETOON-INSPIRED CHILD WORLDS SHOWCASE */}
+      {/* 2. INTERACTIVE 6-STEP CHILD-WORLD PROTOTYPE SIMULATOR */}
+      <InteractiveWorldCreator />
+
+      {/* 3. 3D SPACETOON-INSPIRED CHILD WORLDS SHOWCASE */}
       <ChildWorldsShowcase />
 
-      {/* 3. HOW IT WORKS SECTION (CONNECTED ECOSYSTEM 3 STEPS) */}
+      {/* 4. CONCEPTUAL 3D AI COMPANION (NOOR) INTERACTIVE SHOWCASE */}
+      <AiCompanionSection />
+
+      {/* 5. HOW IT WORKS SECTION (CONNECTED ECOSYSTEM 3 STEPS) */}
       <HowItWorksSection />
 
       {/* 3. ABOUT OFOQ (MISSION & CONTINUITY GAP) */}

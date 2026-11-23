@@ -8,8 +8,10 @@
   },
   "nav": {
     "home": "الرئيسية",
-    "ecosystem": "المنظومة",
+    "creator": "محاكي العوالم",
     "child_world": "عوالم الأطفال (التواصل)",
+    "ai_companion": "الرفيق الذكي",
+    "ecosystem": "المنظومة",
     "pillars": "ركائزنا",
     "families": "للعائلات",
     "professionals": "للأخصائيين",
