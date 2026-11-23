@@ -131,62 +131,49 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenWaitlist }) => {
           {/* Right Column: Animated Freestanding Mobile Device Showcase */}
           <div className="lg:col-span-6 relative flex justify-center items-center py-6 sm:py-12 overflow-visible">
             {/* Ambient Navy & Royal Blue Atmospheric Glow */}
-            <div className="absolute w-[320px] sm:w-[500px] h-[320px] sm:h-[500px] rounded-full bg-gradient-to-tr from-[#172B46]/20 via-[#2868C7]/25 to-[#A9C5D8]/30 blur-3xl -z-10 pointer-events-none" />
-            <div className="absolute w-[220px] sm:w-[350px] h-[220px] sm:h-[350px] rounded-full bg-[#D58C7A]/15 blur-2xl -z-10 pointer-events-none translate-y-12" />
+            <div className="absolute w-[320px] sm:w-[500px] h-[320px] sm:h-[500px] rounded-full bg-gradient-to-tr from-[#172B46]/20 via-[#2868C7]/25 to-[#A9C5D8]/30 blur-3xl -z-10 pointer-events-none transform-gpu will-change-transform" />
+            <div className="absolute w-[220px] sm:w-[350px] h-[220px] sm:h-[350px] rounded-full bg-[#D58C7A]/15 blur-2xl -z-10 pointer-events-none translate-y-12 transform-gpu will-change-transform" />
 
             {/* Container for Freestanding Mobile Widget */}
             <div className="relative w-full max-w-[320px] sm:max-w-[380px] md:max-w-[420px] flex justify-center items-center">
               
               {/* Floating Badge 1: Top-Start (Family Hub & Sibling Worlds) */}
-              <motion.div
-                initial={{ opacity: 0, y: -20, scale: 0.9 }}
-                animate={{ opacity: 1, y: [0, -6, 0], scale: 1 }}
-                transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-                className="absolute -top-4 sm:-top-6 start-0 sm:-start-6 z-20 glass-surface-2 px-4 py-2.5 rounded-2xl shadow-float-soft border border-white/80 flex items-center gap-2.5 select-none hover:scale-105 transition-transform"
-              >
-                <div className="w-7 h-7 rounded-xl bg-[#2868C7]/15 text-[#2868C7] flex items-center justify-center font-bold text-xs shrink-0">
-                  <ShieldCheck size={16} />
+              <div className="absolute -top-4 sm:-top-6 start-0 sm:-start-6 z-20 animate-float-badge-1 transform-gpu pointer-events-auto">
+                <div className="glass-surface-2 px-4 py-2.5 rounded-2xl shadow-float-soft border border-white/80 flex items-center gap-2.5 select-none hover:scale-105 transition-transform duration-300">
+                  <div className="w-7 h-7 rounded-xl bg-[#2868C7]/15 text-[#2868C7] flex items-center justify-center font-bold text-xs shrink-0">
+                    <ShieldCheck size={16} />
+                  </div>
+                  <div className="text-start">
+                    <p className="text-[10px] sm:text-[11px] font-black uppercase text-[#2868C7] leading-tight tracking-wider">
+                      {isAr ? 'فضاء العائلة المحمي' : isEn ? 'Protected Family Hub' : 'Espace Famille Sécurisé'}
+                    </p>
+                    <p className="text-[9px] sm:text-[10px] text-[#172B46]/75 font-semibold mt-0.5">
+                      {isAr ? 'عوالم مستقلة لكل طفل' : isEn ? 'Independent Child Worlds' : 'Mondes d\'enfants étanches'}
+                    </p>
+                  </div>
                 </div>
-                <div className="text-start">
-                  <p className="text-[10px] sm:text-[11px] font-black uppercase text-[#2868C7] leading-tight tracking-wider">
-                    {isAr ? 'فضاء العائلة المحمي' : isEn ? 'Protected Family Hub' : 'Espace Famille Sécurisé'}
-                  </p>
-                  <p className="text-[9px] sm:text-[10px] text-[#172B46]/75 font-semibold mt-0.5">
-                    {isAr ? 'عوالم مستقلة لكل طفل' : isEn ? 'Independent Child Worlds' : 'Mondes d\'enfants étanches'}
-                  </p>
-                </div>
-              </motion.div>
+              </div>
 
               {/* Floating Badge 2: Bottom-End (Clinical Continuity & Parent Consent) */}
-              <motion.div
-                initial={{ opacity: 0, y: 20, scale: 0.9 }}
-                animate={{ opacity: 1, y: [0, 6, 0], scale: 1 }}
-                transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
-                className="absolute -bottom-4 sm:-bottom-6 end-0 sm:-end-6 z-20 glass-surface-2 px-4 py-2.5 rounded-2xl shadow-float-soft border border-white/80 flex items-center gap-2.5 select-none hover:scale-105 transition-transform"
-              >
-                <div className="w-7 h-7 rounded-xl bg-[#D58C7A]/20 text-[#D58C7A] flex items-center justify-center font-bold text-xs shrink-0">
-                  <Heart size={15} />
+              <div className="absolute -bottom-4 sm:-bottom-6 end-0 sm:-end-6 z-20 animate-float-badge-2 transform-gpu pointer-events-auto">
+                <div className="glass-surface-2 px-4 py-2.5 rounded-2xl shadow-float-soft border border-white/80 flex items-center gap-2.5 select-none hover:scale-105 transition-transform duration-300">
+                  <div className="w-7 h-7 rounded-xl bg-[#D58C7A]/20 text-[#D58C7A] flex items-center justify-center font-bold text-xs shrink-0">
+                    <Heart size={15} />
+                  </div>
+                  <div className="text-start">
+                    <p className="text-[10px] sm:text-[11px] font-black uppercase text-[#D58C7A] leading-tight tracking-wider">
+                      {isAr ? 'موافقة الولي الصريحة' : isEn ? 'Parent-Authorized Access' : 'Accord Parental Explicite'}
+                    </p>
+                    <p className="text-[9px] sm:text-[10px] text-[#172B46]/75 font-semibold mt-0.5">
+                      {isAr ? 'استمرارية البيت والعيادة' : isEn ? 'Clinic-to-Home Continuity' : 'Continuité Maison-Cabinet'}
+                    </p>
+                  </div>
                 </div>
-                <div className="text-start">
-                  <p className="text-[10px] sm:text-[11px] font-black uppercase text-[#D58C7A] leading-tight tracking-wider">
-                    {isAr ? 'موافقة الولي الصريحة' : isEn ? 'Parent-Authorized Access' : 'Accord Parental Explicite'}
-                  </p>
-                  <p className="text-[9px] sm:text-[10px] text-[#172B46]/75 font-semibold mt-0.5">
-                    {isAr ? 'استمرارية البيت والعيادة' : isEn ? 'Clinic-to-Home Continuity' : 'Continuité Maison-Cabinet'}
-                  </p>
-                </div>
-              </motion.div>
+              </div>
 
               {/* Freestanding Floating Mobile Device (Unboxed - Native Alpha Transparency & Directional Tilt) */}
-              <motion.div
-                initial={{ opacity: 0, y: 30, scale: 0.94 }}
-                animate={{ opacity: 1, y: [-8, 8, -8], scale: 1 }}
-                transition={{
-                  opacity: { duration: 0.8 },
-                  scale: { duration: 0.8 },
-                  y: { duration: 7, repeat: Infinity, ease: 'easeInOut' }
-                }}
-                className={`relative z-10 w-full flex justify-center items-center cursor-pointer group transition-transform duration-700 ease-out ${
+              <div
+                className={`relative z-10 w-full flex justify-center items-center cursor-pointer group transition-transform duration-500 ease-out transform-gpu ${
                   isAr
                     ? 'rotate-[4.5deg] hover:rotate-[1.5deg]'
                     : '-rotate-[4.5deg] hover:-rotate-[1.5deg]'
@@ -198,13 +185,19 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenWaitlist }) => {
                   }
                 }}
               >
-                <img
-                  src="/mobile.png"
-                  alt={isAr ? 'تطبيق أفق على الهاتف' : 'Application mobile OFOQ'}
-                  className="w-full h-auto object-contain filter drop-shadow-[0_24px_36px_rgba(23,43,70,0.24)] drop-shadow-[0_6px_16px_rgba(40,104,199,0.18)] group-hover:scale-102 transition-transform duration-500"
-                  loading="eager"
-                />
-              </motion.div>
+                {/* Dedicated GPU Compositor Floating Element */}
+                <div className="w-full flex justify-center items-center animate-float-phone transform-gpu">
+                  {/* Contact shadow under device for grounded depth without filter repaints */}
+                  <div className="absolute -bottom-6 w-3/4 h-8 bg-[#172B46]/25 rounded-full blur-xl pointer-events-none transform-gpu" />
+                  <img
+                    src="/mobile.png"
+                    alt={isAr ? 'تطبيق أفق على الهاتف' : 'Application mobile OFOQ'}
+                    className="w-full h-auto object-contain transform-gpu will-change-transform filter drop-shadow-[0_20px_30px_rgba(23,43,70,0.22)] drop-shadow-[0_4px_12px_rgba(40,104,199,0.15)] group-hover:scale-[1.02] transition-transform duration-300"
+                    loading="eager"
+                    decoding="async"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
