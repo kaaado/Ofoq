@@ -175,8 +175,8 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenWaitlist }) => {
               <div
                 className={`relative z-10 w-full flex justify-center items-center cursor-pointer group transition-transform duration-500 ease-out transform-gpu ${
                   isAr
-                    ? 'rotate-[4.5deg] hover:rotate-[1.5deg]'
-                    : '-rotate-[4.5deg] hover:-rotate-[1.5deg]'
+                    ? '-rotate-[6deg] hover:-rotate-[2deg]'
+                    : 'rotate-[6deg] hover:rotate-[2deg]'
                 }`}
                 onClick={() => {
                   const target = document.querySelector('#experience');

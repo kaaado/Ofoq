@@ -62,9 +62,9 @@ export const Nour3DCanvas: React.FC<Nour3DCanvasProps> = ({
     sceneRef.current = scene;
 
     // 2. Camera - positioned with generous top headroom for rabbit ears
-    const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 100);
-    camera.position.set(0, 0.35, 3.8);
-    camera.lookAt(0, -0.15, 0);
+    const camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 100);
+    camera.position.set(0, 0.16, 4.1);
+    camera.lookAt(0, -0.32, 0);
 
     // 3. Renderer with high performance & power efficiency
     const renderer = new THREE.WebGLRenderer({
@@ -110,13 +110,13 @@ export const Nour3DCanvas: React.FC<Nour3DCanvasProps> = ({
         const size = box.getSize(new THREE.Vector3());
 
         const maxDim = Math.max(size.x, size.y, size.z);
-        const scale = 1.82 / maxDim; // scaled down to prevent ear cutoff
+        const scale = 1.62 / maxDim; // scaled down to guarantee ample top ear headroom
         baseScaleRef.current = scale;
         model.scale.set(scale, scale, scale);
 
-        // Center on X and Z, adjust Y lower so it sits comfortably without clipping
+        // Center on X and Z, adjust Y lower so it sits comfortably with full ear clearance
         model.position.x = -center.x * scale;
-        model.position.y = -center.y * scale - 0.36;
+        model.position.y = -center.y * scale - 0.58;
         model.position.z = -center.z * scale;
 
         scene.add(model);
@@ -144,7 +144,7 @@ export const Nour3DCanvas: React.FC<Nour3DCanvasProps> = ({
     );
     observer.observe(container);
 
-    // 7. Pointer tracking for interactive eye contact
+    // 7. Pointer tracking for interactive eye contact & tactile click
     const handlePointerMove = (e: PointerEvent) => {
       const rect = container.getBoundingClientRect();
       const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
@@ -152,6 +152,16 @@ export const Nour3DCanvas: React.FC<Nour3DCanvasProps> = ({
       mouseRef.current = { x: Math.max(-1, Math.min(1, x)), y: Math.max(-1, Math.min(1, y)) };
     };
     window.addEventListener('pointermove', handlePointerMove, { passive: true });
+
+    const handleClickCompanion = () => {
+      if (onClickCompanion) onClickCompanion();
+      if (modelRef.current) {
+        modelRef.current.position.y += 0.12;
+        modelRef.current.rotation.z += 0.08;
+      }
+    };
+    container.addEventListener('click', handleClickCompanion);
+    container.style.cursor = 'pointer';
 
     // 8. High-Performance Render Loop using performance.now() (Zero Deprecation Warnings)
     const startTime = performance.now();
@@ -169,8 +179,8 @@ export const Nour3DCanvas: React.FC<Nour3DCanvasProps> = ({
 
       if (modelRef.current) {
         if (!prefersReducedMotion) {
-          // Base position - positioned lower to ensure head & ears remain completely in frame
-          const baseY = -0.36;
+          // Base position - positioned lower to ensure head & ears have generous top clearance
+          const baseY = -0.58;
 
           // Mode-specific animations
           if (mode === 'talking') {
@@ -238,6 +248,7 @@ export const Nour3DCanvas: React.FC<Nour3DCanvasProps> = ({
       observer.disconnect();
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('pointermove', handlePointerMove);
+      container.removeEventListener('click', handleClickCompanion);
       if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current);
 
       // Dispose Three.js resources

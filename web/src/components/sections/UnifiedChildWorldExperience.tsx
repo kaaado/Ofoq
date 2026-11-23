@@ -48,6 +48,8 @@ import {
   ThumbsUp,
   Award,
   Stethoscope,
+  Calendar,
+  CheckCheck,
   Check
 } from 'lucide-react';
 import { ScrollReveal } from '../common/ScrollReveal';
@@ -408,6 +410,52 @@ export const UnifiedChildWorldExperience: React.FC = () => {
   // ----------------------------------------------------
   const [nourMode, setNourMode] = useState<'idle' | 'greeting' | 'calm' | 'talking' | 'listening'>('idle');
   const [companionBubble, setCompanionBubble] = useState<string | null>(null);
+
+  // Pro-Parent Collaboration & Practice State
+  const [homePracticeLogged, setHomePracticeLogged] = useState<boolean>(false);
+  const [isPlayingGuidance, setIsPlayingGuidance] = useState<boolean>(false);
+
+  // Play spoken clinical guidance from Dr. Benali
+  const handlePlaySpecialistGuidance = () => {
+    if (isPlayingGuidance) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+      setIsPlayingGuidance(false);
+      return;
+    }
+
+    setIsPlayingGuidance(true);
+    playTactileFeedback('chime');
+
+    const guidanceText = isAr
+      ? `توجيه ${currentProfile.specialistName}: نركز اليوم في البيت على ربط كلمتي ماء وأريد عند العطش، مع تشجيع ${currentProfile.nameAr} على الإشارة للبطاقة ونطقها بهدوء.`
+      : isEn
+      ? `Guidance from ${currentProfile.specialistName}: Practice combining water and want cards at home when thirsty.`
+      : `Consigne du ${currentProfile.specialistName} : Associer les pictogrammes eau et vouloir au quotidien sans pression.`;
+
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(guidanceText);
+      utterance.lang = isAr ? 'ar-SA' : isEn ? 'en-US' : 'fr-FR';
+      utterance.rate = 0.95;
+      utterance.onend = () => setIsPlayingGuidance(false);
+      utterance.onerror = () => setIsPlayingGuidance(false);
+      window.speechSynthesis.speak(utterance);
+    } else {
+      setTimeout(() => setIsPlayingGuidance(false), 3000);
+    }
+  };
+
+  const handleToggleHomePractice = () => {
+    const nextState = !homePracticeLogged;
+    setHomePracticeLogged(nextState);
+    if (nextState) {
+      playTactileFeedback('celebrate');
+    } else {
+      playTactileFeedback('uncheck');
+    }
+  };
 
   // Toggle routine item completion with tactile sound & celebration
   const handleToggleRoutine = (routineId: string) => {
@@ -1517,25 +1565,41 @@ export const UnifiedChildWorldExperience: React.FC = () => {
                         {selectedPictoIds.length} {isAr ? 'محددة' : isEn ? 'selected' : 'sélectionnées'}
                       </span>
                     </div>
-                    <div className="grid grid-cols-3 sm:grid-cols-9 gap-2">
-                      {currentThemeConfig.pictos.map((picto) => {
+                    {/* 2-Row Tactile Daily Pictogram Cards (Zero Truncation & Interactive Bounce) */}
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-2.5 sm:gap-3">
+                      {currentThemeConfig.pictos.slice(0, 6).map((picto) => {
                         const isSelected = selectedPictoIds.includes(picto.id);
                         return (
                           <motion.button
                             key={picto.id}
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.92 }}
+                            whileHover={{ scale: 1.04 }}
+                            whileTap={{ scale: 0.94 }}
+                            animate={
+                              isSelected
+                                ? { scale: [1, 1.08, 0.98, 1.02], y: [0, -3, 0] }
+                                : { scale: 1, y: 0 }
+                            }
+                            transition={{ duration: 0.35, ease: 'easeOut' }}
                             onClick={() => togglePicto(picto.id)}
-                            className={`p-2 rounded-2xl border text-center transition-all cursor-pointer flex flex-col items-center justify-center gap-1.5 ${
+                            className={`relative p-3 rounded-2xl border text-center transition-all cursor-pointer flex flex-col items-center justify-center gap-2 select-none ${
                               isSelected
                                 ? 'bg-white border-[#2868C7] shadow-md ring-2 ring-[#2868C7]/30 scale-102'
-                                : 'bg-[#F5F6F3]/80 hover:bg-white border-gray-200/80 shadow-2xs'
+                                : 'bg-[#F5F6F3]/80 hover:bg-white border-gray-200/80 shadow-2xs hover:border-[#2868C7]/40'
                             }`}
                           >
-                            <div className={`w-9 h-9 rounded-xl ${picto.bgTint} ${picto.color} flex items-center justify-center transition-transform group-hover:scale-110 shadow-2xs`}>
-                              {renderPictoIcon(picto.iconName, 'w-4 h-4')}
+                            {isSelected && (
+                              <motion.span
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                className="absolute -top-1.5 -start-1.5 w-5 h-5 rounded-full bg-[#2868C7] text-white flex items-center justify-center text-[10px] shadow-sm font-bold z-10"
+                              >
+                                <Check size={12} className="stroke-[3]" />
+                              </motion.span>
+                            )}
+                            <div className={`w-11 h-11 rounded-2xl ${picto.bgTint} ${picto.color} flex items-center justify-center transition-transform group-hover:scale-110 shadow-2xs`}>
+                              {renderPictoIcon(picto.iconName, 'w-5 h-5')}
                             </div>
-                            <span className="text-[10px] font-black text-[#172B46] leading-tight line-clamp-1">
+                            <span className="text-xs font-black text-[#172B46] text-center leading-snug px-1">
                               {isAr ? picto.labelAr : isEn ? picto.labelEn : picto.labelFr}
                             </span>
                           </motion.button>
@@ -1594,8 +1658,8 @@ export const UnifiedChildWorldExperience: React.FC = () => {
 
                   {/* Specialist Bridge (Pro Portal Contribution) */}
                   <div className="bg-white rounded-3xl p-4 sm:p-5 border border-[#A9C5D8]/40 shadow-sm space-y-3 h-full flex flex-col justify-between">
-                    <div>
-                      <div className="flex items-center justify-between pb-1.5 border-b border-gray-100 mb-2">
+                    <div className="space-y-2.5">
+                      <div className="flex items-center justify-between pb-1.5 border-b border-gray-100">
                         <span className="text-xs font-black text-[#D58C7A] flex items-center gap-1.5">
                           <Stethoscope size={14} className="text-[#D58C7A]" />
                           {isAr ? 'مساهمة الأخصائي المعتمد' : isEn ? 'Specialist Portal' : 'Portail Spécialiste'}
@@ -1606,33 +1670,92 @@ export const UnifiedChildWorldExperience: React.FC = () => {
                         </span>
                       </div>
 
-                      <div className="space-y-1.5 text-xs">
-                        <div className="flex items-center gap-2">
-                          <div className="w-8 h-8 rounded-full bg-[#172B46]/10 flex items-center justify-center text-[#172B46] font-bold text-xs shrink-0">
-                            <Award size={16} className="text-[#2868C7]" />
+                      <div className="space-y-2 text-xs">
+                        <div className="flex items-center justify-between gap-2">
+                          <div className="flex items-center gap-2">
+                            <div className="w-8 h-8 rounded-full bg-[#172B46]/10 flex items-center justify-center text-[#172B46] font-bold text-xs shrink-0">
+                              <Award size={16} className="text-[#2868C7]" />
+                            </div>
+                            <div>
+                              <p className="font-extrabold text-[#172B46]">{currentProfile.specialistName}</p>
+                              <p className="text-[10px] text-gray-500">
+                                {isAr ? currentProfile.specialistRoleAr : isEn ? currentProfile.specialistRoleEn : currentProfile.specialistRoleFr}
+                              </p>
+                            </div>
                           </div>
-                          <div>
-                            <p className="font-extrabold text-[#172B46]">{currentProfile.specialistName}</p>
-                            <p className="text-[10px] text-gray-500">
-                              {isAr ? currentProfile.specialistRoleAr : isEn ? currentProfile.specialistRoleEn : currentProfile.specialistRoleFr}
-                            </p>
-                          </div>
+                          <span className="text-[9px] bg-[#F5F6F3] text-[#172B46] font-bold px-2 py-1 rounded-lg border border-gray-200/70 shrink-0">
+                            {isAr ? 'تخاطب وظيفي • مستوى 1' : isEn ? 'Functional Speech • L1' : 'Orthophonie • Niv. 1'}
+                          </span>
                         </div>
 
-                        <div className="bg-[#F5F6F3] p-2.5 rounded-xl space-y-1 mt-2">
-                          <span className="text-[10px] font-bold text-gray-500 block">
-                            {isAr ? 'الهدف الموصى به للمنزل:' : isEn ? 'Prescribed Home Target:' : 'Cible préconisée à domicile :'}
-                          </span>
-                          <p className="text-[#172B46] font-semibold text-xs leading-relaxed">
+                        {/* Prescribed Target Card */}
+                        <div className="bg-[#F5F6F3] p-3 rounded-2xl space-y-1.5 border border-gray-100">
+                          <div className="flex items-center justify-between">
+                            <span className="text-[10px] font-black uppercase text-[#2868C7] tracking-wider block">
+                              {isAr ? 'الهدف الموصى به للمنزل:' : isEn ? 'Prescribed Home Target:' : 'Cible préconisée à domicile :'}
+                            </span>
+                            <span className="text-[9px] text-gray-400 font-semibold flex items-center gap-1">
+                              <Calendar size={10} />
+                              {isAr ? 'عيادة الأمل • الأربعاء 14:00' : isEn ? 'Clinic • Wed 2:00 PM' : 'Cabinet • Mercredi 14h'}
+                            </span>
+                          </div>
+                          <p className="text-[#172B46] font-bold text-xs leading-relaxed">
                             {isAr ? currentProfile.speechGoalAr : isEn ? currentProfile.speechGoalEn : currentProfile.speechGoalFr}
                           </p>
+                        </div>
+
+                        {/* Interactive Audio Guidance & Home Practice Collaboration */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-0.5">
+                          <button
+                            type="button"
+                            onClick={handlePlaySpecialistGuidance}
+                            className={`p-2 rounded-xl text-[10px] font-extrabold flex items-center justify-center gap-1.5 transition-all cursor-pointer border ${
+                              isPlayingGuidance
+                                ? 'bg-[#D58C7A] text-white border-[#D58C7A] shadow-xs animate-pulse'
+                                : 'bg-white hover:bg-[#F5F6F3] text-[#172B46] border-gray-200/80 shadow-2xs'
+                            }`}
+                          >
+                            <Volume2 size={12} className={isPlayingGuidance ? 'animate-bounce text-white' : 'text-[#D58C7A]'} />
+                            <span>
+                              {isPlayingGuidance
+                                ? (isAr ? 'جاري نطق التوجيه...' : isEn ? 'Playing audio...' : 'Écoute en cours...')
+                                : (isAr ? 'استمع لتوجيه الأخصائي' : isEn ? 'Listen to Guidance' : 'Consigne de l\'orthophoniste')}
+                            </span>
+                          </button>
+
+                          <button
+                            type="button"
+                            onClick={handleToggleHomePractice}
+                            className={`p-2 rounded-xl text-[10px] font-extrabold flex items-center justify-center gap-1.5 transition-all cursor-pointer border ${
+                              homePracticeLogged
+                                ? 'bg-emerald-500 text-white border-emerald-600 shadow-xs'
+                                : 'bg-white hover:bg-emerald-50 text-emerald-800 border-emerald-200/80 shadow-2xs'
+                            }`}
+                          >
+                            {homePracticeLogged ? (
+                              <>
+                                <CheckCheck size={12} className="stroke-[2.5]" />
+                                <span>{isAr ? 'تم إنجاز تدريب اليوم ✓' : isEn ? 'Home Practice Done ✓' : 'Séance validée ✓'}</span>
+                              </>
+                            ) : (
+                              <>
+                                <Star size={11} className="text-[#D8BE83] fill-[#D8BE83]" />
+                                <span>{isAr ? 'تأكيد تدريب اليوم بالبيت' : isEn ? 'Log Home Practice' : 'Valider séance du jour'}</span>
+                              </>
+                            )}
+                          </button>
                         </div>
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-1.5 text-[10px] text-emerald-800 font-bold pt-1 border-t border-gray-100">
-                      <Sparkles size={11} className="text-emerald-600 shrink-0" />
-                      <span>{isAr ? 'استمرارية حية بين الجلسة والبيت' : isEn ? 'Live session-to-home continuity' : 'Continuité cabinet-domicile active'}</span>
+                    <div className="flex items-center justify-between text-[10px] text-emerald-800 font-bold pt-2 border-t border-gray-100">
+                      <span className="flex items-center gap-1.5">
+                        <Sparkles size={11} className="text-emerald-600 shrink-0" />
+                        <span>{isAr ? 'استمرارية حية بين الجلسة والبيت' : isEn ? 'Live session-to-home continuity' : 'Continuité cabinet-domicile active'}</span>
+                      </span>
+                      <span className="text-[9px] bg-emerald-100/70 text-emerald-900 px-2 py-0.5 rounded-full font-black">
+                        {isAr ? 'مزامنة فورية' : isEn ? 'Real-time sync' : 'Sync temps réel'}
+                      </span>
                     </div>
                   </div>
                 </div>
