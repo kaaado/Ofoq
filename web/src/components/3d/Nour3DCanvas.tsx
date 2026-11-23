@@ -61,10 +61,10 @@ export const Nour3DCanvas: React.FC<Nour3DCanvasProps> = ({
     const scene = new THREE.Scene();
     sceneRef.current = scene;
 
-    // 2. Camera - positioned with generous top headroom for rabbit ears
+    // 2. Camera - positioned level to keep companion grounded in lower half with deep top clearance
     const camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 100);
-    camera.position.set(0, -0.05, 3.8);
-    camera.lookAt(0, -0.40, 0);
+    camera.position.set(0, 0.1, 3.8);
+    camera.lookAt(0, 0, 0);
 
     // 3. Renderer with high performance & power efficiency
     const renderer = new THREE.WebGLRenderer({
@@ -110,13 +110,13 @@ export const Nour3DCanvas: React.FC<Nour3DCanvasProps> = ({
         const size = box.getSize(new THREE.Vector3());
 
         const maxDim = Math.max(size.x, size.y, size.z);
-        const scale = 1.68 / maxDim; // comfortably sized with generous headroom
+        const scale = 1.70 / maxDim; // prominent companion with generous top clearance
         baseScaleRef.current = scale;
         model.scale.set(scale, scale, scale);
 
-        // Center on X & Z, adjust Y down significantly as requested
+        // Center on X & Z, place companion grounded in lower half of viewport
         model.position.x = -center.x * scale;
-        model.position.y = -center.y * scale - 0.70;
+        model.position.y = -center.y * scale - 0.58;
         model.position.z = -center.z * scale;
 
         scene.add(model);
@@ -153,12 +153,11 @@ export const Nour3DCanvas: React.FC<Nour3DCanvasProps> = ({
     };
     window.addEventListener('pointermove', handlePointerMove, { passive: true });
 
+    let hopOffset = 0;
+    let hopVelocity = 0;
     const handleClickCompanion = () => {
       if (onClickCompanion) onClickCompanion();
-      if (modelRef.current) {
-        modelRef.current.position.y += 0.12;
-        modelRef.current.rotation.z += 0.08;
-      }
+      hopVelocity = 0.12;
     };
     container.addEventListener('click', handleClickCompanion);
     container.style.cursor = 'pointer';
@@ -177,10 +176,20 @@ export const Nour3DCanvas: React.FC<Nour3DCanvasProps> = ({
       const elapsedTime = (now - startTime) * 0.001;
       lastTime = now;
 
+      // Handle tactile click physics hop
+      if (hopVelocity > 0 || hopOffset > 0) {
+        hopOffset += hopVelocity;
+        hopVelocity -= 0.012; // gravity damping
+        if (hopOffset <= 0) {
+          hopOffset = 0;
+          hopVelocity = 0;
+        }
+      }
+
       if (modelRef.current) {
         if (!prefersReducedMotion) {
-          // Base position - positioned down more as requested
-          const baseY = -0.70;
+          // Base position - securely anchored in lower half with generous ear headroom
+          const baseY = -0.58 + hopOffset;
 
           // Mode-specific animations
           if (mode === 'talking') {

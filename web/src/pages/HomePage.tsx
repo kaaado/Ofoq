@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'motion/react';
 import {
@@ -30,6 +30,20 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenWaitlist }) => {
   const currentLang = (i18n.language || 'fr').split('-')[0].toLowerCase();
   const isAr = currentLang === 'ar';
   const isEn = currentLang === 'en';
+
+  // Handle direct hash navigation on mount
+  useEffect(() => {
+    if (window.location.hash) {
+      const hash = window.location.hash;
+      const timer = setTimeout(() => {
+        const el = document.querySelector(hash);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 250);
+      return () => clearTimeout(timer);
+    }
+  }, []);
 
   return (
     <div className="space-y-0 pb-0 overflow-hidden bg-[#F5F6F3]">
