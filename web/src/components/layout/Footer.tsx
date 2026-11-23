@@ -1,0 +1,145 @@
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { ShieldAlert, Mail, MapPin, Sparkles } from 'lucide-react';
+
+interface FooterProps {
+  onOpenPrivacy?: () => void;
+  onOpenLegal?: () => void;
+}
+
+export const Footer: React.FC<FooterProps> = ({ onOpenPrivacy, onOpenLegal }) => {
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language || 'fr';
+  const isAr = currentLang === 'ar';
+
+  const brandName = isAr ? 'أفق' : 'OFOQ';
+  const contactEmail = 'contact@ofoq.dz';
+
+  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const target = document.querySelector(href);
+    if (target) {
+      const headerOffset = 90;
+      const elementPosition = target.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth',
+      });
+      window.history.pushState(null, '', href);
+    }
+  };
+
+  return (
+    <footer className="bg-[#0F1E32] text-white pt-16 pb-12 border-t border-white/10 w-full">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10 pb-12 border-b border-white/10">
+          {/* Brand & Purpose (4 cols) */}
+          <div className="lg:col-span-5 space-y-4 text-start">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#172B46] to-[#223B5E] p-0.5 shadow-md flex items-center justify-center shrink-0 border border-[#A9C5D8]/40">
+                <svg viewBox="0 0 40 40" className="w-6 h-6 text-[#D8BE83]" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="20" cy="20" r="16" stroke="currentColor" strokeWidth="1.5" strokeDasharray="3 3" opacity="0.4" />
+                  <path d="M6 24C12 16 28 16 34 24" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+                  <circle cx="20" cy="14" r="4" fill="#D58C7A" />
+                  <circle cx="11" cy="22" r="2.5" fill="#A9C5D8" />
+                  <circle cx="29" cy="22" r="2.5" fill="#F5F6F3" />
+                </svg>
+              </div>
+
+              <div className="flex flex-col">
+                <span className="text-2xl font-heading font-black tracking-tight text-white leading-none">{brandName}</span>
+                <span className="text-[11px] text-[#A9C5D8] font-medium mt-1">
+                  {isAr ? 'منظومة التخاطب والتوحد المتصلة' : 'Écosystème Numérique Pédagogique'}
+                </span>
+              </div>
+            </div>
+
+            <p className="text-[#D8BE83] text-sm italic font-medium leading-relaxed flex items-center gap-1.5">
+              <Sparkles size={14} className="shrink-0 text-[#D8BE83]" />
+              {t('brand.tagline')}
+            </p>
+
+            <p className="text-gray-300 text-xs leading-relaxed max-w-md">
+              {t('footer.mission_reminder')}
+            </p>
+
+            <div className="pt-2 text-xs text-[#A9C5D8] space-y-1">
+              <div className="flex items-center gap-2">
+                <MapPin size={14} className="text-[#D58C7A] shrink-0" />
+                <span>Alger, Algérie • Déploiement national</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Mail size={14} className="text-[#D58C7A] shrink-0" />
+                <a href={`mailto:${contactEmail}`} className="hover:text-white transition-colors">{contactEmail}</a>
+              </div>
+            </div>
+          </div>
+
+          {/* Quick Section Anchors (4 cols) */}
+          <div className="lg:col-span-4 space-y-3 text-start">
+            <h4 className="text-xs font-bold tracking-wider uppercase text-[#A9C5D8]">
+              {t('footer.links_title')}
+            </h4>
+            <div className="grid grid-cols-2 gap-2 text-xs sm:text-sm text-gray-300">
+              <a href="#home" onClick={(e) => handleAnchorClick(e, '#home')} className="hover:text-[#D58C7A] transition-colors">{t('nav.home')}</a>
+              <a href="#ecosystem" onClick={(e) => handleAnchorClick(e, '#ecosystem')} className="hover:text-[#D58C7A] transition-colors">{t('nav.ecosystem')}</a>
+              <a href="#child-world" onClick={(e) => handleAnchorClick(e, '#child-world')} className="hover:text-[#D58C7A] transition-colors">{t('nav.child_world')}</a>
+              <a href="#pillars" onClick={(e) => handleAnchorClick(e, '#pillars')} className="hover:text-[#D58C7A] transition-colors">{t('nav.pillars')}</a>
+              <a href="#families" onClick={(e) => handleAnchorClick(e, '#families')} className="hover:text-[#D58C7A] transition-colors">{t('nav.families')}</a>
+              <a href="#professionals" onClick={(e) => handleAnchorClick(e, '#professionals')} className="hover:text-[#D58C7A] transition-colors">{t('nav.professionals')}</a>
+              <a href="#safety" onClick={(e) => handleAnchorClick(e, '#safety')} className="hover:text-[#D58C7A] transition-colors">{t('nav.safety')}</a>
+              <a href="#faq" onClick={(e) => handleAnchorClick(e, '#faq')} className="hover:text-[#D58C7A] transition-colors">{t('nav.faq')}</a>
+            </div>
+          </div>
+
+          {/* Legal, Privacy & Compliance (3 cols) */}
+          <div className="lg:col-span-3 space-y-3 text-start">
+            <h4 className="text-xs font-bold tracking-wider uppercase text-[#A9C5D8]">
+              {t('footer.legal_title')}
+            </h4>
+            <ul className="space-y-2 text-xs sm:text-sm text-gray-300">
+              <li>
+                <button
+                  onClick={onOpenPrivacy}
+                  className="hover:text-[#D58C7A] transition-colors cursor-pointer text-start"
+                >
+                  {t('footer.privacy')} (Loi 18-07)
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={onOpenLegal}
+                  className="hover:text-[#D58C7A] transition-colors cursor-pointer text-start"
+                >
+                  {t('footer.legal')}
+                </button>
+              </li>
+              <li>
+                <a
+                  href="#safety"
+                  onClick={(e) => handleAnchorClick(e, '#safety')}
+                  className="hover:text-[#D58C7A] transition-colors text-start block"
+                >
+                  {isAr ? 'الحد غير التشخيصي' : 'Cadre non-diagnostique'}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Bottom Banner: Explicit Non-Diagnostic Disclaimer & Copyright */}
+        <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-400 text-center md:text-start">
+          <div className="flex items-center gap-2 max-w-2xl bg-white/05 px-3 py-2 rounded-lg border border-white/08 text-[11px] text-[#A9C5D8]">
+            <ShieldAlert size={16} className="text-[#D8BE83] shrink-0" />
+            <span>{t('footer.non_diagnostic_notice')}</span>
+          </div>
+
+          <div className="text-[11px] text-gray-400 whitespace-nowrap">
+            {t('footer.rights')}
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};

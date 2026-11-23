@@ -54,9 +54,7 @@ Ofoq/
 │   ├── 01-product/                          # Product Management & Architecture
 │   │   └── product.md                       # Master Product Specification & PRD Matrix
 │   │
-│   ├── 02-design/                           # [DEFERRED] UI/UX Design System (Phase 01)
-│   ├── 03-prototype/                        # [DEFERRED] Interactive Prototype Spec (Phase 02)
-│   ├── 04-mvp/                              # [DEFERRED] Functional MVP Architecture (Phase 03)
+│   ├── 02-design/                           # Master UI/UX Design System & Experience Architecture
 │   ├── 05-project-management/               # [DEFERRED] Project Delivery & RACI
 │   ├── 06-references/                       # [DEFERRED] Reference Documentation
 │   └── web/                                 # [DEFERRED] Web Documentation

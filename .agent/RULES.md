@@ -20,7 +20,7 @@
   - Making architectural commitments or implementing database schemas and migrations.
   - Introducing new frameworks, third-party cloud services, or external SDKs.
   - Performing destructive Git or filesystem operations.
-- **Phase 00 Strict Boundary:** The current mandate is strictly limited to documentation migration, agent governance adaptation, and repository preparation. Do NOT modify files in `docs/02-design/`, `docs/03-prototype/`, `docs/04-mvp/`, `docs/05-project-management/`, `docs/06-references/`, `docs/web/`, or `web/`.
+- **Phase 01 Boundary:** In this phase, work is authorized across `.agent/`, `.github/`, `README.md`, `docs/00-project/`, `docs/01-product/`, `docs/02-design/`, and `web/`. Do NOT modify files in `docs/05-project-management/`, `docs/06-references/`, or `docs/web/` without explicit task authorization.
 
 ---
 

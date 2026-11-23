@@ -70,12 +70,17 @@ This document tracks all formal Product Decision Records (PDR) and Architectural
 
 ---
 
-### DEC-007: Official Brand Color Palette Selection
+### DEC-007: Official Brand Color Palette Ratification
 - **Category:** Design System
-- **Status:** `[PROPOSED — PENDING PO SELECTION]`
-- **Context:** Ten exploratory color palettes were drafted (including Deep Horizon teal `#17464A`, Soft Sky `#B5CDD0`, Warm Clay `#C9826B`, Champagne `#D7BD82`, and supporting neutrals).
-- **Decision:** **No official color palette is ratified.** The exploratory palettes remain proposed directions. The official brand palette will be selected by the Product Owner during Phase 01. No CSS tokens or production colors may be locked in prior to this sign-off.
-- **Consequences:** Prevents premature styling; enforces explicit gate discipline between Phase 00 and Phase 01.
+- **Status:** `[CONFIRMED]`
+- **Context:** Following the Phase 01 brand identity review, the official OFOQ brand color palette was evaluated and approved by the Product Owner.
+- **Decision:** Formally ratify the authoritative five-color palette:
+  - **Midnight Navy (`#172B46`):** Primary brand, authority, typography, dark surfaces.
+  - **Cloud Blue (`#A9C5D8`):** Secondary brand, open backgrounds, calm surfaces.
+  - **Muted Coral (`#D58C7A`):** Human warmth, highlights, selected accents.
+  - **Soft Gold (`#D8BE83`):** Premium details, achievement, subtle emphasis.
+  - **Porcelain (`#F5F6F3`):** Main light canvas background, breathing space.
+- **Consequences:** Establishes fixed chromatic anchors; unlocks design tokens, CSS variables, and landing page adaptation; forbids replacing or reinterpreting the approved hex values.
 - **Date:** 2026-11-23
 
 ---

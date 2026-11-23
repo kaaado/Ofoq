@@ -43,7 +43,7 @@ The governance documents in this directory are organized hierarchically:
 
 1. **Always Inspect First:** Run CLI checks and inspect files before modifying or making assumptions.
 2. **Honor the Authoritative Baseline:** [`docs/00-project/OFOQ_PROJECT_DISCOVERY.md`](../docs/00-project/OFOQ_PROJECT_DISCOVERY.md) is the primary product discovery reference. Distinguish confirmed decisions, proposed directions, assumptions, and open questions.
-3. **Preserve Scope Boundaries:** Work strictly within authorized phases and file sets. Never modify out-of-scope directories (`docs/02-design/`, `docs/03-prototype/`, `docs/04-mvp/`, `docs/05-project-management/`, `docs/06-references/`, `docs/web/`, `web/`) without explicit task authorization.
+3. **Preserve Scope Boundaries:** Work strictly within authorized phases and file sets. Never modify out-of-scope directories (`docs/05-project-management/`, `docs/06-references/`, `docs/web/`) without explicit task authorization.
 4. **Three Account Roles Only:** Exactly **Admin**, **Pro (Professional)**, and **Parent**. A child is never an independent account role.
 5. **Brand Design Colors Unapproved:** Do NOT invent, assume, or hardcode an official brand palette. Color tokens remain unapproved pending formal Product Owner selection.
 6. **Preserve User Work & Zero Data Loss:** Never execute destructive git operations, discard uncommitted edits, or overwrite user files without authorization.

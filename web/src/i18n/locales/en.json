@@ -1,0 +1,202 @@
+{
+  "brand": {
+    "name": "OFOQ",
+    "arabic_name": "أفق",
+    "tagline": "Every child has their own horizon.",
+    "tab_title": "OFOQ (أفق) | Connected Digital Ecosystem for Autism & Communication",
+    "meta_description": "OFOQ connects autistic children, children with communication delays, their families, and professionals in Algeria. Augmentative communication (AAC), personalized child worlds, and educational continuity."
+  },
+  "nav": {
+    "home": "Home",
+    "ecosystem": "The Ecosystem",
+    "child_world": "Child Worlds (AAC)",
+    "pillars": "Our Pillars",
+    "families": "For Families",
+    "professionals": "For Professionals",
+    "safety": "Safety & Privacy",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "join_waitlist": "Join the Ecosystem",
+    "tagline_short": "Every child has their own horizon"
+  },
+  "hero": {
+    "badge": "Pedagogical Digital Ecosystem • Algeria",
+    "title_main": "Every child has their own",
+    "title_highlight": "horizon to thrive.",
+    "subtitle": "OFOQ builds a living bridge between professional therapy sessions and daily domestic routines. Augmentative communication (AAC), personalized child workspaces, and coordinated care for autistic children and children with speech delays.",
+    "cta_family": "I am a Parent",
+    "cta_pro": "I am a Specialist",
+    "stat_trust": "Strict parent-controlled permissions",
+    "stat_tracking": "Real-time clinic-to-home continuity",
+    "stat_human": "Absolute respect for child dignity and pace"
+  },
+  "ecosystem": {
+    "tag": "Connected Architecture",
+    "title": "How does the OFOQ ecosystem work?",
+    "subtitle": "A centralized family account uniting independent child worlds and authorized practitioners under complete parental supervision.",
+    "step1_title": "1. Parent creates Family Account",
+    "step1_desc": "Configure child profiles in a few taps. One unified account for all siblings, without ever requiring the child to manage passwords.",
+    "step2_title": "2. Each Child has a Dedicated World",
+    "step2_desc": "Each child enters their safe, sensory-friendly workspace: interactive AAC pictogram boards, visual daily routines, and motivating activities.",
+    "step3_title": "3. Specialists collaborate with your consent",
+    "step3_desc": "Grant your speech therapist or special educator access to assign home exercises and log session observations. You maintain full, revocable control."
+  },
+  "child_world": {
+    "tag": "Personalized Child Workspace",
+    "title": "The Child World: a tailored voice for expression",
+    "subtitle": "A soothing, tactile, and predictable interface where children communicate naturally without cognitive or sensory overload.",
+    "feature_aac": "Augmentative Communication (AAC)",
+    "feature_aac_desc": "High-clarity pictogram boards with instant speech synthesis in Modern Standard Arabic and French, enhanced by Algerian Derja audio clips.",
+    "feature_sensory": "Calm Sensory Ergonomics",
+    "feature_sensory_desc": "Restrained contrast, gentle transitions without flickering, strobe effects, or sudden loud noises.",
+    "feature_routines": "Visual Schedules & Daily Routines",
+    "feature_routines_desc": "Visual sequential timeline of the day (school, session, snack, bedtime) with gentle positive feedback.",
+    "interactive_preview_title": "Sentence Construction Strip Preview",
+    "preview_card_drink": "I want water",
+    "preview_card_snack": "Afternoon snack",
+    "preview_card_play": "Play with train",
+    "preview_card_help": "I need help",
+    "preview_tap_to_listen": "Tap a card to hear speech audio"
+  },
+  "pillars": {
+    "tag": "Our 6 Pillars",
+    "title": "A holistic approach for child development",
+    "subtitle": "OFOQ structures care around six complementary dimensions creating a complete learning ecosystem.",
+    "p1_title": "1. Augmentative Communication (AAC)",
+    "p1_desc": "Interactive pictogram grids, clear speech synthesis, and real photographic customization with home objects.",
+    "p2_title": "2. Personalized Child Worlds",
+    "p2_desc": "Autonomous, secure spaces adapted to each child's cognitive rhythm, interests, and sensory needs.",
+    "p3_title": "3. Centralized Family Management",
+    "p3_desc": "Single parent account to manage multiple children, track milestones, and reinforce daily home routines.",
+    "p4_title": "4. Professional Collaboration",
+    "p4_desc": "Goal sharing, home activity assignment, and structured observation logging between clinic and home.",
+    "p5_title": "5. Responsible & Controlled AI",
+    "p5_desc": "Gentle routine suggestions and an optional child companion isolated per profile, strictly non-clinical.",
+    "p6_title": "6. OFOQ Academy",
+    "p6_desc": "Evidence-based articles, video guides, and masterclasses to empower parents and upskill practitioners."
+  },
+  "for_families": {
+    "tag": "For Families",
+    "title": "Restored peace of mind and empowerment for parents",
+    "subtitle": "You are no longer alone. OFOQ equips you with practical tools to nurture your child's communication step-by-step.",
+    "card1_title": "A clear voice for your child",
+    "card1_desc": "Intuitive visual AAC tools enabling your child to express fundamental needs, drastically reducing frustration and meltdowns.",
+    "card2_title": "Therapy session continuity",
+    "card2_desc": "Know exactly which target words were practiced in speech therapy to naturally reinforce them in home routines.",
+    "card3_title": "Effortless multi-child management",
+    "card3_desc": "Switch between siblings with a single tap. Each child keeps their independent world, settings, and permissions."
+  },
+  "for_professionals": {
+    "tag": "For Professionals",
+    "title": "A dedicated portal enhancing clinical practice",
+    "subtitle": "Speech-language therapists, psychomotor therapists, and special educators: multiply the impact of your interventions.",
+    "card1_title": "Visibility into home practice",
+    "card1_desc": "View at a glance whether targeted vocabulary and activities were practiced during the week.",
+    "card2_title": "Save valuable administrative time",
+    "card2_desc": "No more lost paper notebooks or scattered WhatsApp messages. Centralize session observations securely.",
+    "card3_title": "Empowered therapeutic partnership",
+    "card3_desc": "Turn parents into active allies in rehabilitation within a structured ethical boundary."
+  },
+  "boundaries": {
+    "tag": "Ethical & Non-Diagnostic Boundary",
+    "title": "A clear boundary: strictly non-diagnostic",
+    "subtitle": "OFOQ is a communication and educational ecosystem. We never replace healthcare professionals or medical judgement.",
+    "included_title": "What we provide with dedication:",
+    "inc_1": "Visual communication and expression tools adapted to the child",
+    "inc_2": "Structured coordination of goals between therapists and parents",
+    "inc_3": "Visual daily routines and schedule boards",
+    "inc_4": "Validated educational resources and guides for families",
+    "inc_5": "Absolute child privacy protection and data isolation",
+    "excluded_title": "What we NEVER do (Strictly Excluded):",
+    "exc_1": "No medical diagnosis or automated autism severity scoring",
+    "exc_2": "No clinical prescriptions or medical treatment plans",
+    "exc_3": "Never replaces direct human interaction between parent and child",
+    "exc_4": "No sharing of sensitive child records without explicit consent"
+  },
+  "trust": {
+    "tag": "Security & Absolute Confidentiality",
+    "title": "Your child's privacy at the core of our architecture",
+    "card1_title": "Algerian Law 18-07 Compliance",
+    "card1_desc": "Full compliance with Law 18-07 regarding personal data protection. Child records are minimized and safeguarded.",
+    "card2_title": "Complete Child World Isolation",
+    "card2_desc": "Every child's space is technically isolated. Zero data leakage across siblings; specialists only see assigned children.",
+    "card3_title": "Parental Consent Revocable Anytime",
+    "card3_desc": "The parent is the sole account owner. You can modify or revoke specialist permissions with one tap at any moment."
+  },
+  "waitlist": {
+    "title": "Join the OFOQ ecosystem early access in Algeria",
+    "subtitle": "Sign up for priority onboarding. The first cohort of families and private practices will be supported as a priority.",
+    "form_name": "Full Name *",
+    "form_contact": "Phone Number or Email *",
+    "form_wilaya": "Wilaya *",
+    "form_type": "You are signing up as:",
+    "type_family": "Parent / Family of a child with speech difficulties or autism",
+    "type_pro": "Professional (Speech Therapist, Educator, Clinic)",
+    "form_message": "Tell us about your needs or your child's situation (optional)",
+    "form_consent": "I agree to be contacted by OFOQ regarding service launch in accordance with the Privacy Policy.",
+    "btn_submit": "Confirm Priority Registration",
+    "btn_submitting": "Submitting...",
+    "success_title": "Thank you for your trust!",
+    "success_desc": "Your early access request has been successfully recorded. Our team will reach out when access opens in your wilaya."
+  },
+  "forms": {
+    "required_indicator": "Fields marked with an asterisk (*) are required.",
+    "fields": {
+      "full_name": "Full Name *",
+      "contact_value": "Phone Number or Email *",
+      "subject": "Subject",
+      "message": "Message or Inquiry *",
+      "submit_contact": "Send Message",
+      "submit_waitlist": "Confirm Registration",
+      "submitting": "Transmitting..."
+    },
+    "placeholders": {
+      "full_name": "E.g. Amina Mansouri",
+      "contact_value": "0550 00 00 00 / email@domain.dz",
+      "subject": "E.g. Inquiry regarding my private practice",
+      "message": "Specify your question or particular need..."
+    },
+    "errors": {
+      "required": "This field is required.",
+      "invalid_contact": "Please enter a valid Algerian phone number (05/06/07) or email address.",
+      "consent_required": "Consent is required to process your request.",
+      "validation": "Please check the entered information.",
+      "duplicate": "This email or phone number is already registered on our priority list.",
+      "network": "Network connection error. Please check your internet connectivity.",
+      "timeout": "Request timed out. Please try again.",
+      "server": "A server error occurred. Our team has been notified.",
+      "unknown": "An unexpected error occurred. Please try again later."
+    },
+    "success": {
+      "waitlist": "Your priority registration has been successfully confirmed.",
+      "contact": "Your inquiry has been successfully sent to the OFOQ team.",
+      "contact_sent": "Your message was successfully transmitted to our team.",
+      "waitlist_enrolled": "Your priority registration has been confirmed."
+    }
+  },
+  "faq": {
+    "tag": "Frequently Asked Questions",
+    "title": "Everything you need to know about OFOQ",
+    "subtitle": "Clear answers to understand our ecosystem and our commitment.",
+    "q1": "Is OFOQ only for autistic children?",
+    "a1": "No. While OFOQ features tailored sensory and visual tools for autism, it also supports children with speech delays, dysphasia, articulation challenges, or temporary speech difficulties.",
+    "q2": "Does my child need their own phone or login account?",
+    "a2": "Never. Children do not have login credentials or passwords. They enter their personalized Child World directly from the parent app in a safe mode with parental lock.",
+    "q3": "Can specialists see all children in the family account?",
+    "a3": "No. Access is granted strictly on a child-by-child basis. If you have two children, a therapist assigned to the elder will never see the profile or data of the younger.",
+    "q4": "Does OFOQ replace in-person speech therapy sessions?",
+    "a4": "Never. OFOQ is neither a diagnostic tool nor a substitute for clinical therapy. It acts as an interactive bridge to practice goals between clinic sessions.",
+    "q5": "What languages are available for pictograms and audio?",
+    "a5": "The interface fully supports Modern Standard Arabic (with high-quality vocalization) and French, alongside Algerian Arabic (Derja) audio recordings for everyday items."
+  },
+  "footer": {
+    "rights": "© 2026 OFOQ. All rights reserved. Designed & built in Algeria.",
+    "mission_reminder": "OFOQ connects children, families, and specialists so every child reaches their own horizon.",
+    "non_diagnostic_notice": "Notice: OFOQ is an educational and communication platform. It does not provide medical diagnoses or clinical advice.",
+    "links_title": "Navigation",
+    "legal_title": "Privacy & Ethics",
+    "privacy": "Privacy Policy",
+    "legal": "Legal Notice",
+    "contact": "Contact Us"
+  }
+}

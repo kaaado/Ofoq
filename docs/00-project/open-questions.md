@@ -212,18 +212,17 @@ Each open item is documented with its background context, operational options, a
 
 ### OQ-013 — Official Brand Color Palette Selection & Design System Tokens
 - **Category:** Brand Identity / Design System
-- **Description:** Which color palette direction will be formally ratified by the Product Owner as the official OFOQ design system?
+- **Description:** Which color palette direction is formally ratified by the Product Owner as the official OFOQ design system?
 - **Why It Matters:** Unlocks Phase 01 design tokens, CSS variables, high-fidelity wireframes, and accessible UI theme configurations.
-- **Current Status:** **Ten exploratory palette directions exist. NO official palette has been selected by the Product Owner.** The exploratory "Deep Horizon" palette (`#17464A`, `#B5CDD0`, `#C9826B`, `#D7BD82`) is currently classified as `[PROPOSED]`.
-- **Possible Options:**
-  - *Option A:* Ratify the "Deep Horizon / Warm Clay" palette following WCAG 2.1 AA accessibility and contrast validation.
-  - *Option B:* Select an alternative exploratory palette from the 10 developed directions.
-  - *Option C:* Commission a refined palette based on autism-friendly sensory feedback.
-- **Recommended Direction:** Product Owner formal selection during Phase 01 gate review.
-- **Validation Method:** Sensory and contrast audit ($\ge 4.5:1$ text contrast, no overstimulating tones).
-- **Priority:** `P0 (Gate 00 -> Phase 01 Blocker)`
-- **Status:** `OPEN QUESTION (Awaiting Product Owner Decision)`
-- **Decision Owner:** Product Owner
+- **Ratified Selection:** The Product Owner has formally approved the authoritative five-color palette:
+  1. **Midnight Navy (`#172B46`):** Primary brand, authority, typography, dark surfaces.
+  2. **Cloud Blue (`#A9C5D8`):** Secondary brand, open backgrounds, calm surfaces.
+  3. **Muted Coral (`#D58C7A`):** Human warmth, highlights, selected accents.
+  4. **Soft Gold (`#D8BE83`):** Premium details, achievement, subtle emphasis.
+  5. **Porcelain (`#F5F6F3`):** Main light canvas background, breathing space.
+- **Priority:** `P0`
+- **Status:** `RESOLVED & RATIFIED (Approved in Phase 01)`
+- **Decision Owner:** Product Owner (Ratified 2026-11-23)
 
 ---
 

@@ -1,0 +1,202 @@
+{
+  "brand": {
+    "name": "OFOQ",
+    "arabic_name": "أفق",
+    "tagline": "Chaque enfant a son propre horizon.",
+    "tab_title": "OFOQ (أفق) | Écosystème connecté pour l'autisme et la communication",
+    "meta_description": "OFOQ connecte les enfants avec autisme ou difficultés d'élocution, leurs familles et les professionnels en Algérie. Communication alternative (CAA), mondes personnalisés et continuité éducative bienveillante."
+  },
+  "nav": {
+    "home": "Accueil",
+    "ecosystem": "L'Écosystème",
+    "child_world": "Mondes Enfants (CAA)",
+    "pillars": "Nos Piliers",
+    "families": "Pour les Familles",
+    "professionals": "Pour les Spécialistes",
+    "safety": "Sécurité & Éthique",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "join_waitlist": "Rejoindre l'écosystème",
+    "tagline_short": "Chaque enfant a son propre horizon"
+  },
+  "hero": {
+    "badge": "Écosystème Numérique Pédagogique • Algérie",
+    "title_main": "Chaque enfant a son propre",
+    "title_highlight": "horizon d'épanouissement.",
+    "subtitle": "OFOQ crée un pont vivant entre les séances spécialisées et le quotidien familial. Communication alternative (CAA), mondes personnalisés et coordination bienveillante pour les enfants avec autisme et troubles de la parole.",
+    "cta_family": "Je suis un parent",
+    "cta_pro": "Je suis un spécialiste",
+    "stat_trust": "Accès strictement encadré par les parents",
+    "stat_tracking": "Continuité maison-cabinet en temps réel",
+    "stat_human": "Respect de la dignité et du rythme de l'enfant"
+  },
+  "ecosystem": {
+    "tag": "Architecture Connectée",
+    "title": "Comment fonctionne l'écosystème OFOQ ?",
+    "subtitle": "Un compte famille centralisé unissant les mondes personnalisés de chaque enfant et leurs spécialistes autorisés.",
+    "step1_title": "1. Le Parent crée le Compte Famille",
+    "step1_desc": "Configurez les profils de vos enfants en quelques clics. Un compte unique pour toute la fratrie, sans jamais imposer de mot de passe à l'enfant.",
+    "step2_title": "2. Chaque Enfant a son Monde Dédié",
+    "step2_desc": "Chaque enfant accède à son espace sécurisé et sensoriellement adapté : pictogrammes sonores (CAA), routines quotidiennes et activités motivantes.",
+    "step3_title": "3. Les Spécialistes collaborent sous votre accord",
+    "step3_desc": "Autorisez l'orthophoniste ou l'éducateur à attribuer des objectifs et à consigner ses observations. Vous gardez le contrôle total et révocable."
+  },
+  "child_world": {
+    "tag": "Espace Personnalisé",
+    "title": "Le Monde de l'Enfant : un outil d'expression sur mesure",
+    "subtitle": "Une interface apaisante, tactile et prévisible, où l'enfant communique naturellement sans surcharge cognitive.",
+    "feature_aac": "Communication Alternative (CAA)",
+    "feature_aac_desc": "Grilles de pictogrammes clairs avec synthèse vocale instantanée en Arabe standard et Français, enrichies d'enregistrements audio en Derja.",
+    "feature_sensory": "Conception Sensorielle Douce",
+    "feature_sensory_desc": "Contrastes apaisants, animations modérées sans clignotement ni bruits parasites, favorisant la concentration.",
+    "feature_routines": "Routines & Horaires Visuels",
+    "feature_routines_desc": "Séquences imagées de la journée (école, séance, collation, coucher) avec validations bienveillantes pour rassurer l'enfant.",
+    "interactive_preview_title": "Aperçu de la bande de communication",
+    "preview_card_drink": "Boire de l'eau",
+    "preview_card_snack": "Goûter",
+    "preview_card_play": "Jouer au train",
+    "preview_card_help": "J'ai besoin d'aide",
+    "preview_tap_to_listen": "Touchez une carte pour entendre la prononciation"
+  },
+  "pillars": {
+    "tag": "Nos 6 Piliers",
+    "title": "Une approche globale pour le développement de l'enfant",
+    "subtitle": "OFOQ structure l'accompagnement autour de six dimensions complémentaires créant un écosystème d'apprentissage complet.",
+    "p1_title": "1. Communication Augmentée (CAA)",
+    "p1_desc": "Tableaux de pictogrammes, synthèse vocale claire et personnalisation photographique avec les objets du domicile.",
+    "p2_title": "2. Mondes Enfants Personnalisés",
+    "p2_desc": "Espaces autonomes et sécurisés adaptés au rythme cognitif et aux centres d'intérêt de chaque enfant.",
+    "p3_title": "3. Gestion Familiale Centralisée",
+    "p3_desc": "Un compte parent unique pour gérer plusieurs enfants, partager les progrès et renforcer les rituels du quotidien.",
+    "p4_title": "4. Collaboration Professionnelle",
+    "p4_desc": "Partage d'objectifs, assignation d'exercices ciblés et transmission d'observations entre cabinet et maison.",
+    "p5_title": "5. Assistance IA Responsable & Ciblée",
+    "p5_desc": "Suggestions bienveillantes d'activités et compagnon optionnel isolé par enfant, strictement non-clinique et sous contrôle parental.",
+    "p6_title": "6. Académie OFOQ",
+    "p6_desc": "Ressources pédagogiques, guides pratiques et masterclasses animées par des experts pour outiller parents et praticiens."
+  },
+  "for_families": {
+    "tag": "Pour les Familles",
+    "title": "Une sérénité retrouvée pour les parents",
+    "subtitle": "Ne soyez plus seuls face aux défis du quotidien. OFOQ vous donne les outils pour stimuler la communication de votre enfant en toute confiance.",
+    "card1_title": "Une voix pour votre enfant",
+    "card1_desc": "Des outils de CAA intuitifs permettant à votre enfant d'exprimer ses besoins fondamentaux, réduisant les frustrations et les crises.",
+    "card2_title": "Continuité des séances",
+    "card2_desc": "Sachez exactement quels mots et exercices ont été travaillés en séance chez l'orthophoniste pour les reproduire naturellement à la maison.",
+    "card3_title": "Gestion multi-enfants",
+    "card3_desc": "Basculez d'un enfant à l'autre en un geste. Chaque enfant conserve son univers, son rythme et ses autorisations propres."
+  },
+  "for_professionals": {
+    "tag": "Pour les Spécialistes",
+    "title": "Un espace professionnel valorisant votre expertise",
+    "subtitle": "Orthophonistes, psychomotriciens, éducateurs et centres spécialisés : démultipliez l'impact de vos prises en charge.",
+    "card1_title": "Visibilité sur le travail à domicile",
+    "card1_desc": "Consultez en un coup d'œil si les activités et le vocabulaire ciblés ont été mobilisés au cours de la semaine.",
+    "card2_title": "Gain de temps précieux",
+    "card2_desc": "Fini les carnets papier égarés et les échanges WhatsApp éparpillés. Toutes vos notes de suivi sont centralisées et protégées.",
+    "card3_title": "Partenariat thérapeutique renforcé",
+    "card3_desc": "Faites des parents de véritables partenaires actifs de la rééducation dans un cadre déontologique respecté."
+  },
+  "boundaries": {
+    "tag": "Cadre Éthique & Déontologique",
+    "title": "Une frontière claire : le non-diagnostique",
+    "subtitle": "OFOQ est un écosystème d'accompagnement et de communication. Nous ne remplaçons jamais les professionnels de santé.",
+    "included_title": "Ce que nous apportons avec engagement :",
+    "inc_1": "Outils d'expression et de communication visuelle adaptés",
+    "inc_2": "Médiation et transmission d'objectifs entre praticiens et parents",
+    "inc_3": "Structuration visuelle des routines du quotidien",
+    "inc_4": "Ressources pédagogiques et guides pratiques validés",
+    "inc_5": "Protection absolue et étanchéité des données de l'enfant",
+    "excluded_title": "Ce que nous ne faisons JAMAIS (Exclu) :",
+    "exc_1": "Aucun diagnostic clinique ou dépistage médical automatisé",
+    "exc_2": "Aucune prescription de thérapie ou de traitement médical",
+    "exc_3": "Ne se substitue pas à la relation humaine parents-enfants",
+    "exc_4": "Aucun partage de données sensibles sans consentement explicite"
+  },
+  "trust": {
+    "tag": "Protection & Confidentialité",
+    "title": "La sécurité de votre enfant au cœur de notre conception",
+    "card1_title": "Conformité Loi 18-07 Algérie",
+    "card1_desc": "Respect scrupuleux de la loi n° 18-07 sur la protection des données personnelles. Données de l'enfant minimisées et strictement protégées.",
+    "card2_title": "Cloisonnement des Mondes Enfants",
+    "card2_desc": "Chaque monde est isolé. Aucune fuite d'informations entre enfants, et les spécialistes accèdent uniquement aux profils autorisés.",
+    "card3_title": "Consentement Parental Révoqué à Tout Moment",
+    "card3_desc": "Le parent est l'unique propriétaire du compte. Vous pouvez modifier ou révoquer les accès professionnels en un clic."
+  },
+  "waitlist": {
+    "title": "Rejoignez l'écosystème OFOQ en avant-première",
+    "subtitle": "Inscrivez-vous à notre accès anticipé en Algérie. Les premières cohortes de familles et de spécialistes seront accompagnées en priorité.",
+    "form_name": "Votre nom et prénom *",
+    "form_contact": "Numéro de téléphone ou Email *",
+    "form_wilaya": "Votre Wilaya *",
+    "form_type": "Vous vous inscrivez en tant que :",
+    "type_family": "Parent / Famille d'un enfant avec difficultés d'élocution ou autisme",
+    "type_pro": "Professionnel (Orthophoniste, Éducateur, Psychomotricien, Centre)",
+    "form_message": "Parlez-nous de vos attentes ou de la situation de votre enfant (facultatif)",
+    "form_consent": "J'accepte d'être contacté(e) par OFOQ pour le lancement du service conformément à la politique de confidentialité.",
+    "btn_submit": "Confirmer ma demande d'accès prioritaire",
+    "btn_submitting": "Transmission en cours...",
+    "success_title": "Merci pour votre confiance !",
+    "success_desc": "Votre demande d'accès prioritaire a été enregistrée avec succès. Notre équipe vous contactera pour l'ouverture des accès dans votre wilaya."
+  },
+  "forms": {
+    "required_indicator": "Les champs marqués d'un astérisque (*) sont obligatoires.",
+    "fields": {
+      "full_name": "Nom & Prénom *",
+      "contact_value": "Numéro de téléphone ou Email *",
+      "subject": "Objet de la demande",
+      "message": "Votre message ou question *",
+      "submit_contact": "Envoyer le message",
+      "submit_waitlist": "Confirmer mon inscription prioritaire",
+      "submitting": "Transmission en cours..."
+    },
+    "placeholders": {
+      "full_name": "Ex : Amina Mansouri",
+      "contact_value": "0550 00 00 00 / email@domaine.dz",
+      "subject": "Ex : Demande d'information pour mon cabinet",
+      "message": "Précisez votre question ou besoin particulier..."
+    },
+    "errors": {
+      "required": "Ce champ est obligatoire.",
+      "invalid_contact": "Veuillez entrer un numéro de téléphone algérien (05/06/07) ou un email valide.",
+      "consent_required": "Votre consentement est requis pour le traitement de votre demande.",
+      "validation": "Veuillez vérifier les informations saisies.",
+      "duplicate": "Cette adresse email ou ce numéro est déjà enregistré sur la liste d'attente.",
+      "network": "Une erreur réseau est survenue. Veuillez vérifier votre connexion.",
+      "timeout": "Le délai d'attente a expiré. Veuillez réessayer.",
+      "server": "Une erreur serveur est survenue. Notre équipe a été alertée.",
+      "unknown": "Une erreur inattendue est survenue. Veuillez réessayer ultérieurement."
+    },
+    "success": {
+      "waitlist": "Votre inscription prioritaire a été confirmée avec succès.",
+      "contact": "Votre message a été transmis avec succès à notre équipe.",
+      "contact_sent": "Votre message a été transmis avec succès à notre équipe.",
+      "waitlist_enrolled": "Votre inscription prioritaire a été confirmée."
+    }
+  },
+  "faq": {
+    "tag": "Questions Fréquentes",
+    "title": "Tout ce que vous souhaitez savoir sur OFOQ",
+    "subtitle": "Des réponses claires pour comprendre notre fonctionnement et notre engagement.",
+    "q1": "OFOQ est-il réservé aux enfants autistes ?",
+    "a1": "Non. Bien qu'OFOQ intègre des fonctionnalités parfaitement adaptées aux personnes autistes (CAA, réduction sensorielle, routines visuelles), la plateforme soutient également les enfants ayant un retard de langage, des troubles de l'articulation ou des difficultés d'élocution.",
+    "q2": "Mon enfant doit-il avoir son propre smartphone ou compte ?",
+    "a2": "Absolument pas. L'enfant n'a aucun compte ni mot de passe. Il accède à son Monde directement depuis l'application du parent, dans un mode sécurisé protégé par un code parental.",
+    "q3": "Les spécialistes ont-ils accès à tous les enfants de la famille ?",
+    "a3": "Non. L'accès est strictement accordé enfant par enfant. Si vous avez deux enfants sur votre compte, un orthophoniste autorisé pour l'aîné ne verra jamais le profil ni les données du cadet.",
+    "q4": "OFOQ remplace-t-il les séances chez l'orthophoniste ?",
+    "a4": "Jamais. OFOQ n'est ni un outil de diagnostic ni un substitut aux thérapies. Il sert de relais pour faciliter la mise en pratique des exercices et du vocabulaire entre les séances.",
+    "q5": "Dans quelles langues les pictogrammes et l'audio sont-ils disponibles ?",
+    "a5": "L'interface prend en charge l'Arabe (avec synthèse vocale de haute qualité) et le Français. Des enregistrements en Arabe algérien (Derja) sont également intégrés pour les objets du quotidien."
+  },
+  "footer": {
+    "rights": "© 2026 OFOQ. Tous droits réservés. Écosystème conçu en Algérie.",
+    "mission_reminder": "OFOQ connecte les enfants, les familles et les spécialistes pour donner à chaque enfant son propre horizon d'épanouissement.",
+    "non_diagnostic_notice": "Avertissement : OFOQ est une plateforme pédagogique et de communication. Elle ne dispense aucun diagnostic médical ni avis clinique.",
+    "links_title": "Navigation",
+    "legal_title": "Protection & Éthique",
+    "privacy": "Politique de Confidentialité",
+    "legal": "Mentions Légales",
+    "contact": "Contactez-nous"
+  }
+}
