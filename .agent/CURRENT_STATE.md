@@ -24,6 +24,7 @@
 - `a282fc2`: fix(safety): refine Law 18-07 wording to principles alignment and defensive boundaries
 - `0310605`: fix(3d): lower companion model base position to Y=-0.90 with expanded canvas height for generous top headroom
 - `4ead3a0`: fix(3d): scale companion model up to 2.05 and center perfectly in canvas viewport
+- `cc69d96`: fix(3d): adjust companion model baseY to -0.42 and scale to 1.78 to guarantee generous top ear headroom
 **Publishing Status:** Local implementation completed; remote push is not authorized.  
 
 ---
