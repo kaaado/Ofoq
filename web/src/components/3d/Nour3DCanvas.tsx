@@ -62,9 +62,9 @@ export const Nour3DCanvas: React.FC<Nour3DCanvasProps> = ({
     sceneRef.current = scene;
 
     // 2. Camera - positioned with generous top headroom for rabbit ears
-    const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 100);
-    camera.position.set(0, 0, 3.6);
-    camera.lookAt(0, -0.15, 0);
+    const camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 100);
+    camera.position.set(0, -0.05, 3.8);
+    camera.lookAt(0, -0.40, 0);
 
     // 3. Renderer with high performance & power efficiency
     const renderer = new THREE.WebGLRenderer({
@@ -110,13 +110,13 @@ export const Nour3DCanvas: React.FC<Nour3DCanvasProps> = ({
         const size = box.getSize(new THREE.Vector3());
 
         const maxDim = Math.max(size.x, size.y, size.z);
-        const scale = 1.78 / maxDim; // prominent while leaving abundant top clearance
+        const scale = 1.68 / maxDim; // comfortably sized with generous headroom
         baseScaleRef.current = scale;
         model.scale.set(scale, scale, scale);
 
-        // Center on X & Z, adjust Y down so rabbit ears have generous breathing room
+        // Center on X & Z, adjust Y down significantly as requested
         model.position.x = -center.x * scale;
-        model.position.y = -center.y * scale - 0.42;
+        model.position.y = -center.y * scale - 0.70;
         model.position.z = -center.z * scale;
 
         scene.add(model);
@@ -179,8 +179,8 @@ export const Nour3DCanvas: React.FC<Nour3DCanvasProps> = ({
 
       if (modelRef.current) {
         if (!prefersReducedMotion) {
-          // Base position - positioned lower so rabbit ears have generous top clearance
-          const baseY = -0.42;
+          // Base position - positioned down more as requested
+          const baseY = -0.70;
 
           // Mode-specific animations
           if (mode === 'talking') {
