@@ -17,7 +17,7 @@
 - `ced9efa`: feat(phase02.3): unify 3D child world experience, integrate GLB companion model, and streamline landing page navigation
 - `4b4b268`: feat(ui): update typography, 2-line hero headline, mobile widget, and 3D companion refinements
 - `cd33f3a`: feat(phase02.4): enterprise visual refinement, glassmorphism tokens, code-split 3D companion, and trilingual parity
-- `[Pending Commit]`: feat(experience): directional hero mobile tilt, 3D companion repositioning, Lucide simulation icons, tactile audio, and stop speech control
+- `e8dfa53`: feat(experience): directional hero mobile tilt, 3D companion repositioning, Lucide simulation icons, tactile audio, and stop speech control
 **Publishing Status:** Local implementation completed; remote push is not authorized.  
 
 ---
