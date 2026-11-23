@@ -8,17 +8,22 @@ export default {
     extend: {
       colors: {
         ofoq: {
-          // 5 Approved Core Colors
-          midnight: '#172B46',
-          cloud: '#A9C5D8',
-          coral: '#D58C7A',
-          gold: '#D8BE83',
-          porcelain: '#F5F6F3',
+          // Refined 5 Core Brand Colors + Porcelain Canvas
+          midnight: '#172B46', // Primary: Trust, professionalism & identity
+          royal: '#2868C7',    // Secondary: Hope, communication & technology
+          cloud: '#A9C5D8',    // Supporting: Calm, accessibility & comfort
+          gold: '#D8BE83',     // Accent: Growth, achievement & optimism
+          coral: '#D58C7A',    // Human Accent: Warmth, empathy & family connection
+          porcelain: '#F5F6F3', // Neutral Canvas
 
           // Derived Accessible Tones
           'midnight-dark': '#0F1E32',
           'midnight-light': '#223B5E',
           'midnight-muted': '#5B6E85',
+          'royal-hover': '#1E54A3',
+          'royal-dark': '#153C78',
+          'royal-light': '#4A85DD',
+          'royal-soft': '#E9F1FC',
           'cloud-light': '#DCE8F0',
           'cloud-ultralight': '#EDF4F8',
           'cloud-dark': '#4B728F',
@@ -34,7 +39,7 @@ export default {
           success: '#2D7A58',
           warning: '#C4841D',
           error: '#BA3C3C',
-          info: '#3F7A9E',
+          info: '#2868C7',
         }
       },
       fontFamily: {

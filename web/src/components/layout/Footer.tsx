@@ -37,15 +37,11 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPrivacy, onOpenLegal }) =>
           {/* Brand & Purpose (4 cols) */}
           <div className="lg:col-span-5 space-y-4 text-start">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#172B46] to-[#223B5E] p-0.5 shadow-md flex items-center justify-center shrink-0 border border-[#A9C5D8]/40">
-                <svg viewBox="0 0 40 40" className="w-6 h-6 text-[#D8BE83]" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="20" cy="20" r="16" stroke="currentColor" strokeWidth="1.5" strokeDasharray="3 3" opacity="0.4" />
-                  <path d="M6 24C12 16 28 16 34 24" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-                  <circle cx="20" cy="14" r="4" fill="#D58C7A" />
-                  <circle cx="11" cy="22" r="2.5" fill="#A9C5D8" />
-                  <circle cx="29" cy="22" r="2.5" fill="#F5F6F3" />
-                </svg>
-              </div>
+              <img
+                src="/logo.png"
+                alt="OFOQ"
+                className="h-10 sm:h-12 w-auto object-contain brightness-110 drop-shadow-md"
+              />
 
               <div className="flex flex-col">
                 <span className="text-2xl font-heading font-black tracking-tight text-white leading-none">{brandName}</span>

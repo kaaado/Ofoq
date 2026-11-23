@@ -16,6 +16,7 @@ import {
 import { ScrollReveal } from '../components/common/ScrollReveal';
 
 // Consolidated Single-Page Sections
+import { ChildWorldsShowcase } from '../components/sections/ChildWorldsShowcase';
 import { HowItWorksSection } from '../components/sections/HowItWorksSection';
 import { AboutSection } from '../components/sections/AboutSection';
 import { ServicesSection } from '../components/sections/ServicesSection';
@@ -143,7 +144,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenWaitlist }) => {
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => onOpenWaitlist('family')}
-                className="bg-[#172B46] hover:bg-[#1f3757] hover:shadow-xl text-white font-bold text-base px-8 py-4 rounded-full shadow-lg transition-all flex items-center justify-center gap-2.5 cursor-pointer"
+                className="bg-gradient-to-r from-[#2868C7] to-[#172B46] hover:from-[#1E54A3] hover:to-[#172B46] hover:shadow-xl hover:shadow-[#2868C7]/25 text-white font-bold text-base px-8 py-4 rounded-full shadow-lg transition-all flex items-center justify-center gap-2.5 cursor-pointer border border-white/20"
               >
                 <span>{t('hero.cta_family')}</span>
                 <ArrowRight size={18} className="rtl-flip text-[#D8BE83]" />
@@ -152,7 +153,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenWaitlist }) => {
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => onOpenWaitlist('companion')}
-                className="bg-white/95 hover:bg-[#A9C5D8]/15 border-2 border-[#172B46] text-[#172B46] font-bold text-base px-7 py-3.5 rounded-full shadow-xs transition-all text-center cursor-pointer"
+                className="bg-white/95 hover:bg-[#2868C7]/10 border-2 border-[#2868C7]/40 hover:border-[#2868C7] text-[#172B46] font-bold text-base px-7 py-3.5 rounded-full shadow-xs transition-all text-center cursor-pointer"
               >
                 {t('hero.cta_companion')}
               </motion.button>
@@ -398,7 +399,10 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenWaitlist }) => {
         </div>
       </section>
 
-      {/* 2. HOW IT WORKS SECTION (CONNECTED ECOSYSTEM 3 STEPS) */}
+      {/* 2. 3D SPACETOON-INSPIRED CHILD WORLDS SHOWCASE */}
+      <ChildWorldsShowcase />
+
+      {/* 3. HOW IT WORKS SECTION (CONNECTED ECOSYSTEM 3 STEPS) */}
       <HowItWorksSection />
 
       {/* 3. ABOUT OFOQ (MISSION & CONTINUITY GAP) */}

@@ -70,16 +70,17 @@ This document tracks all formal Product Decision Records (PDR) and Architectural
 
 ---
 
-### DEC-007: Official Brand Color Palette Ratification
+### DEC-007: Official Refined Brand Color Palette Ratification
 - **Category:** Design System
 - **Status:** `[CONFIRMED]`
-- **Context:** Following the Phase 01 brand identity review, the official OFOQ brand color palette was evaluated and approved by the Product Owner.
-- **Decision:** Formally ratify the authoritative five-color palette:
-  - **Midnight Navy (`#172B46`):** Primary brand, authority, typography, dark surfaces.
-  - **Cloud Blue (`#A9C5D8`):** Secondary brand, open backgrounds, calm surfaces.
-  - **Muted Coral (`#D58C7A`):** Human warmth, highlights, selected accents.
-  - **Soft Gold (`#D8BE83`):** Premium details, achievement, subtle emphasis.
-  - **Porcelain (`#F5F6F3`):** Main light canvas background, breathing space.
+- **Context:** Following the Phase 01 design system iteration, the official OFOQ brand color palette was refined and approved by the Product Owner to introduce a vibrant secondary blue representing hope and technological enablement.
+- **Decision:** Formally ratify the authoritative Refined Brand Color Palette:
+  - **Midnight Navy (`#172B46`):** Primary brand, trust, identity, high-contrast headings.
+  - **Royal Horizon Blue (`#2868C7`):** Secondary brand, hope, communication, active CTAs, 3D planet illumination.
+  - **Cloud Blue (`#A9C5D8`):** Supporting, calm, accessible glass borders, sensory comfort.
+  - **Soft Gold (`#D8BE83`):** Accent, growth, achievement stars, Spacetoon planet rings.
+  - **Muted Coral (`#D58C7A`):** Human accent, warmth, empathy, AAC tactile feedback.
+  - **Porcelain (`#F5F6F3`):** Neutral foundation, gentle light canvas, glare-free background.
 - **Consequences:** Establishes fixed chromatic anchors; unlocks design tokens, CSS variables, and landing page adaptation; forbids replacing or reinterpreting the approved hex values.
 - **Date:** 2026-11-23
 

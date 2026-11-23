@@ -5,6 +5,7 @@
 :root {
   color-scheme: light;
   --ofoq-midnight: #172B46;
+  --ofoq-royal: #2868C7;
   --ofoq-cloud: #A9C5D8;
   --ofoq-coral: #D58C7A;
   --ofoq-gold: #D8BE83;
@@ -82,6 +83,42 @@ h1, h2, h3, h4 {
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(23, 43, 70, 0.1);
+}
+
+/* 3D Celestial World & Glossmorphic Glows */
+.glass-royal-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(245, 246, 243, 0.75) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(40, 104, 199, 0.2);
+  box-shadow: 0 16px 40px -10px rgba(40, 104, 199, 0.12), 0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+}
+
+.planet-glow-royal {
+  box-shadow: 0 0 45px -5px rgba(40, 104, 199, 0.45), 0 0 20px -2px rgba(169, 197, 216, 0.3);
+}
+
+.planet-glow-coral {
+  box-shadow: 0 0 45px -5px rgba(213, 140, 122, 0.45), 0 0 20px -2px rgba(216, 190, 131, 0.3);
+}
+
+.planet-glow-gold {
+  box-shadow: 0 0 45px -5px rgba(216, 190, 131, 0.5), 0 0 20px -2px rgba(40, 104, 199, 0.25);
+}
+
+.orbit-ring {
+  border: 1.5px dashed rgba(40, 104, 199, 0.25);
+  border-radius: 9999px;
+  animation: spin 40s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.perspective-1000 {
+  perspective: 1000px;
 }
 
 /* Custom Scrollbar with OFOQ Midnight & Cloud Blue */

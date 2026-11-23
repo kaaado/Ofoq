@@ -29,8 +29,8 @@ export const Header: React.FC<HeaderProps> = ({ onOpenWaitlist, activeSection = 
 
   const navLinks = [
     { href: '#home', id: 'home', label: t('nav.home') },
-    { href: '#ecosystem', id: 'ecosystem', label: t('nav.ecosystem') },
     { href: '#child-world', id: 'child-world', label: t('nav.child_world') },
+    { href: '#ecosystem', id: 'ecosystem', label: t('nav.ecosystem') },
     { href: '#pillars', id: 'pillars', label: t('nav.pillars') },
     { href: '#families', id: 'families', label: t('nav.families') },
     { href: '#professionals', id: 'professionals', label: t('nav.professionals') },
@@ -105,16 +105,11 @@ export const Header: React.FC<HeaderProps> = ({ onOpenWaitlist, activeSection = 
               onClick={(e) => handleNavClick(e, '#home', 'home')}
               className="flex items-center gap-3 focus:outline-hidden group"
             >
-              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-[#172B46] to-[#223B5E] p-0.5 shadow-md flex items-center justify-center shrink-0 border border-[#A9C5D8]/40 group-hover:scale-105 transition-transform">
-                <svg viewBox="0 0 40 40" className="w-7 h-7 text-[#D8BE83]" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  {/* Hybrid Logo: Horizon curve + orbiting connected worlds */}
-                  <circle cx="20" cy="20" r="16" stroke="currentColor" strokeWidth="1.5" strokeDasharray="3 3" opacity="0.4" />
-                  <path d="M6 24C12 16 28 16 34 24" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-                  <circle cx="20" cy="14" r="4" fill="#D58C7A" />
-                  <circle cx="11" cy="22" r="2.5" fill="#A9C5D8" />
-                  <circle cx="29" cy="22" r="2.5" fill="#F5F6F3" />
-                </svg>
-              </div>
+              <img
+                src="/logo.png"
+                alt="OFOQ"
+                className="h-10 sm:h-12 w-auto object-contain drop-shadow-xs group-hover:scale-105 transition-transform"
+              />
 
               <div className="flex flex-col text-start">
                 <span className="font-heading font-extrabold text-xl sm:text-2xl tracking-tight text-[#172B46] leading-none">

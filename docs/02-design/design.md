@@ -27,32 +27,34 @@ Its visual identity expresses five core emotional tenets:
 
 ---
 
-## 2. Official Brand Color Palette
+## 2. Refined Brand Color Palette
 
-The Product Owner has formally approved the authoritative **five-color palette**. These five hex values are fixed anchors and must remain identifiable throughout the platform.
+The Product Owner has formally approved the authoritative **OFOQ Refined Brand Color Palette**. It consists of five core brand colors anchored on a neutral porcelain canvas:
 
 ```text
 +---------------------------------------------------------------------------------+
-|  OFOQ OFFICIAL FIVE-COLOR PALETTE                                               |
+|  OFOQ REFINED BRAND COLOR PALETTE                                               |
 +---------------------------------------------------------------------------------+
-|  #172B46  Midnight Navy   Primary brand, authority, dark surfaces, text anchor  |
-|  #A9C5D8  Cloud Blue      Secondary brand, open backgrounds, calm surfaces     |
-|  #D58C7A  Muted Coral     Human warmth, interactive highlights, key accents     |
-|  #D8BE83  Soft Gold       Premium details, milestones, achievements, elegance   |
-|  #F5F6F3  Porcelain       Main light canvas background, breathing space         |
+|  #172B46  Midnight Navy        Primary: Trust, professionalism & identity       |
+|  #2868C7  Royal Horizon Blue   Secondary: Hope, communication & technology      |
+|  #A9C5D8  Cloud Blue           Supporting: Calm, accessibility & comfort        |
+|  #D8BE83  Soft Gold            Accent: Growth, achievement & optimism           |
+|  #D58C7A  Muted Coral          Human Accent: Warmth, empathy & family connection|
+|  #F5F6F3  Porcelain            Neutral Foundation: Gentle light canvas          |
 +---------------------------------------------------------------------------------+
 ```
 
 ### 2.1 Color Roles & Visual Weight Distribution
 
-To maintain a serene, premium atmosphere, the five colors are applied with intentional hierarchy:
+To maintain a serene, premium atmosphere, the palette is applied with intentional hierarchy:
 
 ```text
-[ Porcelain (60% Canvas) ] ────────── Global light background, high-contrast negative space
-[ Midnight Navy (25% Structure) ] ─── Navigation, primary headings, dark contrast surfaces
-[ Cloud Blue (10% Calming Depth) ] ── Translucent glass panels, calm secondary surfaces
-[ Muted Coral (3% Human Spark) ] ─── Primary interactive CTAs, warm accents, focus states
-[ Soft Gold (2% Refinement) ] ────── Milestone badges, premium highlights, gentle glows
+[ Porcelain (55% Canvas) ] ────────────── Global light background, glare-free breathing space
+[ Midnight Navy (20% Structure) ] ─────── Primary navigation, bold headings, dark anchor surfaces
+[ Royal Horizon Blue (12% Energy) ] ──── Primary actions, luminous gradients, 3D planet halos
+[ Cloud Blue (8% Calming Depth) ] ────── Translucent glass panels, calm secondary surfaces
+[ Muted Coral (3% Human Spark) ] ─────── Human empathy highlights, AAC tactile feedback
+[ Soft Gold (2% Celestial Wonder) ] ──── Achievement stars, routine badges, Spacetoon planet rings
 ```
 
 ### 2.2 Complete Color Matrix & Derived Tones
