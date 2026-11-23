@@ -16,7 +16,10 @@ interface ServicesSectionProps {
 }
 
 export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenWaitlist }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language || 'fr';
+  const isAr = currentLang === 'ar';
+  const isEn = currentLang === 'en';
 
   const pillars = [
     {
@@ -26,7 +29,9 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenWaitlist
       descKey: 'pillars.p1_desc',
       accent: '#D58C7A', // Muted Coral
       highlight: true,
-      tag: 'AAC / CAA',
+      tagAr: 'تواصل بديل',
+      tagFr: 'CAA / AAC',
+      tagEn: 'AAC',
     },
     {
       num: '02',
@@ -35,7 +40,9 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenWaitlist
       descKey: 'pillars.p2_desc',
       accent: '#A9C5D8', // Cloud Blue
       highlight: false,
-      tag: 'Child World',
+      tagAr: 'عوالم الأطفال',
+      tagFr: 'Mondes Enfants',
+      tagEn: 'Child Worlds',
     },
     {
       num: '03',
@@ -44,7 +51,9 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenWaitlist
       descKey: 'pillars.p3_desc',
       accent: '#172B46', // Midnight Navy
       highlight: false,
-      tag: 'Family Hub',
+      tagAr: 'إدارة العائلة',
+      tagFr: 'Compte Famille',
+      tagEn: 'Family Hub',
     },
     {
       num: '04',
@@ -53,7 +62,9 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenWaitlist
       descKey: 'pillars.p4_desc',
       accent: '#D8BE83', // Soft Gold
       highlight: false,
-      tag: 'Pro Portal',
+      tagAr: 'بوابة الأخصائي',
+      tagFr: 'Portail Spécialiste',
+      tagEn: 'Pro Portal',
     },
     {
       num: '05',
@@ -62,7 +73,9 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenWaitlist
       descKey: 'pillars.p5_desc',
       accent: '#D58C7A', // Muted Coral
       highlight: false,
-      tag: 'Safe AI',
+      tagAr: 'ذكاء اصطناعي آمن',
+      tagFr: 'IA Sécurisée',
+      tagEn: 'Safe AI',
     },
     {
       num: '06',
@@ -71,7 +84,9 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenWaitlist
       descKey: 'pillars.p6_desc',
       accent: '#A9C5D8', // Cloud Blue
       highlight: false,
-      tag: 'Academy',
+      tagAr: 'أكاديمية أفق',
+      tagFr: 'Académie OFOQ',
+      tagEn: 'OFOQ Academy',
     },
   ];
 
@@ -106,7 +121,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenWaitlist
               >
                 {pillar.highlight && (
                   <div className="absolute -top-3.5 start-6 bg-[#D58C7A] text-white text-[11px] font-black px-3.5 py-0.5 rounded-full uppercase tracking-wider shadow-sm">
-                    {pillar.tag}
+                    {isAr ? pillar.tagAr : isEn ? pillar.tagEn : pillar.tagFr}
                   </div>
                 )}
 
@@ -136,13 +151,13 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenWaitlist
 
                 <div className="pt-6 border-t border-[#172B46]/08 flex items-center justify-between mt-4">
                   <span className="text-[11px] font-bold uppercase tracking-wider text-[#5B6E85]">
-                    {pillar.tag}
+                    {isAr ? pillar.tagAr : isEn ? pillar.tagEn : pillar.tagFr}
                   </span>
                   <button
                     onClick={() => onOpenWaitlist('family')}
                     className="text-xs font-bold text-[#172B46] hover:text-[#D58C7A] flex items-center gap-1.5 transition-colors cursor-pointer"
                   >
-                    <span>Explorer</span>
+                    <span>{isAr ? 'استكشف' : isEn ? 'Explore' : 'Explorer'}</span>
                     <ArrowRight size={13} className="rtl-flip text-[#D58C7A]" />
                   </button>
                 </div>

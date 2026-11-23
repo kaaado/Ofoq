@@ -23,10 +23,11 @@ export const WaitlistModal: React.FC<WaitlistModalProps> = ({
   const currentLang = i18n.language || 'fr';
   const isAr = currentLang === 'ar';
   const isFr = currentLang === 'fr';
+  const isEn = currentLang === 'en';
 
   const [fullName, setFullName] = useState('');
   const [contactValue, setContactValue] = useState('');
-  const [wilaya, setWilaya] = useState('16');
+  const [wilaya, setWilaya] = useState('20');
   const [interestType, setInterestType] = useState<'family' | 'companion'>(defaultType);
   const [message, setMessage] = useState('');
   const [consentAccepted, setConsentAccepted] = useState(false);
@@ -134,8 +135,8 @@ export const WaitlistModal: React.FC<WaitlistModalProps> = ({
           role="dialog"
           aria-modal="true"
         >
-          {/* Subtle Top Gradient Accent bar */}
-          <div className="absolute top-0 inset-x-0 h-2 bg-gradient-to-r from-[#172B46] via-[#A9C5D8] to-[#D58C7A]" />
+          {/* Animated Brand Gradient Accent Bar */}
+          <div className={`absolute top-0 inset-x-0 h-2.5 ${isAr ? 'animate-brand-gradient-rtl' : 'animate-brand-gradient-ltr'}`} />
 
           {/* Close Button */}
           <button
@@ -168,13 +169,13 @@ export const WaitlistModal: React.FC<WaitlistModalProps> = ({
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-4.5 pt-1" noValidate>
-              {/* Header Badge */}
-              <div className="flex items-center gap-2 text-[#172B46]">
-                <div className="w-8 h-8 rounded-xl bg-[#A9C5D8]/20 flex items-center justify-center text-[#172B46]">
-                  <Sparkles size={18} />
+              {/* Header Badge with animated flowing brand colors */}
+              <div className="flex items-center gap-2.5 p-2 px-3.5 rounded-2xl bg-gradient-to-r from-[#172B46]/08 via-[#2868C7]/10 to-[#D58C7A]/12 border border-[#A9C5D8]/40 w-fit">
+                <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#2868C7] to-[#172B46] text-[#D8BE83] flex items-center justify-center shadow-xs shrink-0">
+                  <Sparkles size={15} />
                 </div>
-                <span className="text-xs font-bold uppercase tracking-wider">
-                  {isAr ? 'أفق — قائمة الانتظار ذات الأولوية' : 'OFOQ — Inscription Prioritaire'}
+                <span className={`text-xs sm:text-sm font-black tracking-wide ${isAr ? 'text-gradient-flow-rtl font-arabic' : 'text-gradient-flow-ltr'}`}>
+                  {isAr ? 'أفق — قائمة الانتظار ذات الأولوية' : isEn ? 'OFOQ — Priority Early Access' : 'OFOQ — Inscription Prioritaire'}
                 </span>
               </div>
 

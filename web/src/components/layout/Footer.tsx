@@ -11,6 +11,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPrivacy, onOpenLegal }) =>
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language || 'fr';
   const isAr = currentLang === 'ar';
+  const isEn = currentLang === 'en';
 
   const brandName = isAr ? 'أفق' : 'OFOQ';
   const contactEmail = 'contact@ofoq.dz';
@@ -37,11 +38,13 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPrivacy, onOpenLegal }) =>
           {/* Brand & Purpose (4 cols) */}
           <div className="lg:col-span-5 space-y-4 text-start">
             <div className="flex items-center gap-3">
-              <img
-                src="/logo.png"
-                alt="OFOQ"
-                className="h-10 sm:h-12 w-auto object-contain brightness-110 drop-shadow-md"
-              />
+              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full overflow-hidden shadow-xs border-2 border-white/20 bg-white flex items-center justify-center shrink-0">
+                <img
+                  src="/logo.png"
+                  alt="OFOQ"
+                  className="w-full h-full object-cover rounded-full"
+                />
+              </div>
 
               <div className="flex flex-col">
                 <span className="text-2xl font-heading font-black tracking-tight text-white leading-none">{brandName}</span>
@@ -63,7 +66,13 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPrivacy, onOpenLegal }) =>
             <div className="pt-2 text-xs text-[#A9C5D8] space-y-1">
               <div className="flex items-center gap-2">
                 <MapPin size={14} className="text-[#D58C7A] shrink-0" />
-                <span>Alger, Algérie • Déploiement national</span>
+                <span>
+                  {isAr
+                    ? 'سعيدة، الجزائر • انتشار تدريجي وطني'
+                    : isEn
+                    ? 'Saïda, Algeria • National Deployment'
+                    : 'Saïda, Algérie • Déploiement national'}
+                </span>
               </div>
               <div className="flex items-center gap-2">
                 <Mail size={14} className="text-[#D58C7A] shrink-0" />
@@ -100,7 +109,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPrivacy, onOpenLegal }) =>
                   onClick={onOpenPrivacy}
                   className="hover:text-[#D58C7A] transition-colors cursor-pointer text-start"
                 >
-                  {t('footer.privacy')} (Loi 18-07)
+                  {t('footer.privacy')} {isAr ? '(القانون 18-07)' : isEn ? '(Law 18-07)' : '(Loi 18-07)'}
                 </button>
               </li>
               <li>

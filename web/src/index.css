@@ -121,6 +121,61 @@ h1, h2, h3, h4 {
   perspective: 1000px;
 }
 
+/* Animated Brand Gradient Flow */
+@keyframes brandGradientFlowLTR {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes brandGradientFlowRTL {
+  0% {
+    background-position: 100% 50%;
+  }
+  50% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-brand-gradient-ltr {
+  background: linear-gradient(90deg, #172B46, #2868C7, #A9C5D8, #D8BE83, #D58C7A, #2868C7, #172B46);
+  background-size: 300% 300%;
+  animation: brandGradientFlowLTR 6s ease infinite;
+}
+
+.animate-brand-gradient-rtl {
+  background: linear-gradient(270deg, #172B46, #2868C7, #A9C5D8, #D8BE83, #D58C7A, #2868C7, #172B46);
+  background-size: 300% 300%;
+  animation: brandGradientFlowRTL 6s ease infinite;
+}
+
+.text-gradient-flow-ltr {
+  background: linear-gradient(90deg, #172B46, #2868C7, #D8BE83, #D58C7A, #2868C7, #172B46);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: brandGradientFlowLTR 6s ease infinite;
+}
+
+.text-gradient-flow-rtl {
+  background: linear-gradient(270deg, #172B46, #2868C7, #D8BE83, #D58C7A, #2868C7, #172B46);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: brandGradientFlowRTL 6s ease infinite;
+}
+
 /* Custom Scrollbar with OFOQ Midnight & Cloud Blue */
 ::-webkit-scrollbar {
   width: 6px;

@@ -88,9 +88,9 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenWaitlist }) => {
         {/* Subtle decorative background ambient glow */}
         <div className="absolute top-1/4 start-1/2 -translate-x-1/2 w-[700px] h-[420px] bg-gradient-to-tr from-[#A9C5D8]/40 via-[#F5F6F3] to-[#D58C7A]/20 rounded-full blur-3xl -z-10 pointer-events-none" />
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
-          {/* Left Column: Content & Actions (7 cols) */}
-          <div className="lg:col-span-7 flex flex-col gap-6 sm:gap-7 text-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          {/* Left Column: Content & Actions (6 cols) */}
+          <div className="lg:col-span-6 flex flex-col gap-6 sm:gap-7 text-start">
             {/* Value Tagline Pill */}
             <div className="w-full">
               <motion.div
@@ -178,225 +178,320 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenWaitlist }) => {
             </div>
           </div>
 
-          {/* Right Column: Interactive Child World AAC Preview Card */}
-          <div className="lg:col-span-5 relative flex justify-center items-center py-6 sm:py-10">
+          {/* Right Column: Mobile App Showcase (Three Mobile Widgets / Flower arrangement) */}
+          <div className="lg:col-span-6 relative flex justify-center items-center py-6 sm:py-10 overflow-visible">
             {/* Ambient Background Radial Glow */}
-            <div className="absolute w-72 sm:w-96 h-72 sm:h-96 rounded-full bg-gradient-to-tr from-[#A9C5D8]/40 via-[#F5F6F3] to-[#D58C7A]/25 blur-3xl -z-10 animate-pulse pointer-events-none" />
+            <div className="absolute w-80 sm:w-[480px] h-80 sm:h-[480px] rounded-full bg-gradient-to-tr from-[#2868C7]/20 via-[#A9C5D8]/30 to-[#D58C7A]/20 blur-3xl -z-10 animate-pulse pointer-events-none" />
 
-            {/* Floating Backdrop Decorative Shapes */}
-            <motion.div
-              animate={{
-                y: [-10, 10, -10],
-                rotate: [0, 3, 0, -3, 0],
-              }}
-              transition={{
-                duration: 9,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }}
-              className="absolute -top-6 -end-6 sm:-end-8 w-44 sm:w-52 h-44 sm:h-52 rounded-full bg-gradient-to-br from-[#A9C5D8]/30 to-white/40 border border-white/60 shadow-lg backdrop-blur-xl -z-10 pointer-events-none"
-            />
+            {/* Stage Container for Three Mobile Widgets */}
+            <div className="relative w-full max-w-[420px] sm:max-w-[480px] md:max-w-[560px] flex justify-center items-center">
 
-            {/* Main Interactive Child World Preview Card */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.93, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: [-4, 4, -4] }}
-              transition={{
-                opacity: { duration: 0.7, delay: 0.2 },
-                scale: { duration: 0.7, delay: 0.2 },
-                y: { duration: 6, repeat: Infinity, ease: 'easeInOut' }
-              }}
-              className="relative w-full max-w-[380px] sm:max-w-[420px]"
-            >
-              {/* Outer Card Frame with Glassmorphism */}
-              <div className="glass-card p-5 sm:p-6 rounded-[36px] border border-[#A9C5D8]/50 shadow-2xl backdrop-blur-2xl space-y-4">
-                {/* Child World Header Bar */}
-                <div className="flex items-center justify-between pb-3 border-b border-[#A9C5D8]/20">
-                  <div className="flex items-center gap-3">
-                    <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#172B46] to-[#1f3757] text-[#D8BE83] flex items-center justify-center font-bold text-base shadow-sm">
-                      ي
+              {/* LEFT WIDGET (Tilted Flower Petal: Family Hub) */}
+              <motion.div
+                initial={{ opacity: 0, x: isAr ? 30 : -30, rotate: isAr ? 8 : -8 }}
+                animate={{
+                  opacity: 1,
+                  x: isAr ? [20, 24, 20] : [-20, -24, -20],
+                  y: [-6, 6, -6],
+                  rotate: isAr ? [10, 12, 10] : [-10, -12, -10],
+                }}
+                transition={{
+                  duration: 8,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                }}
+                className={`absolute top-4 ${
+                  isAr ? 'end-4 sm:end-8' : 'start-4 sm:start-8'
+                } -translate-x-12 rtl:translate-x-12 z-10 hidden md:block w-[210px] sm:w-[225px] select-none pointer-events-none hover:pointer-events-auto transition-all`}
+              >
+                {/* Phone Frame */}
+                <div className="bg-[#172B46] p-2.5 rounded-[34px] shadow-2xl border border-white/20 ring-1 ring-black/10">
+                  {/* Dynamic Island / Pill */}
+                  <div className="w-16 h-3.5 bg-black/80 rounded-full mx-auto mb-2 flex items-center justify-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#2868C7]" />
+                  </div>
+                  {/* Screen Content */}
+                  <div className="bg-white rounded-[26px] p-3 space-y-2.5 text-start text-[#172B46] border border-gray-100">
+                    <div className="flex items-center justify-between pb-1.5 border-b border-gray-100">
+                      <span className="text-[10px] font-extrabold uppercase text-[#2868C7]">
+                        {isAr ? 'فضاء العائلة' : isEn ? 'Family Hub' : 'Espace Famille'}
+                      </span>
+                      <span className="text-[9px] bg-emerald-50 text-emerald-700 font-bold px-1.5 py-0.5 rounded-full flex items-center gap-1">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                        {isAr ? 'محمي' : 'Sécurisé'}
+                      </span>
                     </div>
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <h4 className="text-sm font-extrabold text-[#172B46]">
-                          {isAr ? 'عالم يانيس' : 'Monde de Yanis'}
-                        </h4>
-                        <span className="text-[10px] bg-[#A9C5D8]/30 text-[#172B46] px-2 py-0.5 rounded-full font-bold">
-                          6 {isAr ? 'سنوات' : 'ans'}
+
+                    <div className="space-y-1.5">
+                      <p className="text-[10px] font-bold text-gray-500">
+                        {isAr ? 'الملفات المستقلة:' : isEn ? 'Child Profiles:' : 'Profils Enfants :'}
+                      </p>
+                      <div className="bg-[#F5F6F3] p-1.5 rounded-xl flex items-center justify-between text-[11px] font-bold">
+                        <span className="flex items-center gap-1.5">
+                          <span>🪐</span>
+                          <span>{isAr ? 'يانيس (6 سنوات)' : isEn ? 'Yanis (6 yrs)' : 'Yanis (6 ans)'}</span>
+                        </span>
+                        <span className="text-[9px] text-[#2868C7] font-semibold">{isAr ? 'نشط' : 'Actif'}</span>
+                      </div>
+                      <div className="bg-[#F5F6F3] p-1.5 rounded-xl flex items-center justify-between text-[11px] font-bold text-gray-500">
+                        <span className="flex items-center gap-1.5">
+                          <span>🌸</span>
+                          <span>{isAr ? 'أمينة (4 سنوات)' : isEn ? 'Amina (4 yrs)' : 'Amina (4 ans)'}</span>
+                        </span>
+                        <span className="text-[9px] text-gray-400 font-semibold">{isAr ? 'مستقل' : 'Isolé'}</span>
+                      </div>
+                    </div>
+
+                    {/* Routine Preview */}
+                    <div className="bg-amber-50/80 border border-amber-200/60 p-2 rounded-xl space-y-1">
+                      <span className="text-[9px] font-bold text-amber-900 block">
+                        {isAr ? 'روتين الصباح المكتمل ⭐' : isEn ? 'Morning Routine ⭐' : 'Routine du Matin ⭐'}
+                      </span>
+                      <div className="w-full bg-amber-200/60 h-1.5 rounded-full overflow-hidden">
+                        <div className="bg-amber-500 h-full w-4/5 rounded-full" />
+                      </div>
+                    </div>
+
+                    <div className="text-[9px] text-center font-bold text-gray-400 pt-0.5">
+                      🔒 {isAr ? 'قفل الوالدين برمز سري' : isEn ? 'Parental PIN Active' : 'Code PIN Parental Actif'}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* RIGHT WIDGET (Tilted Flower Petal: Specialist Portal) */}
+              <motion.div
+                initial={{ opacity: 0, x: isAr ? -30 : 30, rotate: isAr ? -8 : 8 }}
+                animate={{
+                  opacity: 1,
+                  x: isAr ? [-20, -24, -20] : [20, 24, 20],
+                  y: [6, -6, 6],
+                  rotate: isAr ? [-10, -12, -10] : [10, 12, 10],
+                }}
+                transition={{
+                  duration: 8,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                  delay: 0.5,
+                }}
+                className={`absolute top-4 ${
+                  isAr ? 'start-4 sm:start-8' : 'end-4 sm:end-8'
+                } translate-x-12 rtl:-translate-x-12 z-10 hidden md:block w-[210px] sm:w-[225px] select-none pointer-events-none hover:pointer-events-auto transition-all`}
+              >
+                {/* Phone Frame */}
+                <div className="bg-[#172B46] p-2.5 rounded-[34px] shadow-2xl border border-white/20 ring-1 ring-black/10">
+                  {/* Dynamic Island / Pill */}
+                  <div className="w-16 h-3.5 bg-black/80 rounded-full mx-auto mb-2 flex items-center justify-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#D58C7A]" />
+                  </div>
+                  {/* Screen Content */}
+                  <div className="bg-white rounded-[26px] p-3 space-y-2.5 text-start text-[#172B46] border border-gray-100">
+                    <div className="flex items-center justify-between pb-1.5 border-b border-gray-100">
+                      <span className="text-[10px] font-extrabold uppercase text-[#D58C7A]">
+                        {isAr ? 'فضاء الأخصائي' : isEn ? 'Pro Portal' : 'Espace Spécialiste'}
+                      </span>
+                      <span className="text-[9px] bg-blue-50 text-blue-700 font-bold px-1.5 py-0.5 rounded-full">
+                        {isAr ? 'معتمد' : 'Agréé'}
+                      </span>
+                    </div>
+
+                    <div className="space-y-1 text-[11px]">
+                      <div className="flex items-center gap-1.5">
+                        <span className="w-6 h-6 rounded-lg bg-[#2868C7]/15 text-[#2868C7] flex items-center justify-center font-bold text-[10px]">
+                          🩺
+                        </span>
+                        <div>
+                          <p className="font-extrabold text-[#172B46] text-[10px]">
+                            {isAr ? 'أخصائي التخاطب' : isEn ? 'Speech Specialist' : 'Dr. Orthophoniste'}
+                          </p>
+                          <p className="text-[9px] text-gray-400">
+                            {isAr ? 'موافقة الولي نشطة' : isEn ? 'Parent consent active' : 'Accord parental actif'}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Assigned Cards */}
+                    <div className="bg-[#F5F6F3] p-2 rounded-xl space-y-1">
+                      <span className="text-[9px] font-bold text-[#172B46] block">
+                        {isAr ? 'الأهداف المعينة للمنزل:' : isEn ? 'Assigned Home Targets:' : 'Objectifs attribués :'}
+                      </span>
+                      <div className="flex items-center gap-1">
+                        <span className="text-[10px] bg-white px-1.5 py-0.5 rounded-md border text-[#172B46] font-bold">🥤</span>
+                        <span className="text-[10px] bg-white px-1.5 py-0.5 rounded-md border text-[#172B46] font-bold">🧩</span>
+                        <span className="text-[10px] bg-white px-1.5 py-0.5 rounded-md border text-[#172B46] font-bold">🎨</span>
+                        <span className="text-[9px] text-[#2868C7] font-bold ms-auto">+3</span>
+                      </div>
+                    </div>
+
+                    <div className="bg-emerald-50 border border-emerald-200/60 p-1.5 rounded-xl text-[9px] text-emerald-800 font-semibold flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
+                      <span>{isAr ? 'تزامن مباشر مع العائلة' : isEn ? 'Live Home Sync' : 'Synchronisé en direct'}</span>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* CENTER WIDGET (Primary Straight Mobile: Child World & Interactive AAC) */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.92, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: [-4, 4, -4] }}
+                transition={{
+                  opacity: { duration: 0.7, delay: 0.2 },
+                  scale: { duration: 0.7, delay: 0.2 },
+                  y: { duration: 6, repeat: Infinity, ease: 'easeInOut' }
+                }}
+                className="relative z-20 w-[300px] sm:w-[335px]"
+              >
+                {/* Outer Mobile Phone Frame */}
+                <div className="bg-[#172B46] p-2.5 sm:p-3 rounded-[40px] sm:rounded-[44px] shadow-2xl border-2 border-[#2868C7]/40 ring-1 ring-white/30 backdrop-blur-2xl">
+                  {/* Dynamic Island Notch */}
+                  <div className="w-20 sm:w-24 h-4 bg-black/90 rounded-full mx-auto mb-2.5 flex items-center justify-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#2868C7]/70" />
+                    <span className="w-6 h-1 rounded-full bg-white/20" />
+                  </div>
+
+                  {/* Inner Screen */}
+                  <div className="bg-[#F5F6F3] p-3.5 sm:p-4 rounded-[32px] sm:rounded-[36px] border border-white/60 space-y-3 shadow-inner">
+                    {/* Child World Header Bar */}
+                    <div className="flex items-center justify-between pb-2.5 border-b border-[#A9C5D8]/20">
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#172B46] to-[#2868C7] text-[#D8BE83] flex items-center justify-center font-bold text-sm shadow-xs">
+                          {isAr ? 'ي' : 'Y'}
+                        </div>
+                        <div>
+                          <div className="flex items-center gap-1.5">
+                            <h4 className="text-xs sm:text-sm font-extrabold text-[#172B46]">
+                              {isAr ? 'عالم يانيس' : 'Monde de Yanis'}
+                            </h4>
+                            <span className="text-[9px] bg-[#A9C5D8]/30 text-[#172B46] px-1.5 py-0.5 rounded-full font-bold">
+                              6 {isAr ? 'سنوات' : 'ans'}
+                            </span>
+                          </div>
+                          <p className="text-[10px] text-[#172B46]/60 font-medium">
+                            {isAr
+                              ? 'عالم الطفل • حساب العائلة'
+                              : isEn
+                              ? 'Child World • Family Account'
+                              : 'Monde Enfant • Compte Famille'}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-1 bg-white px-2 py-0.5 rounded-full border border-[#A9C5D8]/40 shadow-2xs">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                        <span className="text-[9px] font-black text-[#172B46]">
+                          {isAr ? 'تواصل بديل' : isEn ? 'AAC' : 'CAA'}
                         </span>
                       </div>
-                      <p className="text-[11px] text-[#172B46]/60 font-medium">
-                        {isAr
-                          ? 'عالم الطفل (نموذج تفاعلي) • حساب العائلة'
-                          : isEn
-                          ? 'Child World (Interactive Demo) • Family Account'
-                          : 'Monde Enfant (Démo interactive) • Compte Famille'}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-1.5 bg-[#F5F6F3] px-2.5 py-1 rounded-full border border-[#A9C5D8]/40">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                    <span className="text-[10px] font-bold text-[#172B46]">CAA</span>
-                  </div>
-                </div>
-
-                {/* Interactive Sentence Strip (Bande-phrase CAA) */}
-                <div className="bg-white/90 p-3.5 rounded-2xl border border-[#A9C5D8]/30 shadow-xs space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-bold text-[#172B46]/70 uppercase tracking-wider">
-                      {isAr ? 'شريط التعبير والتواصل (CAA)' : 'Bande-phrase d\'expression'}
-                    </span>
-                    <button
-                      onClick={() => setSelectedIds([])}
-                      className="text-[10px] text-[#172B46]/50 hover:text-[#D58C7A] flex items-center gap-1 cursor-pointer"
-                      title={isAr ? 'مسح الشريط' : 'Effacer'}
-                    >
-                      <RotateCcw size={11} />
-                      <span>{isAr ? 'مسح' : 'Effacer'}</span>
-                    </button>
-                  </div>
-
-                  <div className="min-h-[52px] bg-[#F5F6F3] rounded-xl p-2 flex items-center justify-between gap-2 border border-dashed border-[#A9C5D8]/40">
-                    <div className="flex items-center gap-2 flex-wrap flex-1">
-                      {selectedItems.length === 0 ? (
-                        <p className="text-xs text-[#172B46]/40 italic px-2">
-                          {isAr ? 'المس بطاقة للتعبير والحديث...' : 'Touchez une carte pour composer...'}
-                        </p>
-                      ) : (
-                        selectedItems.map((item) => (
-                          <motion.div
-                            key={item.id}
-                            initial={{ scale: 0.8, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 1 }}
-                            className="bg-white px-2.5 py-1 rounded-lg border border-[#A9C5D8]/50 shadow-xs flex items-center gap-1.5"
-                          >
-                            <span className="text-sm">{item.emoji}</span>
-                            <span className="text-xs font-bold text-[#172B46]">
-                              {isAr ? item.labelAr : isEn ? item.labelEn : item.labelFr}
-                            </span>
-                          </motion.div>
-                        ))
-                      )}
                     </div>
 
-                    <button
-                      onClick={handlePlayVoice}
-                      disabled={selectedItems.length === 0 || isPlayingAudio}
-                      className={`p-2 rounded-xl transition-all shadow-sm shrink-0 flex items-center justify-center cursor-pointer ${
-                        selectedItems.length === 0
-                          ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                          : isPlayingAudio
-                          ? 'bg-[#D58C7A] text-white scale-105'
-                          : 'bg-[#172B46] hover:bg-[#1f3757] text-white'
-                      }`}
-                      aria-label="Écouter la phrase"
-                    >
-                      {isPlayingAudio ? (
-                        <Volume2 size={16} className="animate-bounce" />
-                      ) : (
-                        <Play size={16} className="fill-current" />
-                      )}
-                    </button>
-                  </div>
-                </div>
-
-                {/* Tactile AAC Grid (6 Cards) */}
-                <div className="space-y-2">
-                  <p className="text-[11px] font-semibold text-[#172B46]/70">
-                    {isAr ? 'بطاقات اليوم المقترحة من الأخصائية والأم:' : 'Pictogrammes validés (Famille & Orthophoniste) :'}
-                  </p>
-                  <div className="grid grid-cols-3 gap-2.5">
-                    {SAMPLE_PICTOS.map((picto) => {
-                      const isSelected = selectedIds.includes(picto.id);
-                      return (
-                        <motion.button
-                          key={picto.id}
-                          whileTap={{ scale: 0.95 }}
-                          onClick={() => togglePicto(picto.id)}
-                          className={`p-3 rounded-2xl border text-center transition-all cursor-pointer flex flex-col items-center justify-center gap-1.5 ${
-                            isSelected
-                              ? 'bg-white border-[#172B46] shadow-md ring-2 ring-[#172B46]/20'
-                              : 'bg-white/80 hover:bg-white border-[#A9C5D8]/40 shadow-xs'
-                          }`}
+                    {/* Interactive Sentence Strip */}
+                    <div className="bg-white p-3 rounded-2xl border border-[#A9C5D8]/30 shadow-xs space-y-1.5">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] font-extrabold text-[#172B46]/80 uppercase tracking-wider">
+                          {isAr ? 'شريط التعبير والتواصل' : isEn ? 'Sentence Builder' : 'Bande-phrase d\'expression'}
+                        </span>
+                        <button
+                          onClick={() => setSelectedIds([])}
+                          className="text-[9px] text-[#172B46]/50 hover:text-[#D58C7A] flex items-center gap-0.5 cursor-pointer"
+                          title={isAr ? 'مسح الشريط' : 'Effacer'}
                         >
-                          <span className="text-2xl select-none">{picto.emoji}</span>
-                          <span className="text-[11px] font-bold text-[#172B46] leading-tight line-clamp-1">
-                            {isAr ? picto.labelAr : isEn ? picto.labelEn : picto.labelFr}
-                          </span>
-                        </motion.button>
-                      );
-                    })}
+                          <RotateCcw size={10} />
+                          <span>{isAr ? 'مسح' : 'Effacer'}</span>
+                        </button>
+                      </div>
+
+                      <div className="min-h-[46px] bg-[#F5F6F3] rounded-xl p-1.5 flex items-center justify-between gap-1.5 border border-dashed border-[#A9C5D8]/50">
+                        <div className="flex items-center gap-1.5 flex-wrap flex-1">
+                          {selectedItems.length === 0 ? (
+                            <p className="text-[11px] text-[#172B46]/40 italic px-1">
+                              {isAr ? 'المس بطاقة للتعبير...' : isEn ? 'Tap a card to speak...' : 'Touchez une carte pour composer...'}
+                            </p>
+                          ) : (
+                            selectedItems.map((item) => (
+                              <motion.div
+                                key={item.id}
+                                initial={{ scale: 0.8, opacity: 0 }}
+                                animate={{ scale: 1, opacity: 1 }}
+                                className="bg-white px-2 py-0.5 rounded-md border border-[#A9C5D8]/50 shadow-2xs flex items-center gap-1"
+                              >
+                                <span className="text-xs">{item.emoji}</span>
+                                <span className="text-[10px] font-bold text-[#172B46]">
+                                  {isAr ? item.labelAr : isEn ? item.labelEn : item.labelFr}
+                                </span>
+                              </motion.div>
+                            ))
+                          )}
+                        </div>
+
+                        <button
+                          onClick={handlePlayVoice}
+                          disabled={selectedItems.length === 0 || isPlayingAudio}
+                          className={`p-1.5 rounded-lg transition-all shadow-xs shrink-0 flex items-center justify-center cursor-pointer ${
+                            selectedItems.length === 0
+                              ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                              : isPlayingAudio
+                              ? 'bg-[#D58C7A] text-white scale-105'
+                              : 'bg-[#172B46] hover:bg-[#1f3757] text-white'
+                          }`}
+                          aria-label="Écouter la phrase"
+                        >
+                          {isPlayingAudio ? (
+                            <Volume2 size={14} className="animate-bounce" />
+                          ) : (
+                            <Play size={14} className="fill-current" />
+                          )}
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Tactile AAC Grid (6 Cards) */}
+                    <div className="space-y-1.5">
+                      <p className="text-[10px] font-bold text-[#172B46]/70">
+                        {isAr
+                          ? 'بطاقات اليوم المقترحة (العائلة والأخصائي):'
+                          : isEn
+                          ? 'Validated Pictograms (Family & Clinic):'
+                          : 'Pictogrammes validés (Famille & Orthophoniste) :'}
+                      </p>
+                      <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
+                        {SAMPLE_PICTOS.map((picto) => {
+                          const isSelected = selectedIds.includes(picto.id);
+                          return (
+                            <motion.button
+                              key={picto.id}
+                              whileTap={{ scale: 0.95 }}
+                              onClick={() => togglePicto(picto.id)}
+                              className={`p-2 rounded-xl border text-center transition-all cursor-pointer flex flex-col items-center justify-center gap-1 ${
+                                isSelected
+                                  ? 'bg-white border-[#2868C7] shadow-sm ring-2 ring-[#2868C7]/20'
+                                  : 'bg-white/85 hover:bg-white border-[#A9C5D8]/40 shadow-2xs'
+                              }`}
+                            >
+                              <span className="text-xl select-none">{picto.emoji}</span>
+                              <span className="text-[10px] font-bold text-[#172B46] leading-tight line-clamp-1">
+                                {isAr ? picto.labelAr : isEn ? picto.labelEn : picto.labelFr}
+                              </span>
+                            </motion.button>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Pro-Parent Bridge Indicator */}
+                    <div className="pt-0.5 flex items-center justify-between text-[10px] text-[#172B46]/70 bg-white/70 px-2.5 py-1.5 rounded-lg border border-[#A9C5D8]/20">
+                      <span className="flex items-center gap-1 font-medium">
+                        <Users size={11} className="text-[#172B46]" />
+                        {isAr ? 'تزامن مباشر مع الأخصائي' : isEn ? 'Synced with Specialist' : 'Synchronisé avec l\'orthophoniste'}
+                      </span>
+                      <span className="font-bold text-[#D58C7A]">
+                        {isAr ? 'استمرارية في البيت' : isEn ? 'Home continuity' : 'Continuité maison'}
+                      </span>
+                    </div>
                   </div>
                 </div>
-
-                {/* Pro-Parent Bridge Indicator */}
-                <div className="pt-1 flex items-center justify-between text-[11px] text-[#172B46]/70 bg-white/70 px-3 py-2 rounded-xl border border-[#A9C5D8]/20">
-                  <span className="flex items-center gap-1.5 font-medium">
-                    <Users size={13} className="text-[#172B46]" />
-                    {isAr ? 'تزامن مباشر مع الأخصائي' : 'Synchronisé avec l\'orthophoniste'}
-                  </span>
-                  <span className="font-bold text-[#D58C7A]">
-                    {isAr ? 'مستمر في البيت' : 'Continuité maison'}
-                  </span>
-                </div>
-              </div>
-
-              {/* Floating Reassurance Badge 1 (Top-Start) */}
-              <motion.div
-                initial={{ opacity: 0, x: isAr ? 20 : -20, y: -10 }}
-                animate={{ opacity: 1, x: 0, y: [-4, 4, -4] }}
-                transition={{
-                  opacity: { duration: 0.6, delay: 0.4 },
-                  x: { duration: 0.6, delay: 0.4 },
-                  y: { duration: 4.5, repeat: Infinity, ease: 'easeInOut' }
-                }}
-                className="absolute -top-5 -start-3 sm:-start-6 bg-white/95 backdrop-blur-xl px-4 py-2.5 rounded-2xl shadow-xl border border-[#A9C5D8]/40 flex items-center gap-3 z-30 max-w-[240px]"
-              >
-                <div className="w-8 h-8 rounded-xl bg-[#A9C5D8]/30 text-[#172B46] flex items-center justify-center shrink-0">
-                  <CheckCircle2 size={18} />
-                </div>
-                <div className="text-start">
-                  <p className="text-xs font-bold text-[#172B46]">
-                    {isAr
-                      ? 'متابعة الأخصائي (نموذج توضيحي)'
-                      : isEn
-                      ? 'Specialist Coordination (Concept)'
-                      : 'Suivi Spécialiste (Exemple conceptuel)'}
-                  </p>
-                  <p className="text-[10px] text-[#172B46]/70 font-medium">
-                    {isAr
-                      ? 'تنسيق الأنشطة وتحديث اللوحات'
-                      : isEn
-                      ? 'Synced pictograms & goals'
-                      : 'Coordination pictos & objectifs'}
-                  </p>
-                </div>
               </motion.div>
-
-              {/* Floating Reassurance Badge 2 (Bottom-End) */}
-              <motion.div
-                initial={{ opacity: 0, x: isAr ? -20 : 20, y: 10 }}
-                animate={{ opacity: 1, x: 0, y: [4, -4, 4] }}
-                transition={{
-                  opacity: { duration: 0.6, delay: 0.5 },
-                  x: { duration: 0.6, delay: 0.5 },
-                  y: { duration: 5, repeat: Infinity, ease: 'easeInOut' }
-                }}
-                className="absolute -bottom-5 -end-3 sm:-end-6 bg-white/95 backdrop-blur-xl px-4 py-2.5 rounded-2xl shadow-xl border border-[#A9C5D8]/40 flex items-center gap-3 z-30 max-w-[240px]"
-              >
-                <div className="w-8 h-8 rounded-xl bg-[#D8BE83]/30 text-[#172B46] flex items-center justify-center shrink-0">
-                  <Sparkles size={18} />
-                </div>
-                <div className="text-start">
-                  <p className="text-xs font-bold text-[#172B46]">
-                    {isAr ? 'مساعد أفق الذكي' : 'Compagnon IA d\'OFOQ'}
-                  </p>
-                  <p className="text-[10px] text-[#D58C7A] font-semibold">
-                    {isAr ? 'بيئة آمنة • رقابة الوالدين' : 'Sécurité active • Non-médical'}
-                  </p>
-                </div>
-              </motion.div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>

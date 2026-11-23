@@ -4,7 +4,10 @@ import { ScrollReveal } from '../common/ScrollReveal';
 import { Users, Globe2, Stethoscope, ArrowRight } from 'lucide-react';
 
 export const HowItWorksSection: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language || 'fr';
+  const isAr = currentLang === 'ar';
+  const isEn = currentLang === 'en';
 
   const steps = [
     {
@@ -78,7 +81,25 @@ export const HowItWorksSection: React.FC = () => {
                   </div>
 
                   <div className="pt-4 border-t border-[#172B46]/08 flex items-center gap-2 text-xs font-semibold text-[#172B46]/70 group-hover:text-[#172B46]">
-                    <span>{idx === 0 ? 'Compte Famille Unique' : idx === 1 ? 'Mondes 100% Isolés' : 'Permissions Révoquables'}</span>
+                    <span>
+                      {idx === 0
+                        ? isAr
+                          ? 'حساب عائلي موحد'
+                          : isEn
+                          ? 'Unified Family Account'
+                          : 'Compte Famille Unique'
+                        : idx === 1
+                        ? isAr
+                          ? 'عوالم مستقلة تماماً'
+                          : isEn
+                          ? '100% Isolated Worlds'
+                          : 'Mondes 100% Isolés'
+                        : isAr
+                        ? 'صلاحيات قابلة للإلغاء'
+                        : isEn
+                        ? 'Revocable Permissions'
+                        : 'Permissions Révoquables'}
+                    </span>
                     <ArrowRight size={13} className="rtl-flip text-[#D58C7A]" />
                   </div>
                 </div>

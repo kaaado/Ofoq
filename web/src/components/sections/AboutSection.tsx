@@ -34,12 +34,13 @@ export const AboutSection: React.FC = () => {
           <div className="absolute top-0 end-0 p-4 text-[#D8BE83]/30">
             <Sparkles size={48} />
           </div>
-          <blockquote className="text-xl sm:text-2xl font-heading font-bold text-[#172B46] italic">
-            « Chaque enfant a son propre horizon. »
+          <blockquote className={`text-xl sm:text-2xl font-heading font-bold text-[#172B46] ${isAr ? 'font-arabic not-italic' : 'italic'}`}>
+            {isAr
+              ? '« لكل طفل أفقه الخاص. »'
+              : isEn
+              ? '“Every child has their own horizon.”'
+              : '« Chaque enfant a son propre horizon. »'}
           </blockquote>
-          <p className="text-base text-[#D58C7A] font-bold mt-2 font-arabic">
-            « لكل طفل أفقه الخاص. »
-          </p>
         </div>
       </ScrollReveal>
 

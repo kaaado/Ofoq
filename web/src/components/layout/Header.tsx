@@ -104,13 +104,15 @@ export const Header: React.FC<HeaderProps> = ({ onOpenWaitlist, activeSection = 
             <a
               href="#home"
               onClick={(e) => handleNavClick(e, '#home', 'home')}
-              className="flex items-center gap-3 focus:outline-hidden group"
+              className="flex items-center gap-2.5 sm:gap-3 focus:outline-hidden group shrink-0"
             >
-              <img
-                src="/logo.png"
-                alt="OFOQ"
-                className="h-10 sm:h-12 w-auto object-contain drop-shadow-xs group-hover:scale-105 transition-transform"
-              />
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full overflow-hidden shadow-xs border-2 border-[#2868C7]/20 bg-white flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                <img
+                  src="/logo.png"
+                  alt="OFOQ"
+                  className="w-full h-full object-cover rounded-full"
+                />
+              </div>
 
               <div className="flex flex-col text-start">
                 <span className="font-heading font-extrabold text-xl sm:text-2xl tracking-tight text-[#172B46] leading-none">
@@ -122,8 +124,8 @@ export const Header: React.FC<HeaderProps> = ({ onOpenWaitlist, activeSection = 
               </div>
             </a>
 
-            {/* Desktop Navigation Links */}
-            <nav className="hidden xl:flex items-center gap-1.5 2xl:gap-2">
+            {/* Desktop Navigation Links (Single-Line Compact) */}
+            <nav className="hidden xl:flex items-center gap-1 2xl:gap-1.5 flex-nowrap whitespace-nowrap">
               {navLinks.map((link) => {
                 const isActive = activeSection === link.id;
                 return (
@@ -131,7 +133,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenWaitlist, activeSection = 
                     key={link.id}
                     href={link.href}
                     onClick={(e) => handleNavClick(e, link.href, link.id)}
-                    className={`px-3 py-1.5 rounded-lg text-xs 2xl:text-sm font-semibold transition-all relative ${
+                    className={`px-2 2xl:px-2.5 py-1.5 rounded-lg text-xs 2xl:text-[13px] font-semibold transition-all relative shrink-0 ${
                       isActive
                         ? 'text-[#172B46] bg-[#A9C5D8]/20 font-bold'
                         : 'text-[#5B6E85] hover:text-[#172B46] hover:bg-black/05'
@@ -141,7 +143,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenWaitlist, activeSection = 
                     {isActive && (
                       <motion.div
                         layoutId="activePill"
-                        className="absolute bottom-0 inset-x-2 h-0.5 bg-[#D58C7A] rounded-full"
+                        className="absolute bottom-0 inset-x-1.5 h-0.5 bg-[#D58C7A] rounded-full"
                       />
                     )}
                   </a>

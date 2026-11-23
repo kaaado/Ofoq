@@ -50,7 +50,7 @@ const DEMO_WORLDS: PlanetProfile[] = [
     gradientClass: 'from-[#2868C7] via-[#1E54A3] to-[#172B46]',
     glowClass: 'planet-glow-royal',
     featuresAr: [
-      'لوحة تواصل بديل (AAC) فورية ناطقة',
+      'لوحة تواصل بديل فورية ناطقة',
       'تدريبات مخارج الحروف مع رفيق أفق الصوتي',
       'نجوم المهام اليومية بالتنسيق مع الأخصائي'
     ],
@@ -165,7 +165,7 @@ export const ChildWorldsShowcase: React.FC = () => {
 
           <p className="text-base sm:text-lg text-[#5B6E85] leading-relaxed">
             {isAr
-              ? 'الولي ينشئ الحساب، والمنظومة تنشئ لكل طفل عالماً ثلاثي الأبعاد مخصصاً ومستقلاً تماماً: بطاقات تواصل بديل (AAC)، روتين يومي هادئ، ودخول مباشر بدون كلمات مرور أو إجهاد رقمي.'
+              ? 'الولي ينشئ الحساب، والمنظومة تنشئ لكل طفل عالماً ثلاثي الأبعاد مخصصاً ومستقلاً تماماً: بطاقات تواصل بديل، روتين يومي هادئ، ودخول مباشر بدون كلمات مرور أو إجهاد رقمي.'
               : isEn
               ? 'Parents manage one account; every child discovers a personalized 3D universe: voice-synthesized AAC boards, visual routines, and safe single-tap entry without passwords.'
               : 'Le parent administre le compte unique ; l\'enfant entre en un clic dans son univers 3D sécurisé : pictogrammes parlants, repères sensoriels apaisés et zéro mot de passe.'}
@@ -316,7 +316,7 @@ export const ChildWorldsShowcase: React.FC = () => {
             <div className="lg:col-span-7 space-y-6">
               <div className="space-y-2">
                 <span className="text-xs font-extrabold uppercase tracking-wider text-[#2868C7] bg-[#2868C7]/10 px-3 py-1 rounded-full border border-[#2868C7]/30">
-                  {isAr ? 'لوحة التعبير والتواصل (AAC)' : isEn ? 'Tactile Communication Cards (AAC)' : 'Bande-Phrase & Pictogrammes CAA'}
+                  {isAr ? 'لوحة التعبير والتواصل البديل' : isEn ? 'Tactile Communication Cards (AAC)' : 'Bande-Phrase & Pictogrammes CAA'}
                 </span>
                 <h4 className="text-xl sm:text-2xl font-black text-[#172B46]">
                   {isAr
@@ -327,7 +327,7 @@ export const ChildWorldsShowcase: React.FC = () => {
                 </h4>
                 <p className="text-xs sm:text-sm text-[#5B6E85]">
                   {isAr
-                    ? 'تم تصميم البطاقات وفق معايير PECS للتواصل البصري، وتدعم العربية الفصحى، الفرنسية، والدارجة الجزائرية للمألوفات.'
+                    ? 'تم تصميم البطاقات وفق معايير التواصل البصري المعتمدة، وتدعم العربية الفصحى، الفرنسية، والدارجة الجزائرية للمألوفات.'
                     : isEn
                     ? 'Cards follow PECS communication standards with vocalization in Modern Standard Arabic, French, and Algerian Derja.'
                     : 'Les pictogrammes respectent les principes PECS et s\'adaptent au dialecte algérien, au français et à l\'arabe.'}

@@ -567,7 +567,7 @@ export const InteractiveWorldCreator: React.FC = () => {
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-extrabold uppercase tracking-wider text-[#172B46]/70">
-                      {isAr ? 'لوحة التواصل الصوتي الفوري (AAC):' : isEn ? 'Live Voice-Synthesized AAC Board:' : 'Bande-phrase et pictogrammes vocaux :'}
+                      {isAr ? 'لوحة التواصل الصوتي الفوري البديل:' : isEn ? 'Live Voice-Synthesized AAC Board:' : 'Bande-phrase et pictogrammes vocaux :'}
                     </span>
                     <span className="text-[11px] text-[#5B6E85] flex items-center gap-1">
                       <Volume2 size={12} className="text-[#2868C7]" />
