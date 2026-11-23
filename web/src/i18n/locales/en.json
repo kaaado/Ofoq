@@ -99,7 +99,17 @@
     "card2_title": "Save valuable administrative time",
     "card2_desc": "No more lost paper notebooks or scattered WhatsApp messages. Centralize session observations securely.",
     "card3_title": "Empowered therapeutic partnership",
-    "card3_desc": "Turn parents into active allies in rehabilitation within a structured ethical boundary."
+    "card3_desc": "Turn parents into active allies in rehabilitation within a structured ethical boundary.",
+    "steps_title": "How Does Professional Onboarding Work?",
+    "steps_subtitle": "A structured and transparent journey ensuring practitioner reliability and family confidence.",
+    "step1_title": "1. Registration & Profile Submission",
+    "step1_desc": "Submission of professional credentials, specialty (speech therapy, special education), and wilaya of practice.",
+    "step2_title": "2. Information Review",
+    "step2_desc": "Careful review of submitted professional details under OFOQ's onboarding procedure to ensure integrity.",
+    "step3_title": "3. Account Activation",
+    "step3_desc": "Activation of the dedicated specialist workspace upon completion of verification and coordination.",
+    "step4_title": "4. Parent-Authorized Collaboration",
+    "step4_desc": "Child world connection and home target assignment strictly subject to explicit and revocable parental authorization."
   },
   "boundaries": {
     "tag": "Ethical & Non-Diagnostic Boundary",
@@ -130,6 +140,12 @@
   "waitlist": {
     "title": "Join the OFOQ ecosystem early access in Algeria",
     "subtitle": "Sign up for priority onboarding. The first cohort of families and private practices will be supported as a priority.",
+    "path_family_title": "Families & Parents Space",
+    "path_family_desc": "Create your child's dedicated world with tailored visual routines and AAC pictograms.",
+    "path_family_btn": "Join as a Family",
+    "path_pro_title": "Specialists & Clinic Network",
+    "path_pro_desc": "Track developmental goals and assign clinical home targets with explicit parent consent.",
+    "path_pro_btn": "Join as a Specialist",
     "form_name": "Full Name",
     "form_contact": "Phone Number or Email",
     "form_wilaya": "Wilaya",
@@ -184,15 +200,15 @@
     "title": "Everything you need to know about OFOQ",
     "subtitle": "Clear answers to understand our ecosystem and our commitment.",
     "q1": "Is OFOQ only for autistic children?",
-    "a1": "No. While OFOQ features tailored sensory and visual tools for autism, it also supports children with speech delays, dysphasia, articulation challenges, or temporary speech difficulties.",
+    "a1": "No. OFOQ is designed to support children with diverse communication, language, and developmental needs. It is not a diagnostic instrument, nor is it exclusive to a single diagnosis; it offers flexible and comprehensive support for children and families.",
     "q2": "Does my child need their own phone or login account?",
-    "a2": "Never. Children do not have login credentials or passwords. They enter their personalized Child World directly from the parent app in a safe mode with parental lock.",
+    "a2": "No. Children do not need independent accounts or separate devices. Parents manage the unified family account and can switch seamlessly between protected child profiles with parental lock.",
     "q3": "Can specialists see all children in the family account?",
-    "a3": "No. Access is granted strictly on a child-by-child basis. If you have two children, a therapist assigned to the elder will never see the profile or data of the younger.",
+    "a3": "Technically and legally impossible. Access is granted explicitly by the parent on a child-by-child basis. A specialist assigned to one child can never access records or profiles of siblings.",
     "q4": "Does OFOQ replace in-person speech therapy sessions?",
-    "a4": "Never. OFOQ is neither a diagnostic tool nor a substitute for clinical therapy. It acts as an interactive bridge to practice goals between clinic sessions.",
+    "a4": "Not at all. OFOQ is a complementary platform enhancing continuity between clinic sessions and home routines. It never replaces clinical assessment, medical treatment, or human guidance from certified practitioners.",
     "q5": "What languages are available for pictograms and audio?",
-    "a5": "The interface fully supports Modern Standard Arabic (with high-quality vocalization) and French, alongside Algerian Arabic (Derja) audio recordings for everyday items."
+    "a5": "The platform provides a complete trilingual interface (Arabic, French, and English). Visual pictograms and communication targets are rigorously localized, while interactive vocalization leverages the user's native device engine with support for everyday Algerian Arabic (Derja) phrases."
   },
   "footer": {
     "rights": "© 2026 OFOQ. All rights reserved. Designed & built in Algeria.",

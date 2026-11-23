@@ -59,12 +59,15 @@ export const Header: React.FC<HeaderProps> = ({ onOpenWaitlist, activeSection = 
 
   return (
     <header className="sticky top-0 z-40 transition-all duration-300 w-full">
-      {/* Top Notification Bar: Midnight Navy with subtle soft gold accent */}
-      <div className="bg-[#172B46] text-[#F5F6F3] py-2 px-4 sm:px-8 text-xs font-medium border-b border-white/10 w-full">
+      {/* Top Refined Announcement Banner */}
+      <div className="bg-gradient-to-r from-[#172B46] via-[#1C3556] to-[#172B46] text-[#F5F6F3] py-2 px-4 sm:px-8 text-xs font-medium border-b border-white/10 w-full relative overflow-hidden">
+        {/* Subtle accent highlight line */}
+        <div className="absolute top-0 inset-x-0 h-0.5 bg-gradient-to-r from-transparent via-[#D8BE83]/60 to-transparent" />
+
         <div className="max-w-[1440px] mx-auto flex items-center justify-between gap-4">
-          <div className="flex items-center gap-2 min-w-0">
-            <span className="w-2 h-2 rounded-full bg-[#D8BE83] animate-pulse shrink-0" />
-            <span className="text-[#A9C5D8] text-[11px] sm:text-xs truncate">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <span className="w-2 h-2 rounded-full bg-[#D8BE83] shadow-xs shadow-[#D8BE83]/60 animate-pulse shrink-0" />
+            <span className="text-[#A9C5D8] text-[11px] sm:text-xs font-medium truncate">
               {isAr
                 ? 'أفق • منظومة رقمية متصلة لدعم التوحد والتواصل في الجزائر'
                 : isEn
@@ -74,13 +77,13 @@ export const Header: React.FC<HeaderProps> = ({ onOpenWaitlist, activeSection = 
           </div>
 
           <div className="flex items-center gap-3 shrink-0">
-            <span className="text-[11px] text-[#D8BE83] font-semibold hidden md:inline-flex items-center gap-1">
-              <Sparkles size={12} />
+            <span className="text-[11px] text-[#D8BE83] font-semibold hidden md:inline-flex items-center gap-1.5">
+              <Sparkles size={12} className="text-[#D8BE83]" />
               {isAr ? 'لكل طفل أفقه الخاص' : isEn ? 'Every child has their own horizon' : 'Chaque enfant a son propre horizon'}
             </span>
             <button
               onClick={onOpenWaitlist}
-              className="text-[11px] bg-white/10 hover:bg-white/20 border border-white/20 text-[#F5F6F3] px-2.5 py-0.5 rounded-full transition-all cursor-pointer"
+              className="text-[11px] bg-white/10 hover:bg-white/20 border border-white/20 text-[#F5F6F3] px-3 py-1 rounded-full transition-all cursor-pointer focus-ring-dark"
             >
               {isAr ? 'الوصول المبكر' : isEn ? 'Early Access' : 'Accès Anticipé'}
             </button>
@@ -92,8 +95,8 @@ export const Header: React.FC<HeaderProps> = ({ onOpenWaitlist, activeSection = 
       <div
         className={`transition-all duration-300 border-b w-full ${
           scrolled
-            ? 'bg-white/90 backdrop-blur-xl shadow-sm border-[#172B46]/10 py-1.5'
-            : 'bg-white/75 backdrop-blur-md border-[#172B46]/05 py-2.5'
+            ? 'bg-white/92 backdrop-blur-xl shadow-glass-sm border-[#172B46]/10 py-2'
+            : 'bg-white/80 backdrop-blur-md border-[#172B46]/05 py-3'
         }`}
       >
         <div className="max-w-[1440px] mx-auto px-4 sm:px-8">
@@ -102,13 +105,17 @@ export const Header: React.FC<HeaderProps> = ({ onOpenWaitlist, activeSection = 
             <a
               href="#home"
               onClick={(e) => handleNavClick(e, '#home', 'home')}
-              className="flex items-center gap-2.5 sm:gap-3 focus:outline-hidden group shrink-0"
+              className="flex items-center gap-2.5 sm:gap-3 group shrink-0 focus-ring rounded-2xl p-1"
             >
-              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full overflow-hidden shadow-xs border-2 border-[#2868C7]/20 bg-white flex items-center justify-center shrink-0 p-0.5 group-hover:scale-105 transition-transform">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full overflow-hidden shadow-xs border-2 border-[#2868C7]/20 bg-[#FDFDFD] flex items-center justify-center shrink-0 p-0.5 group-hover:scale-105 transition-transform">
                 <img
-                  src="/logo.png"
+                  src="/OFOQlogo.png"
                   alt="OFOQ"
                   className="w-full h-full object-contain rounded-full"
+                  onError={(e) => {
+                    // Fallback to /logo.png if OFOQlogo fails
+                    (e.currentTarget as HTMLImageElement).src = '/logo.png';
+                  }}
                 />
               </div>
 
@@ -131,9 +138,9 @@ export const Header: React.FC<HeaderProps> = ({ onOpenWaitlist, activeSection = 
                     key={link.id}
                     href={link.href}
                     onClick={(e) => handleNavClick(e, link.href, link.id)}
-                    className={`px-2 2xl:px-2.5 py-1.5 rounded-lg text-xs 2xl:text-[13px] font-semibold transition-all relative shrink-0 ${
+                    className={`px-2.5 2xl:px-3 py-1.5 rounded-xl text-xs 2xl:text-[13px] font-semibold transition-all relative shrink-0 focus-ring ${
                       isActive
-                        ? 'text-[#172B46] bg-[#A9C5D8]/20 font-bold'
+                        ? 'text-[#172B46] bg-[#A9C5D8]/25 font-bold shadow-2xs'
                         : 'text-[#5B6E85] hover:text-[#172B46] hover:bg-black/05'
                     }`}
                   >
@@ -141,7 +148,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenWaitlist, activeSection = 
                     {isActive && (
                       <motion.div
                         layoutId="activePill"
-                        className="absolute bottom-0 inset-x-1.5 h-0.5 bg-[#D58C7A] rounded-full"
+                        className="absolute bottom-0 inset-x-2 h-0.5 bg-[#D58C7A] rounded-full"
                       />
                     )}
                   </a>
@@ -157,7 +164,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenWaitlist, activeSection = 
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={onOpenWaitlist}
-                className="bg-gradient-to-r from-[#D58C7A] to-[#C27765] hover:from-[#C27765] hover:to-[#9E4E3D] text-white text-xs sm:text-sm font-bold px-5 py-2.5 rounded-full shadow-md shadow-[#D58C7A]/25 transition-all flex items-center gap-2 cursor-pointer border border-white/20"
+                className="bg-gradient-to-r from-[#D58C7A] to-[#C27765] hover:from-[#C27765] hover:to-[#9E4E3D] text-white text-xs sm:text-sm font-bold px-5 py-2.5 rounded-full shadow-md shadow-[#D58C7A]/25 transition-all flex items-center gap-2 cursor-pointer border border-white/20 focus-ring"
               >
                 <span>{t('nav.join_waitlist')}</span>
                 <ArrowRight size={14} className="rtl-flip text-white/90" />
@@ -169,7 +176,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenWaitlist, activeSection = 
               <LanguageSelector />
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2 text-[#172B46] hover:bg-black/05 rounded-xl transition-colors cursor-pointer"
+                className="p-2 text-[#172B46] hover:bg-black/05 rounded-xl transition-colors cursor-pointer focus-ring"
                 aria-label="Toggle Menu"
               >
                 {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}

@@ -18,6 +18,8 @@ export default {
 
           // Derived Accessible Tones
           'midnight-dark': '#0F1E32',
+          'midnight-elevated': '#1A304D',
+          'midnight-surface': '#203A5C',
           'midnight-light': '#223B5E',
           'midnight-muted': '#5B6E85',
           'royal-hover': '#1E54A3',
@@ -48,10 +50,15 @@ export default {
         arabic: ['Cairo', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
+        'glass-sm': '0 4px 16px 0 rgba(23, 43, 70, 0.05)',
         'glass': '0 8px 32px 0 rgba(23, 43, 70, 0.08)',
-        'glass-hover': '0 12px 40px 0 rgba(23, 43, 70, 0.12)',
-        'glass-glow': '0 0 24px 0 rgba(169, 197, 216, 0.4)',
+        'glass-hover': '0 14px 44px 0 rgba(23, 43, 70, 0.12)',
+        'glass-lg': '0 20px 48px -8px rgba(23, 43, 70, 0.16)',
+        'glass-glow': '0 0 28px 0 rgba(169, 197, 216, 0.35)',
+        'glass-royal': '0 12px 36px 0 rgba(40, 104, 199, 0.18)',
         'glass-coral': '0 8px 24px 0 rgba(213, 140, 122, 0.25)',
+        'float-soft': '0 16px 36px -12px rgba(23, 43, 70, 0.14)',
+        'ambient-navy': '0 0 60px -15px rgba(23, 43, 70, 0.3)',
       }
     },
   },

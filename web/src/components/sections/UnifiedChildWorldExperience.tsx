@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense, lazy } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'motion/react';
 import {
@@ -27,10 +27,13 @@ import {
   Mic,
   BookOpen,
   Music,
-  Wind
+  Wind,
+  Loader2
 } from 'lucide-react';
 import { ScrollReveal } from '../common/ScrollReveal';
-import { Nour3DCanvas } from '../3d/Nour3DCanvas';
+
+// Dynamic code-splitting: Lazy load Three.js 3D Canvas
+const Nour3DCanvas = lazy(() => import('../3d/Nour3DCanvas').then(m => ({ default: m.Nour3DCanvas })));
 
 // ----------------------------------------------------
 // THEMES & INTERFACE TYPES
@@ -1119,15 +1122,29 @@ export const UnifiedChildWorldExperience: React.FC = () => {
                   )}
                 </AnimatePresence>
 
-                {/* Embedded Three.js WebGL Canvas with Bunny GLB Model */}
+                {/* Embedded Three.js WebGL Canvas with Bunny GLB Model (Lazy Loaded) */}
                 <div className="relative rounded-2xl overflow-hidden bg-gradient-to-b from-[#172B46]/05 to-[#2868C7]/10 border border-[#A9C5D8]/30">
-                  <Nour3DCanvas
-                    theme={currentProfile.theme}
-                    mode={nourMode}
-                    isAr={isAr}
-                    onClickCompanion={() => handleNourInteraction('greeting')}
-                    className="h-[280px] sm:h-[320px]"
-                  />
+                  <Suspense
+                    fallback={
+                      <div className="h-[280px] sm:h-[320px] flex flex-col items-center justify-center p-6 bg-white/60 backdrop-blur-xs space-y-3">
+                        <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-[#172B46] to-[#2868C7] flex items-center justify-center text-3xl shadow-lg animate-pulse">
+                          🐰
+                        </div>
+                        <div className="flex items-center gap-2 text-xs font-bold text-[#172B46]">
+                          <Loader2 size={16} className="animate-spin text-[#2868C7]" />
+                          <span>{isAr ? 'جاري تجهيز الرفيق باني...' : isEn ? 'Loading Bunny Companion...' : 'Chargement de Bunny...'}</span>
+                        </div>
+                      </div>
+                    }
+                  >
+                    <Nour3DCanvas
+                      theme={currentProfile.theme}
+                      mode={nourMode}
+                      isAr={isAr}
+                      onClickCompanion={() => handleNourInteraction('greeting')}
+                      className="h-[280px] sm:h-[320px]"
+                    />
+                  </Suspense>
                 </div>
 
                 {/* Companion Action Chips with Lucide Icons */}

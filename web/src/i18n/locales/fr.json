@@ -99,7 +99,17 @@
     "card2_title": "Gain de temps précieux",
     "card2_desc": "Fini les carnets papier égarés et les échanges WhatsApp éparpillés. Toutes vos notes de suivi sont centralisées et protégées.",
     "card3_title": "Partenariat thérapeutique renforcé",
-    "card3_desc": "Faites des parents de véritables partenaires actifs de la rééducation dans un cadre déontologique respecté."
+    "card3_desc": "Faites des parents de véritables partenaires actifs de la rééducation dans un cadre déontologique respecté.",
+    "steps_title": "Comment se déroule l'intégration professionnelle ?",
+    "steps_subtitle": "Un parcours clair et structuré assurant la qualification des praticiens et la sérénité des familles.",
+    "step1_title": "1. Inscription & Dépôt du profil",
+    "step1_desc": "Renseignement des coordonnées, de la spécialité (orthophonie, éducation spécialisée) et de la wilaya d'exercice.",
+    "step2_title": "2. Examen des informations",
+    "step2_desc": "Examen attentif des éléments transmis selon le processus d'intégration d'OFOQ pour assurer la fiabilité.",
+    "step3_title": "3. Activation de l'accès",
+    "step3_desc": "Mise à disposition de l'espace professionnel sécurisé suite aux vérifications et validations d'usage.",
+    "step4_title": "4. Collaboration sous accord parental",
+    "step4_desc": "Connexion aux profils d'enfants et assignation de cibles uniquement sur autorisation explicite et révocable de la famille."
   },
   "boundaries": {
     "tag": "Cadre Éthique & Déontologique",
@@ -130,6 +140,12 @@
   "waitlist": {
     "title": "Rejoignez l'écosystème OFOQ en avant-première",
     "subtitle": "Inscrivez-vous à notre accès anticipé en Algérie. Les premières cohortes de familles et de spécialistes seront accompagnées en priorité.",
+    "path_family_title": "Accès Familles & Parents",
+    "path_family_desc": "Créez l'univers étanche de votre enfant avec des routines sur-mesure et des pictogrammes CAA.",
+    "path_family_btn": "Rejoindre en tant que famille",
+    "path_pro_title": "Réseau Praticiens & Centres",
+    "path_pro_desc": "Suivez les progrès de vos patients et coordonnez les cibles cliniques sous accord parental direct.",
+    "path_pro_btn": "Rejoindre en tant que spécialiste",
     "form_name": "Votre nom et prénom",
     "form_contact": "Numéro de téléphone ou Email",
     "form_wilaya": "Votre Wilaya",
@@ -184,15 +200,15 @@
     "title": "Tout ce que vous souhaitez savoir sur OFOQ",
     "subtitle": "Des réponses claires pour comprendre notre fonctionnement et notre engagement.",
     "q1": "OFOQ est-il réservé aux enfants autistes ?",
-    "a1": "Non. Bien qu'OFOQ intègre des fonctionnalités parfaitement adaptées aux personnes autistes (CAA, réduction sensorielle, routines visuelles), la plateforme soutient également les enfants ayant un retard de langage, des troubles de l'articulation ou des difficultés d'élocution.",
+    "a1": "Non. OFOQ est conçu pour accompagner les enfants présentant divers besoins en matière de communication, de langage et de développement. Il ne s'agit pas d'un outil de diagnostic ni d'un service exclusif à un diagnostic particulier.",
     "q2": "Mon enfant doit-il avoir son propre smartphone ou compte ?",
-    "a2": "Absolument pas. L'enfant n'a aucun compte ni mot de passe. Il accède à son Monde directement depuis l'application du parent, dans un mode sécurisé protégé par un code parental.",
+    "a2": "Absolument pas. L'enfant n'a pas besoin de compte indépendant. Le parent gère le compte familial unifié et peut créer et basculer facilement entre plusieurs profils d'enfants sécurisés.",
     "q3": "Les spécialistes ont-ils accès à tous les enfants de la famille ?",
-    "a3": "Non. L'accès est strictement accordé enfant par enfant. Si vous avez deux enfants sur votre compte, un orthophoniste autorisé pour l'aîné ne verra jamais le profil ni les données du cadet.",
+    "a3": "Non. L'accès est accordé explicitement par le parent et strictement restreint aux enfants et aux informations autorisés pour ce professionnel particulier.",
     "q4": "OFOQ remplace-t-il les séances chez l'orthophoniste ?",
-    "a4": "Jamais. OFOQ n'est ni un outil de diagnostic ni un substitut aux thérapies. Il sert de relais pour faciliter la mise en pratique des exercices et du vocabulaire entre les séances.",
+    "a4": "Non. OFOQ complète les routines familiales et la collaboration avec les spécialistes. Il ne remplace en aucun cas l'évaluation clinique, le suivi médical ou la prise en charge thérapeutique.",
     "q5": "Dans quelles langues les pictogrammes et l'audio sont-ils disponibles ?",
-    "a5": "L'interface prend en charge l'Arabe (avec synthèse vocale de haute qualité) et le Français. Des enregistrements en Arabe algérien (Derja) sont également intégrés pour les objets du quotidien."
+    "a5": "La plateforme propose une interface trilingue (Arabe, Français, Anglais). Les pictogrammes et le vocabulaire sont soigneusement localisés, tandis que la synthèse vocale s'appuie sur le moteur natif de votre appareil avec prise en charge d'expressions courantes en Derja algérienne."
   },
   "footer": {
     "rights": "© 2026 OFOQ. Tous droits réservés. Écosystème conçu en Algérie.",
