@@ -16,9 +16,7 @@ import {
 import { ScrollReveal } from '../components/common/ScrollReveal';
 
 // Consolidated Single-Page Sections
-import { InteractiveWorldCreator } from '../components/sections/InteractiveWorldCreator';
-import { ChildWorldsShowcase } from '../components/sections/ChildWorldsShowcase';
-import { AiCompanionSection } from '../components/sections/AiCompanionSection';
+import { UnifiedChildWorldExperience } from '../components/sections/UnifiedChildWorldExperience';
 import { HowItWorksSection } from '../components/sections/HowItWorksSection';
 import { AboutSection } from '../components/sections/AboutSection';
 import { ServicesSection } from '../components/sections/ServicesSection';
@@ -159,6 +157,13 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenWaitlist }) => {
               >
                 {t('hero.cta_companion')}
               </motion.button>
+              <a
+                href="#experience"
+                className="inline-flex items-center justify-center gap-1.5 text-xs sm:text-sm font-bold text-[#2868C7] hover:text-[#172B46] px-4 py-2 rounded-full hover:bg-white/60 transition-all cursor-pointer"
+              >
+                <Sparkles size={14} className="text-[#D8BE83]" />
+                <span>{isAr ? 'العالم التفاعلي 3D ↓' : isEn ? 'Live 3D Demo ↓' : 'Expérience 3D ↓'}</span>
+              </a>
             </motion.div>
 
             {/* Reassurance Highlights */}
@@ -496,14 +501,8 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenWaitlist }) => {
         </div>
       </section>
 
-      {/* 2. INTERACTIVE 6-STEP CHILD-WORLD PROTOTYPE SIMULATOR */}
-      <InteractiveWorldCreator />
-
-      {/* 3. 3D SPACETOON-INSPIRED CHILD WORLDS SHOWCASE */}
-      <ChildWorldsShowcase />
-
-      {/* 4. CONCEPTUAL 3D AI COMPANION (NOOR) INTERACTIVE SHOWCASE */}
-      <AiCompanionSection />
+      {/* 2. UNIFIED 3D CHILD WORLD EXPERIENCE & NOUR COMPANION */}
+      <UnifiedChildWorldExperience />
 
       {/* 5. HOW IT WORKS SECTION (CONNECTED ECOSYSTEM 3 STEPS) */}
       <HowItWorksSection />
