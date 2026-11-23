@@ -19,6 +19,9 @@
 - `cd33f3a`: feat(phase02.4): enterprise visual refinement, glassmorphism tokens, code-split 3D companion, and trilingual parity
 - `e8dfa53`: feat(experience): directional hero mobile tilt, 3D companion repositioning, Lucide simulation icons, tactile audio, and stop speech control
 - `e283d78`: perf(hero): offload mobile float to GPU compositor and eliminate transform transition conflicts
+- `516a58c`: docs(state): document hardware-accelerated hero float compositor layer in current state
+- `7f62edf`: feat(ux): implement directional hero tilt, 2-row tactile pictograms, specialist collaboration tools, and 3D companion ear headroom
+- `a282fc2`: fix(safety): refine Law 18-07 wording to principles alignment and defensive boundaries
 **Publishing Status:** Local implementation completed; remote push is not authorized.  
 
 ---
@@ -66,19 +69,20 @@
      - Deep Midnight Navy linear gradient (`#0F1E32` to `#0A1422`) with gold radiant accent line (`#D8BE83`).
      - Circular official logo badge, organized navigation groups, accessible focus rings, and explicit non-diagnostic boundary notice.
    - **Interactive 3D Simulation & UX Polish:**
-     - **Hero Mobile Directional Tilt & Compositor Float:** Slanted `mobile.png` with isolated directional tilt (`rotate-[4.5deg]` in RTL left-to-right; `-rotate-[4.5deg]` in LTR right-to-left). Separated continuous floating oscillation into dedicated GPU compositor layer (`.animate-float-phone` via `translate3d`), completely eliminating transform collision with CSS transitions and achieving butter-smooth 60/120fps rendering.
+     - **Hero Mobile Directional Slant & Compositor Float:** Slanted `mobile.png` with natural reading slant (`-rotate-[6deg]` in Arabic RTL; `rotate-[6deg]` in French/English LTR). Separated continuous floating oscillation into dedicated GPU compositor layer (`.animate-float-phone` via `translate3d`), completely eliminating transform collision with CSS transitions and achieving butter-smooth 60/120fps rendering.
      - **Hero Floating Badges Isolation:** Floating badges isolated into dedicated hardware-accelerated outer wrappers (`.animate-float-badge-1`, `.animate-float-badge-2`), decoupling hover interactions from float translation loops.
-     - **3D Companion Headroom:** Scaled model to `1.82` and shifted base Y to `-0.36` in `Nour3DCanvas.tsx` to completely resolve robot rabbit ear cutoff.
-     - **Pure Lucide Icons Across Simulation:** Replaced all unicode emojis across Family Hub, Sibling Switcher, Theme Wizard, Pictogram Cards, Routine Checklist, and Companion Action Chips with dedicated Lucide SVG icons.
-     - **9 Tactile Pictograms Per Theme:** Expanded AAC communication grid to 9 cards per theme with themed badge tints.
+     - **3D Companion Headroom & Interactivity:** Lowered model base Y to `-0.58`, scaled to `1.62`, and adjusted camera to `Z = 4.1, fov = 38` in `Nour3DCanvas.tsx` to provide generous top breathing room and prevent rabbit ear clipping. Added interactive click listener and playful hopping on companion tap.
+     - **2-Row Tactile Daily Pictograms:** Restructured daily pictograms into a clean 2-row grid without `...` text truncation. Added spring pop animations upon selection with checkmark floating badges.
+     - **Specialist Collaboration Bridge:** Enhanced Dr. Benali portal card with active parental consent badge, clinic session timing (`الأربعاء 14:00`), interactive spoken clinical guidance player (`استمع لتوجيه الأخصائي`), and daily home practice validation button (`تأكيد تدريب اليوم بالبيت`).
+     - **Defensive Legal Alignment (Law 18-07):** Refined phrasing to "principles alignment" (`منسجم مع مبادئ القانون 18-07`) and documented ANPDP filing prerequisites for Phase 03.
      - **Tactile Audio Feedback Engine:** Integrated zero-dependency Web Audio API synthesizer for tactile pop, chime, uncheck, and celebration sounds.
      - **Interactive Daily Routine Checklist:** Interactive item completion toggles, animated checkboxes, and star count tracking with celebratory fanfare on completion.
      - **Speech Synthesis Stop Control:** Added immediate "Stop" vocalization button (`Square`) with `window.speechSynthesis.cancel()`.
-     - **Child Age Label:** Cleaned up label to `عمر الطفل` / `Child Age` / `Âge de l'enfant`, removing `(من 0 إلى 100 سنة)`.
    - **Engineering QA & Security Standards:**
      - 46 automated assertions passing (`npm test`).
      - 100% bidirectional translation parity across AR, FR, EN with zero missing keys and pure Arabic brand naming (no mixed Latin).
-     - Production build passing cleanly in 1.91s (`tsc && vite build`).
+     - Production build passing cleanly in 1.96s (`tsc && vite build`).
+     - Code-splitting verified: initial bundle reduced by 45.8% (1.28 MB → 693 kB / 211 kB gzip).
      - Zero external network leakage (100% local simulation state, sovereign privacy boundaries).
 
 ---
