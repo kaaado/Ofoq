@@ -17,13 +17,13 @@ body {
   padding: 0;
   background-color: #F5F6F3;
   color: #172B46;
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: 'Lato', 'Poppins', system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 h1, h2, h3, h4 {
-  font-family: 'Manrope', 'Inter', system-ui, sans-serif;
+  font-family: 'Poppins', 'Lato', system-ui, sans-serif;
 }
 
 /* RTL Typography & Direction */
@@ -37,7 +37,7 @@ h1, h2, h3, h4 {
 [dir="rtl"] button,
 [dir="rtl"] input,
 [dir="rtl"] {
-  font-family: 'IBM Plex Sans Arabic', 'Cairo', system-ui, sans-serif !important;
+  font-family: 'Cairo', system-ui, -apple-system, sans-serif !important;
 }
 
 /* Directional Icon Inversion for RTL */

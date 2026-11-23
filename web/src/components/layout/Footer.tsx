@@ -38,11 +38,11 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPrivacy, onOpenLegal }) =>
           {/* Brand & Purpose (4 cols) */}
           <div className="lg:col-span-5 space-y-4 text-start">
             <div className="flex items-center gap-3">
-              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full overflow-hidden shadow-xs border-2 border-white/20 bg-white flex items-center justify-center shrink-0">
+              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full overflow-hidden shadow-xs border-2 border-white/20 bg-white flex items-center justify-center shrink-0 p-0.5">
                 <img
                   src="/logo.png"
                   alt="OFOQ"
-                  className="w-full h-full object-cover rounded-full"
+                  className="w-full h-full object-contain rounded-full"
                 />
               </div>
 
@@ -68,10 +68,10 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPrivacy, onOpenLegal }) =>
                 <MapPin size={14} className="text-[#D58C7A] shrink-0" />
                 <span>
                   {isAr
-                    ? 'سعيدة، الجزائر • انتشار تدريجي وطني'
+                    ? 'الجزائر • انتشار وطني تدريجي (58 ولاية)'
                     : isEn
-                    ? 'Saïda, Algeria • National Deployment'
-                    : 'Saïda, Algérie • Déploiement national'}
+                    ? 'Algeria • National Progressive Deployment (58 Wilayas)'
+                    : 'Algérie • Déploiement national progressif (58 wilayas)'}
                 </span>
               </div>
               <div className="flex items-center gap-2">

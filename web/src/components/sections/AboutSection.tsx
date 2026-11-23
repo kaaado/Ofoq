@@ -28,27 +28,54 @@ export const AboutSection: React.FC = () => {
         </div>
       </ScrollReveal>
 
-      {/* Slogan Quote Glass Banner */}
+      {/* Slogan Quote Glass Banner with Trilingual Horizon Motto */}
       <ScrollReveal delay={0.1}>
-        <div className="glass-card border-l-4 rtl:border-l-0 rtl:border-r-4 border-[#D58C7A] p-8 rounded-3xl text-center max-w-4xl mx-auto shadow-sm relative overflow-hidden">
-          <div className="absolute top-0 end-0 p-4 text-[#D8BE83]/30">
-            <Sparkles size={48} />
+        <div className="glass-card border-l-4 rtl:border-l-0 rtl:border-r-4 border-[#D58C7A] p-7 sm:p-9 rounded-3xl text-center max-w-4xl mx-auto shadow-md relative overflow-hidden space-y-3.5">
+          <div className="absolute top-0 end-0 p-4 text-[#D8BE83]/20 pointer-events-none">
+            <Sparkles size={52} />
           </div>
-          <blockquote className={`text-xl sm:text-2xl font-heading font-bold text-[#172B46] ${isAr ? 'font-arabic not-italic' : 'italic'}`}>
+
+          {/* Primary Motto in Selected Language */}
+          <blockquote className={`text-2xl sm:text-3xl font-heading font-black text-[#172B46] ${isAr ? 'font-arabic not-italic' : 'italic'}`}>
             {isAr
               ? '« لكل طفل أفقه الخاص. »'
               : isEn
               ? '“Every child has their own horizon.”'
               : '« Chaque enfant a son propre horizon. »'}
           </blockquote>
+
+          {/* Harmonious Multilingual Translations */}
+          <div className="flex items-center justify-center gap-3 sm:gap-4 flex-wrap text-xs sm:text-sm text-[#5B6E85] font-semibold pt-2 border-t border-[#A9C5D8]/30">
+            {isAr && (
+              <>
+                <span className="italic">« Chaque enfant a son propre horizon. »</span>
+                <span className="text-[#D8BE83]">•</span>
+                <span>“Every child has their own horizon.”</span>
+              </>
+            )}
+            {currentLang === 'fr' && (
+              <>
+                <span className="font-arabic font-bold text-[#172B46]/80">« لكل طفل أفقه الخاص. »</span>
+                <span className="text-[#D8BE83]">•</span>
+                <span>“Every child has their own horizon.”</span>
+              </>
+            )}
+            {isEn && (
+              <>
+                <span className="font-arabic font-bold text-[#172B46]/80">« لكل طفل أفقه الخاص. »</span>
+                <span className="text-[#D8BE83]">•</span>
+                <span className="italic">« Chaque enfant a son propre horizon. »</span>
+              </>
+            )}
+          </div>
         </div>
       </ScrollReveal>
 
-      {/* 4 Values Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-start">
-        <ScrollReveal delay={0.1}>
-          <div className="glass-card glass-card-hover p-8 rounded-3xl border border-white/70 shadow-sm space-y-4">
-            <div className="w-12 h-12 rounded-2xl bg-[#D58C7A]/20 text-[#D58C7A] flex items-center justify-center border border-[#D58C7A]/30">
+      {/* 4 Values Cards - Equal Height */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-start items-stretch">
+        <ScrollReveal delay={0.1} className="h-full">
+          <div className="glass-card glass-card-hover p-8 rounded-3xl border border-white/70 shadow-sm space-y-4 h-full flex flex-col justify-start">
+            <div className="w-12 h-12 rounded-2xl bg-[#D58C7A]/20 text-[#D58C7A] flex items-center justify-center border border-[#D58C7A]/30 shrink-0">
               <Heart size={24} />
             </div>
             <h3 className="text-lg font-heading font-bold text-[#172B46]">
@@ -62,9 +89,9 @@ export const AboutSection: React.FC = () => {
           </div>
         </ScrollReveal>
 
-        <ScrollReveal delay={0.2}>
-          <div className="glass-card glass-card-hover p-8 rounded-3xl border border-white/70 shadow-sm space-y-4">
-            <div className="w-12 h-12 rounded-2xl bg-[#A9C5D8]/30 text-[#172B46] flex items-center justify-center border border-[#A9C5D8]/50">
+        <ScrollReveal delay={0.2} className="h-full">
+          <div className="glass-card glass-card-hover p-8 rounded-3xl border border-white/70 shadow-sm space-y-4 h-full flex flex-col justify-start">
+            <div className="w-12 h-12 rounded-2xl bg-[#A9C5D8]/30 text-[#172B46] flex items-center justify-center border border-[#A9C5D8]/50 shrink-0">
               <Compass size={24} />
             </div>
             <h3 className="text-lg font-heading font-bold text-[#172B46]">
@@ -78,9 +105,9 @@ export const AboutSection: React.FC = () => {
           </div>
         </ScrollReveal>
 
-        <ScrollReveal delay={0.3}>
-          <div className="glass-card glass-card-hover p-8 rounded-3xl border border-white/70 shadow-sm space-y-4">
-            <div className="w-12 h-12 rounded-2xl bg-[#D8BE83]/30 text-[#8C733E] flex items-center justify-center border border-[#D8BE83]/50">
+        <ScrollReveal delay={0.3} className="h-full">
+          <div className="glass-card glass-card-hover p-8 rounded-3xl border border-white/70 shadow-sm space-y-4 h-full flex flex-col justify-start">
+            <div className="w-12 h-12 rounded-2xl bg-[#D8BE83]/30 text-[#8C733E] flex items-center justify-center border border-[#D8BE83]/50 shrink-0">
               <ShieldCheck size={24} />
             </div>
             <h3 className="text-lg font-heading font-bold text-[#172B46]">
@@ -100,9 +127,9 @@ export const AboutSection: React.FC = () => {
           </div>
         </ScrollReveal>
 
-        <ScrollReveal delay={0.4}>
-          <div className="glass-card glass-card-hover p-8 rounded-3xl border border-white/70 shadow-sm space-y-4">
-            <div className="w-12 h-12 rounded-2xl bg-[#172B46]/10 text-[#172B46] flex items-center justify-center border border-[#172B46]/20">
+        <ScrollReveal delay={0.4} className="h-full">
+          <div className="glass-card glass-card-hover p-8 rounded-3xl border border-white/70 shadow-sm space-y-4 h-full flex flex-col justify-start">
+            <div className="w-12 h-12 rounded-2xl bg-[#172B46]/10 text-[#172B46] flex items-center justify-center border border-[#172B46]/20 shrink-0">
               <Sparkles size={24} />
             </div>
             <h3 className="text-lg font-heading font-bold text-[#172B46]">

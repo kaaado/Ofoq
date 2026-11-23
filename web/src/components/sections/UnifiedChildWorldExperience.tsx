@@ -18,14 +18,16 @@ import {
   Star,
   Moon,
   Palette,
-  Layers,
-  Eye,
   Smile,
-  Zap,
   MessageCircle,
-  HelpCircle,
   ChevronRight,
-  Compass
+  Utensils,
+  GlassWater,
+  Puzzle,
+  Mic,
+  BookOpen,
+  Music,
+  Wind
 } from 'lucide-react';
 import { ScrollReveal } from '../common/ScrollReveal';
 import { Nour3DCanvas } from '../3d/Nour3DCanvas';
@@ -46,7 +48,8 @@ interface ThemeConfig {
   emoji: string;
   primaryColor: string;
   gradientBg: string;
-  glowClass: string;
+  cardGradient: string;
+  swatches: string[];
   pictos: {
     id: string;
     emoji: string;
@@ -64,12 +67,13 @@ const THEMES: Record<ThemeKey, ThemeConfig> = {
     nameFr: 'Monde Céleste & Phonétique',
     nameEn: 'Cosmic Speech Explorer',
     subtitleAr: 'مستوحى من عوالم سبيستون • تحفيز مخارج الحروف وبناء الجمل',
-    subtitleFr: 'Inspiré des galaxies Spacetoon • Phonation et construction de phrases',
-    subtitleEn: 'Spacetoon-inspired cosmos • Speech stimulation and sentence building',
+    subtitleFr: 'Thème immersif • Phonation & Étoiles',
+    subtitleEn: 'Immersive Theme • Speech & Stars',
     emoji: '🪐',
     primaryColor: '#2868C7',
     gradientBg: 'from-[#172B46] via-[#1E54A3] to-[#2868C7]',
-    glowClass: 'rgba(40, 104, 199, 0.4)',
+    cardGradient: 'from-[#172B46]/10 via-[#2868C7]/15 to-[#A9C5D8]/20',
+    swatches: ['#172B46', '#2868C7', '#A9C5D8', '#D8BE83'],
     pictos: [
       { id: 'water', emoji: '🥤', labelAr: 'أريد ماء', labelFr: 'Boire de l\'eau', labelEn: 'Drink water', category: 'needs' },
       { id: 'apple', emoji: '🍎', labelAr: 'أريد تفاحة', labelFr: 'Manger une pomme', labelEn: 'Eat apple', category: 'needs' },
@@ -85,12 +89,13 @@ const THEMES: Record<ThemeKey, ThemeConfig> = {
     nameFr: 'Jardin Douceur & Routines',
     nameEn: 'Nature & Peaceful Routines',
     subtitleAr: 'بيئة نباتية مريحة حسياً • تنظيم محطات اليوم والروتين العائلي',
-    subtitleFr: 'Environnement végétal apaisant • Régularité des transitions du quotidien',
-    subtitleEn: 'Soothing botanical setting • Predictable transitions and daily structure',
+    subtitleFr: 'Thème immersif • Régulation & Douceur',
+    subtitleEn: 'Immersive Theme • Sensory Peace',
     emoji: '🌿',
     primaryColor: '#2D7A58',
     gradientBg: 'from-[#172B46] via-[#1E5B40] to-[#2D7A58]',
-    glowClass: 'rgba(45, 122, 88, 0.4)',
+    cardGradient: 'from-[#172B46]/10 via-[#2D7A58]/15 to-[#D58C7A]/15',
+    swatches: ['#172B46', '#2D7A58', '#A9C5D8', '#D58C7A'],
     pictos: [
       { id: 'snack', emoji: '🥪', labelAr: 'وجبة خفيفة', labelFr: 'Goûter', labelEn: 'Snack time', category: 'needs' },
       { id: 'rest', emoji: '🛋️', labelAr: 'استراحة هادئة', labelFr: 'Temps calme', labelEn: 'Quiet break', category: 'needs' },
@@ -106,12 +111,13 @@ const THEMES: Record<ThemeKey, ThemeConfig> = {
     nameFr: 'Océan Apaisé & Émotions',
     nameEn: 'Ocean Haven & Regulation',
     subtitleAr: 'أمواج هادئة وألوان مائية • تنظيم المشاعر والتعبير بدون إجهاد',
-    subtitleFr: 'Ambiance aquatique douce • Régulation émotionnelle et expression sans stress',
-    subtitleEn: 'Gentle marine rhythm • Emotional regulation and low-stress communication',
+    subtitleFr: 'Thème immersif • Vagues & Respiration',
+    subtitleEn: 'Immersive Theme • Waves & Calm',
     emoji: '🌊',
     primaryColor: '#0284C7',
     gradientBg: 'from-[#172B46] via-[#0369A1] to-[#0284C7]',
-    glowClass: 'rgba(2, 132, 199, 0.4)',
+    cardGradient: 'from-[#172B46]/10 via-[#0284C7]/15 to-[#A9C5D8]/20',
+    swatches: ['#172B46', '#0284C7', '#A9C5D8', '#D8BE83'],
     pictos: [
       { id: 'breathe', emoji: '🌸', labelAr: 'أتنفس بعمق', labelFr: 'Respirer calmement', labelEn: 'Deep breath', category: 'feelings' },
       { id: 'water', emoji: '🥤', labelAr: 'أشرب ماء', labelFr: 'Boire un verre d\'eau', labelEn: 'Glass of water', category: 'needs' },
@@ -127,12 +133,13 @@ const THEMES: Record<ThemeKey, ThemeConfig> = {
     nameFr: 'Atelier Couleurs & Histoires',
     nameEn: 'Creative Studio & Stories',
     subtitleAr: 'فضاء حيوي ودافئ • التعبير المصور، الرسم، والاحتفال بالإنجازات',
-    subtitleFr: 'Espace chaleureux • Narration imagée et valorisation des progrès',
-    subtitleEn: 'Vibrant expressive space • Visual stories and celebration of milestones',
+    subtitleFr: 'Thème immersif • Dessin & Expression',
+    subtitleEn: 'Immersive Theme • Art & Stories',
     emoji: '🎨',
     primaryColor: '#D58C7A',
     gradientBg: 'from-[#172B46] via-[#C27765] to-[#D58C7A]',
-    glowClass: 'rgba(213, 140, 122, 0.4)',
+    cardGradient: 'from-[#172B46]/10 via-[#D58C7A]/20 to-[#D8BE83]/20',
+    swatches: ['#172B46', '#D58C7A', '#D8BE83', '#A9C5D8'],
     pictos: [
       { id: 'story', emoji: '📖', labelAr: 'أقرأ قصة مصورة', labelFr: 'Lire une histoire', labelEn: 'Story time', category: 'activities' },
       { id: 'draw', emoji: '🖌️', labelAr: 'ألون لوحتي', labelFr: 'Peindre', labelEn: 'Painting', category: 'activities' },
@@ -186,7 +193,7 @@ const DEFAULT_PROFILES: Record<'yanis' | 'amina', ChildProfileData> = {
     specialistRoleEn: 'Certified Speech Therapist (El-Amel Clinic)',
     routines: [
       { id: 'r1', titleAr: 'الاستيقاظ والروتين الصباحي', titleFr: 'Réveil et étirements doux', titleEn: 'Gentle morning routine', completed: true },
-      { id: 'r2', titleAr: 'بصمة الصوت مع رفيق أفق نور', titleFr: 'Exercice sonore avec le robot Nour', titleEn: 'Phonation practice with Nour', completed: true },
+      { id: 'r2', titleAr: 'بصمة الصوت مع الرفيق باني', titleFr: 'Exercice sonore avec le robot Bunny', titleEn: 'Phonation practice with Bunny', completed: true },
       { id: 'r3', titleAr: 'تسمية بطاقتين على شريط التواصل', titleFr: 'Composition de 2 pictogrammes', titleEn: 'Compose 2 AAC cards', completed: false },
       { id: 'r4', titleAr: 'ترتيب المكعبات والاحتفال بالنجمة', titleFr: 'Rangement ludique & étoile', titleEn: 'Toy cleanup & victory star', completed: false }
     ]
@@ -209,7 +216,7 @@ const DEFAULT_PROFILES: Record<'yanis' | 'amina', ChildProfileData> = {
     routines: [
       { id: 'a1', titleAr: 'فترة الهدوء الصباحي وشرب الماء', titleFr: 'Temps calme et verre d\'eau', titleEn: 'Calm morning pause & water', completed: true },
       { id: 'a2', titleAr: 'اختيار بطاقة الوجبة الخفيفة', titleFr: 'Choix du goûter par pictogramme', titleEn: 'Snack pictogram choice', completed: true },
-      { id: 'a3', titleAr: 'تمرين التنفس البطيء مع نور', titleFr: 'Respiration synchronisée avec Nour', titleEn: 'Deep breathing with Nour', completed: true },
+      { id: 'a3', titleAr: 'تمرين التنفس البطيء مع باني', titleFr: 'Respiration synchronisée avec Bunny', titleEn: 'Deep breathing with Bunny', completed: true },
       { id: 'a4', titleAr: 'وقت القصة المصورة قبل القيلولة', titleFr: 'Histoire imagée avant la sieste', titleEn: 'Picture story before rest', completed: false }
     ]
   }
@@ -217,7 +224,7 @@ const DEFAULT_PROFILES: Record<'yanis' | 'amina', ChildProfileData> = {
 
 export const UnifiedChildWorldExperience: React.FC = () => {
   const { i18n } = useTranslation();
-  const currentLang = i18n.language || 'fr';
+  const currentLang = (i18n.language || 'fr').split('-')[0].toLowerCase();
   const isAr = currentLang === 'ar';
   const isEn = currentLang === 'en';
 
@@ -253,14 +260,21 @@ export const UnifiedChildWorldExperience: React.FC = () => {
   const [isVocalizing, setIsVocalizing] = useState<boolean>(false);
 
   // ----------------------------------------------------
-  // NOUR COMPANION STATE
+  // BUNNY COMPANION STATE
   // ----------------------------------------------------
   const [nourMode, setNourMode] = useState<'idle' | 'greeting' | 'calm' | 'talking' | 'listening'>('idle');
   const [companionBubble, setCompanionBubble] = useState<string | null>(null);
 
   // Toggle routine item completion
   const handleToggleRoutine = (routineId: string) => {
-    if (activeProfileId === 'custom') return;
+    if (activeProfileId === 'custom') {
+      if (!customProfile) return;
+      const updated = customProfile.routines.map((r) =>
+        r.id === routineId ? { ...r, completed: !r.completed } : r
+      );
+      setCustomProfile({ ...customProfile, routines: updated });
+      return;
+    }
     setProfiles((prev) => {
       const child = prev[activeProfileId];
       const updatedRoutines = child.routines.map((r) =>
@@ -292,8 +306,8 @@ export const UnifiedChildWorldExperience: React.FC = () => {
     const pictoMap = new Map(currentThemeConfig.pictos.map((p) => [p.id, p]));
     const words = selectedPictoIds
       .map((id) => pictoMap.get(id))
-      .filter(Boolean)
-      .map((p) => (isAr ? p!.labelAr : isEn ? p!.labelEn : p!.labelFr));
+      .filter((p): p is typeof currentThemeConfig.pictos[0] => p !== undefined)
+      .map((p) => (isAr ? p.labelAr : isEn ? p.labelEn : p.labelFr));
 
     const sentence = words.join(isAr ? ' ، ' : ', ');
     setIsVocalizing(true);
@@ -321,16 +335,18 @@ export const UnifiedChildWorldExperience: React.FC = () => {
     }
   };
 
-  // Interact with Nour companion
+  // Interact with Bunny companion
   const handleNourInteraction = (intent: 'greeting' | 'encouragement' | 'calm') => {
     let text = '';
+    const childName = isAr ? currentProfile.nameAr : isEn ? currentProfile.nameEn : currentProfile.nameFr;
+
     if (intent === 'greeting') {
       setNourMode('greeting');
       text = isAr
-        ? `مرحباً يا ${currentProfile.nameAr}! أنا نور، رفيقك في رحلة التعبير واكتشاف الكلمات اليوم.`
+        ? `مرحباً يا ${childName}! أنا باني، رفيقك في رحلة التعبير واكتشاف الكلمات اليوم.`
         : isEn
-        ? `Hello ${currentProfile.nameEn}! I am Nour, your encouraging companion for speech and games.`
-        : `Bonjour ${currentProfile.nameFr} ! Je suis Nour, ton compagnon bienveillant pour apprendre et t'exprimer.`;
+        ? `Hello ${childName}! I am Bunny, your encouraging friend for speech and games.`
+        : `Bonjour ${childName} ! Je suis Bunny, ton compagnon bienveillant pour t'exprimer.`;
     } else if (intent === 'encouragement') {
       setNourMode('talking');
       text = isAr
@@ -356,11 +372,13 @@ export const UnifiedChildWorldExperience: React.FC = () => {
       window.speechSynthesis.cancel();
       window.speechSynthesis.speak(utterance);
       utterance.onend = () => setNourMode(intent === 'calm' ? 'calm' : 'idle');
+      utterance.onerror = () => setNourMode(intent === 'calm' ? 'calm' : 'idle');
     }
   };
 
   // Launch Genesis Generation Sequence
   const handleLaunchGenesis = () => {
+    if (wizardName.trim().length < 3) return;
     setIsGeneratingWorld(true);
     setGenerationStep(1);
 
@@ -370,9 +388,9 @@ export const UnifiedChildWorldExperience: React.FC = () => {
       // Create custom profile
       const newCustom: ChildProfileData = {
         id: 'custom',
-        nameAr: wizardName,
-        nameFr: wizardName,
-        nameEn: wizardName,
+        nameAr: wizardName.trim(),
+        nameFr: wizardName.trim(),
+        nameEn: wizardName.trim(),
         age: wizardAge,
         theme: wizardTheme,
         avatarChar: THEMES[wizardTheme].emoji,
@@ -385,7 +403,7 @@ export const UnifiedChildWorldExperience: React.FC = () => {
         specialistRoleEn: 'Consulting Specialist',
         routines: [
           { id: 'c1', titleAr: 'استكشاف العالم الرقمي الجديد', titleFr: 'Découverte du nouvel univers 3D', titleEn: 'Explore the new 3D world', completed: true },
-          { id: 'c2', titleAr: 'لقاء الرفيق نور وتبادل التحية', titleFr: 'Première salutation avec Nour', titleEn: 'First greeting with Nour', completed: true },
+          { id: 'c2', titleAr: 'لقاء الرفيق باني وتبادل التحية', titleFr: 'Première salutation avec Bunny', titleEn: 'First greeting with Bunny', completed: true },
           { id: 'c3', titleAr: 'بناء أول جملة تواصل معبرة', titleFr: 'Première phrase sur la bande CAA', titleEn: 'First phrase on AAC strip', completed: false }
         ]
       };
@@ -437,13 +455,13 @@ export const UnifiedChildWorldExperience: React.FC = () => {
 
           <p className="text-base sm:text-lg text-[#5B6E85] leading-relaxed">
             {isAr
-              ? 'حساب أبوي واحد يدير عوالم مستقلة تماماً لأبنائه. شاهد كيف يتحول الملف إلى عالم ثلاثي الأبعاد ينبض بالحياة، يتواصل فيه الطفل عبر لوحة ناطقة وبمرافقة الروبوت نور وتنسيق الأخصائي.'
+              ? 'حساب أبوي واحد يدير عوالم مستقلة تماماً لأبنائه. شاهد كيف يتحول الملف إلى عالم ثلاثي الأبعاد ينبض بالحياة، يتواصل فيه الطفل عبر لوحة ناطقة وبمرافقة الرفيق باني وتنسيق الأخصائي.'
               : isEn
-              ? 'One family account orchestrating isolated child universes. Watch how a profile awakens into a living 3D world with talking AAC cards, Nour the 3D companion, and specialist synchronization.'
-              : 'Un compte familial unique orchestrant des univers d\'enfants étanches. Découvrez la naissance d\'un monde 3D vivant avec bande-phrase CAA sonore, compagnon Nour et coordination clinique.'}
+              ? 'One family account orchestrating isolated child universes. Watch how a profile awakens into a living 3D world with talking AAC cards, Bunny the 3D companion, and specialist synchronization.'
+              : 'Un compte familial unique orchestrant des univers d\'enfants étanches. Découvrez la naissance d\'un monde 3D vivant avec bande-phrase CAA sonore, compagnon Bunny et coordination clinique.'}
           </p>
 
-          {/* Top Control Tabs: 1. Espace Famille | 2. Création de Profil | 3. Monde 3D Actif */}
+          {/* Top Control Tabs */}
           <div className="pt-4 flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
             <button
               onClick={() => setActiveTab('hub')}
@@ -554,7 +572,7 @@ export const UnifiedChildWorldExperience: React.FC = () => {
                   }`}
                 >
                   <span>{customProfile.avatarChar}</span>
-                  <span>{customProfile.nameFr}</span>
+                  <span>{isAr ? customProfile.nameAr : customProfile.nameFr}</span>
                 </button>
               )}
             </div>
@@ -568,7 +586,7 @@ export const UnifiedChildWorldExperience: React.FC = () => {
                 setCompanionBubble(null);
               }}
               className="text-xs font-semibold text-[#5B6E85] hover:text-[#2868C7] flex items-center gap-1 transition-colors cursor-pointer"
-              title="Réinitialiser la simulation"
+              title="Réinitialiser"
             >
               <RotateCcw size={13} />
               <span className="hidden sm:inline">{isAr ? 'إعادة ضبط' : isEn ? 'Reset' : 'Réinitialiser'}</span>
@@ -604,10 +622,10 @@ export const UnifiedChildWorldExperience: React.FC = () => {
                   </div>
                   <p className="text-sm text-[#A9C5D8] mt-1">
                     {isAr
-                      ? 'الولاية: 20 - سعيدة • رقم الهاتف المحمي: 0550 ** ** **'
+                      ? 'الجزائر • رقم الهاتف المحمي: 0550 ** ** **'
                       : isEn
-                      ? 'Wilaya: 20 - Saïda • Verified phone: 0550 ** ** **'
-                      : 'Wilaya : 20 - Saïda • Numéro vérifié : 0550 ** ** **'}
+                      ? 'Algeria • Verified phone: 0550 ** ** **'
+                      : 'Algérie • Numéro vérifié : 0550 ** ** **'}
                   </p>
                 </div>
               </div>
@@ -654,22 +672,22 @@ export const UnifiedChildWorldExperience: React.FC = () => {
                         {isAr ? 'يانيس' : 'Yanis'}
                       </h4>
                       <p className="text-xs text-gray-500 font-semibold">
-                        6 {isAr ? 'سنوات' : 'ans'} • {isAr ? 'كوكب الأصوات والفضاء' : 'Monde Céleste & Phonétique'}
+                        6 {isAr ? 'سنوات' : 'ans'} • {isAr ? 'كوكب الأصوات والفضاء' : isEn ? 'Cosmic Speech Explorer' : 'Monde Céleste & Phonétique'}
                       </p>
                     </div>
                   </div>
                   <span className="bg-[#2868C7]/10 text-[#2868C7] text-xs font-bold px-2.5 py-1 rounded-full">
-                    {isAr ? 'تخاطب نشط' : 'Orthophonie active'}
+                    {isAr ? 'تخاطب نشط' : isEn ? 'Active Speech' : 'Orthophonie active'}
                   </span>
                 </div>
 
                 <div className="space-y-2 text-xs">
                   <div className="bg-[#F5F6F3] p-3 rounded-xl space-y-1">
-                    <span className="text-gray-500 font-bold block">{isAr ? 'الهدف التواصلي الأسبوعي:' : 'Objectif hebdomadaire :'}</span>
-                    <p className="text-[#172B46] font-semibold">{isAr ? profiles.yanis.speechGoalAr : profiles.yanis.speechGoalFr}</p>
+                    <span className="text-gray-500 font-bold block">{isAr ? 'الهدف التواصلي الأسبوعي:' : isEn ? 'Weekly Target:' : 'Objectif hebdomadaire :'}</span>
+                    <p className="text-[#172B46] font-semibold">{isAr ? profiles.yanis.speechGoalAr : isEn ? profiles.yanis.speechGoalEn : profiles.yanis.speechGoalFr}</p>
                   </div>
                   <div className="flex items-center justify-between text-gray-600 font-medium pt-1">
-                    <span>{isAr ? 'الأخصائي المعتمد:' : 'Spécialiste agréé :'}</span>
+                    <span>{isAr ? 'الأخصائي المعتمد:' : isEn ? 'Approved Specialist:' : 'Spécialiste agréé :'}</span>
                     <span className="font-bold text-[#172B46]">{profiles.yanis.specialistName}</span>
                   </div>
                 </div>
@@ -681,7 +699,7 @@ export const UnifiedChildWorldExperience: React.FC = () => {
                   }}
                   className="w-full py-3 rounded-2xl bg-[#2868C7] hover:bg-[#1f54a3] text-white font-extrabold text-sm transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  <span>{isAr ? 'الدخول إلى عالم يانيس 3D' : 'Entrer dans le monde de Yanis 3D'}</span>
+                  <span>{isAr ? 'الدخول إلى عالم يانيس 3D' : isEn ? 'Enter Yanis\' 3D World' : 'Entrer dans le monde de Yanis 3D'}</span>
                   <ArrowRight size={16} className="rtl:rotate-180" />
                 </button>
               </div>
@@ -697,22 +715,22 @@ export const UnifiedChildWorldExperience: React.FC = () => {
                         {isAr ? 'أمينة' : 'Amina'}
                       </h4>
                       <p className="text-xs text-gray-500 font-semibold">
-                        4 {isAr ? 'سنوات' : 'ans'} • {isAr ? 'كوكب الطبيعة والهدوء' : 'Jardin Douceur & Routines'}
+                        4 {isAr ? 'سنوات' : 'ans'} • {isAr ? 'كوكب الطبيعة والهدوء' : isEn ? 'Nature & Routines' : 'Jardin Douceur & Routines'}
                       </p>
                     </div>
                   </div>
                   <span className="bg-[#2D7A58]/10 text-[#2D7A58] text-xs font-bold px-2.5 py-1 rounded-full">
-                    {isAr ? 'تواصل حسي' : 'Apaisement sensoriel'}
+                    {isAr ? 'تواصل حسي' : isEn ? 'Sensory Calm' : 'Apaisement sensoriel'}
                   </span>
                 </div>
 
                 <div className="space-y-2 text-xs">
                   <div className="bg-[#F5F6F3] p-3 rounded-xl space-y-1">
-                    <span className="text-gray-500 font-bold block">{isAr ? 'الهدف التواصلي الأسبوعي:' : 'Objectif hebdomadaire :'}</span>
-                    <p className="text-[#172B46] font-semibold">{isAr ? profiles.amina.speechGoalAr : profiles.amina.speechGoalFr}</p>
+                    <span className="text-gray-500 font-bold block">{isAr ? 'الهدف التواصلي الأسبوعي:' : isEn ? 'Weekly Target:' : 'Objectif hebdomadaire :'}</span>
+                    <p className="text-[#172B46] font-semibold">{isAr ? profiles.amina.speechGoalAr : isEn ? profiles.amina.speechGoalEn : profiles.amina.speechGoalFr}</p>
                   </div>
                   <div className="flex items-center justify-between text-gray-600 font-medium pt-1">
-                    <span>{isAr ? 'الأخصائي المعتمد:' : 'Spécialiste agréé :'}</span>
+                    <span>{isAr ? 'الأخصائي المعتمد:' : isEn ? 'Approved Specialist:' : 'Spécialiste agréé :'}</span>
                     <span className="font-bold text-[#172B46]">{profiles.amina.specialistName}</span>
                   </div>
                 </div>
@@ -724,7 +742,7 @@ export const UnifiedChildWorldExperience: React.FC = () => {
                   }}
                   className="w-full py-3 rounded-2xl bg-[#2D7A58] hover:bg-[#236045] text-white font-extrabold text-sm transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  <span>{isAr ? 'الدخول إلى عالم أمينة 3D' : 'Entrer dans le monde d\'Amina 3D'}</span>
+                  <span>{isAr ? 'الدخول إلى عالم أمينة 3D' : isEn ? 'Enter Amina\'s 3D World' : 'Entrer dans le monde d\'Amina 3D'}</span>
                   <ArrowRight size={16} className="rtl:rotate-180" />
                 </button>
               </div>
@@ -737,7 +755,7 @@ export const UnifiedChildWorldExperience: React.FC = () => {
                 className="bg-white hover:bg-gray-50 text-[#172B46] border-2 border-dashed border-[#2868C7]/50 hover:border-[#2868C7] font-bold text-sm px-6 py-3.5 rounded-2xl transition-all flex items-center gap-2 cursor-pointer shadow-xs"
               >
                 <UserPlus size={16} className="text-[#2868C7]" />
-                <span>{isAr ? '+ إضافة وتخصيص عالم لطفل جديد' : '+ Configurer un nouvel univers enfant'}</span>
+                <span>{isAr ? '+ إضافة وتخصيص عالم لطفل جديد' : isEn ? '+ Configure New Child World' : '+ Configurer un nouvel univers enfant'}</span>
               </button>
             </div>
           </motion.div>
@@ -773,9 +791,9 @@ export const UnifiedChildWorldExperience: React.FC = () => {
                       : `Génération du monde 3D de ${wizardName}...`}
                   </h3>
                   <p className="text-sm text-[#5B6E85]">
-                    {generationStep === 1 && (isAr ? 'تهيئة الواجهة المريحة حسياً وحجم الأزرار...' : 'Configuration des filtres sensoriels et de l\'ergonomie...')}
-                    {generationStep === 2 && (isAr ? 'مزامنة بطاقات التواصل البديل الموصى بها...' : 'Chargement de la bande-phrase CAA adaptée...')}
-                    {generationStep === 3 && (isAr ? 'استيقاظ الروبوت المساعد نور في المشهد ثلاثي الأبعاد...' : 'Initialisation du compagnon 3D Nour...')}
+                    {generationStep === 1 && (isAr ? 'تهيئة الواجهة المريحة حسياً وحجم الأزرار...' : isEn ? 'Configuring sensory filters and responsive layout...' : 'Configuration des filtres sensoriels et de l\'ergonomie...')}
+                    {generationStep === 2 && (isAr ? 'مزامنة بطاقات التواصل البديل الموصى بها...' : isEn ? 'Loading adapted AAC sentence strip...' : 'Chargement de la bande-phrase CAA adaptée...')}
+                    {generationStep === 3 && (isAr ? 'استيقاظ الرفيق باني في المشهد ثلاثي الأبعاد...' : isEn ? 'Initializing 3D companion Bunny...' : 'Initialisation du compagnon 3D Bunny...')}
                   </p>
                 </div>
 
@@ -791,75 +809,103 @@ export const UnifiedChildWorldExperience: React.FC = () => {
               <div className="space-y-8">
                 <div className="text-start space-y-1">
                   <h3 className="text-xl sm:text-2xl font-black text-[#172B46]">
-                    {isAr ? 'تهيئة ملف وعالم ثلاثي الأبعاد للطفل' : 'Configuration du Monde 3D de l\'Enfant'}
+                    {isAr ? 'تهيئة ملف وعالم ثلاثي الأبعاد للطفل' : isEn ? 'Child 3D World Configuration' : 'Configuration du Monde 3D de l\'Enfant'}
                   </h3>
                   <p className="text-sm text-gray-500">
                     {isAr
                       ? 'حدد اسم الطفل، عمره، والبيئة البصرية المفضلة لإنشاء عالمه الخاص فورياً.'
+                      : isEn
+                      ? 'Define child name, age, and preferred universe to generate their 3D workspace in real-time.'
                       : 'Définissez le prénom, l\'âge et l\'univers visuel pour donner vie à son espace 3D.'}
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
                   {/* Step A: Child Identity Form */}
-                  <div className="bg-[#F5F6F3] p-6 rounded-3xl space-y-5 text-start border border-[#A9C5D8]/40">
-                    <h4 className="text-sm font-extrabold uppercase text-[#2868C7] tracking-wider flex items-center gap-2">
-                      <UserPlus size={16} />
-                      <span>{isAr ? 'أ. هوية الملف (بدون حساب للطفل)' : 'A. Profil de l\'enfant (Sans mot de passe)'}</span>
-                    </h4>
+                  <div className="bg-[#F5F6F3] p-6 rounded-3xl space-y-5 text-start border border-[#A9C5D8]/40 h-full flex flex-col justify-between">
+                    <div className="space-y-4">
+                      <h4 className="text-sm font-extrabold uppercase text-[#2868C7] tracking-wider flex items-center gap-2">
+                        <UserPlus size={16} />
+                        <span>{isAr ? 'أ. هوية ملف الطفل' : isEn ? 'A. Child Profile Details' : 'A. Profil de l\'enfant'}</span>
+                      </h4>
 
-                    {/* Name input */}
-                    <div className="space-y-1.5">
-                      <label className="text-xs font-bold text-[#172B46]">
-                        {isAr ? 'اسم الطفل أو كنيته المحببة' : 'Prénom ou diminutif de l\'enfant'}
-                      </label>
-                      <input
-                        type="text"
-                        value={wizardName}
-                        onChange={(e) => setWizardName(e.target.value)}
-                        placeholder="Rayan"
-                        className="w-full bg-white px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#2868C7] text-sm font-bold text-[#172B46]"
-                      />
-                    </div>
-
-                    {/* Age slider */}
-                    <div className="space-y-1.5">
-                      <div className="flex items-center justify-between text-xs font-bold text-[#172B46]">
-                        <span>{isAr ? 'عمر الطفل' : 'Âge de l\'enfant'}</span>
-                        <span className="text-[#2868C7] font-black">{wizardAge} {isAr ? 'سنوات' : 'ans'}</span>
+                      {/* Name input (min length 3, max length 200) */}
+                      <div className="space-y-1.5">
+                        <div className="flex items-center justify-between text-xs font-bold text-[#172B46]">
+                          <label>{isAr ? 'اسم الطفل أو كنيته المحببة' : isEn ? 'Child Name or Nickname' : 'Prénom ou diminutif de l\'enfant'}</label>
+                          <span className="text-[10px] text-gray-400 font-semibold">{wizardName.length}/200</span>
+                        </div>
+                        <input
+                          type="text"
+                          minLength={3}
+                          maxLength={200}
+                          required
+                          value={wizardName}
+                          onChange={(e) => setWizardName(e.target.value)}
+                          placeholder="Rayan"
+                          className="w-full bg-white px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#2868C7] text-sm font-bold text-[#172B46]"
+                        />
+                        {wizardName.trim().length > 0 && wizardName.trim().length < 3 && (
+                          <p className="text-[10px] text-amber-600 font-semibold">
+                            {isAr ? 'يجب أن يتكون الاسم من 3 أحرف على الأقل.' : isEn ? 'Name must be at least 3 characters.' : 'Le prénom doit comporter au moins 3 caractères.'}
+                          </p>
+                        )}
                       </div>
-                      <input
-                        type="range"
-                        min="3"
-                        max="12"
-                        value={wizardAge}
-                        onChange={(e) => setWizardAge(Number(e.target.value))}
-                        className="w-full accent-[#2868C7] cursor-pointer"
-                      />
+
+                      {/* Age direct number input 0 to 100 limit */}
+                      <div className="space-y-1.5">
+                        <div className="flex items-center justify-between text-xs font-bold text-[#172B46]">
+                          <span>{isAr ? 'عمر الطفل (من 0 إلى 100 سنة)' : isEn ? 'Child Age (0 to 100)' : 'Âge de l\'enfant (0 à 100 ans)'}</span>
+                          <span className="text-[#2868C7] font-black">{wizardAge} {isAr ? 'سنوات' : 'ans'}</span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <input
+                            type="number"
+                            min={0}
+                            max={100}
+                            value={wizardAge}
+                            onChange={(e) => {
+                              const val = Math.max(0, Math.min(100, Number(e.target.value) || 0));
+                              setWizardAge(val);
+                            }}
+                            className="w-20 bg-white px-3 py-2 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#2868C7] text-sm font-bold text-[#172B46] text-center"
+                          />
+                          <input
+                            type="range"
+                            min={0}
+                            max={100}
+                            value={wizardAge}
+                            onChange={(e) => setWizardAge(Number(e.target.value))}
+                            className="flex-1 accent-[#2868C7] cursor-pointer"
+                          />
+                        </div>
+                      </div>
                     </div>
 
                     {/* Non-Diagnostic Protection Pill */}
-                    <div className="bg-white/80 p-3 rounded-xl border border-gray-200 text-xs text-gray-500 space-y-1">
-                      <span className="font-bold text-[#172B46] block flex items-center gap-1">
+                    <div className="bg-white/90 p-3.5 rounded-2xl border border-gray-200 text-xs text-gray-500 space-y-1 mt-4">
+                      <span className="font-bold text-[#172B46] flex items-center gap-1.5">
                         <ShieldCheck size={14} className="text-emerald-500" />
-                        {isAr ? 'ضمان الخصوصية وعدم التشخيص:' : 'Périmètre sécurisé non-médical :'}
+                        {isAr ? 'ضمان الخصوصية وعدم التشخيص:' : isEn ? 'Privacy & Non-Diagnostic Guarantee:' : 'Périmètre sécurisé non-médical :'}
                       </span>
                       <p className="text-[11px] leading-tight">
                         {isAr
                           ? 'أفق لا يقوم بأي تشخيص طبي أو فرز سريري، بل يوفر واجهة تفاعلية تخضع لتوجيه الأخصائي والولي.'
+                          : isEn
+                          ? 'OFOQ provides no clinical diagnosis. The interface is purely pedagogical and communication-focused.'
                           : 'OFOQ n\'émet aucun diagnostic médical. L\'espace est conçu pour soutenir la communication quotidienne.'}
                       </p>
                     </div>
                   </div>
 
-                  {/* Step B: Universe Theme Selection */}
-                  <div className="bg-[#F5F6F3] p-6 rounded-3xl space-y-4 text-start border border-[#A9C5D8]/40">
+                  {/* Step B: Universe Theme Selection with Premium Linear Glassmorphism */}
+                  <div className="bg-[#F5F6F3] p-6 rounded-3xl space-y-4 text-start border border-[#A9C5D8]/40 h-full flex flex-col justify-between">
                     <h4 className="text-sm font-extrabold uppercase text-[#2868C7] tracking-wider flex items-center gap-2">
                       <Palette size={16} />
-                      <span>{isAr ? 'ب. اختيار ثيم العالم الرقمي' : 'B. Sélection de l\'univers 3D'}</span>
+                      <span>{isAr ? 'ب. اختيار ثيم العالم الرقمي' : isEn ? 'B. 3D Universe Selection' : 'B. Sélection de l\'univers 3D'}</span>
                     </h4>
 
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-2 gap-3.5">
                       {(Object.keys(THEMES) as ThemeKey[]).map((themeKey) => {
                         const th = THEMES[themeKey];
                         const isSelected = wizardTheme === themeKey;
@@ -868,24 +914,44 @@ export const UnifiedChildWorldExperience: React.FC = () => {
                             key={themeKey}
                             type="button"
                             onClick={() => setWizardTheme(themeKey)}
-                            className={`p-3.5 rounded-2xl border text-start transition-all cursor-pointer flex flex-col justify-between gap-2 ${
+                            className={`p-3.5 rounded-2xl border text-start transition-all cursor-pointer flex flex-col justify-between gap-3 relative overflow-hidden backdrop-blur-md bg-gradient-to-br ${th.cardGradient} ${
                               isSelected
-                                ? 'bg-white border-[#2868C7] shadow-md ring-2 ring-[#2868C7]/20 scale-102'
-                                : 'bg-white/70 hover:bg-white border-gray-200 shadow-2xs'
+                                ? 'border-[#2868C7] shadow-lg ring-2 ring-[#2868C7]/30 scale-102 bg-white'
+                                : 'border-gray-200/80 hover:border-gray-300 shadow-2xs hover:bg-white/80'
                             }`}
                           >
-                            <span className="text-2xl">{th.emoji}</span>
+                            <div className="flex items-center justify-between w-full">
+                              <span className="text-2xl drop-shadow-xs">{th.emoji}</span>
+                              {/* Palette Swatches */}
+                              <div className="flex items-center gap-1">
+                                {th.swatches.map((color, idx) => (
+                                  <span
+                                    key={idx}
+                                    className="w-2.5 h-2.5 rounded-full border border-black/10 shadow-2xs"
+                                    style={{ backgroundColor: color }}
+                                  />
+                                ))}
+                              </div>
+                            </div>
                             <div>
-                              <p className="text-xs font-black text-[#172B46]">
+                              <p className="text-xs font-black text-[#172B46] leading-tight">
                                 {isAr ? th.nameAr : isEn ? th.nameEn : th.nameFr}
                               </p>
-                              <span className="text-[10px] text-gray-400 font-medium">
-                                {isAr ? 'مستوحى من سبيستون' : 'Thème immersif'}
+                              <span className="text-[10px] text-gray-500 font-semibold block mt-0.5">
+                                {isAr ? th.subtitleAr : isEn ? th.subtitleEn : th.subtitleFr}
                               </span>
                             </div>
                           </button>
                         );
                       })}
+                    </div>
+
+                    <div className="text-[11px] text-gray-500 italic pt-1">
+                      {isAr
+                        ? 'توليد ديناميكي بدرجات لونية متوازنة ومريحة حسياً للطفل.'
+                        : isEn
+                        ? 'Generative themes adapted to sensory comfort and predictable interactions.'
+                        : 'Thèmes immersifs adaptés au confort sensoriel et à la prévisibilité visuelle.'}
                     </div>
                   </div>
                 </div>
@@ -897,15 +963,20 @@ export const UnifiedChildWorldExperience: React.FC = () => {
                     className="text-xs font-bold text-gray-500 hover:text-[#172B46] flex items-center gap-1.5 cursor-pointer"
                   >
                     <ArrowLeft size={14} className="rtl:rotate-180" />
-                    <span>{isAr ? 'العودة إلى فضاء العائلة' : 'Retour à l\'Espace Famille'}</span>
+                    <span>{isAr ? 'العودة إلى فضاء العائلة' : isEn ? 'Back to Family Hub' : 'Retour à l\'Espace Famille'}</span>
                   </button>
 
                   <button
                     onClick={handleLaunchGenesis}
-                    className="bg-gradient-to-r from-[#2868C7] to-[#172B46] hover:from-[#1f54a3] hover:to-[#0f1e32] text-white font-extrabold text-sm px-8 py-3.5 rounded-full shadow-xl transition-all flex items-center gap-2 cursor-pointer"
+                    disabled={wizardName.trim().length < 3}
+                    className={`font-extrabold text-sm px-8 py-3.5 rounded-full shadow-xl transition-all flex items-center gap-2 cursor-pointer ${
+                      wizardName.trim().length >= 3
+                        ? 'bg-gradient-to-r from-[#2868C7] to-[#172B46] hover:from-[#1f54a3] hover:to-[#0f1e32] text-white hover:scale-102'
+                        : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                    }`}
                   >
                     <Sparkles size={16} className="text-[#D8BE83]" />
-                    <span>{isAr ? 'توليد العالم ثلاثي الأبعاد الآن 🚀' : 'Donner vie au Monde 3D 🚀'}</span>
+                    <span>{isAr ? 'توليد العالم ثلاثي الأبعاد الآن 🚀' : isEn ? 'Generate 3D World Now 🚀' : 'Donner vie au Monde 3D 🚀'}</span>
                   </button>
                 </div>
               </div>
@@ -933,17 +1004,17 @@ export const UnifiedChildWorldExperience: React.FC = () => {
                 <div className="text-start">
                   <div className="flex items-center gap-2 flex-wrap">
                     <h3 className="text-lg sm:text-xl font-black">
-                      {isAr ? `عالم ${currentProfile.nameAr}` : `Monde de ${currentProfile.nameFr}`}
+                      {isAr ? `عالم ${currentProfile.nameAr}` : isEn ? `${currentProfile.nameEn}'s World` : `Monde de ${currentProfile.nameFr}`}
                     </h3>
                     <span className="text-xs bg-white/20 px-2 py-0.5 rounded-full font-bold">
                       {currentProfile.age} {isAr ? 'سنوات' : 'ans'}
                     </span>
                     <span className="text-xs bg-[#D8BE83] text-[#172B46] px-2.5 py-0.5 rounded-full font-extrabold">
-                      {isAr ? currentThemeConfig.nameAr : currentThemeConfig.nameFr}
+                      {isAr ? currentThemeConfig.nameAr : isEn ? currentThemeConfig.nameEn : currentThemeConfig.nameFr}
                     </span>
                   </div>
                   <p className="text-xs text-[#A9C5D8] mt-0.5">
-                    {isAr ? currentThemeConfig.subtitleAr : currentThemeConfig.subtitleFr}
+                    {isAr ? currentThemeConfig.subtitleAr : isEn ? currentThemeConfig.subtitleEn : currentThemeConfig.subtitleFr}
                   </p>
                 </div>
               </div>
@@ -952,7 +1023,7 @@ export const UnifiedChildWorldExperience: React.FC = () => {
               <div className="flex items-center gap-2 z-10 w-full md:w-auto justify-between md:justify-end">
                 <div className="bg-black/30 backdrop-blur-md px-3 py-1.5 rounded-2xl border border-white/20 flex items-center gap-2 text-xs">
                   <span className="text-[#A9C5D8] text-[11px] font-semibold">
-                    {isAr ? 'تبديل الأخ:' : 'Changer d\'enfant :'}
+                    {isAr ? 'تبديل الأخ:' : isEn ? 'Switch child:' : 'Changer d\'enfant :'}
                   </span>
                   <button
                     onClick={() => setActiveProfileId(activeProfileId === 'yanis' ? 'amina' : 'yanis')}
@@ -979,6 +1050,8 @@ export const UnifiedChildWorldExperience: React.FC = () => {
                 <Lock size={14} className="text-[#2868C7]" />
                 {isAr
                   ? 'مساحة مستقلة ومحمية: بيانات ونطق الطفل لا تختلط مع ملف إخوته'
+                  : isEn
+                  ? 'Isolated workspace: routines and pictograms do not mix between siblings.'
                   : 'Espace autonome et étanche : les routines et pictogrammes ne se mélangent pas entre frères et sœurs.'}
               </span>
               <span className="text-emerald-700 font-extrabold bg-emerald-50 px-2 py-0.5 rounded-full text-[10px]">
@@ -991,85 +1064,103 @@ export const UnifiedChildWorldExperience: React.FC = () => {
             {/* ---------------------------------------------------- */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
               
-              {/* LEFT COLUMN: 3D EMBEDDED COMPANION (NOUR) WITH VOICE */}
+              {/* LEFT COLUMN: 3D EMBEDDED COMPANION (BUNNY) WITH VOICE */}
               <div className="lg:col-span-5 bg-gradient-to-b from-white to-[#F5F6F3] rounded-3xl p-5 border border-[#A9C5D8]/40 shadow-lg flex flex-col justify-between space-y-4 text-start relative overflow-hidden">
-                {/* 3D Canvas Header Badge */}
+                {/* Header Badge */}
                 <div className="flex items-center justify-between pb-2 border-b border-gray-100">
                   <div className="flex items-center gap-2">
                     <span className="w-2.5 h-2.5 rounded-full bg-[#2868C7] animate-pulse" />
                     <span className="text-xs font-black text-[#172B46]">
-                      {isAr ? 'الرفيق الذكي ثلاثي الأبعاد "نور"' : 'Compagnon 3D Bienveillant "Nour"'}
+                      {isAr ? 'الرفيق الذكي ثلاثي الأبعاد "باني"' : isEn ? 'Interactive 3D Companion "Bunny"' : 'Compagnon 3D Bienveillant "Bunny"'}
                     </span>
                   </div>
-                  <span className="text-[10px] bg-[#D8BE83]/30 text-[#172B46] font-bold px-2 py-0.5 rounded-full">
-                    Bunny-Bot 3000
+                  <span className="text-[10px] bg-[#2868C7]/10 text-[#2868C7] font-bold px-2 py-0.5 rounded-full">
+                    {isAr ? 'تفاعلي ناطق' : isEn ? 'Voice Interactive' : 'Interactif & Vocal'}
                   </span>
                 </div>
 
-                {/* Embedded Three.js WebGL Canvas with GLB Model */}
+                {/* Speech Bubble Placed Cleanly ABOVE the 3D Canvas */}
+                <AnimatePresence>
+                  {companionBubble ? (
+                    <motion.div
+                      initial={{ opacity: 0, y: -8, scale: 0.97 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      className="relative bg-white/95 backdrop-blur-xl p-3.5 rounded-2xl shadow-xl border border-[#2868C7]/30 text-xs text-[#172B46] space-y-1 z-20"
+                    >
+                      <div className="flex items-center justify-between font-extrabold text-[11px] text-[#2868C7]">
+                        <span className="flex items-center gap-1.5">
+                          <Sparkles size={13} className="text-[#D8BE83]" />
+                          {isAr ? 'باني يتحدث إليك:' : isEn ? 'Bunny says:' : 'Bunny vous parle :'}
+                        </span>
+                        <button
+                          onClick={() => setCompanionBubble(null)}
+                          className="text-gray-400 hover:text-gray-600 p-0.5 text-xs cursor-pointer"
+                        >
+                          ✕
+                        </button>
+                      </div>
+                      <p className="font-semibold leading-relaxed text-[#172B46]">
+                        {companionBubble}
+                      </p>
+                      {/* Downward pointer to Bunny */}
+                      <div className="absolute -bottom-1.5 start-6 w-3 h-3 bg-white border-b border-r border-[#2868C7]/30 transform rotate-45" />
+                    </motion.div>
+                  ) : (
+                    <div className="bg-[#2868C7]/06 border border-[#2868C7]/15 p-2.5 rounded-2xl flex items-center justify-between text-xs text-[#172B46] font-semibold">
+                      <span className="flex items-center gap-1.5">
+                        <Smile size={14} className="text-[#2868C7]" />
+                        {isAr ? 'انقر على باني أو اختر عبارة للتفاعل' : isEn ? 'Click Bunny or pick a reaction to chat' : 'Cliquez sur Bunny ou choisissez une réaction'}
+                      </span>
+                      <span className="text-[10px] font-bold text-[#2868C7] bg-white px-2 py-0.5 rounded-full shadow-2xs">
+                        {isAr ? 'نشط' : 'Actif'}
+                      </span>
+                    </div>
+                  )}
+                </AnimatePresence>
+
+                {/* Embedded Three.js WebGL Canvas with Bunny GLB Model */}
                 <div className="relative rounded-2xl overflow-hidden bg-gradient-to-b from-[#172B46]/05 to-[#2868C7]/10 border border-[#A9C5D8]/30">
                   <Nour3DCanvas
                     theme={currentProfile.theme}
                     mode={nourMode}
                     isAr={isAr}
-                    className="h-[300px] sm:h-[340px]"
+                    onClickCompanion={() => handleNourInteraction('greeting')}
+                    className="h-[280px] sm:h-[320px]"
                   />
-
-                  {/* Floating Speech Bubble from Nour */}
-                  <AnimatePresence>
-                    {companionBubble && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 10 }}
-                        className="absolute top-3 inset-x-3 bg-white/95 backdrop-blur-xl p-3.5 rounded-2xl shadow-xl border border-[#2868C7]/30 text-xs text-[#172B46] space-y-1.5 z-20"
-                      >
-                        <div className="flex items-center justify-between font-extrabold text-[11px] text-[#2868C7]">
-                          <span className="flex items-center gap-1">
-                            <Sparkles size={12} />
-                            {isAr ? 'نور يتحدث:' : 'Nour vous parle :'}
-                          </span>
-                          <button
-                            onClick={() => setCompanionBubble(null)}
-                            className="text-gray-400 hover:text-gray-600 text-[10px]"
-                          >
-                            ✕
-                          </button>
-                        </div>
-                        <p className="font-semibold leading-relaxed">{companionBubble}</p>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
                 </div>
 
-                {/* Companion Action Chips */}
+                {/* Companion Action Chips with Lucide Icons */}
                 <div className="space-y-2 pt-1">
-                  <p className="text-[10px] font-bold uppercase text-gray-500 tracking-wider">
-                    {isAr ? 'تفاعل صوتي وتشجيعي مع نور:' : 'Interagir avec Nour :'}
+                  <p className="text-[10px] font-bold uppercase text-gray-500 tracking-wider flex items-center gap-1.5">
+                    <MessageCircle size={12} className="text-[#2868C7]" />
+                    <span>
+                      {isAr ? 'تفاعل صوتي وتشجيعي مع باني:' : isEn ? 'Interact with Bunny:' : 'Interagir avec Bunny :'}
+                    </span>
                   </p>
                   <div className="grid grid-cols-3 gap-2">
                     <button
                       onClick={() => handleNourInteraction('greeting')}
-                      className="p-2 rounded-xl bg-white hover:bg-gray-50 border border-gray-200 text-center transition-all text-xs font-bold text-[#172B46] hover:border-[#2868C7] flex flex-col items-center gap-1 cursor-pointer shadow-2xs"
+                      className="p-2.5 rounded-2xl bg-white hover:bg-[#2868C7]/05 border border-gray-200 text-center transition-all text-xs font-bold text-[#172B46] hover:border-[#2868C7] flex flex-col items-center gap-1 cursor-pointer shadow-2xs active:scale-95"
                     >
                       <Smile size={16} className="text-[#2868C7]" />
-                      <span className="text-[10px] leading-tight">{isAr ? 'تحية' : 'Saluer'}</span>
+                      <span className="text-[10px] leading-tight font-black">{isAr ? 'تحية' : isEn ? 'Greet' : 'Saluer'}</span>
                     </button>
 
                     <button
                       onClick={() => handleNourInteraction('encouragement')}
-                      className="p-2 rounded-xl bg-white hover:bg-gray-50 border border-gray-200 text-center transition-all text-xs font-bold text-[#172B46] hover:border-[#D8BE83] flex flex-col items-center gap-1 cursor-pointer shadow-2xs"
+                      className="p-2.5 rounded-2xl bg-white hover:bg-[#D8BE83]/10 border border-gray-200 text-center transition-all text-xs font-bold text-[#172B46] hover:border-[#D8BE83] flex flex-col items-center gap-1 cursor-pointer shadow-2xs active:scale-95"
                     >
                       <Star size={16} className="text-[#D8BE83]" />
-                      <span className="text-[10px] leading-tight">{isAr ? 'تشجيع' : 'Bravo'}</span>
+                      <span className="text-[10px] leading-tight font-black">{isAr ? 'تشجيع' : isEn ? 'Praise' : 'Bravo'}</span>
                     </button>
 
                     <button
                       onClick={() => handleNourInteraction('calm')}
-                      className="p-2 rounded-xl bg-white hover:bg-gray-50 border border-gray-200 text-center transition-all text-xs font-bold text-[#172B46] hover:border-[#2D7A58] flex flex-col items-center gap-1 cursor-pointer shadow-2xs"
+                      className="p-2.5 rounded-2xl bg-white hover:bg-[#2D7A58]/05 border border-gray-200 text-center transition-all text-xs font-bold text-[#172B46] hover:border-[#2D7A58] flex flex-col items-center gap-1 cursor-pointer shadow-2xs active:scale-95"
                     >
                       <Moon size={16} className="text-[#2D7A58]" />
-                      <span className="text-[10px] leading-tight">{isAr ? 'تنفس هادئ' : 'Apaiser'}</span>
+                      <span className="text-[10px] leading-tight font-black">{isAr ? 'تنفس هادئ' : isEn ? 'Calm' : 'Apaiser'}</span>
                     </button>
                   </div>
                 </div>
@@ -1084,16 +1175,16 @@ export const UnifiedChildWorldExperience: React.FC = () => {
                     <div className="flex items-center gap-2">
                       <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
                       <h4 className="text-xs sm:text-sm font-black text-[#172B46] uppercase tracking-wider">
-                        {isAr ? 'شريط التعبير والتواصل البديل (CAA)' : 'Bande-Phrase de Communication (CAA)'}
+                        {isAr ? 'شريط التعبير والتواصل البديل (CAA)' : isEn ? 'AAC Communication Strip' : 'Bande-Phrase de Communication (CAA)'}
                       </h4>
                     </div>
                     <button
                       onClick={() => setSelectedPictoIds([])}
                       className="text-xs text-gray-400 hover:text-[#D58C7A] flex items-center gap-1 cursor-pointer"
-                      title="Effacer la bande"
+                      title="Effacer"
                     >
                       <RotateCcw size={12} />
-                      <span>{isAr ? 'مسح' : 'Effacer'}</span>
+                      <span>{isAr ? 'مسح' : isEn ? 'Clear' : 'Effacer'}</span>
                     </button>
                   </div>
 
@@ -1140,12 +1231,12 @@ export const UnifiedChildWorldExperience: React.FC = () => {
                       {isVocalizing ? (
                         <>
                           <Volume2 size={16} className="animate-bounce" />
-                          <span>{isAr ? 'ينطق...' : 'Vocalise...'}</span>
+                          <span>{isAr ? 'ينطق...' : isEn ? 'Speaking...' : 'Vocalise...'}</span>
                         </>
                       ) : (
                         <>
                           <Play size={16} className="fill-current" />
-                          <span>{isAr ? 'نطق الجملة' : 'Lire à voix haute'}</span>
+                          <span>{isAr ? 'نطق الجملة' : isEn ? 'Speak Out Loud' : 'Lire à voix haute'}</span>
                         </>
                       )}
                     </button>
@@ -1156,6 +1247,8 @@ export const UnifiedChildWorldExperience: React.FC = () => {
                     <p className="text-[11px] font-bold text-gray-500">
                       {isAr
                         ? `بطاقات اليوم المعززة لعالم "${currentProfile.nameAr}":`
+                        : isEn
+                        ? `Communication cards for ${currentProfile.nameEn}'s universe:`
                         : `Cartes de communication pour l'univers de ${currentProfile.nameFr} :`}
                     </p>
                     <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
@@ -1184,76 +1277,80 @@ export const UnifiedChildWorldExperience: React.FC = () => {
                 </div>
 
                 {/* 2. DAILY ROUTINE & SPECIALIST BRIDGE (PRO-PARENT SYNC) */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
                   {/* Daily Routine Checklist */}
-                  <div className="bg-white rounded-3xl p-4 sm:p-5 border border-[#A9C5D8]/40 shadow-sm space-y-3">
-                    <div className="flex items-center justify-between pb-1.5 border-b border-gray-100">
-                      <span className="text-xs font-black text-[#172B46] flex items-center gap-1.5">
-                        <CheckCircle2 size={14} className="text-[#2868C7]" />
-                        {isAr ? 'الروتين اليومي المصور' : 'Routine Visuelle'}
-                      </span>
-                      <span className="text-[10px] text-gray-400 font-bold">
-                        {currentProfile.routines.filter((r) => r.completed).length} / {currentProfile.routines.length} ⭐
-                      </span>
-                    </div>
+                  <div className="bg-white rounded-3xl p-4 sm:p-5 border border-[#A9C5D8]/40 shadow-sm space-y-3 h-full flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center justify-between pb-1.5 border-b border-gray-100 mb-2">
+                        <span className="text-xs font-black text-[#172B46] flex items-center gap-1.5">
+                          <CheckCircle2 size={14} className="text-[#2868C7]" />
+                          {isAr ? 'الروتين اليومي المصور' : isEn ? 'Visual Routine' : 'Routine Visuelle'}
+                        </span>
+                        <span className="text-[10px] text-gray-400 font-bold">
+                          {currentProfile.routines.filter((r) => r.completed).length} / {currentProfile.routines.length} ⭐
+                        </span>
+                      </div>
 
-                    <div className="space-y-1.5">
-                      {currentProfile.routines.map((routine) => (
-                        <button
-                          key={routine.id}
-                          onClick={() => handleToggleRoutine(routine.id)}
-                          className={`w-full p-2 rounded-xl text-xs font-semibold text-start flex items-center justify-between transition-all cursor-pointer ${
-                            routine.completed
-                              ? 'bg-emerald-50 text-emerald-900 border border-emerald-200/60'
-                              : 'bg-[#F5F6F3] text-gray-700 hover:bg-gray-100'
-                          }`}
-                        >
-                          <span className="line-clamp-1">
-                            {isAr ? routine.titleAr : isEn ? routine.titleEn : routine.titleFr}
-                          </span>
-                          <span className={`w-4 h-4 rounded-full flex items-center justify-center text-[10px] ${
-                            routine.completed ? 'bg-emerald-500 text-white font-bold' : 'border border-gray-300'
-                          }`}>
-                            {routine.completed ? '✓' : ''}
-                          </span>
-                        </button>
-                      ))}
+                      <div className="space-y-1.5">
+                        {currentProfile.routines.map((routine) => (
+                          <button
+                            key={routine.id}
+                            onClick={() => handleToggleRoutine(routine.id)}
+                            className={`w-full p-2 rounded-xl text-xs font-semibold text-start flex items-center justify-between transition-all cursor-pointer ${
+                              routine.completed
+                                ? 'bg-emerald-50 text-emerald-900 border border-emerald-200/60'
+                                : 'bg-[#F5F6F3] text-gray-700 hover:bg-gray-100'
+                            }`}
+                          >
+                            <span className="line-clamp-1">
+                              {isAr ? routine.titleAr : isEn ? routine.titleEn : routine.titleFr}
+                            </span>
+                            <span className={`w-4 h-4 rounded-full flex items-center justify-center text-[10px] ${
+                              routine.completed ? 'bg-emerald-500 text-white font-bold' : 'border border-gray-300'
+                            }`}>
+                              {routine.completed ? '✓' : ''}
+                            </span>
+                          </button>
+                        ))}
+                      </div>
                     </div>
                   </div>
 
                   {/* Specialist Bridge (Pro Portal Contribution) */}
-                  <div className="bg-white rounded-3xl p-4 sm:p-5 border border-[#A9C5D8]/40 shadow-sm space-y-3">
-                    <div className="flex items-center justify-between pb-1.5 border-b border-gray-100">
-                      <span className="text-xs font-black text-[#D58C7A] flex items-center gap-1.5">
-                        <Users size={14} />
-                        {isAr ? 'مساهمة الأخصائي المعتمد' : 'Portail Spécialiste'}
-                      </span>
-                      <span className="text-[9px] bg-blue-50 text-blue-700 font-bold px-2 py-0.5 rounded-full">
-                        {isAr ? 'موافقة نشطة' : 'Consentement actif'}
-                      </span>
+                  <div className="bg-white rounded-3xl p-4 sm:p-5 border border-[#A9C5D8]/40 shadow-sm space-y-3 h-full flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center justify-between pb-1.5 border-b border-gray-100 mb-2">
+                        <span className="text-xs font-black text-[#D58C7A] flex items-center gap-1.5">
+                          <Users size={14} />
+                          {isAr ? 'مساهمة الأخصائي المعتمد' : isEn ? 'Specialist Portal' : 'Portail Spécialiste'}
+                        </span>
+                        <span className="text-[9px] bg-blue-50 text-blue-700 font-bold px-2 py-0.5 rounded-full">
+                          {isAr ? 'موافقة نشطة' : isEn ? 'Consent Active' : 'Consentement actif'}
+                        </span>
+                      </div>
+
+                      <div className="space-y-1.5 text-xs">
+                        <div>
+                          <p className="font-extrabold text-[#172B46]">{currentProfile.specialistName}</p>
+                          <p className="text-[10px] text-gray-400">
+                            {isAr ? currentProfile.specialistRoleAr : isEn ? currentProfile.specialistRoleEn : currentProfile.specialistRoleFr}
+                          </p>
+                        </div>
+
+                        <div className="bg-[#F5F6F3] p-2 rounded-xl space-y-1 text-[11px]">
+                          <span className="text-[10px] font-bold text-gray-500 block">
+                            {isAr ? 'الهدف الموصى به للمنزل:' : isEn ? 'Recommended Home Target:' : 'Cible clinique recommandée :'}
+                          </span>
+                          <p className="font-semibold text-[#172B46] leading-tight">
+                            {isAr ? currentProfile.speechGoalAr : isEn ? currentProfile.speechGoalEn : currentProfile.speechGoalFr}
+                          </p>
+                        </div>
+                      </div>
                     </div>
 
-                    <div className="space-y-1.5 text-xs">
-                      <div>
-                        <p className="font-extrabold text-[#172B46]">{currentProfile.specialistName}</p>
-                        <p className="text-[10px] text-gray-400">
-                          {isAr ? currentProfile.specialistRoleAr : currentProfile.specialistRoleFr}
-                        </p>
-                      </div>
-
-                      <div className="bg-[#F5F6F3] p-2 rounded-xl space-y-1 text-[11px]">
-                        <span className="text-[10px] font-bold text-gray-500 block">
-                          {isAr ? 'الهدف الموصى به للمنزل:' : 'Cible clinique recommandée :'}
-                        </span>
-                        <p className="font-semibold text-[#172B46] leading-tight">
-                          {isAr ? currentProfile.speechGoalAr : currentProfile.speechGoalFr}
-                        </p>
-                      </div>
-
-                      <div className="flex items-center gap-1.5 text-[10px] text-emerald-800 font-bold">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                        <span>{isAr ? 'استمرارية حية بين الجلسة والبيت' : 'Continuité cabinet-foyer en direct'}</span>
-                      </div>
+                    <div className="flex items-center gap-1.5 text-[10px] text-emerald-800 font-bold pt-1 border-t border-gray-100">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                      <span>{isAr ? 'استمرارية حية بين الجلسة والبيت' : isEn ? 'Live clinic-to-home continuity' : 'Continuité cabinet-foyer en direct'}</span>
                     </div>
                   </div>
                 </div>

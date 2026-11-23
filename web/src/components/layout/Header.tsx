@@ -104,11 +104,11 @@ export const Header: React.FC<HeaderProps> = ({ onOpenWaitlist, activeSection = 
               onClick={(e) => handleNavClick(e, '#home', 'home')}
               className="flex items-center gap-2.5 sm:gap-3 focus:outline-hidden group shrink-0"
             >
-              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full overflow-hidden shadow-xs border-2 border-[#2868C7]/20 bg-white flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full overflow-hidden shadow-xs border-2 border-[#2868C7]/20 bg-white flex items-center justify-center shrink-0 p-0.5 group-hover:scale-105 transition-transform">
                 <img
                   src="/logo.png"
                   alt="OFOQ"
-                  className="w-full h-full object-cover rounded-full"
+                  className="w-full h-full object-contain rounded-full"
                 />
               </div>
 

@@ -43,9 +43,9 @@ export default {
         }
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        heading: ['Manrope', 'Inter', 'system-ui', 'sans-serif'],
-        arabic: ['IBM Plex Sans Arabic', 'Cairo', 'system-ui', 'sans-serif'],
+        sans: ['Lato', 'Poppins', 'system-ui', 'sans-serif'],
+        heading: ['Poppins', 'Lato', 'system-ui', 'sans-serif'],
+        arabic: ['Cairo', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
         'glass': '0 8px 32px 0 rgba(23, 43, 70, 0.08)',

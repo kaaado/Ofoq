@@ -8,6 +8,7 @@ interface Nour3DCanvasProps {
   theme?: 'space' | 'nature' | 'ocean' | 'creative';
   isAr?: boolean;
   onModelLoaded?: () => void;
+  onClickCompanion?: () => void;
   className?: string;
 }
 
@@ -16,13 +17,13 @@ export const Nour3DCanvas: React.FC<Nour3DCanvasProps> = ({
   theme = 'space',
   isAr = false,
   onModelLoaded,
+  onClickCompanion,
   className = ''
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [loadProgress, setLoadProgress] = useState<number>(0);
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
   const [hasError, setHasError] = useState<boolean>(false);
-  const [showAttribution, setShowAttribution] = useState<boolean>(false);
 
   // References for Three.js state
   const sceneRef = useRef<THREE.Scene | null>(null);
@@ -61,10 +62,10 @@ export const Nour3DCanvas: React.FC<Nour3DCanvasProps> = ({
     sceneRef.current = scene;
 
     // 2. Camera
-    const camera = new THREE.PerspectiveCamera(42, width / height, 0.1, 100);
-    camera.position.set(0, 0.6, 3.8);
+    const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 100);
+    camera.position.set(0, 0.5, 3.7);
 
-    // 3. Renderer with power-efficient settings
+    // 3. Renderer with high performance & power efficiency
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
       antialias: true,
@@ -79,19 +80,19 @@ export const Nour3DCanvas: React.FC<Nour3DCanvasProps> = ({
 
     // 4. Lighting setup
     const currentTheme = themeColors[theme] || themeColors.space;
-    const ambientLight = new THREE.AmbientLight(currentTheme.ambient, 2.5);
+    const ambientLight = new THREE.AmbientLight(currentTheme.ambient, 2.8);
     scene.add(ambientLight);
 
-    const keyLight = new THREE.DirectionalLight(currentTheme.key, 3.0);
+    const keyLight = new THREE.DirectionalLight(currentTheme.key, 3.2);
     keyLight.position.set(3, 4, 3);
     scene.add(keyLight);
 
-    const rimLight = new THREE.PointLight(currentTheme.accent, 2.0, 10);
-    rimLight.position.set(-2, 2, -2);
+    const rimLight = new THREE.PointLight(currentTheme.accent, 2.5, 12);
+    rimLight.position.set(-2.5, 2.5, -2);
     scene.add(rimLight);
 
-    const fillLight = new THREE.DirectionalLight(0xffffff, 1.5);
-    fillLight.position.set(0, -2, 2);
+    const fillLight = new THREE.DirectionalLight(0xffffff, 1.6);
+    fillLight.position.set(0, -2, 2.5);
     scene.add(fillLight);
 
     // 5. Load GLB Model
@@ -108,13 +109,13 @@ export const Nour3DCanvas: React.FC<Nour3DCanvasProps> = ({
         const size = box.getSize(new THREE.Vector3());
 
         const maxDim = Math.max(size.x, size.y, size.z);
-        const scale = 2.0 / maxDim;
+        const scale = 2.05 / maxDim;
         baseScaleRef.current = scale;
         model.scale.set(scale, scale, scale);
 
-        // Center on X and Z, adjust Y so it rests on floor plane
+        // Center on X and Z, adjust Y so it rests nicely on floor plane
         model.position.x = -center.x * scale;
-        model.position.y = -center.y * scale - 0.15;
+        model.position.y = -center.y * scale - 0.12;
         model.position.z = -center.z * scale;
 
         scene.add(model);
@@ -151,8 +152,9 @@ export const Nour3DCanvas: React.FC<Nour3DCanvasProps> = ({
     };
     window.addEventListener('pointermove', handlePointerMove, { passive: true });
 
-    // 8. Render Loop
-    let clock = new THREE.Clock();
+    // 8. High-Performance Render Loop using performance.now() (Zero Deprecation Warnings)
+    const startTime = performance.now();
+    let lastTime = startTime;
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const animate = () => {
@@ -160,37 +162,57 @@ export const Nour3DCanvas: React.FC<Nour3DCanvasProps> = ({
 
       if (!isVisibleRef.current) return;
 
-      const delta = clock.getDelta();
-      const elapsedTime = clock.getElapsedTime();
+      const now = performance.now();
+      const elapsedTime = (now - startTime) * 0.001;
+      lastTime = now;
 
       if (modelRef.current) {
         if (!prefersReducedMotion) {
-          // Floating idle bobbing
-          const baseY = -0.15;
-          const bobSpeed = mode === 'calm' ? 1.0 : mode === 'talking' ? 3.5 : 1.8;
-          const bobAmplitude = mode === 'calm' ? 0.03 : mode === 'talking' ? 0.07 : 0.05;
-          modelRef.current.position.y = baseY + Math.sin(elapsedTime * bobSpeed) * bobAmplitude;
+          // Base position
+          const baseY = -0.12;
 
-          // Head / body tilt following visitor's cursor
-          const targetRotY = mouseRef.current.x * 0.35;
-          const targetRotX = -mouseRef.current.y * 0.2;
-          modelRef.current.rotation.y += (targetRotY - modelRef.current.rotation.y) * 0.06;
-          modelRef.current.rotation.x += (targetRotX - modelRef.current.rotation.x) * 0.06;
-
-          // Mode-specific micro-animations
+          // Mode-specific animations
           if (mode === 'talking') {
-            // Subtle expressive head nod and side bounce
-            modelRef.current.rotation.z = Math.sin(elapsedTime * 8) * 0.04;
+            // Vivid talking animation: energetic head nod, body bob, and mouth/ear vibration
+            modelRef.current.position.y = baseY + Math.sin(elapsedTime * 9) * 0.06;
+            modelRef.current.rotation.x = Math.sin(elapsedTime * 11) * 0.07;
+            modelRef.current.rotation.z = Math.sin(elapsedTime * 7) * 0.05;
+            const speakPulse = 1 + Math.sin(elapsedTime * 14) * 0.02;
+            modelRef.current.scale.setScalar(baseScaleRef.current * speakPulse);
+          } else if (mode === 'greeting') {
+            // Cheerful welcoming wave and friendly bounce
+            modelRef.current.position.y = baseY + Math.sin(elapsedTime * 4) * 0.08;
+            modelRef.current.rotation.z = Math.sin(elapsedTime * 5) * 0.09;
+            modelRef.current.rotation.x = -0.05;
+            modelRef.current.scale.setScalar(baseScaleRef.current);
           } else if (mode === 'listening') {
-            // Attentive inquisitive tilt
-            modelRef.current.rotation.z = 0.08;
+            // Attentive inquisitive tilt towards user
+            modelRef.current.position.y = baseY + Math.sin(elapsedTime * 1.5) * 0.02;
+            modelRef.current.rotation.z = 0.09;
+            modelRef.current.rotation.x = 0.04;
+            modelRef.current.scale.setScalar(baseScaleRef.current);
           } else if (mode === 'calm') {
             // Soothing symmetric breathing scale
-            const breathe = 1 + Math.sin(elapsedTime * 1.2) * 0.02;
+            const breathe = 1 + Math.sin(elapsedTime * 1.2) * 0.025;
+            modelRef.current.position.y = baseY + Math.sin(elapsedTime * 1.2) * 0.02;
             modelRef.current.scale.setScalar(baseScaleRef.current * breathe);
             modelRef.current.rotation.z = 0;
+            modelRef.current.rotation.x = 0;
           } else {
+            // Idle bobbing & tracking
+            const bobSpeed = 1.8;
+            const bobAmplitude = 0.04;
+            modelRef.current.position.y = baseY + Math.sin(elapsedTime * bobSpeed) * bobAmplitude;
             modelRef.current.rotation.z = Math.sin(elapsedTime * 1.5) * 0.015;
+            modelRef.current.scale.setScalar(baseScaleRef.current);
+          }
+
+          // Cursor eye-contact tracking
+          const targetRotY = mouseRef.current.x * 0.35;
+          const targetRotX = -mouseRef.current.y * 0.18;
+          modelRef.current.rotation.y += (targetRotY - modelRef.current.rotation.y) * 0.06;
+          if (mode !== 'talking' && mode !== 'greeting') {
+            modelRef.current.rotation.x += (targetRotX - modelRef.current.rotation.x) * 0.06;
           }
         }
       }
@@ -241,72 +263,57 @@ export const Nour3DCanvas: React.FC<Nour3DCanvasProps> = ({
   }, [theme, mode]);
 
   return (
-    <div className={`relative w-full h-[320px] sm:h-[380px] flex items-center justify-center select-none ${className}`}>
+    <div
+      onClick={onClickCompanion}
+      className={`relative w-full h-[320px] sm:h-[380px] flex items-center justify-center select-none cursor-pointer group ${className}`}
+      title={isAr ? 'انقر للتفاعل مع باني' : 'Cliquez pour interagir avec Bunny'}
+    >
       {/* Three.js WebGL Container */}
       <div
         ref={containerRef}
         className={`w-full h-full transition-opacity duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
-        aria-label="3D Nour Companion Model"
+        aria-label="3D Bunny Companion Model"
       />
 
-      {/* Loading & Fallback State */}
+      {/* Loading & Fallback State with High-Tech Glowing Aura */}
       {(!isLoaded || hasError) && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center space-y-3 z-10">
+        <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center space-y-4 z-10 bg-white/60 backdrop-blur-xs rounded-2xl">
           {/* Animated 3D/CSS Companion Fallback with glowing aura */}
           <div className="relative">
-            <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-tr from-[#172B46] via-[#2868C7] to-[#D8BE83] p-1 shadow-xl animate-pulse">
+            <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-tr from-[#172B46] via-[#2868C7] to-[#D8BE83] p-1 shadow-2xl animate-pulse">
               <div className="w-full h-full rounded-full bg-[#172B46] flex items-center justify-center text-4xl sm:text-5xl border border-white/20">
-                🤖
+                🐰
               </div>
             </div>
             {/* Orbital Rings */}
-            <div className="absolute -inset-3 rounded-full border border-[#2868C7]/40 animate-spin" style={{ animationDuration: '12s' }} />
-            <div className="absolute -inset-6 rounded-full border border-dashed border-[#D8BE83]/30 animate-spin" style={{ animationDuration: '24s', animationDirection: 'reverse' }} />
+            <div className="absolute -inset-3 rounded-full border border-[#2868C7]/50 animate-spin" style={{ animationDuration: '10s' }} />
+            <div className="absolute -inset-6 rounded-full border border-dashed border-[#D8BE83]/40 animate-spin" style={{ animationDuration: '20s', animationDirection: 'reverse' }} />
           </div>
 
           {!hasError && (
-            <div className="space-y-1">
-              <div className="flex items-center gap-1.5 justify-center text-xs font-bold text-[#172B46]">
-                <Loader2 size={14} className="animate-spin text-[#2868C7]" />
+            <div className="space-y-2 max-w-xs w-full">
+              <div className="flex items-center gap-2 justify-center text-xs font-bold text-[#172B46]">
+                <Loader2 size={16} className="animate-spin text-[#2868C7]" />
                 <span>
-                  {isAr ? `جاري تحميل رفيق أفق 3D (${loadProgress}%)...` : `Chargement du compagnon 3D (${loadProgress}%)...`}
+                  {isAr ? `جاري تجهيز الرفيق باني (${loadProgress}%)...` : `Chargement de Bunny 3D (${loadProgress}%)...`}
                 </span>
               </div>
-              <p className="text-[10px] text-[#5B6E85]">
-                {isAr ? 'نموذج ثلاثي الأبعاد تفاعلي خفيف' : 'Modèle 3D interactif optimisé'}
-              </p>
+              <div className="w-full bg-[#172B46]/10 h-2 rounded-full overflow-hidden p-0.5 border border-white/50">
+                <div
+                  className="bg-gradient-to-r from-[#2868C7] to-[#D8BE83] h-full rounded-full transition-all duration-300"
+                  style={{ width: `${Math.max(loadProgress, 8)}%` }}
+                />
+              </div>
             </div>
           )}
 
           {hasError && (
-            <div className="text-xs text-[#172B46] font-semibold bg-white/80 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-[#A9C5D8]/40 shadow-xs">
-              {isAr ? 'رفيق أفق التفاعلي (النموذج البديل)' : 'Compagnon interactif OFOQ (Mode sécurisé)'}
+            <div className="text-xs text-[#172B46] font-semibold bg-white/90 backdrop-blur-md px-4 py-2 rounded-full border border-[#A9C5D8]/50 shadow-md">
+              {isAr ? 'الرفيق باني التفاعلي (النموذج البديل)' : 'Compagnon interactif Bunny (Mode optimisé)'}
             </div>
           )}
         </div>
       )}
-
-      {/* Attribution & Legal CC-BY-4.0 Toggle Pill */}
-      <div className="absolute bottom-2 end-2 z-20">
-        <button
-          type="button"
-          onClick={() => setShowAttribution(!showAttribution)}
-          className="text-[9px] bg-white/85 hover:bg-white text-[#172B46]/70 hover:text-[#172B46] px-2 py-0.5 rounded-full border border-[#A9C5D8]/40 shadow-xs transition-all flex items-center gap-1 cursor-pointer"
-          title="Attribution 3D"
-        >
-          <span>3D Asset</span>
-          <span className="text-[#2868C7] font-bold">CC-BY-4.0</span>
-        </button>
-
-        {showAttribution && (
-          <div className="absolute bottom-6 end-0 w-64 p-2.5 bg-white/95 backdrop-blur-xl rounded-xl shadow-xl border border-[#A9C5D8]/40 text-[10px] text-[#172B46] space-y-1 text-start">
-            <p className="font-bold">Bunny-Bot 3000</p>
-            <p className="text-gray-500 text-[9px] leading-tight">
-              By <span className="font-semibold">321_Blender</span> on Sketchfab, licensed under CC-BY-4.0 for commercial and non-commercial use with author attribution.
-            </p>
-          </div>
-        )}
-      </div>
     </div>
   );
 };
