@@ -22,6 +22,7 @@
 - `516a58c`: docs(state): document hardware-accelerated hero float compositor layer in current state
 - `7f62edf`: feat(ux): implement directional hero tilt, 2-row tactile pictograms, specialist collaboration tools, and 3D companion ear headroom
 - `a282fc2`: fix(safety): refine Law 18-07 wording to principles alignment and defensive boundaries
+- `0310605`: fix(3d): lower companion model base position to Y=-0.90 with expanded canvas height for generous top headroom
 **Publishing Status:** Local implementation completed; remote push is not authorized.  
 
 ---
