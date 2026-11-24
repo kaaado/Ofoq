@@ -194,9 +194,9 @@ export const WARM_VOICE_PROFILES: WarmVoiceProfile[] = [
     descriptionAr: 'نبرة صوتية مريحة حسياً، مناسبة للأطفال الصغار وبدايات النطق كصديقة حنونة',
     descriptionFr: 'Timbre apaisant et accueillant idéal pour les plus jeunes et la mise en confiance',
     descriptionEn: 'Soothing, gentle tone perfect for young children, early speech, and reassuring comfort',
-    pitch: 1.08,
-    rateMultiplier: 0.90,
-    targetNameKeywords: ['salma', 'zariyah', 'denise', 'samantha', 'zira', 'hortense', 'female'],
+    pitch: 1.02,
+    rateMultiplier: 0.88,
+    targetNameKeywords: ['hortense', 'salma', 'zariyah', 'denise', 'samantha', 'zira', 'female'],
     cueSound: 'chime',
   },
   {
@@ -208,9 +208,9 @@ export const WARM_VOICE_PROFILES: WarmVoiceProfile[] = [
     descriptionAr: 'مخارج حروف واضحة ونبرة تفاؤلية مبتسمة تحفز الطفل على المحاكاة الصوتية دون خوف',
     descriptionFr: 'Phonation claire, souriante et articulation soignée pour un apprentissage ludique',
     descriptionEn: 'Crisp, smiling phonetic articulation and positive guidance that feels like a supportive mentor',
-    pitch: 1.20,
-    rateMultiplier: 0.98,
-    targetNameKeywords: ['amina', 'hoda', 'julie', 'jenny', 'aria', 'natural', 'neural', 'female'],
+    pitch: 1.30,
+    rateMultiplier: 1.06,
+    targetNameKeywords: ['zira', 'julie', 'jenny', 'amina', 'hoda', 'aria', 'female'],
     cueSound: 'pop',
   },
   {
@@ -222,9 +222,9 @@ export const WARM_VOICE_PROFILES: WarmVoiceProfile[] = [
     descriptionAr: 'نبرة تفاعلية طبيعية وقريبة من قلب الطفل للتواصل اليومي والتعبير الحسي الحر',
     descriptionFr: 'Ton naturel, chaleureux et complice pour les routines et la communication quotidienne',
     descriptionEn: 'Warm, empathetic older sibling tone for everyday routines and stress-free AAC expression',
-    pitch: 1.14,
-    rateMultiplier: 0.94,
-    targetNameKeywords: ['zeina', 'celine', 'charlotte', 'victoria', 'serena', 'online', 'female'],
+    pitch: 1.15,
+    rateMultiplier: 0.95,
+    targetNameKeywords: ['julie', 'denise', 'celine', 'charlotte', 'victoria', 'serena', 'hortense', 'female'],
     cueSound: 'click',
   },
 
@@ -238,9 +238,9 @@ export const WARM_VOICE_PROFILES: WarmVoiceProfile[] = [
     descriptionAr: 'نبرة عميقة ودافئة تمنح شعوراً بالأمان والسكينة العاطفية دون أي خشونة أو تهديد',
     descriptionFr: 'Timbre chaud, posé et protecteur offrant un repère sécurisant pour l\'enfant',
     descriptionEn: 'Deep, calm paternal presence offering grounding safety and emotional reassurance',
-    pitch: 0.78,
-    rateMultiplier: 0.88,
-    targetNameKeywords: ['tariq', 'naayf', 'henri', 'paul', 'david', 'guy', 'male'],
+    pitch: 0.70,
+    rateMultiplier: 0.84,
+    targetNameKeywords: ['naayf', 'david', 'tariq', 'henri', 'paul', 'guy', 'male'],
     cueSound: 'uncheck',
   },
   {
@@ -252,9 +252,9 @@ export const WARM_VOICE_PROFILES: WarmVoiceProfile[] = [
     descriptionAr: 'نبرة حيوية ومتوازنة تشجع على اللعب الحسي واستكشاف الكلمات كرفيق مرح',
     descriptionFr: 'Élocution engageante et bienveillante idéale pour le jeu et l\'éveil sensoriel',
     descriptionEn: 'Friendly companion brother tone full of warmth, playfulness, and patient encouragement',
-    pitch: 0.94,
-    rateMultiplier: 1.02,
-    targetNameKeywords: ['maged', 'thomas', 'ryan', 'daniel', 'mark', 'male'],
+    pitch: 0.96,
+    rateMultiplier: 1.05,
+    targetNameKeywords: ['mark', 'paul', 'thomas', 'ryan', 'daniel', 'maged', 'male'],
     cueSound: 'click',
   },
   {
@@ -266,9 +266,9 @@ export const WARM_VOICE_PROFILES: WarmVoiceProfile[] = [
     descriptionAr: 'إيقاع نطق هادئ جداً مخصص لتمارين التنفس والاسترخاء الحسي وتقليل التحفيز المفرط',
     descriptionFr: 'Cadence très douce et méditative dédiée aux exercices de respiration et de retour au calme',
     descriptionEn: 'Very gentle, mindful cadence designed for sensory de-escalation, breathing, and peaceful pauses',
-    pitch: 0.84,
-    rateMultiplier: 0.80,
-    targetNameKeywords: ['shakir', 'antoine', 'oliver', 'george', 'paul', 'natural', 'male'],
+    pitch: 0.82,
+    rateMultiplier: 0.78,
+    targetNameKeywords: ['paul', 'david', 'antoine', 'oliver', 'george', 'shakir', 'male'],
     cueSound: 'chime',
   },
 ];
@@ -278,8 +278,9 @@ export const WARM_VOICE_PROFILES: WarmVoiceProfile[] = [
  * Enforces:
  * - Female profiles ALWAYS get a female voice (never a male voice)
  * - Male profiles ALWAYS get a male voice (never a female voice)
- * - Each profile gets a different distinct voice from the gender pool
- * - Smooth autism-informed pitch and cadence modulation
+ * - Each profile gets a different distinct voice model from the gender pool
+ * - When target language has only 1 voice, female profiles partition cross-language female models
+ *   (e.g. Hortense vs Zira vs Julie) or apply distinct acoustic transformations
  */
 export const selectVoiceForProfile = (
   profile: WarmVoiceProfile,
@@ -291,44 +292,39 @@ export const selectVoiceForProfile = (
   const targetGender = profile.gender;
   const oppositeGender = targetGender === 'female' ? 'male' : 'female';
 
-  // 1. Filter entire voice universe into strict target-gender pool (eliminating opposite gender)
+  // 1. Strict gender pool (excluding all voices with opposite gender names/tags)
   const allTargetGenderVoices = allVoices.filter((v) => {
     const isTarget = isVoiceGender(v, targetGender);
     const isOpposite = isVoiceGender(v, oppositeGender);
     return isTarget && !isOpposite;
   });
 
-  // 2. Language-specific target gender pool
+  // Profile index within its own gender group (0, 1, 2)
+  const sameGenderProfiles = WARM_VOICE_PROFILES.filter((p) => p.gender === targetGender);
+  const profileIndex = Math.max(0, sameGenderProfiles.findIndex((p) => p.id === profile.id));
+
+  // 2. Exact keyword matching from profile targets
+  for (const kw of profile.targetNameKeywords) {
+    const matched = allTargetGenderVoices.find((v) => v.name.toLowerCase().includes(kw));
+    if (matched) return matched;
+  }
+
+  // 3. Language-specific target gender pool if multiple exist
   const langTargetGenderVoices = allTargetGenderVoices.filter((v) =>
     v.lang.toLowerCase().startsWith(lang)
   );
 
-  // Determine index of this profile within its own gender group (0, 1, 2)
-  const sameGenderProfiles = WARM_VOICE_PROFILES.filter((p) => p.gender === targetGender);
-  const profileIndex = Math.max(0, sameGenderProfiles.findIndex((p) => p.id === profile.id));
-
-  // Step A: Target keyword match within language-specific gender pool
-  if (langTargetGenderVoices.length > 0) {
-    for (const kw of profile.targetNameKeywords) {
-      const match = langTargetGenderVoices.find((v) => v.name.toLowerCase().includes(kw));
-      if (match) return match;
-    }
-    // If no keyword match, systematically rotate within the language-specific gender pool
+  if (langTargetGenderVoices.length > 1) {
     return langTargetGenderVoices[profileIndex % langTargetGenderVoices.length];
   }
 
-  // Step B: Target keyword match within all target gender voices (cross-language if needed)
+  // 4. If target language only has 1 or 0 gendered voices, use system-wide target gender pool
+  // so each profile is guaranteed a DIFFERENT physical voice model
   if (allTargetGenderVoices.length > 0) {
-    for (const kw of profile.targetNameKeywords) {
-      const match = allTargetGenderVoices.find((v) => v.name.toLowerCase().includes(kw));
-      if (match) return match;
-    }
-    // Rotate through the system-wide target gender pool
     return allTargetGenderVoices[profileIndex % allTargetGenderVoices.length];
   }
 
-  // Step C: If strict gender classification found no labeled voices, partition language voices
-  // while strictly protecting against assigning opposite-gender keywords
+  // 5. Safe fallback: candidates not matching opposite gender
   const langVoices = allVoices.filter((v) => v.lang.toLowerCase().startsWith(lang));
   const candidatePool = langVoices.length > 0 ? langVoices : allVoices;
   const filteredCandidates = candidatePool.filter((v) => !isVoiceGender(v, oppositeGender));
@@ -337,9 +333,7 @@ export const selectVoiceForProfile = (
     return filteredCandidates[profileIndex % filteredCandidates.length];
   }
 
-  // Absolute fallback: pick best candidate that doesn't match opposite gender keywords
-  const safeFallback = allVoices.filter((v) => !isVoiceGender(v, oppositeGender));
-  return safeFallback.length > 0 ? safeFallback[profileIndex % safeFallback.length] : allVoices[0];
+  return allVoices[0];
 };
 
 let cachedVoices: SpeechSynthesisVoice[] = [];
