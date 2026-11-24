@@ -71,9 +71,9 @@ export const ChildWorldWizard: React.FC<ChildWorldWizardProps> = ({
           speechGoalFr: 'Communication autonome et apaisement sensoriel',
           speechGoalEn: 'Independent daily communication and sensory comfort',
           specialistName: 'Dr. Benali',
-          specialistRoleAr: 'أخصائي التخاطب والمرافقة الأسرية',
-          specialistRoleFr: 'Orthophoniste & Accompagnant',
-          specialistRoleEn: 'Speech Therapist',
+          specialistRoleAr: 'أخصائي المرافقة الأسرية وطيف التوحد',
+          specialistRoleFr: 'Spécialiste TSA & Accompagnement',
+          specialistRoleEn: 'Autism Specialist & Family Support',
           routines: [
             { id: 'c1', iconName: 'sunrise', titleAr: 'الروتين الصباحي وشرب الماء', titleFr: 'Routine du matin', titleEn: 'Morning routine', completed: true },
             { id: 'c2', iconName: 'bot', titleAr: 'تحية الصديق نور بالصوت', titleFr: 'Bonjour à Nour', titleEn: 'Say hello to Nour', completed: true },

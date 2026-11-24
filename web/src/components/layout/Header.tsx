@@ -148,10 +148,10 @@ export const Header: React.FC<HeaderProps> = ({
                 </span>
                 <span className="text-[10px] sm:text-[11px] text-[#5B6E85] font-medium tracking-wide mt-1">
                   {isAr
-                    ? 'منظومة التخاطب والتوحد'
+                    ? 'منظومة دعم طيف التوحد'
                     : isEn
-                    ? 'Connected Digital Ecosystem'
-                    : 'Écosystème Numérique'}
+                    ? 'Autism Digital Ecosystem'
+                    : 'Écosystème Dédié à l\'Autisme'}
                 </span>
               </div>
             </a>

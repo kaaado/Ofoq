@@ -22,7 +22,7 @@ export const AboutSection: React.FC = () => {
           </h2>
           <p className="text-base sm:text-lg text-[#5B6E85] leading-relaxed">
             {isAr
-              ? 'منظومة جزائرية متصلة تسد الفجوة بين حصص التخاطب التخصصية والروتين العائلي اليومي، لنمنح كل طفل صوتاً وأفقاً يتسع لطاقاته.'
+              ? 'منظومة جزائرية متصلة تسد الفجوة بين الجلسات التخصصية والروتين العائلي اليومي، لنمنح كل طفل صوتاً وأفقاً يتسع لطاقاته.'
               : 'Un écosystème numérique algérien conçu pour abolir la rupture entre les séances spécialisées et le quotidien familial, offrant à chaque enfant une voix et un horizon d\'épanouissement.'}
           </p>
         </div>
@@ -99,8 +99,8 @@ export const AboutSection: React.FC = () => {
             </h3>
             <p className="text-sm text-[#5B6E85] leading-relaxed">
               {isAr
-                ? 'جلسات التخاطب والتربية الخاصة محدودة بساعة أو ساعتين أسبوعياً. أفق ينقل أهداف الجلسة التخصصية إلى مواقف الحياة الواقعية في البيت بسلاسة.'
-                : 'Les séances spécialisées sont souvent limitées à une ou deux heures hebdomadaires. OFOQ prolonge les acquis thérapeutiques au cœur de la vie familiale quotidienne.'}
+                ? 'الجلسات التخصصية (أرطوفونيا، علم النفس، التربية الخاصة) محدودة بساعات معدودة أسبوعياً. أفق ينقل أهداف الجلسة التخصصية إلى مواقف الحياة الواقعية في البيت بسلاسة.'
+                : 'Les séances spécialisées (orthophonie, psychologie, éducation adaptée) sont limitées à quelques heures par semaine. OFOQ prolonge les acquis au cœur de la vie familiale quotidienne.'}
             </p>
           </div>
         </ScrollReveal>
@@ -137,8 +137,8 @@ export const AboutSection: React.FC = () => {
             </h3>
             <p className="text-sm text-[#5B6E85] leading-relaxed">
               {isAr
-                ? 'أفق لا يقدم تشخيصات طبية ولا يقيم درجات الإعاقة آلياً. نحن أداة تواصل وتمكين تدعم دور الأخصائيين المعتمدين وتوطد الترابط الإنساني.'
-                : 'OFOQ n\'émet aucun diagnostic médical ni score clinique automatisé. Nous sommes un outil d\'expression et de coordination qui amplifie le rôle des praticiens sans jamais s\'y substituer.'}
+                ? 'أفق لا يقدم تشخيصات طبية سريرية ولا يحل محل التقييم الإنساني الشامل للأخصائي المعتمد. نحن أداة تواصل وتمكين تدعم دور الأخصائيين المعتمدين وتوطد الترابط الأسري.'
+                : 'OFOQ n\'émet aucun diagnostic médical clinique et ne remplace pas l\'évaluation humaine d\'un spécialiste certifié. Nous sommes un outil d\'expression et de coordination qui amplifie le rôle des praticiens.'}
             </p>
           </div>
         </ScrollReveal>

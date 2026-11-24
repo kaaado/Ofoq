@@ -54,7 +54,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPrivacy, onOpenLegal }) =>
               <div className="flex flex-col">
                 <span className="text-2xl font-heading font-black tracking-tight text-white leading-none">{brandName}</span>
                 <span className="text-[11px] text-[#A9C5D8] font-medium mt-1">
-                  {isAr ? 'منظومة التخاطب والتوحد المتصلة' : 'Écosystème Numérique Pédagogique'}
+                  {isAr ? 'منظومة دعم طيف التوحد' : isEn ? 'Autism Digital Ecosystem' : 'Écosystème Dédié à l\'Autisme'}
                 </span>
               </div>
             </div>
