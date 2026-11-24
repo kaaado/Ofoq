@@ -108,11 +108,49 @@ export const SensoryPreferencesModal: React.FC<SensoryPreferencesModalProps> = (
     // Save as active selected voice immediately
     updatePreference('selectedVoiceURI', profile.id);
 
-    const testPhrase = isAr
-      ? `مرحباً، أنا ${profile.nameAr.split(' ')[0]}، أحدثكم بنبرة صوتية دافئة ومطمئنة في أفق.`
-      : isEn
-      ? `Hello, I'm ${profile.nameEn.split(' ')[0]}, speaking with a gentle and warm voice in OFOQ.`
-      : `Bonjour, je suis ${profile.nameFr.split(' ')[0]}, avec une voix douce et chaleureuse pour OFOQ.`;
+    // Welcoming, calming, and friendly autism-informed speech preview personalized per persona
+    const getFriendlyPhrase = () => {
+      const nameOnlyAr = profile.nameAr.split(' ')[0];
+      const nameOnlyFr = profile.nameFr.split(' ')[0];
+      const nameOnlyEn = profile.nameEn.split(' ')[0];
+
+      if (profile.id === 'female-nour') {
+        if (isAr) return `أهلاً بك يا بطل، أنا نور. صوتي هادئ ودافئ لنكون معاً خطوة بخطوة بكل أمان.`;
+        if (isEn) return `Welcome, little friend! I'm Nour. My voice is calm and gentle to help you feel safe and comfortable.`;
+        return `Bienvenue mon petit ami, je suis Nour. Ma voix est douce et apaisante pour être toujours à tes côtés.`;
+      }
+      if (profile.id === 'female-maryam') {
+        if (isAr) return `مرحباً يا شاطر، أنا مريم! نطقنا واضح وسهل، وسنتعلم كلمات جديدة وممتعة معاً!`;
+        if (isEn) return `Hello superstar, I'm Maryam! We will discover clear and joyful words together!`;
+        return `Bonjour champion, je suis Maryam ! Découvrons ensemble des mots clairs et joyeux !`;
+      }
+      if (profile.id === 'female-yasmina') {
+        if (isAr) return `أهلاً يا صديقي، أنا ياسمينة! راني هنا معاك باش نلعبو ونعبّرو على كل ما تحب بكل راحة.`;
+        if (isEn) return `Hey friend, I'm Yasmine! I'm here with you to explore, play, and express whatever you feel.`;
+        return `Coucou l'ami, je suis Yasmine ! Je suis là avec toi pour partager et s'exprimer en toute liberté.`;
+      }
+      if (profile.id === 'male-tariq') {
+        if (isAr) return `مرحباً يا بني، أنا طارق. أنا هنا لأحميك وأمنحك الأمان في كل خطوة تخطوها.`;
+        if (isEn) return `Hello there, I'm Tariq. You are safe here, and I'm here to support you with calm reassurance.`;
+        return `Bonjour mon grand, je suis Tariq. Tu es en sécurité ici, et je t'accompagne avec calme et bienveillance.`;
+      }
+      if (profile.id === 'male-karim') {
+        if (isAr) return `يا هلا بصاحبي، أنا كريم! هيا نلعب ونكتشف أصواتاً رائعة ونمرح سوياً!`;
+        if (isEn) return `Hey buddy, I'm Karim! Let's have fun, explore cool sounds, and play together!`;
+        return `Salut mon copain, je suis Karim ! Amusons-nous ensemble à découvrir de chouettes sons !`;
+      }
+      if (profile.id === 'male-bilal') {
+        if (isAr) return `سلام وطمأنينة يا بطل، أنا بلال. خذ نفساً عميقاً، شهيق... وزفير... نحن في أمان وسلام.`;
+        if (isEn) return `Peace and calm, dear friend. I'm Bilal. Take a deep breath in... and gently let it go. You are safe.`;
+        return `Paix et sérénité. Je suis Bilal. Prends une douce respiration... inspire... et expire calmement.`;
+      }
+
+      if (isAr) return `مرحباً، أنا ${nameOnlyAr}، أحدثكم بنبرة صوتية دافئة ومطمئنة في أفق.`;
+      if (isEn) return `Hello, I'm ${nameOnlyEn}, speaking with a gentle and warm voice in OFOQ.`;
+      return `Bonjour, je suis ${nameOnlyFr}, avec une voix douce et chaleureuse pour OFOQ.`;
+    };
+
+    const testPhrase = getFriendlyPhrase();
 
     speakHumanVoice({
       text: testPhrase,
