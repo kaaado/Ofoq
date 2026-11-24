@@ -132,7 +132,7 @@ export const WaitlistModal: React.FC<WaitlistModalProps> = ({
   return (
     <AnimatePresence>
       <div 
-        className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 md:p-6"
+        className="fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 md:p-6 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
         onClick={(e) => {
           if (e.target === e.currentTarget) handleReset();
         }}
@@ -142,7 +142,7 @@ export const WaitlistModal: React.FC<WaitlistModalProps> = ({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 15 }}
           transition={{ duration: 0.25, ease: 'easeOut' }}
-          className="bg-white rounded-[28px] sm:rounded-[36px] max-w-lg w-full max-h-[92vh] sm:max-h-[88vh] flex flex-col p-5 sm:p-7 shadow-2xl relative border border-[#A9C5D8]/40 overflow-hidden my-auto"
+          className="bg-white rounded-[28px] sm:rounded-[36px] max-w-lg w-full max-h-[92vh] lg:max-h-none flex flex-col p-5 sm:p-6 lg:p-7 shadow-2xl relative border border-[#A9C5D8]/40 overflow-hidden lg:overflow-visible my-auto"
           role="dialog"
           aria-modal="true"
         >
@@ -179,7 +179,11 @@ export const WaitlistModal: React.FC<WaitlistModalProps> = ({
               </div>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto pr-1 pl-0.5 space-y-3.5 sm:space-y-4 pt-1" noValidate>
+            <form 
+              onSubmit={handleSubmit} 
+              className="flex-1 overflow-y-auto lg:overflow-visible pr-0.5 pl-0.5 space-y-3 sm:space-y-3.5 pt-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden" 
+              noValidate
+            >
               {/* Header Badge with animated flowing brand colors */}
               <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-gradient-to-r from-[#172B46]/08 via-[#2868C7]/10 to-[#D58C7A]/12 border border-[#A9C5D8]/40 w-fit max-w-[85%]">
                 <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-[#2868C7] to-[#172B46] text-[#D8BE83] flex items-center justify-center shadow-xs shrink-0">
@@ -243,36 +247,37 @@ export const WaitlistModal: React.FC<WaitlistModalProps> = ({
                 </div>
               </div>
 
-              {/* Full Name */}
-              <div>
-                <label className="block text-xs font-bold text-[#172B46] mb-1">
-                  {t('waitlist.form_name')} <span className="text-[#D58C7A] font-bold">*</span>
-                </label>
-                <div className="relative">
+              {/* Responsive Row: Full Name & Contact */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {/* Full Name */}
+                <div>
+                  <label className="block text-xs font-bold text-[#172B46] mb-1">
+                    {t('waitlist.form_name')} <span className="text-[#D58C7A] font-bold">*</span>
+                  </label>
                   <input
                     type="text"
                     required
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     placeholder={t('forms.placeholders.full_name')}
-                    className="w-full text-sm sm:text-base px-3.5 py-2.5 rounded-xl border border-[#A9C5D8]/50 focus:border-[#172B46] focus:ring-2 focus:ring-[#A9C5D8]/30 outline-none transition-all text-[#172B46] bg-white/90"
+                    className="w-full text-sm px-3.5 py-2.5 rounded-xl border border-[#A9C5D8]/50 focus:border-[#172B46] focus:ring-2 focus:ring-[#A9C5D8]/30 outline-none transition-all text-[#172B46] bg-white/90"
                   />
                 </div>
-              </div>
 
-              {/* Contact */}
-              <div>
-                <label className="block text-xs font-bold text-[#172B46] mb-1">
-                  {t('waitlist.form_contact')} <span className="text-[#D58C7A] font-bold">*</span>
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={contactValue}
-                  onChange={(e) => setContactValue(e.target.value)}
-                  placeholder={t('forms.placeholders.contact_value')}
-                  className="w-full text-sm sm:text-base px-3.5 py-2.5 rounded-xl border border-[#A9C5D8]/50 focus:border-[#172B46] focus:ring-2 focus:ring-[#A9C5D8]/30 outline-none transition-all text-start text-[#172B46] bg-white/90"
-                />
+                {/* Contact */}
+                <div>
+                  <label className="block text-xs font-bold text-[#172B46] mb-1">
+                    {t('waitlist.form_contact')} <span className="text-[#D58C7A] font-bold">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={contactValue}
+                    onChange={(e) => setContactValue(e.target.value)}
+                    placeholder={t('forms.placeholders.contact_value')}
+                    className="w-full text-sm px-3.5 py-2.5 rounded-xl border border-[#A9C5D8]/50 focus:border-[#172B46] focus:ring-2 focus:ring-[#A9C5D8]/30 outline-none transition-all text-start text-[#172B46] bg-white/90"
+                  />
+                </div>
               </div>
 
               {/* Wilaya Selection */}
@@ -283,7 +288,7 @@ export const WaitlistModal: React.FC<WaitlistModalProps> = ({
                 <select
                   value={wilaya}
                   onChange={(e) => setWilaya(e.target.value)}
-                  className="w-full text-sm sm:text-base px-3.5 py-2.5 rounded-xl border border-[#A9C5D8]/50 focus:border-[#172B46] focus:ring-2 focus:ring-[#A9C5D8]/30 outline-none transition-all bg-white text-[#172B46]"
+                  className="w-full text-sm px-3.5 py-2.5 rounded-xl border border-[#A9C5D8]/50 focus:border-[#172B46] focus:ring-2 focus:ring-[#A9C5D8]/30 outline-none transition-all bg-white text-[#172B46]"
                 >
                   {ALGERIAN_WILAYAS.map((w) => (
                     <option key={w.code} value={w.code}>
@@ -304,7 +309,7 @@ export const WaitlistModal: React.FC<WaitlistModalProps> = ({
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder={t('forms.placeholders.message')}
-                  className="w-full text-sm sm:text-base px-3.5 py-2 rounded-xl border border-[#A9C5D8]/50 focus:border-[#172B46] focus:ring-2 focus:ring-[#A9C5D8]/30 outline-none transition-all resize-none text-[#172B46] bg-white/90"
+                  className="w-full text-sm px-3.5 py-2 rounded-xl border border-[#A9C5D8]/50 focus:border-[#172B46] focus:ring-2 focus:ring-[#A9C5D8]/30 outline-none transition-all resize-none text-[#172B46] bg-white/90"
                 />
               </div>
 
@@ -315,7 +320,7 @@ export const WaitlistModal: React.FC<WaitlistModalProps> = ({
                   setConsentAccepted(nextVal);
                   if (nextVal) setConsentError(false);
                 }}
-                className={`p-3 rounded-2xl border transition-all cursor-pointer flex items-start gap-3 select-none ${
+                className={`p-2.5 sm:p-3 rounded-2xl border transition-all cursor-pointer flex items-start gap-3 select-none ${
                   consentAccepted 
                     ? 'border-[#172B46]/40 bg-[#172B46]/05' 
                     : consentError 
@@ -349,11 +354,11 @@ export const WaitlistModal: React.FC<WaitlistModalProps> = ({
                 </span>
               </div>
 
-              <div className="pt-1 pb-1">
+              <div className="pt-0.5 pb-0.5">
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-[#172B46] hover:bg-[#1f3757] hover:shadow-lg disabled:opacity-60 text-white font-bold py-3.5 rounded-full shadow-md transition-all duration-200 active:scale-98 flex items-center justify-center gap-2 cursor-pointer text-sm"
+                  className="w-full bg-[#172B46] hover:bg-[#1f3757] hover:shadow-lg disabled:opacity-60 text-white font-bold py-3 sm:py-3.5 rounded-full shadow-md transition-all duration-200 active:scale-98 flex items-center justify-center gap-2 cursor-pointer text-sm"
                 >
                   {isSubmitting && <Loader2 size={18} className="animate-spin text-[#SoftGold]" />}
                   <span>{isSubmitting ? t('forms.fields.submitting') : t('forms.fields.submit_waitlist')}</span>
