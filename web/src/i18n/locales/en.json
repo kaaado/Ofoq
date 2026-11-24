@@ -3,8 +3,8 @@
     "name": "OFOQ",
     "arabic_name": "أفق",
     "tagline": "Every child has their own horizon.",
-    "tab_title": "OFOQ (أفق) | Connected Digital Ecosystem for Autism & Communication",
-    "meta_description": "OFOQ connects autistic children, children with communication delays, their families, and professionals in Algeria. Augmentative communication (AAC), personalized child worlds, and educational continuity."
+    "tab_title": "OFOQ | Connected Digital Ecosystem for Autism",
+    "meta_description": "OFOQ connects autistic children, their families, and professionals in Algeria. Augmentative communication (AAC), personalized child worlds, and educational continuity."
   },
   "nav": {
     "home": "Home",
@@ -26,7 +26,7 @@
     "badge": "Pedagogical Digital Ecosystem • Algeria",
     "title_main": "Every child has their own",
     "title_highlight": "horizon to thrive.",
-    "subtitle": "A living bridge connecting specialized speech therapy with everyday family routines. Augmentative communication (AAC), 3D child worlds, and calm coordination for children with autism and speech delays.",
+    "subtitle": "A living bridge connecting specialized therapy with everyday family routines. Augmentative communication (AAC), 3D child worlds, and calm coordination for children with autism.",
     "cta_family": "I am a Parent",
     "cta_pro": "Specialists & Centers Portal",
     "cta_companion": "Specialists & Centers Portal",
@@ -150,9 +150,9 @@
     "form_contact": "Phone Number or Email",
     "form_wilaya": "Wilaya",
     "form_type": "You are signing up as:",
-    "type_family": "Parent / Family of a child with speech difficulties or autism",
-    "type_pro": "Professional (Speech Therapist, Educator, Clinic)",
-    "type_companion": "Specialist / Clinic (Speech Therapy, Special Education, Center)",
+    "type_family": "Parent / Family of an autistic child",
+    "type_pro": "Professional (Speech Therapist, Psychologist, Special Educator, Occupational Therapist)",
+    "type_companion": "Specialist / Clinic (Speech Therapy, Psychology, Special Education, Center)",
     "form_message": "Tell us about your needs or your child's situation (optional)",
     "form_consent": "I agree to be contacted by OFOQ regarding service launch in accordance with the Privacy Policy.",
     "btn_submit": "Confirm Priority Registration",

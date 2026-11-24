@@ -33,15 +33,15 @@ export function applyLanguageSettings(lang: string) {
   localStorage.setItem('ofoq_language', lang);
 
   const titles: Record<string, string> = {
-    ar: 'أفق | منظومة متصلة للأطفال ذوي التوحد وصعوبات النطق',
-    fr: 'OFOQ | Écosystème connecté pour l\'autisme & troubles du langage',
-    en: 'OFOQ | Connected Ecosystem for Autism & Speech Difficulties'
+    ar: 'أفق | منظومة رقمية متصلة لدعم طيف التوحد',
+    fr: 'OFOQ | Écosystème connecté pour l\'autisme',
+    en: 'OFOQ | Connected Digital Ecosystem for Autism'
   };
 
   const descriptions: Record<string, string> = {
-    ar: 'أفق (OFOQ) - منظومة رقمية متصلة لتعزيز التواصل البديل والتنسيق بين الأولياء والأخصائيين للأطفال ذوي التوحد وصعوبات النطق في الجزائر.',
-    fr: 'OFOQ - Écosystème numérique connecté dédié à la CAA, à la continuité éducative et à la coordination familles-spécialistes en Algérie.',
-    en: 'OFOQ - Connected digital ecosystem for AAC, educational continuity, and parent-specialist collaboration in Algeria.'
+    ar: 'أفق - منظومة رقمية متصلة لتعزيز التواصل البديل والتنسيق بين الأولياء والأخصائيين للأطفال ذوي طيف التوحد في الجزائر.',
+    fr: 'OFOQ - Écosystème numérique connecté dédié à la CAA, à la continuité éducative et à la coordination familles-spécialistes pour l\'autisme en Algérie.',
+    en: 'OFOQ - Connected digital ecosystem for AAC, educational continuity, and parent-specialist collaboration for autism in Algeria.'
   };
 
   document.title = titles[lang] || titles.fr;

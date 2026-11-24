@@ -68,10 +68,10 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenWaitlist }) => {
                 <Sparkles size={17} className="text-[#806936] shrink-0" />
                 <span>
                   {isAr
-                    ? 'منظومة رقمية متصلة للأطفال ذوي التوحد وصعوبات النطق'
+                    ? 'منظومة رقمية متصلة للأطفال ذوي طيف التوحد'
                     : isEn
-                    ? 'Connected Digital Ecosystem for Autism & Speech Difficulties'
-                    : 'Écosystème numérique connecté pour l\'autisme & les troubles du langage'}
+                    ? 'Connected Digital Ecosystem for Autism'
+                    : 'Écosystème numérique connecté pour l\'autisme'}
                 </span>
               </motion.div>
             </div>

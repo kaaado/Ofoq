@@ -3,8 +3,8 @@
     "name": "OFOQ",
     "arabic_name": "أفق",
     "tagline": "Chaque enfant a son propre horizon.",
-    "tab_title": "OFOQ (أفق) | Écosystème connecté pour l'autisme et la communication",
-    "meta_description": "OFOQ connecte les enfants avec autisme ou difficultés d'élocution, leurs familles et les professionnels en Algérie. Communication alternative (CAA), mondes personnalisés et continuité éducative bienveillante."
+    "tab_title": "OFOQ | Écosystème connecté pour l'autisme",
+    "meta_description": "OFOQ connecte les enfants avec autisme, leurs familles et les professionnels en Algérie. Communication alternative (CAA), mondes personnalisés et continuité éducative bienveillante."
   },
   "nav": {
     "home": "Accueil",
@@ -26,7 +26,7 @@
     "badge": "Écosystème Numérique Pédagogique • Algérie",
     "title_main": "Chaque enfant a son propre",
     "title_highlight": "horizon d'épanouissement.",
-    "subtitle": "Le pont connecté entre le cabinet spécialisé et le foyer. Communication alternative (CAA), mondes d'enfants personnalisés et coordination bienveillante pour l'autisme et les troubles du langage.",
+    "subtitle": "Le pont connecté entre le cabinet spécialisé et le foyer. Communication alternative (CAA), mondes d'enfants personnalisés et coordination bienveillante pour l'autisme.",
     "cta_family": "Je suis un parent",
     "cta_pro": "Espace Spécialistes & Centres",
     "cta_companion": "Espace Spécialistes & Centres",
@@ -150,9 +150,9 @@
     "form_contact": "Numéro de téléphone ou Email",
     "form_wilaya": "Votre Wilaya",
     "form_type": "Vous vous inscrivez en tant que :",
-    "type_family": "Parent / Famille d'un enfant avec difficultés d'élocution ou autisme",
-    "type_pro": "Professionnel (Orthophoniste, Éducateur, Psychomotricien, Centre)",
-    "type_companion": "Professionnel / Centre spécialisé (Orthophonie, Éducation, Centre)",
+    "type_family": "Parent / Famille d'un enfant avec autisme",
+    "type_pro": "Professionnel (Orthophoniste, Psychologue, Éducateur spécialisé, Psychomotricien, Ergothérapeute)",
+    "type_companion": "Praticien / Centre spécialisé (Orthophonie, Psychologie, Éducation spécialisée, Cabinet)",
     "form_message": "Parlez-nous de vos attentes ou de la situation de votre enfant (facultatif)",
     "form_consent": "J'accepte d'être contacté(e) par OFOQ pour le lancement du service conformément à la politique de confidentialité.",
     "btn_submit": "Confirmer ma demande d'accès prioritaire",
