@@ -238,9 +238,9 @@ export const WARM_VOICE_PROFILES: WarmVoiceProfile[] = [
     descriptionAr: 'نبرة عميقة ودافئة تمنح شعوراً بالأمان والسكينة العاطفية دون أي خشونة أو تهديد',
     descriptionFr: 'Timbre chaud, posé et protecteur offrant un repère sécurisant pour l\'enfant',
     descriptionEn: 'Deep, calm paternal presence offering grounding safety and emotional reassurance',
-    pitch: 0.70,
-    rateMultiplier: 0.84,
-    targetNameKeywords: ['naayf', 'david', 'tariq', 'henri', 'paul', 'guy', 'male'],
+    pitch: 0.76,
+    rateMultiplier: 0.88,
+    targetNameKeywords: ['paul', 'henri', 'naayf', 'david', 'tariq', 'male'],
     cueSound: 'uncheck',
   },
   {
@@ -253,8 +253,8 @@ export const WARM_VOICE_PROFILES: WarmVoiceProfile[] = [
     descriptionFr: 'Élocution engageante et bienveillante idéale pour le jeu et l\'éveil sensoriel',
     descriptionEn: 'Friendly companion brother tone full of warmth, playfulness, and patient encouragement',
     pitch: 0.96,
-    rateMultiplier: 1.05,
-    targetNameKeywords: ['mark', 'paul', 'thomas', 'ryan', 'daniel', 'maged', 'male'],
+    rateMultiplier: 1.02,
+    targetNameKeywords: ['thomas', 'mark', 'ryan', 'daniel', 'maged', 'paul', 'male'],
     cueSound: 'click',
   },
   {
@@ -266,9 +266,9 @@ export const WARM_VOICE_PROFILES: WarmVoiceProfile[] = [
     descriptionAr: 'إيقاع نطق هادئ جداً مخصص لتمارين التنفس والاسترخاء الحسي وتقليل التحفيز المفرط',
     descriptionFr: 'Cadence très douce et méditative dédiée aux exercices de respiration et de retour au calme',
     descriptionEn: 'Very gentle, mindful cadence designed for sensory de-escalation, breathing, and peaceful pauses',
-    pitch: 0.82,
-    rateMultiplier: 0.78,
-    targetNameKeywords: ['paul', 'david', 'antoine', 'oliver', 'george', 'shakir', 'male'],
+    pitch: 0.84,
+    rateMultiplier: 0.82,
+    targetNameKeywords: ['antoine', 'oliver', 'george', 'paul', 'david', 'male'],
     cueSound: 'chime',
   },
 ];
@@ -292,45 +292,58 @@ export const selectVoiceForProfile = (
   const targetGender = profile.gender;
   const oppositeGender = targetGender === 'female' ? 'male' : 'female';
 
-  // 1. Strict gender pool (excluding all voices with opposite gender names/tags)
-  const allTargetGenderVoices = allVoices.filter((v) => {
-    const isTarget = isVoiceGender(v, targetGender);
-    const isOpposite = isVoiceGender(v, oppositeGender);
-    return isTarget && !isOpposite;
-  });
+  // 1. Language-specific voices
+  const langVoices = allVoices.filter((v) => v.lang.toLowerCase().startsWith(lang));
 
-  // Profile index within its own gender group (0, 1, 2)
+  // Determine index of this profile within its own gender group (0, 1, 2)
   const sameGenderProfiles = WARM_VOICE_PROFILES.filter((p) => p.gender === targetGender);
   const profileIndex = Math.max(0, sameGenderProfiles.findIndex((p) => p.id === profile.id));
 
-  // 2. Exact keyword matching from profile targets
-  for (const kw of profile.targetNameKeywords) {
-    const matched = allTargetGenderVoices.find((v) => v.name.toLowerCase().includes(kw));
-    if (matched) return matched;
+  // PRIORITY 1: Match within target language for the exact profile target keywords
+  if (langVoices.length > 0) {
+    // A. Check if any language voice directly matches profile keywords
+    for (const kw of profile.targetNameKeywords) {
+      const match = langVoices.find((v) => v.name.toLowerCase().includes(kw));
+      if (match) return match;
+    }
+
+    // B. Check language voices matching target gender (and not opposite gender)
+    const langTargetGenderVoices = langVoices.filter(
+      (v) => isVoiceGender(v, targetGender) && !isVoiceGender(v, oppositeGender)
+    );
+    if (langTargetGenderVoices.length > 0) {
+      return langTargetGenderVoices[profileIndex % langTargetGenderVoices.length];
+    }
+
+    // C. Any language voice that doesn't strictly match opposite gender
+    const safeLangVoices = langVoices.filter((v) => !isVoiceGender(v, oppositeGender));
+    if (safeLangVoices.length > 0) {
+      return safeLangVoices[profileIndex % safeLangVoices.length];
+    }
+
+    // D. If in Arabic and system only has 1 Arabic voice (e.g. Naayf), return it so Arabic ALWAYS speaks!
+    return langVoices[0];
   }
 
-  // 3. Language-specific target gender pool if multiple exist
-  const langTargetGenderVoices = allTargetGenderVoices.filter((v) =>
-    v.lang.toLowerCase().startsWith(lang)
+  // PRIORITY 2: If no voice exists for the target language (e.g. Arabic voice not installed on OS),
+  // select from the system-wide target gender pool
+  const allTargetGenderVoices = allVoices.filter(
+    (v) => isVoiceGender(v, targetGender) && !isVoiceGender(v, oppositeGender)
   );
 
-  if (langTargetGenderVoices.length > 1) {
-    return langTargetGenderVoices[profileIndex % langTargetGenderVoices.length];
-  }
-
-  // 4. If target language only has 1 or 0 gendered voices, use system-wide target gender pool
-  // so each profile is guaranteed a DIFFERENT physical voice model
   if (allTargetGenderVoices.length > 0) {
+    // Check keyword match in target gender pool
+    for (const kw of profile.targetNameKeywords) {
+      const match = allTargetGenderVoices.find((v) => v.name.toLowerCase().includes(kw));
+      if (match) return match;
+    }
     return allTargetGenderVoices[profileIndex % allTargetGenderVoices.length];
   }
 
-  // 5. Safe fallback: candidates not matching opposite gender
-  const langVoices = allVoices.filter((v) => v.lang.toLowerCase().startsWith(lang));
-  const candidatePool = langVoices.length > 0 ? langVoices : allVoices;
-  const filteredCandidates = candidatePool.filter((v) => !isVoiceGender(v, oppositeGender));
-
-  if (filteredCandidates.length > 0) {
-    return filteredCandidates[profileIndex % filteredCandidates.length];
+  // PRIORITY 3: Filter all voices safely
+  const safeAll = allVoices.filter((v) => !isVoiceGender(v, oppositeGender));
+  if (safeAll.length > 0) {
+    return safeAll[profileIndex % safeAll.length];
   }
 
   return allVoices[0];
@@ -529,11 +542,19 @@ export const speakHumanVoice = ({
       }
     }
 
+    const targetLangCode = lang === 'ar' ? 'ar-SA' : lang === 'fr' ? 'fr-FR' : 'en-US';
+
     if (selectedVoice) {
       utterance.voice = selectedVoice;
-      utterance.lang = selectedVoice.lang;
+      // If the selected voice belongs to the requested language family, use its specific locale tag;
+      // otherwise, force the target language code so the browser phoneme synthesizer speaks the correct language
+      if (selectedVoice.lang && selectedVoice.lang.toLowerCase().startsWith(lang)) {
+        utterance.lang = selectedVoice.lang;
+      } else {
+        utterance.lang = targetLangCode;
+      }
     } else {
-      utterance.lang = lang === 'ar' ? 'ar-SA' : lang === 'fr' ? 'fr-FR' : 'en-US';
+      utterance.lang = targetLangCode;
     }
 
 
