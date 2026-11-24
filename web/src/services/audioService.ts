@@ -301,13 +301,13 @@ export const selectVoiceForProfile = (
 
   // PRIORITY 1: Match within target language for the exact profile target keywords
   if (langVoices.length > 0) {
-    // A. Check if any language voice directly matches profile keywords
+    // A. Check if any language voice directly matches profile keywords (Salma, Zariyah, Amina, etc.)
     for (const kw of profile.targetNameKeywords) {
       const match = langVoices.find((v) => v.name.toLowerCase().includes(kw));
       if (match) return match;
     }
 
-    // B. Check language voices matching target gender (and not opposite gender)
+    // B. Check language voices strictly matching target gender (and not opposite gender)
     const langTargetGenderVoices = langVoices.filter(
       (v) => isVoiceGender(v, targetGender) && !isVoiceGender(v, oppositeGender)
     );
@@ -315,13 +315,25 @@ export const selectVoiceForProfile = (
       return langTargetGenderVoices[profileIndex % langTargetGenderVoices.length];
     }
 
-    // C. Any language voice that doesn't strictly match opposite gender
-    const safeLangVoices = langVoices.filter((v) => !isVoiceGender(v, oppositeGender));
-    if (safeLangVoices.length > 0) {
-      return safeLangVoices[profileIndex % safeLangVoices.length];
+    // C. Check online / cloud browser voices for Arabic female (e.g. Google Arabic, Edge Natural Online)
+    if (targetGender === 'female' && lang === 'ar') {
+      const onlineFemaleAr = allVoices.find((v) => {
+        const n = v.name.toLowerCase();
+        const isAr = v.lang.toLowerCase().startsWith('ar');
+        return isAr && (n.includes('salma') || n.includes('zariyah') || n.includes('amina') || n.includes('female') || n.includes('hoda') || n.includes('sana') || n.includes('fatima') || n.includes('leila'));
+      });
+      if (onlineFemaleAr) return onlineFemaleAr;
     }
 
-    // D. If in Arabic and system only has 1 Arabic voice (e.g. Naayf), return it so Arabic ALWAYS speaks!
+    // D. If in Arabic and host OS only provides 1 single voice (which is male, e.g. Naayf):
+    // For male profiles, use Naayf directly.
+    // For female profiles, return Naayf so Arabic speaks reliably (and the engine applies a +35% to +50%
+    // high-frequency acoustic pitch shift to transform the formant into a gentle female maternal voice).
+    if (targetGender === 'male') {
+      return langVoices[0];
+    }
+
+    // For female profiles in Arabic when only male voice exists:
     return langVoices[0];
   }
 
@@ -441,16 +453,6 @@ export const speakHumanVoice = ({
     const safePitch = Number.isFinite(basePitch) ? Math.min(1.4, Math.max(0.65, basePitch)) : 1.0;
     const safeVolume = Number.isFinite(volume) ? Math.min(1, Math.max(0, volume)) : 0.85;
 
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.rate = safeRate;
-    utterance.pitch = safePitch;
-    utterance.volume = safeVolume;
-
-    // If profile has a dedicated cue sound, play tactile acoustic feedback
-    if (warmProfile?.cueSound) {
-      playTactileFeedback(warmProfile.cueSound, { volume: Math.min(0.4, safeVolume), soundEnabled: true });
-    }
-
     const allVoices = getAvailableVoices();
     let selectedVoice: SpeechSynthesisVoice | null = null;
 
@@ -462,6 +464,30 @@ export const speakHumanVoice = ({
     // Match by warm profile target multi-voice formant allocation
     if (!selectedVoice && warmProfile) {
       selectedVoice = selectVoiceForProfile(warmProfile, lang, allVoices);
+    }
+
+    // Check if a female profile had to fall back to a voice that has male characteristics (e.g. Arabic Naayf on Windows):
+    // In this case, apply an acoustic gender-shifting formant (+30% to +45% pitch shift) so it sounds genuinely female and maternal
+    const isVoiceActuallyMale = selectedVoice ? isVoiceGender(selectedVoice, 'male') : false;
+    let finalPitch = safePitch;
+    if (warmProfile?.gender === 'female' && isVoiceActuallyMale) {
+      if (warmProfile.id === 'female-nour') {
+        finalPitch = 1.38; // Maternal, high-soft pitch
+      } else if (warmProfile.id === 'female-maryam') {
+        finalPitch = 1.55; // Crisper, encouraging higher pitch
+      } else if (warmProfile.id === 'female-yasmina') {
+        finalPitch = 1.45; // Friendly older sister pitch
+      }
+    }
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = safeRate;
+    utterance.pitch = Math.min(1.7, Math.max(0.6, finalPitch));
+    utterance.volume = safeVolume;
+
+    // If profile has a dedicated cue sound, play tactile acoustic feedback
+    if (warmProfile?.cueSound) {
+      playTactileFeedback(warmProfile.cueSound, { volume: Math.min(0.4, safeVolume), soundEnabled: true });
     }
 
 
