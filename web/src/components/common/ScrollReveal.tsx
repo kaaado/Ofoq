@@ -1,5 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
+import { useSensoryPreferences } from '../../context/SensoryPreferencesContext';
+import { OFOQ_MOTION } from '../../utils/motion';
 
 interface ScrollRevealProps {
   children: React.ReactNode;
@@ -14,16 +16,18 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
   direction = 'up',
   className = '',
 }) => {
+  const { effectiveReducedMotion } = useSensoryPreferences();
+
   const getInitial = () => {
     switch (direction) {
       case 'up':
-        return { opacity: 0, y: 32 };
+        return { opacity: 0, y: 24 };
       case 'down':
-        return { opacity: 0, y: -32 };
+        return { opacity: 0, y: -24 };
       case 'left':
-        return { opacity: 0, x: 32 };
+        return { opacity: 0, x: 24 };
       case 'right':
-        return { opacity: 0, x: -32 };
+        return { opacity: 0, x: -24 };
       default:
         return { opacity: 0 };
     }
@@ -31,14 +35,19 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
 
   return (
     <motion.div
-      initial={getInitial()}
-      whileInView={{ opacity: 1, y: 0, x: 0 }}
-      viewport={{ once: true, margin: '-40px' }}
-      transition={{
-        duration: 0.6,
-        delay,
-        ease: [0.21, 0.47, 0.32, 0.98],
-      }}
+      initial={effectiveReducedMotion ? false : getInitial()}
+      animate={effectiveReducedMotion ? { opacity: 1, x: 0, y: 0 } : undefined}
+      whileInView={effectiveReducedMotion ? undefined : { opacity: 1, y: 0, x: 0 }}
+      viewport={{ once: true, amount: 'some' }}
+      transition={
+        effectiveReducedMotion
+          ? { duration: 0.01 }
+          : {
+              duration: OFOQ_MOTION.durationSlow,
+              delay,
+              ease: OFOQ_MOTION.easeCalm,
+            }
+      }
       className={className}
     >
       {children}

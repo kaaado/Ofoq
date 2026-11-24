@@ -55,26 +55,37 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
   }, []);
 
   const currentOption = languages.find((l) => l.code === currentLang) || languages[0];
+  const isAr = currentLang === 'ar';
+  const isEn = currentLang === 'en';
+  const triggerAriaLabel = isAr ? 'تغيير اللغة' : isEn ? 'Select language' : 'Sélectionner la langue';
 
   return (
     <div className={`relative inline-block ${className}`} ref={dropdownRef}>
-      {/* Trigger Button */}
+      {/* Trigger Button with accessible touch target & focus ring */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         aria-haspopup="true"
         aria-expanded={isOpen}
-        aria-label="Sélectionner la langue"
-        className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 hover:bg-white border border-[#172B46]/15 shadow-xs hover:shadow transition-all duration-200 text-xs font-semibold text-[#172B46] cursor-pointer"
+        aria-label={triggerAriaLabel}
+        className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3.5 py-2 sm:py-2.5 min-h-[44px] rounded-full bg-white/90 hover:bg-white border border-[#172B46]/15 shadow-sm hover:shadow transition-all duration-200 text-xs font-semibold text-[#172B46] cursor-pointer focus-ring"
       >
-        <Globe size={14} className="text-[#D58C7A]" />
-        <span>{currentOption.nativeName}</span>
+        <Globe size={15} className="text-[#D58C7A] shrink-0" />
+        {/* Mobile (xs / sm): Short uppercase code (AR / FR / EN) */}
+        <span className="inline md:hidden font-mono font-bold uppercase tracking-wider text-[11px]">
+          {currentOption.code}
+        </span>
+        {/* Tablet & Desktop (md+): Full native label (Français, العربية, English) */}
+        <span className="hidden md:inline">
+          {currentOption.nativeName}
+        </span>
         <ChevronDown
           size={13}
-          className={`text-[#5B6E85] transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+          className={`text-[#5B6E85] transition-transform duration-200 shrink-0 ${isOpen ? 'rotate-180' : ''}`}
         />
       </button>
 
       {/* Dropdown Menu */}
+
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -90,10 +101,10 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
                 <button
                   key={lang.code}
                   onClick={() => handleSelect(lang.code)}
-                  className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium transition-colors cursor-pointer ${
+                  className={`w-full flex items-center justify-between px-3.5 py-2.5 min-h-[44px] rounded-xl text-xs font-medium transition-colors cursor-pointer focus-ring ${
                     isSelected
                       ? 'bg-[#A9C5D8]/25 text-[#172B46] font-bold'
-                      : 'text-[#172B46] hover:bg-black/05'
+                      : 'text-[#172B46] hover:bg-black/5'
                   }`}
                 >
                   <span className={lang.code === 'ar' ? 'font-arabic' : ''}>

@@ -43,7 +43,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPrivacy, onOpenLegal }) =>
           {/* Brand & Purpose (5 cols) */}
           <div className="lg:col-span-5 space-y-4 text-start">
             <div className="flex items-center gap-3">
-              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full overflow-hidden shadow-xs border-2 border-white/20 bg-[#FDFDFD] flex items-center justify-center shrink-0 p-0.5">
+              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full overflow-hidden shadow-sm border-2 border-white/20 bg-[#FDFDFD] flex items-center justify-center shrink-0 p-0.5">
                 <img
                   src="/OFOQlogo.png"
                   alt="OFOQ"

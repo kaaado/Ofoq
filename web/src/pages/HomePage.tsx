@@ -10,6 +10,7 @@ import {
   Heart
 } from 'lucide-react';
 import { ScrollReveal } from '../components/common/ScrollReveal';
+import { useSensoryPreferences } from '../context/SensoryPreferencesContext';
 
 // Consolidated Single-Page Sections
 import { UnifiedChildWorldExperience } from '../components/sections/UnifiedChildWorldExperience';
@@ -27,6 +28,7 @@ interface HomePageProps {
 
 export const HomePage: React.FC<HomePageProps> = ({ onOpenWaitlist }) => {
   const { t, i18n } = useTranslation();
+  const { effectiveReducedMotion } = useSensoryPreferences();
   const currentLang = (i18n.language || 'fr').split('-')[0].toLowerCase();
   const isAr = currentLang === 'ar';
   const isEn = currentLang === 'en';
@@ -38,19 +40,19 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenWaitlist }) => {
       const timer = setTimeout(() => {
         const el = document.querySelector(hash);
         if (el) {
-          el.scrollIntoView({ behavior: 'smooth' });
+          el.scrollIntoView({ behavior: effectiveReducedMotion ? 'auto' : 'smooth' });
         }
       }, 250);
       return () => clearTimeout(timer);
     }
-  }, []);
+  }, [effectiveReducedMotion]);
 
   return (
     <div className="space-y-0 pb-0 overflow-hidden bg-[#F5F6F3]">
       {/* 1. HERO SECTION: VALUE PROPOSITION & CHILD WORLD AAC PREVIEW */}
       <section id="home" className="relative pt-8 sm:pt-14 pb-20 sm:pb-24 px-4 sm:px-8 max-w-[1440px] mx-auto scroll-mt-28">
-        {/* Subtle decorative background ambient glow */}
-        <div className="absolute top-1/4 start-1/2 -translate-x-1/2 w-[700px] h-[420px] bg-gradient-to-tr from-[#A9C5D8]/40 via-[#F5F6F3] to-[#D58C7A]/20 rounded-full blur-3xl -z-10 pointer-events-none" />
+        {/* Subtle decorative background ambient glow (Symmetrically Centered) */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[420px] bg-gradient-to-tr from-[#A9C5D8]/40 via-[#F5F6F3] to-[#D58C7A]/20 rounded-full blur-3xl -z-10 pointer-events-none" />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           {/* Left Column: Content & Actions (6 cols) */}
@@ -61,9 +63,9 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenWaitlist }) => {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-white/95 border border-[#A9C5D8]/50 text-[#172B46] text-xs sm:text-sm font-bold shadow-xs backdrop-blur-md max-w-full whitespace-normal sm:whitespace-nowrap leading-relaxed"
+                className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-white/95 border border-[#A9C5D8]/50 text-[#172B46] text-xs sm:text-sm font-bold shadow-sm backdrop-blur-md max-w-full whitespace-normal sm:whitespace-nowrap leading-relaxed"
               >
-                <Sparkles size={17} className="text-[#D8BE83] shrink-0" />
+                <Sparkles size={17} className="text-[#806936] shrink-0" />
                 <span>
                   {isAr
                     ? 'منظومة رقمية متصلة للأطفال ذوي التوحد وصعوبات النطق'
@@ -79,12 +81,12 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenWaitlist }) => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-3xl sm:text-4xl lg:text-[2.6rem] xl:text-[3.1rem] font-heading font-black text-[#172B46] tracking-tight leading-[1.25] sm:leading-[1.2] max-w-2xl"
+              className="text-[1.65rem] sm:text-4xl lg:text-[2.6rem] xl:text-[3.1rem] font-heading font-black text-[#172B46] tracking-tight leading-[1.3] sm:leading-[1.2] max-w-2xl"
             >
-              <span className="block mb-1.5 sm:mb-2 whitespace-normal sm:whitespace-nowrap">
+              <span className="block mb-1 sm:mb-2 whitespace-nowrap">
                 {t('hero.title_main')}
               </span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#172B46] via-[#D58C7A] to-[#2868C7] block whitespace-normal sm:whitespace-nowrap">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#172B46] via-[#2868C7] to-[#153C78] block whitespace-nowrap">
                 {t('hero.title_highlight')}
               </span>
             </motion.h1>
@@ -99,7 +101,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenWaitlist }) => {
               {t('hero.subtitle')}
             </motion.p>
 
-            {/* CTAs - Single Row with Proper Padding */}
+            {/* CTAs - Single Row with Proper Padding & >= 48px Touch Targets */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -110,7 +112,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenWaitlist }) => {
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => onOpenWaitlist('family')}
-                className="bg-gradient-to-r from-[#2868C7] to-[#172B46] hover:from-[#1E54A3] hover:to-[#172B46] hover:shadow-xl hover:shadow-[#2868C7]/25 text-white font-bold text-sm sm:text-base px-7 py-3.5 rounded-full shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer border border-white/20 whitespace-nowrap shrink-0"
+                className="bg-gradient-to-r from-[#2868C7] to-[#172B46] hover:from-[#1E54A3] hover:to-[#172B46] hover:shadow-xl hover:shadow-[#2868C7]/25 text-white font-bold text-sm sm:text-base px-7 py-3.5 min-h-[48px] rounded-full shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer border border-white/20 whitespace-nowrap shrink-0 focus-ring"
               >
                 <span>{t('hero.cta_family')}</span>
                 <ArrowRight size={18} className="rtl-flip text-[#D8BE83]" />
@@ -119,7 +121,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenWaitlist }) => {
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => onOpenWaitlist('companion')}
-                className="bg-white/95 hover:bg-[#2868C7]/10 border-2 border-[#2868C7]/40 hover:border-[#2868C7] text-[#172B46] font-bold text-sm sm:text-base px-7 py-3.5 rounded-full shadow-xs transition-all text-center cursor-pointer whitespace-nowrap shrink-0"
+                className="bg-white/95 hover:bg-[#2868C7]/10 border-2 border-[#2868C7]/40 hover:border-[#2868C7] text-[#172B46] font-bold text-sm sm:text-base px-7 py-3.5 min-h-[48px] rounded-full shadow-sm transition-all text-center cursor-pointer whitespace-nowrap shrink-0 focus-ring"
               >
                 {t('hero.cta_companion')}
               </motion.button>
@@ -132,7 +134,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenWaitlist }) => {
                 {t('hero.stat_trust')}
               </span>
               <span className="flex items-center gap-1.5">
-                <Volume2 size={16} className="text-[#D58C7A]" />
+                <Volume2 size={16} className="text-[#9E4E3D]" />
                 {t('hero.stat_tracking')}
               </span>
               <span className="flex items-center gap-1.5">
@@ -168,14 +170,14 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenWaitlist }) => {
                 </div>
               </div>
 
-              {/* Floating Badge 2: Bottom-End (Clinical Continuity & Parent Consent) */}
+              {/* Floating Badge 2: Bottom-End (Clinical Continuity & Parent Consent - AA High Contrast) */}
               <div className="absolute -bottom-4 sm:-bottom-6 end-0 sm:-end-6 z-20 animate-float-badge-2 transform-gpu pointer-events-auto">
                 <div className="glass-surface-2 px-4 py-2.5 rounded-2xl shadow-float-soft border border-white/80 flex items-center gap-2.5 select-none hover:scale-105 transition-transform duration-300">
-                  <div className="w-7 h-7 rounded-xl bg-[#D58C7A]/20 text-[#D58C7A] flex items-center justify-center font-bold text-xs shrink-0">
+                  <div className="w-7 h-7 rounded-xl bg-[#D58C7A]/20 text-[#9E4E3D] flex items-center justify-center font-bold text-xs shrink-0">
                     <Heart size={15} />
                   </div>
                   <div className="text-start">
-                    <p className="text-[10px] sm:text-[11px] font-black uppercase text-[#D58C7A] leading-tight tracking-wider">
+                    <p className="text-[10px] sm:text-[11px] font-black uppercase text-[#9E4E3D] leading-tight tracking-wider">
                       {isAr ? 'موافقة الولي الصريحة' : isEn ? 'Parent-Authorized Access' : 'Accord Parental Explicite'}
                     </p>
                     <p className="text-[9px] sm:text-[10px] text-[#172B46]/75 font-semibold mt-0.5">
@@ -185,19 +187,21 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenWaitlist }) => {
                 </div>
               </div>
 
-              {/* Freestanding Floating Mobile Device (Unboxed - Native Alpha Transparency & Directional Tilt) */}
-              <div
-                className={`relative z-10 w-full flex justify-center items-center cursor-pointer group transition-transform duration-500 ease-out transform-gpu ${
+              {/* Freestanding Floating Mobile Device (Accessible Button Wrapper) */}
+              <button
+                type="button"
+                onClick={() => {
+                  const target = document.querySelector('#experience');
+                  if (target) {
+                    target.scrollIntoView({ behavior: effectiveReducedMotion ? 'auto' : 'smooth' });
+                  }
+                }}
+                aria-label={isAr ? 'استكشاف عالم الطفل ونور' : isEn ? 'Explore Child World & Nour Companion' : 'Découvrir le Monde de l\'Enfant et Nour'}
+                className={`relative z-10 w-full flex justify-center items-center cursor-pointer group transition-transform duration-500 ease-out transform-gpu rounded-3xl focus-ring p-0 border-0 bg-transparent text-start ${
                   isAr
                     ? '-rotate-[6deg] hover:-rotate-[2deg]'
                     : 'rotate-[6deg] hover:rotate-[2deg]'
                 }`}
-                onClick={() => {
-                  const target = document.querySelector('#experience');
-                  if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                  }
-                }}
               >
                 {/* Dedicated GPU Compositor Floating Element */}
                 <div className="w-full flex justify-center items-center animate-float-phone transform-gpu">
@@ -211,7 +215,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenWaitlist }) => {
                     decoding="async"
                   />
                 </div>
-              </div>
+              </button>
             </div>
           </div>
         </div>
@@ -248,7 +252,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenWaitlist }) => {
 
             {/* Header Content */}
             <div className="space-y-4 max-w-3xl mx-auto relative z-10">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[#D8BE83] text-xs font-bold shadow-xs">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[#D8BE83] text-xs font-bold shadow-sm">
                 <Sparkles size={14} className="text-[#D8BE83]" />
                 <span>{isAr ? 'الوصول المبكر ذو الأولوية' : isEn ? 'Priority Early Access' : 'Accès Anticipé Prioritaire'}</span>
               </div>
@@ -265,7 +269,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenWaitlist }) => {
               {/* Path 1: Families */}
               <div className="glass-surface-navy rounded-3xl p-6 sm:p-8 border border-white/15 hover:border-[#D58C7A]/50 transition-all shadow-lg flex flex-col justify-between group">
                 <div className="space-y-3">
-                  <div className="w-12 h-12 rounded-2xl bg-[#D58C7A]/20 text-[#D58C7A] flex items-center justify-center border border-[#D58C7A]/30 shadow-xs group-hover:scale-105 transition-transform">
+                  <div className="w-12 h-12 rounded-2xl bg-[#D58C7A]/20 text-[#D58C7A] flex items-center justify-center border border-[#D58C7A]/30 shadow-sm group-hover:scale-105 transition-transform">
                     <Heart size={24} />
                   </div>
                   <h3 className="text-xl font-heading font-bold text-white">
@@ -291,7 +295,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenWaitlist }) => {
               {/* Path 2: Specialists & Clinics */}
               <div className="glass-surface-navy rounded-3xl p-6 sm:p-8 border border-white/15 hover:border-[#2868C7]/50 transition-all shadow-lg flex flex-col justify-between group">
                 <div className="space-y-3">
-                  <div className="w-12 h-12 rounded-2xl bg-[#2868C7]/20 text-[#2868C7] flex items-center justify-center border border-[#2868C7]/30 shadow-xs group-hover:scale-105 transition-transform">
+                  <div className="w-12 h-12 rounded-2xl bg-[#2868C7]/20 text-[#2868C7] flex items-center justify-center border border-[#2868C7]/30 shadow-sm group-hover:scale-105 transition-transform">
                     <ShieldCheck size={24} />
                   </div>
                   <h3 className="text-xl font-heading font-bold text-white">

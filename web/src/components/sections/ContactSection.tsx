@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Mail, Phone, MapPin, Send, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, CheckCircle2, AlertCircle, ShieldCheck } from 'lucide-react';
 import { validateContact } from '../../utils/validation';
 import { supabaseService } from '../../services/supabaseService';
 import { useToast } from '../common/Toast';
@@ -26,32 +26,29 @@ export const ContactSection: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (loading) return; // [F3-03] Double-submit lock
+
     setErrorMsg(null);
 
-    if (!fullName.trim()) {
+    const sanitizedName = fullName.trim().slice(0, 60);
+    const sanitizedContact = contactValue.trim().slice(0, 50);
+    const sanitizedSubject = subject.trim().slice(0, 120);
+    const sanitizedMessage = message.trim().slice(0, 1000);
+
+    if (!sanitizedName) {
       const err = t('forms.errors.validation');
       setErrorMsg(err);
       return;
     }
 
-    if (!validateContact(contactValue)) {
+    if (!validateContact(sanitizedContact)) {
       const err = t('forms.errors.validation');
       setErrorMsg(err);
       return;
     }
 
-    if (!message.trim()) {
+    if (!sanitizedMessage) {
       const err = t('forms.errors.validation');
-      setErrorMsg(err);
-      return;
-    }
-
-    if (message.length > 2000) {
-      const err = isAr
-        ? 'طول الرسالة يتجاوز الحد المسموح به (2000 حرف).'
-        : isEn
-        ? 'Message exceeds maximum length (2000 characters).'
-        : 'Votre message dépasse la longueur autorisée (2000 caractères).';
       setErrorMsg(err);
       return;
     }
@@ -60,10 +57,10 @@ export const ContactSection: React.FC = () => {
 
     try {
       const res = await supabaseService.submitContact({
-        fullName: fullName.trim(),
-        contactValue: contactValue.trim(),
-        subject: subject.trim() || undefined,
-        message: message.trim()
+        fullName: sanitizedName,
+        contactValue: sanitizedContact,
+        subject: sanitizedSubject || undefined,
+        message: sanitizedMessage,
       });
 
       if (res.success) {
@@ -77,10 +74,9 @@ export const ContactSection: React.FC = () => {
         showToast({
           type: 'success',
           title: t(res.messageKey),
-          message: successSubtext
+          message: successSubtext,
         });
       } else {
-        // Defensive check: contact form has no consent gate, so never display consent errors
         const safeKey = res.messageKey === 'forms.errors.consent_required'
           ? 'forms.errors.server'
           : res.messageKey;
@@ -93,15 +89,15 @@ export const ContactSection: React.FC = () => {
             ? 'يرجى مراجعة الحقول المطلوبة والمحاولة مرة أخرى.'
             : isEn
             ? 'Please review the required fields and try again.'
-            : 'Veuillez vérifier les champs requis et réessayer.'
+            : 'Veuillez vérifier les champs requis et réessayer.',
         });
       }
-    } catch (err: any) {
+    } catch {
       const fallback = t('forms.errors.network');
       setErrorMsg(fallback);
       showToast({
         type: 'error',
-        title: fallback
+        title: fallback,
       });
     } finally {
       setLoading(false);
@@ -118,7 +114,7 @@ export const ContactSection: React.FC = () => {
           <h2 className="text-3xl sm:text-4xl font-extrabold text-[#172B46]">
             {t('contact.title')}
           </h2>
-          <p className="text-base text-[#172B46]/70 leading-relaxed">
+          <p className="text-base text-[#5B6E85] leading-relaxed">
             {t('contact.subtitle')}
           </p>
         </div>
@@ -128,14 +124,14 @@ export const ContactSection: React.FC = () => {
         {/* Contact Info Cards */}
         <div className="space-y-6">
           <ScrollReveal delay={0.1}>
-            <div className="glass-card p-7 rounded-3xl border border-[#A9C5D8]/30 shadow-xs flex items-start gap-4">
+            <div className="glass-card p-7 rounded-3xl border border-[#A9C5D8]/30 shadow-sm flex items-start gap-4">
               <div className="w-12 h-12 rounded-2xl bg-[#172B46]/10 text-[#172B46] flex items-center justify-center shrink-0">
                 <Mail size={22} />
               </div>
               <div>
                 <h3 className="text-sm font-bold text-[#172B46]">{t('contact.email_label')}</h3>
-                <p className="text-xs text-[#172B46]/70 mt-0.5">{t('contact.email_sub')}</p>
-                <a href={`mailto:${contactEmail}`} className="text-sm font-semibold text-[#172B46] hover:text-[#D58C7A] hover:underline block mt-1">
+                <p className="text-xs text-[#5B6E85] mt-0.5">{t('contact.email_sub')}</p>
+                <a href={`mailto:${contactEmail}`} className="text-sm font-semibold text-[#172B46] hover:text-[#9E4E3D] hover:underline block mt-1">
                   {contactEmail}
                 </a>
               </div>
@@ -143,14 +139,14 @@ export const ContactSection: React.FC = () => {
           </ScrollReveal>
 
           <ScrollReveal delay={0.2}>
-            <div className="glass-card p-7 rounded-3xl border border-[#A9C5D8]/30 shadow-xs flex items-start gap-4">
+            <div className="glass-card p-7 rounded-3xl border border-[#A9C5D8]/30 shadow-sm flex items-start gap-4">
               <div className="w-12 h-12 rounded-2xl bg-[#172B46]/10 text-[#172B46] flex items-center justify-center shrink-0">
                 <Phone size={22} />
               </div>
               <div>
                 <h3 className="text-sm font-bold text-[#172B46]">{t('contact.phone_label')}</h3>
-                <p className="text-xs text-[#172B46]/70 mt-0.5">{t('contact.phone_sub')}</p>
-                <a href={`tel:${contactPhone.replace(/\s+/g, '')}`} className="text-sm font-semibold text-[#172B46] hover:text-[#D58C7A] hover:underline block mt-1" dir="ltr">
+                <p className="text-xs text-[#5B6E85] mt-0.5">{t('contact.phone_sub')}</p>
+                <a href={`tel:${contactPhone.replace(/\s+/g, '')}`} className="text-sm font-semibold text-[#172B46] hover:text-[#9E4E3D] hover:underline block mt-1" dir="ltr">
                   {contactPhone}
                 </a>
               </div>
@@ -158,14 +154,14 @@ export const ContactSection: React.FC = () => {
           </ScrollReveal>
 
           <ScrollReveal delay={0.3}>
-            <div className="glass-card p-7 rounded-3xl border border-[#A9C5D8]/30 shadow-xs flex items-start gap-4">
+            <div className="glass-card p-7 rounded-3xl border border-[#A9C5D8]/30 shadow-sm flex items-start gap-4">
               <div className="w-12 h-12 rounded-2xl bg-[#172B46]/10 text-[#172B46] flex items-center justify-center shrink-0">
                 <MapPin size={22} />
               </div>
               <div>
                 <h3 className="text-sm font-bold text-[#172B46]">{t('contact.area_label')}</h3>
-                <p className="text-xs text-[#172B46]/70 mt-0.5">{t('contact.area_sub')}</p>
-                <span className="text-xs font-semibold text-[#D58C7A] block mt-1">
+                <p className="text-xs text-[#5B6E85] mt-0.5">{t('contact.area_sub')}</p>
+                <span className="text-xs font-semibold text-[#9E4E3D] block mt-1">
                   {t('contact.area_detail')}
                 </span>
               </div>
@@ -176,16 +172,16 @@ export const ContactSection: React.FC = () => {
         {/* Contact Form */}
         <div className="lg:col-span-2">
           <ScrollReveal delay={0.2}>
-            <div className="glass-card p-8 sm:p-12 rounded-[36px] border border-[#A9C5D8]/40 shadow-sm">
+            <div className="glass-card p-8 sm:p-12 rounded-[36px] border border-[#A9C5D8]/40 shadow-sm text-start">
               {submitted ? (
                 <div className="text-center py-12 space-y-4">
-                  <div className="w-16 h-16 rounded-2xl bg-[#A9C5D8]/20 text-[#172B46] flex items-center justify-center mx-auto shadow-sm">
+                  <div className="w-16 h-16 rounded-2xl bg-[#2D7A58]/15 text-[#2D7A58] flex items-center justify-center mx-auto shadow-sm">
                     <CheckCircle2 size={36} />
                   </div>
                   <h3 className="text-2xl font-bold text-[#172B46]">
                     {t('forms.success.contact')}
                   </h3>
-                  <p className="text-sm text-[#172B46]/70 max-w-md mx-auto leading-relaxed">
+                  <p className="text-sm text-[#5B6E85] max-w-md mx-auto leading-relaxed">
                     {isAr
                       ? 'تم تسجيل رسالتكم بأمان في منظومة أفق. سيتواصل معكم فريقنا في أقرب الآجال.'
                       : isEn
@@ -193,6 +189,7 @@ export const ContactSection: React.FC = () => {
                       : 'Votre demande a été enregistrée avec succès dans le système OFOQ. Notre équipe vous répondra dans les meilleurs délais.'}
                   </p>
                   <button
+                    type="button"
                     onClick={() => {
                       setSubmitted(false);
                       setFullName('');
@@ -200,7 +197,7 @@ export const ContactSection: React.FC = () => {
                       setSubject('');
                       setMessage('');
                     }}
-                    className="text-xs font-bold text-[#D58C7A] hover:underline pt-2 cursor-pointer"
+                    className="text-xs font-bold text-[#9E4E3D] hover:underline pt-2 cursor-pointer focus-ring rounded-lg px-2 py-1 min-h-[48px]"
                   >
                     {t('contact.send_another')}
                   </button>
@@ -208,12 +205,12 @@ export const ContactSection: React.FC = () => {
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6" noValidate>
                   {/* Required Indicator helper */}
-                  <p className="text-xs text-[#172B46]/70">
+                  <p className="text-xs text-[#5B6E85]">
                     {t('forms.required_indicator')}
                   </p>
 
                   {errorMsg && (
-                    <div className="p-4 bg-red-50 border border-red-200 rounded-2xl flex items-center gap-3 text-red-700 text-sm">
+                    <div id="contact-error" role="alert" className="p-4 bg-red-50 border border-red-200 rounded-2xl flex items-center gap-3 text-red-700 text-sm">
                       <AlertCircle size={20} className="shrink-0" />
                       <span>{errorMsg}</span>
                     </div>
@@ -223,32 +220,34 @@ export const ContactSection: React.FC = () => {
                     <div className="space-y-2">
                       <label htmlFor="contact-full-name" className="text-xs font-bold text-[#172B46] block">
                         {isAr ? 'الاسم واللقب' : isEn ? 'Full Name' : 'Nom & Prénom'}{' '}
-                        <span className="text-[#D58C7A] font-bold">*</span>
+                        <span className="text-[#9E4E3D] font-bold">*</span>
                       </label>
                       <input
                         id="contact-full-name"
                         type="text"
                         required
+                        maxLength={60}
                         value={fullName}
                         onChange={(e) => setFullName(e.target.value)}
                         placeholder={t('forms.placeholders.full_name')}
-                        className="w-full px-4 py-3 rounded-xl border border-[#A9C5D8]/50 focus:border-[#172B46] focus:ring-2 focus:ring-[#A9C5D8]/30 bg-white/80 outline-none text-sm text-[#172B46] transition-all"
+                        className="w-full px-4 py-3 min-h-[48px] rounded-xl border border-[#A9C5D8]/50 focus:border-[#172B46] focus:ring-2 focus:ring-[#A9C5D8]/30 bg-white/80 outline-none text-sm text-[#172B46] transition-all"
                       />
                     </div>
 
                     <div className="space-y-2">
                       <label htmlFor="contact-value" className="text-xs font-bold text-[#172B46] block">
                         {isAr ? 'رقم الهاتف أو البريد الإلكتروني' : isEn ? 'Phone or Email' : 'Téléphone ou Email'}{' '}
-                        <span className="text-[#D58C7A] font-bold">*</span>
+                        <span className="text-[#9E4E3D] font-bold">*</span>
                       </label>
                       <input
                         id="contact-value"
                         type="text"
                         required
+                        maxLength={50}
                         value={contactValue}
                         onChange={(e) => setContactValue(e.target.value)}
                         placeholder={t('forms.placeholders.contact_value')}
-                        className="w-full px-4 py-3 rounded-xl border border-[#A9C5D8]/50 focus:border-[#172B46] focus:ring-2 focus:ring-[#A9C5D8]/30 bg-white/80 outline-none text-sm text-[#172B46] transition-all"
+                        className="w-full px-4 py-3 min-h-[48px] rounded-xl border border-[#A9C5D8]/50 focus:border-[#172B46] focus:ring-2 focus:ring-[#A9C5D8]/30 bg-white/80 outline-none text-sm text-[#172B46] transition-all"
                       />
                     </div>
                   </div>
@@ -260,10 +259,11 @@ export const ContactSection: React.FC = () => {
                     <input
                       id="contact-subject"
                       type="text"
+                      maxLength={120}
                       value={subject}
                       onChange={(e) => setSubject(e.target.value)}
                       placeholder={t('forms.placeholders.subject')}
-                      className="w-full px-4 py-3 rounded-xl border border-[#A9C5D8]/50 focus:border-[#172B46] focus:ring-2 focus:ring-[#A9C5D8]/30 bg-white/80 outline-none text-sm text-[#172B46] transition-all"
+                      className="w-full px-4 py-3 min-h-[48px] rounded-xl border border-[#A9C5D8]/50 focus:border-[#172B46] focus:ring-2 focus:ring-[#A9C5D8]/30 bg-white/80 outline-none text-sm text-[#172B46] transition-all"
                     />
                   </div>
 
@@ -271,16 +271,16 @@ export const ContactSection: React.FC = () => {
                     <div className="flex justify-between items-center">
                       <label htmlFor="contact-message" className="text-xs font-bold text-[#172B46] block">
                         {isAr ? 'نص الرسالة أو الاستفسار' : isEn ? 'Message or Inquiry' : 'Votre message'}{' '}
-                        <span className="text-[#D58C7A] font-bold">*</span>
+                        <span className="text-[#9E4E3D] font-bold">*</span>
                       </label>
-                      <span className="text-[11px] text-[#172B46]/70">
-                        {message.length}/2000
+                      <span className="text-[11px] text-[#5B6E85]">
+                        {message.length}/1000
                       </span>
                     </div>
                     <textarea
                       id="contact-message"
                       rows={4}
-                      maxLength={2000}
+                      maxLength={1000}
                       required
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
@@ -289,10 +289,22 @@ export const ContactSection: React.FC = () => {
                     />
                   </div>
 
+                  {/* [F3-04] Dignified Law 18-07 Privacy Notice */}
+                  <div className="flex items-center gap-2 p-3 rounded-2xl bg-[#F5F6F3] border border-[#172B46]/10 text-[11px] text-[#5B6E85]">
+                    <ShieldCheck size={16} className="text-[#2D7A58] shrink-0" />
+                    <span className="leading-relaxed">
+                      {isAr
+                        ? 'معالجة البيانات محمية ومؤطرة بالكامل بالقانون الجزائري 18-07 المتعلق بحماية المعطيات ذات الطابع الشخصي.'
+                        : isEn
+                        ? 'Data processing is protected and fully compliant with Algerian Law 18-07 on personal data protection.'
+                        : 'Données protégées conformément à la loi algérienne 18-07 relative à la protection des données personnelles.'}
+                    </span>
+                  </div>
+
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full bg-[#172B46] hover:bg-[#1f3757] disabled:opacity-50 text-white font-bold py-4 rounded-xl shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 text-sm cursor-pointer"
+                    className="w-full bg-[#172B46] hover:bg-[#1f3757] disabled:opacity-50 text-white font-bold py-4 min-h-[48px] rounded-xl shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 text-sm cursor-pointer focus-ring"
                   >
                     {loading ? (
                       <span className="flex items-center gap-2">
@@ -301,7 +313,7 @@ export const ContactSection: React.FC = () => {
                       </span>
                     ) : (
                       <>
-                        <Send size={18} className="rtl-flip text-[#SoftGold]" />
+                        <Send size={18} className="rtl-flip text-[#D8BE83]" />
                         <span>{t('forms.fields.submit_contact')}</span>
                       </>
                     )}

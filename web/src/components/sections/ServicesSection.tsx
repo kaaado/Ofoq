@@ -155,10 +155,10 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenWaitlist
                   </span>
                   <button
                     onClick={() => onOpenWaitlist('family')}
-                    className="text-xs font-bold text-[#172B46] hover:text-[#D58C7A] flex items-center gap-1.5 transition-colors cursor-pointer"
+                    className="text-xs font-bold text-[#172B46] hover:text-[#9E4E3D] inline-flex items-center gap-1.5 transition-colors cursor-pointer min-h-[48px] px-3 -me-3 focus-ring rounded-xl"
                   >
                     <span>{isAr ? 'استكشف' : isEn ? 'Explore' : 'Explorer'}</span>
-                    <ArrowRight size={13} className="rtl-flip text-[#D58C7A]" />
+                    <ArrowRight size={13} className="rtl-flip text-[#9E4E3D]" />
                   </button>
                 </div>
               </div>

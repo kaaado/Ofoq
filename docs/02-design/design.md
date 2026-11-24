@@ -79,7 +79,7 @@ To satisfy WCAG 2.1 AA accessibility and provide robust UI states, the core pale
 | `coral.dark` | `#9E4E3D` | Accessible coral text on light surfaces | 5.2:1 (Passes AA) |
 | `coral.soft` | `#F8E7E3` | Badge container fill, highlighted notification tint | 1.1:1 (Decorative) |
 | **`gold.base`** *(Accent)* | `#D8BE83` | Achievement stars, Spacetoon planet rings, milestone badges | 1.6:1 (Accent / Icon) |
-| `gold.dark` | `#8C733E` | Accessible gold text, milestone labels | 4.6:1 (Passes AA) |
+| `gold.dark` | `#806936` | Accessible gold text, milestone labels | 4.85:1 (Passes AA) |
 | `gold.soft` | `#FAF4E8` | Trophy / celebration container fill | 1.05:1 (Surface) |
 | **`porcelain.base`** *(Canvas)* | `#F5F6F3` | Master application background (light mode canvas) | Base Canvas |
 | `porcelain.pure` | `#FFFFFF` | Solid elevated card surface, input background | 1.05:1 (Card surface) |
@@ -102,13 +102,13 @@ To satisfy WCAG 2.1 AA accessibility and provide robust UI states, the core pale
   --ofoq-surface-glass: rgba(255, 255, 255, 0.7);
   --ofoq-surface-glow: rgba(40, 104, 199, 0.2);
 
-  /* Functional Status */
+  /* Functional Status (WCAG 2.1 AA Verified) */
   --ofoq-status-success: #2D7A58;
-  --ofoq-status-warning: #C4841D;
+  --ofoq-status-warning: #945F0B;
   --ofoq-status-error: #BA3C3C;
   --ofoq-status-info: #2868C7;
-}
-```
+
+  /* Derived Surfaces */
   --ofoq-surface-canvas: #F5F6F3;
   --ofoq-surface-card: #FFFFFF;
   --ofoq-surface-glass-light: rgba(255, 255, 255, 0.72);
@@ -122,15 +122,9 @@ To satisfy WCAG 2.1 AA accessibility and provide robust UI states, the core pale
 
   /* Typography */
   --ofoq-text-primary: #172B46;
-  --ofoq-text-secondary: #5B6E85;
-  --ofoq-text-muted: #8496AB;
+  --ofoq-text-secondary: #475A72;
+  --ofoq-text-muted: #5B6E85;
   --ofoq-text-inverse: #FFFFFF;
-
-  /* Semantic Feedback */
-  --ofoq-state-success: #2D7A58;
-  --ofoq-state-warning: #C4841D;
-  --ofoq-state-error: #BA3C3C;
-  --ofoq-state-info: #3F7A9E;
 }
 ```
 
@@ -164,12 +158,9 @@ OFOQ utilizes a **restrained, high-clarity glassmorphic language** that provides
 OFOQ treats Arabic as a first-class native language, paired with French and English in a trilingual Algerian context.
 
 ### 4.1 Typeface Selection
-- **Arabic Script:** **IBM Plex Sans Arabic**  
-  *Rationale:* Engineered for modern digital interfaces, provides exceptional legibility across dense diacritics and Arabic letter connections, avoids overly traditional calligraphy while preserving cultural dignity.
-- **Latin Headings:** **Manrope**  
-  *Rationale:* Geometric sans-serif with subtle humanist curves that echo OFOQ’s friendly yet authoritative identity.
-- **Latin Body & UI:** **Inter**  
-  *Rationale:* World-standard interface typeface with outstanding x-height, clear numeric distinctions, and multi-weight accessibility.
+- **Arabic Script:** **Cairo** (`IBM Plex Sans Arabic` documented as future optional alternative; active web runtime loads `Cairo` via Google Fonts with `line-height >= 1.42` for headings and `>= 1.85` for body copy).
+- **Latin Headings:** **Poppins** (`Manrope` documented as exploratory alternative; active web runtime uses `Poppins` geometric humanist weights 400–900).
+- **Latin Body & UI:** **Lato** (high-legibility humanist sans-serif for French and English UI copy).
 
 ### 4.2 Typographic Hierarchy (Desktop & Mobile)
 
@@ -275,3 +266,34 @@ The public landing page under `web/` serves as the front door to the OFOQ ecosys
 6. **For Professionals (B2B):** Dedicated practitioner workflow showcase: structured observation logging, verified practitioner badge, and time savings.
 7. **Trust, Safety & Law 18-07:** Formal safeguarding statement: strict non-diagnostic boundary, data minimization, and Algerian privacy compliance.
 8. **Footer & Access Modal:** Clean navigation links, legal policy modals, and early access signup form with honeypot spam protection.
+
+
+---
+
+## 8. v2.1 Enterprise Design System Ratification (Master Upgrade — Gate 1)
+
+### 8.1 Authoritative 6-Color Tokens & Semantic States
+All UI states derive strictly from the ratified six-color palette (`#172B46`, `#2868C7`, `#A9C5D8`, `#D8BE83`, `#D58C7A`, `#F5F6F3`):
+- **Success:** `#2D7A58` on `#EBF5F0`
+- **Warning:** `#945F0B` on `#FDF6E9` ($5.01:1$ contrast ratio, WCAG AA verified)
+- **Error (Calm Semantic):** `#BA3C3C` on `#FBEEEE` (paired with icon + persistent aria-live alert; zero alarming strobe motion)
+- **Information:** `#2868C7` on `#E9F1FC`
+
+### 8.2 Restrained 3-Level Glassmorphism Hierarchy
+1. **Level 1 (`.glass-surface-1`):** Subtle ambient badges and low-emphasis surfaces (`blur(12px)`, `rgba(255,255,255,0.78)`).
+2. **Level 2 (`.glass-surface-2`):** Structural cards, hero floating callouts, and interactive containers (`blur(16px)`, `rgba(255,255,255,0.88)`).
+3. **Level 3 (`.glass-surface-3`):** Dialogs (`ModalShell`), dropdowns, and elevated popovers (`blur(22px)`, `rgba(255,255,255,0.96)`).
+- **Fallbacks:** Explicit `@supports not (backdrop-filter: blur(1px))` solid white/navy rules plus `[data-quiet-mode="true"]` solid high-legibility mode.
+
+### 8.3 Radius, Elevation & Motion Tokens
+- **Radii:** `ofoq-sm` (`12px`), `ofoq-md` (`16px`), `ofoq-lg` (`24px`), `ofoq-xl` (`32px`), `ofoq-2xl` (`40px`).
+- **Motion Curves (`web/src/utils/motion.ts`):** Calm deceleration `--ofoq-ease-calm: cubic-bezier(0.22, 1, 0.36, 1)`; fast interaction `160ms`; standard `260ms`; horizon entrance `1450ms`.
+- **Interactive States:** High-contrast `.focus-ring` / `.focus-ring-dark` keyboard outlines, `.ofoq-interactive` tactile active press (`scale(0.98)`), explicit disabled opacity, and accessible `Skeleton` / `SkeletonCard` states.
+
+### 8.4 Autism-Informed Sensory Preference Architecture
+Managed globally via `SensoryPreferencesContext` (`web/src/context/SensoryPreferencesContext.tsx`):
+- `soundEnabled` & `voiceEnabled` toggles (never autoplays).
+- `volume` (`0.0–1.0`) & `speechRate` (`0.75–1.15`).
+- `reducedMotion` (synced automatically with OS `prefers-reduced-motion`).
+- `quietMode` (eliminates continuous motion, solidifies translucent glass, softens ambient layers).
+- `visualDensity` (`comfortable` | `spacious`).

@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { validateContact } from '../src/utils/validation';
 
-console.log('--- STARTING OFOQ TEST SUITE (PARITY & VALIDATION) ---');
+console.log('--- STARTING OFOQ TEST SUITE (PARITY, ARCHITECTURE & GOVERNANCE) ---');
 
 let passed = 0;
 let failed = 0;
@@ -120,6 +120,36 @@ assert(en.brand.name === 'OFOQ', 'English brand name is purely OFOQ without Arab
 assert(ar.boundaries.title.includes('تشخيصية') && ar.footer.non_diagnostic_notice.includes('تشخيص'), 'Arabic declares non-diagnostic boundary');
 assert(fr.boundaries.title.toLowerCase().includes('non-diagnostique') && fr.footer.non_diagnostic_notice.includes('diagnostic'), 'French declares non-diagnostic boundary');
 assert(en.boundaries.title.toLowerCase().includes('non-diagnostic') && en.footer.non_diagnostic_notice.includes('diagnos'), 'English declares non-diagnostic boundary');
+
+// 6. Anti-Cliché Governance: Verify zero jigsaw puzzle piece icon imports in UI components
+let puzzleImportCount = 0;
+srcFiles.forEach((f) => {
+  const content = fs.readFileSync(f, 'utf8');
+  if (f.endsWith('.tsx') && !f.includes('tests/')) {
+    if (content.includes("from 'lucide-react'") && /\bPuzzle\b/.test(content)) {
+      puzzleImportCount++;
+    }
+  }
+});
+assert(puzzleImportCount === 0, 'Zero puzzle piece (<Puzzle />) icon imports across all UI components');
+
+// 7. Sibling Profile Unique Keying: Verify UnifiedChildWorldExperience has distinct keys for subcomponents
+const childWorldSrc = fs.readFileSync(path.join(srcDir, 'components/sections/UnifiedChildWorldExperience.tsx'), 'utf8');
+assert(childWorldSrc.includes('key={`aac-${currentProfile.id}`}'), 'AacGrid has unique composite key');
+assert(childWorldSrc.includes('key={`companion-${currentProfile.id}`}'), 'NourCompanionCard has unique composite key');
+assert(childWorldSrc.includes('key={`routines-${currentProfile.id}`}'), 'RoutineTracker has unique composite key');
+assert(childWorldSrc.includes('key={`bridge-${currentProfile.id}`}'), 'SpecialistBridge has unique composite key');
+
+// 8. Algerian Law 18-07 Privacy Disclosures Presence
+const waitlistSrc = fs.readFileSync(path.join(srcDir, 'components/common/WaitlistModal.tsx'), 'utf8');
+const contactSrc = fs.readFileSync(path.join(srcDir, 'components/sections/ContactSection.tsx'), 'utf8');
+assert(waitlistSrc.includes('18-07'), 'WaitlistModal explicitly cites Algerian Law 18-07');
+assert(contactSrc.includes('18-07'), 'ContactSection explicitly cites Algerian Law 18-07');
+
+// 9. Audio Architecture Constraints
+const audioSrc = fs.readFileSync(path.join(srcDir, 'services/audioService.ts'), 'utf8');
+assert(audioSrc.includes('1400') && audioSrc.includes('lowpass'), 'Web Audio low-pass filter configured to 1400 Hz for sensory comfort');
+assert(audioSrc.includes('Number.isFinite') && audioSrc.includes('safeRate'), 'SpeechSynthesis rate clamped defensively');
 
 console.log(`--- TEST RESULTS: ${passed} PASSED, ${failed} FAILED ---`);
 if (failed > 0) process.exit(1);

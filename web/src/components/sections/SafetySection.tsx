@@ -37,7 +37,7 @@ export const SafetySection: React.FC = () => {
             <div className="glass-card p-8 sm:p-10 rounded-3xl border border-emerald-500/20 shadow-sm space-y-6 h-full flex flex-col justify-between bg-white/80">
               <div className="space-y-6">
                 <div className="flex items-center gap-3.5">
-                  <div className="w-12 h-12 rounded-2xl bg-[#2D7A58]/15 text-[#2D7A58] flex items-center justify-center font-bold shadow-xs border border-[#2D7A58]/30">
+                  <div className="w-12 h-12 rounded-2xl bg-[#2D7A58]/15 text-[#2D7A58] flex items-center justify-center font-bold shadow-sm border border-[#2D7A58]/30">
                     <CheckCircle2 size={26} />
                   </div>
                   <div>
@@ -67,7 +67,7 @@ export const SafetySection: React.FC = () => {
             <div className="glass-card p-8 sm:p-10 rounded-3xl border border-red-500/20 shadow-sm space-y-6 h-full flex flex-col justify-between bg-white/80">
               <div className="space-y-6">
                 <div className="flex items-center gap-3.5">
-                  <div className="w-12 h-12 rounded-2xl bg-[#BA3C3C]/15 text-[#BA3C3C] flex items-center justify-center font-bold shadow-xs border border-[#BA3C3C]/30">
+                  <div className="w-12 h-12 rounded-2xl bg-[#BA3C3C]/15 text-[#BA3C3C] flex items-center justify-center font-bold shadow-sm border border-[#BA3C3C]/30">
                     <XCircle size={26} />
                   </div>
                   <div>
@@ -98,7 +98,7 @@ export const SafetySection: React.FC = () => {
           <ScrollReveal delay={0.1} className="h-full">
             <div className="glass-card glass-card-hover p-8 rounded-3xl border border-white/80 shadow-md h-full flex flex-col justify-between hover:shadow-xl hover:border-[#172B46]/30 transition-all">
               <div className="space-y-4">
-                <div className="w-12 h-12 rounded-2xl bg-[#172B46]/10 text-[#172B46] flex items-center justify-center border border-[#172B46]/20 shadow-xs">
+                <div className="w-12 h-12 rounded-2xl bg-[#172B46]/10 text-[#172B46] flex items-center justify-center border border-[#172B46]/20 shadow-sm">
                   <ShieldCheck size={24} className="text-[#172B46]" />
                 </div>
                 <h4 className="text-lg font-heading font-bold text-[#172B46]">
@@ -118,7 +118,7 @@ export const SafetySection: React.FC = () => {
           <ScrollReveal delay={0.2} className="h-full">
             <div className="glass-card glass-card-hover p-8 rounded-3xl border border-white/80 shadow-md h-full flex flex-col justify-between hover:shadow-xl hover:border-[#2868C7]/30 transition-all">
               <div className="space-y-4">
-                <div className="w-12 h-12 rounded-2xl bg-[#2868C7]/15 text-[#2868C7] flex items-center justify-center border border-[#2868C7]/30 shadow-xs">
+                <div className="w-12 h-12 rounded-2xl bg-[#2868C7]/15 text-[#2868C7] flex items-center justify-center border border-[#2868C7]/30 shadow-sm">
                   <Lock size={24} className="text-[#2868C7]" />
                 </div>
                 <h4 className="text-lg font-heading font-bold text-[#172B46]">
@@ -138,7 +138,7 @@ export const SafetySection: React.FC = () => {
           <ScrollReveal delay={0.3} className="h-full">
             <div className="glass-card glass-card-hover p-8 rounded-3xl border border-white/80 shadow-md h-full flex flex-col justify-between hover:shadow-xl hover:border-[#D58C7A]/30 transition-all">
               <div className="space-y-4">
-                <div className="w-12 h-12 rounded-2xl bg-[#D58C7A]/20 text-[#D58C7A] flex items-center justify-center border border-[#D58C7A]/30 shadow-xs">
+                <div className="w-12 h-12 rounded-2xl bg-[#D58C7A]/20 text-[#D58C7A] flex items-center justify-center border border-[#D58C7A]/30 shadow-sm">
                   <UserCheck size={24} className="text-[#D58C7A]" />
                 </div>
                 <h4 className="text-lg font-heading font-bold text-[#172B46]">
