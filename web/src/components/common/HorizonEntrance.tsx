@@ -12,13 +12,24 @@ interface HorizonEntranceProps {
 
 const STORAGE_KEY = 'ofoq_horizon_played';
 
+const checkInitialVisibility = (forceShow: boolean): boolean => {
+  if (typeof window === 'undefined') return false;
+  if (forceShow) return true;
+  try {
+    return sessionStorage.getItem(STORAGE_KEY) !== 'true';
+  } catch {
+    return true;
+  }
+};
+
 export const HorizonEntrance: React.FC<HorizonEntranceProps> = ({
   onComplete,
   forceShow = false,
 }) => {
   const { i18n } = useTranslation();
-  const { preferences, effectiveReducedMotion } = useSensoryPreferences();
-  const [isVisible, setIsVisible] = useState(false);
+  const { effectiveReducedMotion } = useSensoryPreferences();
+  // Initialize to true if not already played in session so there is ZERO flash of the landing page!
+  const [isVisible, setIsVisible] = useState(() => checkInitialVisibility(forceShow));
   const prevFocusedElementRef = useRef<HTMLElement | null>(null);
   const hasPlayedInSessionRef = useRef<boolean>(false);
 

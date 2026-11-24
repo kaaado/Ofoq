@@ -6,6 +6,7 @@ import { Footer } from './components/layout/Footer';
 import { ToastProvider } from './components/common/Toast';
 import { SensoryPreferencesProvider } from './context/SensoryPreferencesContext';
 import { HomePage } from './pages/HomePage';
+import { HorizonEntrance } from './components/common/HorizonEntrance';
 
 // Code-split modals so initial entry bundle stays minimal
 const WaitlistModal = lazy(() =>
@@ -19,9 +20,6 @@ const LegalModal = lazy(() =>
 );
 const SensoryPreferencesModal = lazy(() =>
   import('./components/common/SensoryPreferencesModal').then((m) => ({ default: m.SensoryPreferencesModal }))
-);
-const HorizonEntrance = lazy(() =>
-  import('./components/common/HorizonEntrance').then((m) => ({ default: m.HorizonEntrance }))
 );
 
 function AppContent() {
