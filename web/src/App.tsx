@@ -22,6 +22,18 @@ export function App() {
     setWaitlistOpen(true);
   };
 
+  useEffect(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('waitlist') === 'true' || params.get('modal') === 'waitlist') {
+        const type = params.get('type') === 'companion' ? 'companion' : 'family';
+        handleOpenWaitlist(type);
+      }
+    } catch {
+      // ignore
+    }
+  }, []);
+
   // Scroll spy with scroll position calculation for 100% reliable tracking
   useEffect(() => {
     const sectionIds = ['home', 'how-it-works', 'about', 'services', 'safety', 'companions', 'faq', 'contact'];

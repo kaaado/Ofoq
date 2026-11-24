@@ -138,28 +138,27 @@ export const WaitlistModal: React.FC<WaitlistModalProps> = ({
         }}
       >
         <motion.div
-          initial={{ opacity: 0, scale: 0.95, y: 15 }}
+          initial={{ opacity: 0, scale: 0.98, y: 10 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.95, y: 15 }}
-          transition={{ duration: 0.25, ease: 'easeOut' }}
-          className="bg-white rounded-[28px] sm:rounded-[36px] max-w-lg w-full max-h-[92vh] lg:max-h-none flex flex-col p-5 sm:p-6 lg:p-7 shadow-2xl relative border border-[#A9C5D8]/40 overflow-hidden lg:overflow-visible my-auto"
+          exit={{ opacity: 0, scale: 0.98, y: 10 }}
+          transition={{ duration: 0.2, ease: 'easeOut' }}
+          className="bg-white rounded-[28px] sm:rounded-[36px] max-w-lg sm:max-w-xl w-full max-h-[94vh] lg:max-h-none flex flex-col p-5 sm:p-6 lg:p-7 shadow-2xl relative border border-[#A9C5D8]/40 overflow-hidden my-auto mx-auto"
           role="dialog"
           aria-modal="true"
         >
           {/* Animated Brand Gradient Accent Bar */}
-          <div className={`absolute top-0 inset-x-0 h-2.5 ${isAr ? 'animate-brand-gradient-rtl' : 'animate-brand-gradient-ltr'}`} />
-
-          {/* Close Button */}
-          <button
-            onClick={handleReset}
-            className="absolute top-4 end-4 z-10 p-2 rounded-full text-[#172B46]/70 hover:bg-[#A9C5D8]/20 hover:text-[#172B46] transition-colors cursor-pointer"
-            aria-label={t('modals.close')}
-          >
-            <X size={20} />
-          </button>
+          <div className={`absolute top-0 inset-x-0 h-2 rounded-t-[28px] sm:rounded-t-[36px] ${isAr ? 'animate-brand-gradient-rtl' : 'animate-brand-gradient-ltr'}`} />
 
           {isSuccess ? (
-            <div className="text-center py-6 sm:py-8 space-y-4 my-auto">
+            <div className="text-center py-6 sm:py-8 space-y-4 my-auto relative">
+              <button
+                type="button"
+                onClick={handleReset}
+                className="absolute -top-1 end-0 p-2 rounded-full text-[#172B46]/70 hover:bg-[#A9C5D8]/20 hover:text-[#172B46] transition-colors cursor-pointer"
+                aria-label={t('modals.close')}
+              >
+                <X size={20} />
+              </button>
               <div className="w-16 h-16 rounded-full bg-[#A9C5D8]/20 text-[#172B46] mx-auto flex items-center justify-center shadow-xs">
                 <CheckCircle2 size={36} />
               </div>
@@ -181,17 +180,28 @@ export const WaitlistModal: React.FC<WaitlistModalProps> = ({
           ) : (
             <form 
               onSubmit={handleSubmit} 
-              className="flex-1 overflow-y-auto lg:overflow-visible pr-0.5 pl-0.5 space-y-3 sm:space-y-3.5 pt-1 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden" 
+              className="flex-1 overflow-y-auto lg:overflow-visible pr-0.5 pl-0.5 space-y-3 sm:space-y-3.5 pt-0.5 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden w-full" 
               noValidate
             >
-              {/* Header Badge with animated flowing brand colors */}
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-gradient-to-r from-[#172B46]/08 via-[#2868C7]/10 to-[#D58C7A]/12 border border-[#A9C5D8]/40 w-fit max-w-[85%]">
-                <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-[#2868C7] to-[#172B46] text-[#D8BE83] flex items-center justify-center shadow-xs shrink-0">
-                  <Sparkles size={13} />
+              {/* Full-width Modal Header Top Bar */}
+              <div className="w-full flex items-center justify-between gap-2.5 px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-2xl bg-gradient-to-r from-[#172B46]/08 via-[#2868C7]/10 to-[#D58C7A]/12 border border-[#A9C5D8]/40 shadow-2xs">
+                <div className="flex items-center gap-2 min-w-0 flex-1">
+                  <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-[#2868C7] to-[#172B46] text-[#D8BE83] flex items-center justify-center shadow-xs shrink-0">
+                    <Sparkles size={13} />
+                  </div>
+                  <span className={`text-xs font-black tracking-wide truncate ${isAr ? 'text-gradient-flow-rtl font-arabic' : 'text-gradient-flow-ltr'}`}>
+                    {isAr ? 'أفق — قائمة الانتظار ذات الأولوية' : isEn ? 'OFOQ — Priority Early Access' : 'OFOQ — Inscription Prioritaire'}
+                  </span>
                 </div>
-                <span className={`text-xs font-black tracking-wide truncate ${isAr ? 'text-gradient-flow-rtl font-arabic' : 'text-gradient-flow-ltr'}`}>
-                  {isAr ? 'أفق — قائمة الانتظار ذات الأولوية' : isEn ? 'OFOQ — Priority Early Access' : 'OFOQ — Inscription Prioritaire'}
-                </span>
+
+                <button
+                  type="button"
+                  onClick={handleReset}
+                  className="p-1.5 rounded-xl text-[#172B46]/70 hover:bg-[#172B46]/10 hover:text-[#172B46] transition-colors cursor-pointer shrink-0"
+                  aria-label={t('modals.close')}
+                >
+                  <X size={18} />
+                </button>
               </div>
 
               <div>
