@@ -7,15 +7,39 @@
 export type TactileFeedbackType = 'click' | 'pop' | 'chime' | 'uncheck' | 'celebrate';
 
 let audioCtxInstance: AudioContext | null = null;
+let userHasInteracted = false;
+
+if (typeof window !== 'undefined') {
+  const markInteracted = () => {
+    userHasInteracted = true;
+    if (audioCtxInstance && audioCtxInstance.state === 'suspended') {
+      audioCtxInstance.resume().catch(() => {});
+    }
+    window.removeEventListener('pointerdown', markInteracted);
+    window.removeEventListener('keydown', markInteracted);
+    window.removeEventListener('touchstart', markInteracted);
+  };
+  window.addEventListener('pointerdown', markInteracted, { passive: true });
+  window.addEventListener('keydown', markInteracted, { passive: true });
+  window.addEventListener('touchstart', markInteracted, { passive: true });
+}
 
 const getAudioContext = (): AudioContext | null => {
   if (typeof window === 'undefined') return null;
+  // Never initialize or resume AudioContext before an explicit user interaction (click/touch/key)
+  // to avoid Chrome "The AudioContext was not allowed to start" autoplay warnings
+  if (!userHasInteracted) return null;
+
   if (!audioCtxInstance) {
     const AudioCtx =
       window.AudioContext ||
       (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
     if (AudioCtx) {
-      audioCtxInstance = new AudioCtx();
+      try {
+        audioCtxInstance = new AudioCtx();
+      } catch {
+        return null;
+      }
     }
   }
   if (audioCtxInstance && audioCtxInstance.state === 'suspended') {

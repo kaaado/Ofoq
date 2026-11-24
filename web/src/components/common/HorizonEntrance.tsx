@@ -39,13 +39,8 @@ export const HorizonEntrance: React.FC<HorizonEntranceProps> = ({
     } catch {
       // Safe fallback if sessionStorage is blocked
     }
-    // Subtle tactile chime on entrance completion
-    playTactileFeedback('chime', {
-      volume: preferences.volume * 0.7,
-      soundEnabled: preferences.soundEnabled,
-    });
     setIsVisible(false);
-  }, [preferences.volume, preferences.soundEnabled]);
+  }, []);
 
   const onCompleteRef = useRef(onComplete);
   onCompleteRef.current = onComplete;

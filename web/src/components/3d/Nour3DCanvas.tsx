@@ -130,14 +130,86 @@ export const Nour3DCanvas: React.FC<Nour3DCanvasProps> = ({
 
     lightsRef.current = { ambient: ambientLight, key: keyLight, rim: rimLight };
 
-    // 5. Load GLB Model ONCE
+    // Helper: Create an instant, beautiful procedural friendly robot avatar
+    // so the child never waits or stares at a loading spinner!
+    const createProceduralNour = (): THREE.Group => {
+      const group = new THREE.Group();
+
+      // Head / Body
+      const bodyGeo = new THREE.SphereGeometry(0.55, 32, 32);
+      const bodyMat = new THREE.MeshStandardMaterial({
+        color: 0x2868c7,
+        roughness: 0.25,
+        metalness: 0.2,
+      });
+      const body = new THREE.Mesh(bodyGeo, bodyMat);
+      group.add(body);
+
+      // Cute white belly / face screen
+      const faceGeo = new THREE.SphereGeometry(0.42, 32, 32);
+      const faceMat = new THREE.MeshStandardMaterial({
+        color: 0xf5f6f3,
+        roughness: 0.4,
+      });
+      const face = new THREE.Mesh(faceGeo, faceMat);
+      face.position.set(0, 0.05, 0.18);
+      face.scale.set(1, 0.9, 0.65);
+      group.add(face);
+
+      // Friendly expressive eyes
+      const eyeGeo = new THREE.SphereGeometry(0.065, 16, 16);
+      const eyeMat = new THREE.MeshBasicMaterial({ color: 0x172b46 });
+      
+      const leftEye = new THREE.Mesh(eyeGeo, eyeMat);
+      leftEye.position.set(-0.16, 0.14, 0.44);
+      group.add(leftEye);
+
+      const rightEye = new THREE.Mesh(eyeGeo, eyeMat);
+      rightEye.position.set(0.16, 0.14, 0.44);
+      group.add(rightEye);
+
+      // Golden antenna
+      const antennaPoleGeo = new THREE.CylinderGeometry(0.02, 0.02, 0.25, 16);
+      const goldMat = new THREE.MeshStandardMaterial({ color: 0xd8be83, roughness: 0.2, metalness: 0.8 });
+      const antennaPole = new THREE.Mesh(antennaPoleGeo, goldMat);
+      antennaPole.position.set(0, 0.65, 0);
+      group.add(antennaPole);
+
+      const antennaTipGeo = new THREE.SphereGeometry(0.08, 16, 16);
+      const antennaTipMat = new THREE.MeshBasicMaterial({ color: 0xd8be83 });
+      const antennaTip = new THREE.Mesh(antennaTipGeo, antennaTipMat);
+      antennaTip.position.set(0, 0.80, 0);
+      group.add(antennaTip);
+
+      // Playful bunny ears
+      const earGeo = new THREE.CapsuleGeometry(0.08, 0.35, 16, 16);
+      const leftEar = new THREE.Mesh(earGeo, bodyMat);
+      leftEar.position.set(-0.32, 0.72, -0.05);
+      leftEar.rotation.z = -0.25;
+      group.add(leftEar);
+
+      const rightEar = new THREE.Mesh(earGeo, bodyMat);
+      rightEar.position.set(0.32, 0.72, -0.05);
+      rightEar.rotation.z = 0.25;
+      group.add(rightEar);
+
+      return group;
+    };
+
+    // Mount instant procedural Nour avatar immediately!
+    const proceduralNour = createProceduralNour();
+    proceduralNour.position.y = -0.35;
+    scene.add(proceduralNour);
+    modelRef.current = proceduralNour;
+    setIsLoaded(true);
+
+    // 5. Load GLB Model in background and smoothly swap
     const loader = new GLTFLoader();
     loader.load(
       '/models/bunny-bot_3000.glb',
       (gltf) => {
         if (isCancelled) return;
         const model = gltf.scene;
-        modelRef.current = model;
 
         const box = new THREE.Box3().setFromObject(model);
         const center = box.getCenter(new THREE.Vector3());
@@ -152,7 +224,10 @@ export const Nour3DCanvas: React.FC<Nour3DCanvasProps> = ({
         model.position.y = -center.y * scale - 0.58;
         model.position.z = -center.z * scale;
 
+        // Smooth swap from procedural avatar to heavy GLB model
+        scene.remove(proceduralNour);
         scene.add(model);
+        modelRef.current = model;
         setIsLoaded(true);
         if (onModelLoaded) onModelLoaded();
       },
@@ -166,7 +241,8 @@ export const Nour3DCanvas: React.FC<Nour3DCanvasProps> = ({
       (error) => {
         if (isCancelled) return;
         console.warn('OFOQ: GLB Model loading deferred or unavailable, using 3D avatar fallback.', error);
-        setHasError(true);
+        // Keep the procedural avatar active seamlessly
+        setHasError(false);
       }
     );
 

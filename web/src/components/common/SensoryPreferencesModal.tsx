@@ -432,83 +432,91 @@ export const SensoryPreferencesModal: React.FC<SensoryPreferencesModalProps> = (
                 </div>
                 <div>
                   <h4 className="text-xs sm:text-sm font-bold text-[#172B46]">
-                    {isAr ? 'اختيار نبرة الصوت الدافئ (3 إناث • 3 ذكور)' : isEn ? 'Warm Human Speech Selection (3 Female • 3 Male)' : 'Sélection Voix Chaleureuse (3 Femmes • 3 Hommes)'}
+                    {isAr
+                      ? 'اختيار نبرة الصوت الدافئ (3 خيارات مطمئنة)'
+                      : isEn
+                      ? 'Warm Human Speech Selection (3 Female • 3 Male)'
+                      : 'Sélection Voix Chaleureuse (3 Femmes • 3 Hommes)'}
                   </h4>
                   <p className="text-[11px] text-[#5B6E85]">
-                    {isAr ? 'الصوت المختار سيُعتمد في نطق بطاقات CAA، والرفيق نور، وتوجيهات الأخصائي' : 'Selected voice applies across AAC cards, Nour companion, and clinical audio'}
+                    {isAr
+                      ? 'أصوات طبيعية رصينة ومريحة حسياً للطفل مع تمارين التنفس والتواصل'
+                      : 'Selected voice applies across AAC cards, Nour companion, and clinical audio'}
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* 3 Female Voices */}
-            <div className="space-y-2">
-              <div className="text-[11px] font-bold uppercase tracking-wider text-[#9E4E3D] flex items-center gap-1">
-                <Heart size={12} />
-                <span>{isAr ? 'نبرات أنثوية دافئة ومطمئنة (3 خيارات)' : 'Warm & Maternal Voices (3 Female)'}</span>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-                {femaleVoices.map((voice) => {
-                  const isSelected = selectedVoiceId === voice.id;
-                  const isPlayingThis = isPlayingTestVoice && activeTestVoiceId === voice.id;
-                  const name = isAr ? voice.nameAr : isEn ? voice.nameEn : voice.nameFr;
-                  const desc = isAr ? voice.descriptionAr : isEn ? voice.descriptionEn : voice.descriptionFr;
+            {/* 3 Female Voices (Displayed in FR and EN where dedicated female OS/neural voices exist) */}
+            {!isAr && (
+              <div className="space-y-2">
+                <div className="text-[11px] font-bold uppercase tracking-wider text-[#9E4E3D] flex items-center gap-1">
+                  <Heart size={12} />
+                  <span>Warm & Maternal Voices (3 Female)</span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                  {femaleVoices.map((voice) => {
+                    const isSelected = selectedVoiceId === voice.id;
+                    const isPlayingThis = isPlayingTestVoice && activeTestVoiceId === voice.id;
+                    const name = isEn ? voice.nameEn : voice.nameFr;
+                    const desc = isEn ? voice.descriptionEn : voice.descriptionFr;
 
-                  return (
-                    <div
-                      key={voice.id}
-                      onClick={() => handlePreviewVoice(voice)}
-                      className={`p-3 rounded-2xl border-2 transition-all cursor-pointer flex flex-col justify-between text-start relative group ${
-                        isSelected
-                          ? 'bg-white border-[#2868C7] shadow-sm'
-                          : 'bg-white/70 border-[#172B46]/10 hover:border-[#2868C7]/40'
-                      }`}
-                    >
-                      <div className="space-y-1">
-                        <div className="flex items-center justify-between">
-                          <span className="text-xs font-bold text-[#172B46]">{name}</span>
-                          {isSelected && (
-                            <span className="w-5 h-5 rounded-full bg-[#2868C7] text-white flex items-center justify-center shrink-0">
-                              <Check size={12} />
-                            </span>
-                          )}
+                    return (
+                      <div
+                        key={voice.id}
+                        onClick={() => handlePreviewVoice(voice)}
+                        className={`p-3 rounded-2xl border-2 transition-all cursor-pointer flex flex-col justify-between text-start relative group ${
+                          isSelected
+                            ? 'bg-white border-[#2868C7] shadow-sm'
+                            : 'bg-white/70 border-[#172B46]/10 hover:border-[#2868C7]/40'
+                        }`}
+                      >
+                        <div className="space-y-1">
+                          <div className="flex items-center justify-between">
+                            <span className="text-xs font-bold text-[#172B46]">{name}</span>
+                            {isSelected && (
+                              <span className="w-5 h-5 rounded-full bg-[#2868C7] text-white flex items-center justify-center shrink-0">
+                                <Check size={12} />
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-[10px] text-[#5B6E85] leading-relaxed line-clamp-2">
+                            {desc}
+                          </p>
                         </div>
-                        <p className="text-[10px] text-[#5B6E85] leading-relaxed line-clamp-2">
-                          {desc}
-                        </p>
-                      </div>
 
-                      <div className="pt-2 flex items-center justify-between">
-                        <span className="text-[10px] font-bold text-[#9E4E3D] bg-[#D58C7A]/15 px-2 py-0.5 rounded-full">
-                          {isAr ? 'أنثى' : 'Female'}
-                        </span>
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handlePreviewVoice(voice);
-                          }}
-                          className={`inline-flex items-center gap-1 px-2 py-1 rounded-lg text-[10px] font-bold transition-all ${
-                            isPlayingThis
-                              ? 'bg-[#2868C7] text-white'
-                              : 'bg-[#172B46]/5 hover:bg-[#172B46]/10 text-[#172B46]'
-                          }`}
-                        >
-                          <Play size={10} className={isPlayingThis ? 'animate-pulse text-[#D8BE83]' : ''} />
-                          <span>{isPlayingThis ? (isAr ? 'استماع...' : 'Playing') : (isAr ? 'استماع' : 'Preview')}</span>
-                        </button>
+                        <div className="pt-2 flex items-center justify-between">
+                          <span className="text-[10px] font-bold text-[#9E4E3D] bg-[#D58C7A]/15 px-2 py-0.5 rounded-full">
+                            Female
+                          </span>
+                          <button
+                            type="button"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handlePreviewVoice(voice);
+                            }}
+                            className={`inline-flex items-center gap-1 px-2 py-1 rounded-lg text-[10px] font-bold transition-all ${
+                              isPlayingThis
+                                ? 'bg-[#2868C7] text-white'
+                                : 'bg-[#172B46]/5 hover:bg-[#172B46]/10 text-[#172B46]'
+                            }`}
+                          >
+                            <Play size={10} className={isPlayingThis ? 'animate-pulse text-[#D8BE83]' : ''} />
+                            <span>{isPlayingThis ? 'Playing' : 'Preview'}</span>
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* 3 Male Voices */}
             <div className="space-y-2 pt-1">
               <div className="text-[11px] font-bold uppercase tracking-wider text-[#2868C7] flex items-center gap-1">
                 <UserCheck size={12} />
-                <span>{isAr ? 'نبرات ذكورية رصينة ومطمئنة (3 خيارات)' : 'Reassuring & Calm Voices (3 Male)'}</span>
+                <span>{isAr ? 'نبرات صوتية مطمئنة ومريحة حسياً (3 خيارات)' : 'Reassuring & Calm Voices (3 Male)'}</span>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
                 {maleVoices.map((voice) => {
