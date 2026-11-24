@@ -80,7 +80,11 @@ export const ContactSection: React.FC = () => {
           message: successSubtext
         });
       } else {
-        const localizedMsg = t(res.messageKey);
+        // Defensive check: contact form has no consent gate, so never display consent errors
+        const safeKey = res.messageKey === 'forms.errors.consent_required'
+          ? 'forms.errors.server'
+          : res.messageKey;
+        const localizedMsg = t(safeKey);
         setErrorMsg(localizedMsg);
         showToast({
           type: 'error',

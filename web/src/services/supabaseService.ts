@@ -87,11 +87,15 @@ export class SupabaseService {
       };
     }
 
+    const interestTypeNormalized = submission.interestType === 'companion'
+      ? 'companion'
+      : 'family';
+
     const payload = {
       full_name: submission.fullName.trim(),
       contact_value: submission.contactValue.trim(),
       wilaya: submission.wilaya || 'Alger (16)',
-      interest_type: submission.interestType,
+      interest_type: interestTypeNormalized,
       message: submission.message ? submission.message.trim() : null,
       consent_accepted: submission.consentAccepted
     };
@@ -107,7 +111,7 @@ export class SupabaseService {
       };
     }
 
-    // Direct HTTP request with try / fetch handling 200, 404, 500
+    // Direct HTTP request with try / fetch handling 200/201, 404, 500
     try {
       const endpoint = `${this.url.replace(/\/+$/, '')}/rest/v1/waitlist_submissions`;
       const response = await fetch(endpoint, {
@@ -116,15 +120,15 @@ export class SupabaseService {
           'apikey': this.key,
           'Authorization': `Bearer ${this.key}`,
           'Content-Type': 'application/json',
-          'Prefer': 'return=representation'
+          'Prefer': 'return=minimal'
         },
         body: JSON.stringify(payload)
       });
 
       const statusCode = response.status;
 
-      // Status 200 / 201: Successfully inserted in remote PostgreSQL database
-      if (statusCode === 200 || statusCode === 201) {
+      // Status 200 / 201 / 204: Successfully inserted in remote PostgreSQL database
+      if (statusCode === 200 || statusCode === 201 || statusCode === 204) {
         console.info(`[OFOQ HTTP ${statusCode}] Waitlist registration persisted in database.`);
         return {
           success: true,
@@ -241,7 +245,7 @@ export class SupabaseService {
       };
     }
 
-    // Direct HTTP request with try / fetch handling 200, 404, 500
+    // Direct HTTP request with try / fetch handling 200/201, 404, 500
     try {
       const endpoint = `${this.url.replace(/\/+$/, '')}/rest/v1/contact_submissions`;
       const response = await fetch(endpoint, {
@@ -250,15 +254,15 @@ export class SupabaseService {
           'apikey': this.key,
           'Authorization': `Bearer ${this.key}`,
           'Content-Type': 'application/json',
-          'Prefer': 'return=representation'
+          'Prefer': 'return=minimal'
         },
         body: JSON.stringify(payload)
       });
 
       const statusCode = response.status;
 
-      // Status 200 / 201: Successfully inserted in remote PostgreSQL database
-      if (statusCode === 200 || statusCode === 201) {
+      // Status 200 / 201 / 204: Successfully inserted in remote PostgreSQL database
+      if (statusCode === 200 || statusCode === 201 || statusCode === 204) {
         console.info(`[OFOQ HTTP ${statusCode}] Contact inquiry persisted in database.`);
         return {
           success: true,
