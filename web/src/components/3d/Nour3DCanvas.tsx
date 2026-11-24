@@ -396,8 +396,8 @@ export const Nour3DCanvas: React.FC<Nour3DCanvasProps> = ({
         }
       }}
       className={`relative w-full h-[320px] sm:h-[380px] flex items-center justify-center select-none cursor-pointer group focus-ring rounded-2xl ${className}`}
-      title={isAr ? 'انقر للتفاعل مع باني' : isEn ? 'Click to interact with Bunny' : 'Cliquez pour interagir avec Bunny'}
-      aria-label={isAr ? 'مجسم الرفيق نور ثلاثي الأبعاد، اضغط للتفاعل' : isEn ? '3D Nour Companion, press to interact' : 'Compagnon 3D Nour, appuyez pour interagir'}
+      title={isAr ? 'انقر للتفاعل مع باني' : isEn ? 'Click to interact with Banny' : 'Cliquez pour interagir avec Banny'}
+      aria-label={isAr ? 'مجسم الرفيق باني ثلاثي الأبعاد، اضغط للتفاعل' : isEn ? '3D Banny Companion, press to interact' : 'Compagnon 3D Banny, appuyez pour interagir'}
     >
       {/* Three.js WebGL Container */}
       <div
@@ -415,7 +415,7 @@ export const Nour3DCanvas: React.FC<Nour3DCanvasProps> = ({
                 <Bot size={36} />
               </div>
               <p className="text-xs font-bold text-white">
-                {isAr ? 'الرفيق الافتراضي نور (وضع خفيف)' : 'Nour Companion (Lite 3D)'}
+                {isAr ? 'الرفيق الافتراضي باني (وضع خفيف)' : 'Banny Companion (Lite 3D)'}
               </p>
               <p className="text-[11px] text-[#A9C5D8] max-w-xs">
                 {isAr
@@ -427,7 +427,7 @@ export const Nour3DCanvas: React.FC<Nour3DCanvasProps> = ({
             <>
               <Loader2 size={32} className="text-[#2868C7] animate-spin" />
               <p className="text-xs font-bold text-white">
-                {isAr ? 'جاري تحضير الرفيق نور...' : 'Preparing Nour Companion...'}
+                {isAr ? 'جاري تحضير الرفيق باني...' : 'Preparing Banny Companion...'}
               </p>
               <div className="w-32 h-1.5 bg-white/10 rounded-full overflow-hidden">
                 <div

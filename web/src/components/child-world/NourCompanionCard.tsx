@@ -33,20 +33,20 @@ export const NourCompanionCard: React.FC<NourCompanionCardProps> = ({
   const [activeMood, setActiveMood] = useState<'idle' | 'greeting' | 'calm' | 'talking'>('idle');
   const [speechBubble, setSpeechBubble] = useState<string>(() =>
     isAr
-      ? `مرحباً يا ${childName}! أنا نور، رفيقك في الكلام والمرح.`
+      ? `مرحباً يا ${childName}! أنا باني، رفيقك في الكلام والمرح.`
       : isEn
-      ? `Hello ${childName}! I'm Nour, your friendly speech buddy.`
-      : `Bonjour ${childName} ! Je suis Nour, ton compagnon d'éveil.`
+      ? `Hello ${childName}! I'm Banny, your friendly speech buddy.`
+      : `Bonjour ${childName} ! Je suis Banny, ton compagnon d'éveil.`
   );
 
   // Sync speech bubble when childName or language changes
   useEffect(() => {
     setSpeechBubble(
       isAr
-        ? `مرحباً يا ${childName}! أنا نور، رفيقك في الكلام والمرح.`
+        ? `مرحباً يا ${childName}! أنا باني، رفيقك في الكلام والمرح.`
         : isEn
-        ? `Hello ${childName}! I'm Nour, your friendly speech buddy.`
-        : `Bonjour ${childName} ! Je suis Nour, ton compagnon d'éveil.`
+        ? `Hello ${childName}! I'm Banny, your friendly speech buddy.`
+        : `Bonjour ${childName} ! Je suis Banny, ton compagnon d'éveil.`
     );
   }, [childName, lang, isAr, isEn]);
 
@@ -106,7 +106,7 @@ export const NourCompanionCard: React.FC<NourCompanionCardProps> = ({
           </div>
           <div>
             <h3 className="text-sm sm:text-base font-bold text-[#172B46]">
-              {isAr ? 'الرفيق الافتراضي نور (3D)' : isEn ? 'Virtual Companion Nour' : 'Compagnon Virtuel Nour'}
+              {isAr ? 'الرفيق الافتراضي باني (3D)' : isEn ? 'Virtual Companion Banny' : 'Compagnon Virtuel Banny'}
             </h3>
             <p className="text-[11px] text-[#5B6E85]">
               {isAr ? 'تحفيز المحاكاة الصوتية والتواصل الهادئ' : 'Gentle phonation & emotional calming'}
@@ -127,14 +127,14 @@ export const NourCompanionCard: React.FC<NourCompanionCardProps> = ({
               <Bot size={32} />
             </div>
             <p className="text-xs font-bold text-white">
-              {isAr ? 'الرفيق نور (وضع تقليل الحركة)' : 'Companion Nour (Calm Mode)'}
+              {isAr ? 'الرفيق باني (وضع تقليل الحركة)' : 'Companion Banny (Calm Mode)'}
             </p>
           </div>
         ) : (
           <Suspense
             fallback={
               <div className="flex items-center justify-center text-[#A9C5D8] text-xs">
-                <span>{isAr ? 'جاري استدعاء نور...' : 'Loading Nour...'}</span>
+                <span>{isAr ? 'جاري استدعاء باني...' : 'Loading Banny...'}</span>
               </div>
             }
           >
@@ -162,7 +162,7 @@ export const NourCompanionCard: React.FC<NourCompanionCardProps> = ({
       {/* Quick Interaction Buttons (>= 48px hit boxes) */}
       <div
         role="group"
-        aria-label={isAr ? 'أزرار التفاعل مع الرفيق نور' : 'Interaction buttons with companion Nour'}
+        aria-label={isAr ? 'أزرار التفاعل مع الرفيق باني' : 'Interaction buttons with companion Banny'}
         className="grid grid-cols-3 gap-2"
       >
         <button
@@ -199,10 +199,10 @@ export const NourCompanionCard: React.FC<NourCompanionCardProps> = ({
       {/* Non-Diagnostic Disclaimer */}
       <p className="text-[10px] text-[#5B6E85] leading-relaxed border-t border-[#172B46]/[0.08] pt-2">
         {isAr
-          ? 'نور رفيق تفاعلي تحفيزي لتشجيع النطق والهدوء، وليس معالجاً أو مشخّصاً طبياً.'
+          ? 'باني رفيق تفاعلي تحفيزي لتشجيع النطق والهدوء، وليس معالجاً أو مشخّصاً طبياً.'
           : isEn
-          ? 'Nour is an interactive companion for motivation and calming, not a clinical diagnostic system.'
-          : 'Nour est un compagnon interactif de stimulation vocale et d\'apaisement, sans portée diagnostique.'}
+          ? 'Banny is an interactive companion for motivation and calming, not a clinical diagnostic system.'
+          : 'Banny est un compagnon interactif de stimulation vocale et d\'apaisement, sans portée diagnostique.'}
       </p>
     </div>
   );

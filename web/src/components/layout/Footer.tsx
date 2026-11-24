@@ -38,10 +38,10 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPrivacy, onOpenLegal }) =>
       {/* Ambient background soft glow */}
       <div className="absolute top-0 start-1/4 w-96 h-96 bg-[#2868C7]/10 rounded-full blur-3xl pointer-events-none -z-0" />
 
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-8 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10 pb-12 border-b border-white/10">
-          {/* Brand & Purpose (5 cols) */}
-          <div className="lg:col-span-5 space-y-4 text-start">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10 pb-12 border-b border-white/10">
+          {/* Brand & Purpose (12 cols on mobile/sm, 5 on lg) */}
+          <div className="sm:col-span-2 lg:col-span-5 space-y-4 text-start">
             <div className="flex items-center gap-3">
               <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full overflow-hidden shadow-sm border-2 border-white/20 bg-[#FDFDFD] flex items-center justify-center shrink-0 p-0.5">
                 <img
@@ -64,11 +64,11 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPrivacy, onOpenLegal }) =>
               {t('brand.tagline')}
             </p>
 
-            <p className="text-gray-300 text-xs leading-relaxed max-w-md">
+            <p className="text-gray-300 text-xs sm:text-sm leading-relaxed max-w-md">
               {t('footer.mission_reminder')}
             </p>
 
-            <div className="pt-2 text-xs text-[#A9C5D8] space-y-1.5">
+            <div className="pt-2 text-xs text-[#A9C5D8] space-y-2">
               <div className="flex items-center gap-2">
                 <MapPin size={14} className="text-[#D58C7A] shrink-0" />
                 <span>
@@ -81,30 +81,30 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPrivacy, onOpenLegal }) =>
               </div>
               <div className="flex items-center gap-2">
                 <Mail size={14} className="text-[#D58C7A] shrink-0" />
-                <a href={`mailto:${contactEmail}`} className="hover:text-white transition-colors focus-ring-dark rounded-sm px-1">{contactEmail}</a>
+                <a href={`mailto:${contactEmail}`} className="hover:text-white transition-colors focus-ring-dark rounded-sm px-1 font-mono text-xs">{contactEmail}</a>
               </div>
             </div>
           </div>
 
-          {/* Quick Section Anchors (4 cols) */}
-          <div className="lg:col-span-4 space-y-3 text-start">
+          {/* Quick Section Anchors (4 cols on lg, 1 col on sm) */}
+          <div className="sm:col-span-1 lg:col-span-4 space-y-3 text-start">
             <h4 className="text-xs font-bold tracking-wider uppercase text-[#A9C5D8]">
               {t('footer.links_title')}
             </h4>
             <div className="grid grid-cols-2 gap-2 text-xs sm:text-sm text-gray-300">
-              <a href="#home" onClick={(e) => handleAnchorClick(e, '#home')} className="hover:text-[#D58C7A] transition-colors focus-ring-dark rounded-sm py-0.5">{t('nav.home')}</a>
-              <a href="#experience" onClick={(e) => handleAnchorClick(e, '#experience')} className="hover:text-[#D58C7A] transition-colors focus-ring-dark rounded-sm py-0.5">{t('nav.experience')}</a>
-              <a href="#ecosystem" onClick={(e) => handleAnchorClick(e, '#ecosystem')} className="hover:text-[#D58C7A] transition-colors focus-ring-dark rounded-sm py-0.5">{t('nav.ecosystem')}</a>
-              <a href="#pillars" onClick={(e) => handleAnchorClick(e, '#pillars')} className="hover:text-[#D58C7A] transition-colors focus-ring-dark rounded-sm py-0.5">{t('nav.pillars')}</a>
-              <a href="#safety" onClick={(e) => handleAnchorClick(e, '#safety')} className="hover:text-[#D58C7A] transition-colors focus-ring-dark rounded-sm py-0.5">{t('nav.safety')}</a>
-              <a href="#professionals" onClick={(e) => handleAnchorClick(e, '#professionals')} className="hover:text-[#D58C7A] transition-colors focus-ring-dark rounded-sm py-0.5">{t('nav.professionals')}</a>
-              <a href="#faq" onClick={(e) => handleAnchorClick(e, '#faq')} className="hover:text-[#D58C7A] transition-colors focus-ring-dark rounded-sm py-0.5">{t('nav.faq')}</a>
-              <a href="#contact" onClick={(e) => handleAnchorClick(e, '#contact')} className="hover:text-[#D58C7A] transition-colors focus-ring-dark rounded-sm py-0.5">{t('nav.contact')}</a>
+              <a href="#home" onClick={(e) => handleAnchorClick(e, '#home')} className="hover:text-[#D58C7A] transition-colors focus-ring-dark rounded-sm py-1">{t('nav.home')}</a>
+              <a href="#experience" onClick={(e) => handleAnchorClick(e, '#experience')} className="hover:text-[#D58C7A] transition-colors focus-ring-dark rounded-sm py-1">{t('nav.experience')}</a>
+              <a href="#ecosystem" onClick={(e) => handleAnchorClick(e, '#ecosystem')} className="hover:text-[#D58C7A] transition-colors focus-ring-dark rounded-sm py-1">{t('nav.ecosystem')}</a>
+              <a href="#pillars" onClick={(e) => handleAnchorClick(e, '#pillars')} className="hover:text-[#D58C7A] transition-colors focus-ring-dark rounded-sm py-1">{t('nav.pillars')}</a>
+              <a href="#safety" onClick={(e) => handleAnchorClick(e, '#safety')} className="hover:text-[#D58C7A] transition-colors focus-ring-dark rounded-sm py-1">{t('nav.safety')}</a>
+              <a href="#professionals" onClick={(e) => handleAnchorClick(e, '#professionals')} className="hover:text-[#D58C7A] transition-colors focus-ring-dark rounded-sm py-1">{t('nav.professionals')}</a>
+              <a href="#faq" onClick={(e) => handleAnchorClick(e, '#faq')} className="hover:text-[#D58C7A] transition-colors focus-ring-dark rounded-sm py-1">{t('nav.faq')}</a>
+              <a href="#contact" onClick={(e) => handleAnchorClick(e, '#contact')} className="hover:text-[#D58C7A] transition-colors focus-ring-dark rounded-sm py-1">{t('nav.contact')}</a>
             </div>
           </div>
 
-          {/* Legal, Privacy & Compliance (3 cols) */}
-          <div className="lg:col-span-3 space-y-3 text-start">
+          {/* Legal, Privacy & Compliance (3 cols on lg, 1 col on sm) */}
+          <div className="sm:col-span-1 lg:col-span-3 space-y-3 text-start">
             <h4 className="text-xs font-bold tracking-wider uppercase text-[#A9C5D8]">
               {t('footer.legal_title')}
             </h4>
@@ -112,7 +112,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPrivacy, onOpenLegal }) =>
               <li>
                 <button
                   onClick={onOpenPrivacy}
-                  className="hover:text-[#D58C7A] transition-colors cursor-pointer text-start focus-ring-dark rounded-sm py-0.5"
+                  className="hover:text-[#D58C7A] transition-colors cursor-pointer text-start focus-ring-dark rounded-sm py-1"
                 >
                   {t('footer.privacy')} {isAr ? '(القانون 18-07)' : isEn ? '(Law 18-07)' : '(Loi 18-07)'}
                 </button>
@@ -120,7 +120,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPrivacy, onOpenLegal }) =>
               <li>
                 <button
                   onClick={onOpenLegal}
-                  className="hover:text-[#D58C7A] transition-colors cursor-pointer text-start focus-ring-dark rounded-sm py-0.5"
+                  className="hover:text-[#D58C7A] transition-colors cursor-pointer text-start focus-ring-dark rounded-sm py-1"
                 >
                   {t('footer.legal')}
                 </button>
@@ -129,7 +129,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPrivacy, onOpenLegal }) =>
                 <a
                   href="#safety"
                   onClick={(e) => handleAnchorClick(e, '#safety')}
-                  className="hover:text-[#D58C7A] transition-colors text-start block focus-ring-dark rounded-sm py-0.5"
+                  className="hover:text-[#D58C7A] transition-colors text-start block focus-ring-dark rounded-sm py-1"
                 >
                   {isAr ? 'الحد غير التشخيصي' : isEn ? 'Non-Diagnostic Boundary' : 'Cadre non-diagnostique'}
                 </a>

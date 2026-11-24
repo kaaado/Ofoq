@@ -585,14 +585,14 @@ export const SensoryPreferencesModal: React.FC<SensoryPreferencesModalProps> = (
               </div>
               <div>
                 <p id="label-voice-enabled" className="text-sm font-bold text-[#172B46]">
-                  {isAr ? 'النطق الصوتي التلقائي والرفيق نور' : isEn ? 'Voice Playback & AI Companion' : 'Synthèse Vocale & Compagnon IA'}
+                  {isAr ? 'النطق الصوتي التلقائي والرفيق باني' : isEn ? 'Voice Playback & AI Companion' : 'Synthèse Vocale & Compagnon IA'}
                 </p>
                 <p className="text-xs text-[#5B6E85] mt-0.5">
                   {isAr
-                    ? 'نطق بطاقات التواصل المعزز وصوت الرفيق الافتراضي نور وتوجيهات الأخصائي'
+                    ? 'نطق بطاقات التواصل المعزز وصوت الرفيق الافتراضي باني وتوجيهات الأخصائي'
                     : isEn
-                    ? 'Speaks pictogram cards, companion Nour phrases, and clinical guidance aloud'
-                    : 'Prononce les pictogrammes CAA et la voix du compagnon Nour'}
+                    ? 'Speaks pictogram cards, companion Banny phrases, and clinical guidance aloud'
+                    : 'Prononce les pictogrammes CAA et la voix du compagnon Banny'}
                 </p>
               </div>
             </div>

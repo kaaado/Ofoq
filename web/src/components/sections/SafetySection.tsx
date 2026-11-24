@@ -93,63 +93,63 @@ export const SafetySection: React.FC = () => {
           </ScrollReveal>
         </div>
 
-        {/* 3 Trust & Law 18-07 Privacy Pillars - Equal Height & Enhanced Styling */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-start items-stretch">
+        {/* 3 Trust & Law 18-07 Privacy Pillars - Equal Height & Enhanced Responsive Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto text-start items-stretch">
           <ScrollReveal delay={0.1} className="h-full">
-            <div className="glass-card glass-card-hover p-8 rounded-3xl border border-white/80 shadow-md h-full flex flex-col justify-between hover:shadow-xl hover:border-[#172B46]/30 transition-all">
+            <div className="glass-card glass-card-hover p-6 sm:p-8 rounded-3xl border border-white/80 shadow-md h-full flex flex-col justify-between hover:shadow-xl hover:border-[#172B46]/30 transition-all">
               <div className="space-y-4">
                 <div className="w-12 h-12 rounded-2xl bg-[#172B46]/10 text-[#172B46] flex items-center justify-center border border-[#172B46]/20 shadow-sm">
                   <ShieldCheck size={24} className="text-[#172B46]" />
                 </div>
-                <h4 className="text-lg font-heading font-bold text-[#172B46]">
+                <h4 className="text-base sm:text-lg font-heading font-bold text-[#172B46]">
                   {t('trust.card1_title')}
                 </h4>
-                <p className="text-sm text-[#5B6E85] leading-relaxed">
+                <p className="text-xs sm:text-sm text-[#5B6E85] leading-relaxed">
                   {t('trust.card1_desc')}
                 </p>
               </div>
-              <div className="pt-4 mt-2 border-t border-[#A9C5D8]/20 flex items-center gap-1.5 text-xs text-emerald-800 font-bold">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <div className="pt-4 mt-3 border-t border-[#A9C5D8]/20 flex items-center gap-1.5 text-xs text-emerald-800 font-bold">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
                 <span>{isAr ? 'منسجم مع مبادئ القانون 18-07' : isEn ? 'Aligned with Law 18-07 Principles' : 'Aligné sur les principes de la Loi 18-07'}</span>
               </div>
             </div>
           </ScrollReveal>
 
           <ScrollReveal delay={0.2} className="h-full">
-            <div className="glass-card glass-card-hover p-8 rounded-3xl border border-white/80 shadow-md h-full flex flex-col justify-between hover:shadow-xl hover:border-[#2868C7]/30 transition-all">
+            <div className="glass-card glass-card-hover p-6 sm:p-8 rounded-3xl border border-white/80 shadow-md h-full flex flex-col justify-between hover:shadow-xl hover:border-[#2868C7]/30 transition-all">
               <div className="space-y-4">
                 <div className="w-12 h-12 rounded-2xl bg-[#2868C7]/15 text-[#2868C7] flex items-center justify-center border border-[#2868C7]/30 shadow-sm">
                   <Lock size={24} className="text-[#2868C7]" />
                 </div>
-                <h4 className="text-lg font-heading font-bold text-[#172B46]">
+                <h4 className="text-base sm:text-lg font-heading font-bold text-[#172B46]">
                   {t('trust.card2_title')}
                 </h4>
-                <p className="text-sm text-[#5B6E85] leading-relaxed">
+                <p className="text-xs sm:text-sm text-[#5B6E85] leading-relaxed">
                   {t('trust.card2_desc')}
                 </p>
               </div>
-              <div className="pt-4 mt-2 border-t border-[#A9C5D8]/20 flex items-center gap-1.5 text-xs text-[#2868C7] font-bold">
-                <span className="w-2 h-2 rounded-full bg-[#2868C7] animate-pulse" />
+              <div className="pt-4 mt-3 border-t border-[#A9C5D8]/20 flex items-center gap-1.5 text-xs text-[#2868C7] font-bold">
+                <span className="w-2 h-2 rounded-full bg-[#2868C7] animate-pulse shrink-0" />
                 <span>{isAr ? 'مبدأ الفصل التام بين عوالم الإخوة' : isEn ? 'Sibling World Architectural Isolation' : 'Principe d\'isolation étanche des univers'}</span>
               </div>
             </div>
           </ScrollReveal>
 
-          <ScrollReveal delay={0.3} className="h-full">
-            <div className="glass-card glass-card-hover p-8 rounded-3xl border border-white/80 shadow-md h-full flex flex-col justify-between hover:shadow-xl hover:border-[#D58C7A]/30 transition-all">
+          <ScrollReveal delay={0.3} className="md:col-span-2 lg:col-span-1 md:max-w-md md:mx-auto lg:max-w-none w-full h-full">
+            <div className="glass-card glass-card-hover p-6 sm:p-8 rounded-3xl border border-white/80 shadow-md h-full flex flex-col justify-between hover:shadow-xl hover:border-[#D58C7A]/30 transition-all">
               <div className="space-y-4">
                 <div className="w-12 h-12 rounded-2xl bg-[#D58C7A]/20 text-[#D58C7A] flex items-center justify-center border border-[#D58C7A]/30 shadow-sm">
                   <UserCheck size={24} className="text-[#D58C7A]" />
                 </div>
-                <h4 className="text-lg font-heading font-bold text-[#172B46]">
+                <h4 className="text-base sm:text-lg font-heading font-bold text-[#172B46]">
                   {t('trust.card3_title')}
                 </h4>
-                <p className="text-sm text-[#5B6E85] leading-relaxed">
+                <p className="text-xs sm:text-sm text-[#5B6E85] leading-relaxed">
                   {t('trust.card3_desc')}
                 </p>
               </div>
-              <div className="pt-4 mt-2 border-t border-[#A9C5D8]/20 flex items-center gap-1.5 text-xs text-[#D58C7A] font-bold">
-                <span className="w-2 h-2 rounded-full bg-[#D58C7A] animate-pulse" />
+              <div className="pt-4 mt-3 border-t border-[#A9C5D8]/20 flex items-center gap-1.5 text-xs text-[#D58C7A] font-bold">
+                <span className="w-2 h-2 rounded-full bg-[#D58C7A] animate-pulse shrink-0" />
                 <span>{isAr ? 'صلاحيات قابلة للإلغاء بنقرة' : 'Révocation en 1 clic'}</span>
               </div>
             </div>

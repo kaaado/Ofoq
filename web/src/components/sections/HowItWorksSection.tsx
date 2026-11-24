@@ -56,15 +56,19 @@ export const HowItWorksSection: React.FC = () => {
           </div>
         </ScrollReveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
           {steps.map((step, idx) => {
             const Icon = step.icon;
             return (
-              <ScrollReveal key={step.num} delay={0.1 * (idx + 1)}>
-                <div className="glass-card glass-card-hover p-8 rounded-3xl border border-white/60 space-y-6 h-full flex flex-col justify-between text-start relative group">
-                  <div className="space-y-5">
+              <ScrollReveal
+                key={step.num}
+                delay={0.1 * (idx + 1)}
+                className={idx === 2 ? 'md:col-span-2 lg:col-span-1 md:max-w-md md:mx-auto lg:max-w-none w-full h-full' : 'h-full'}
+              >
+                <div className="glass-card glass-card-hover p-6 sm:p-8 rounded-3xl border border-white/60 space-y-5 h-full flex flex-col justify-between text-start relative group">
+                  <div className="space-y-4">
                     <div className="flex items-center justify-between">
-                      <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${step.bgGradient} text-white flex items-center justify-center font-heading font-black text-xl shadow-md border border-white/30`}>
+                      <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br ${step.bgGradient} text-white flex items-center justify-center font-heading font-black text-xl shadow-md border border-white/30`}>
                         {step.num}
                       </div>
                       <div className="w-10 h-10 rounded-xl bg-white/80 border border-[#172B46]/10 flex items-center justify-center text-[#172B46] group-hover:scale-110 transition-transform">
@@ -72,10 +76,10 @@ export const HowItWorksSection: React.FC = () => {
                       </div>
                     </div>
 
-                    <h3 className="text-xl font-heading font-bold text-[#172B46] leading-snug">
+                    <h3 className="text-lg sm:text-xl font-heading font-bold text-[#172B46] leading-snug">
                       {t(step.titleKey)}
                     </h3>
-                    <p className="text-sm text-[#5B6E85] leading-relaxed">
+                    <p className="text-xs sm:text-sm text-[#5B6E85] leading-relaxed">
                       {t(step.descKey)}
                     </p>
                   </div>

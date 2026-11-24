@@ -196,7 +196,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenWaitlist }) => {
                     target.scrollIntoView({ behavior: effectiveReducedMotion ? 'auto' : 'smooth' });
                   }
                 }}
-                aria-label={isAr ? 'استكشاف عالم الطفل ونور' : isEn ? 'Explore Child World & Nour Companion' : 'Découvrir le Monde de l\'Enfant et Nour'}
+                aria-label={isAr ? 'استكشاف عالم الطفل وباني' : isEn ? 'Explore Child World & Banny Companion' : 'Découvrir le Monde de l\'Enfant et Banny'}
                 className={`relative z-10 w-full flex justify-center items-center cursor-pointer group transition-transform duration-500 ease-out transform-gpu rounded-3xl focus-ring p-0 border-0 bg-transparent text-start ${
                   isAr
                     ? '-rotate-[6deg] hover:-rotate-[2deg]'

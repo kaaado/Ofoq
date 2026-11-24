@@ -172,7 +172,7 @@ export const DEFAULT_PROFILES: Record<'yanis' | 'amina', ChildProfileData> = {
     specialistRoleEn: 'Certified Speech Therapist (El-Amel Clinic)',
     routines: [
       { id: 'r1', iconName: 'sunrise', titleAr: 'الاستيقاظ والروتين الصباحي', titleFr: 'Réveil et étirements doux', titleEn: 'Gentle morning routine', completed: true },
-      { id: 'r2', iconName: 'bot', titleAr: 'بصمة الصوت مع الرفيق باني', titleFr: 'Exercice sonore avec le robot Bunny', titleEn: 'Phonation practice with Bunny', completed: true },
+      { id: 'r2', iconName: 'bot', titleAr: 'بصمة الصوت مع الرفيق باني', titleFr: 'Exercice sonore avec Banny', titleEn: 'Phonation practice with Banny', completed: true },
       { id: 'r3', iconName: 'layers', titleAr: 'تسمية بطاقتين على شريط التواصل', titleFr: 'Composition de 2 pictogrammes', titleEn: 'Compose 2 AAC cards', completed: false },
       { id: 'r4', iconName: 'boxes', titleAr: 'ترتيب المكعبات والاحتفال بالنجمة', titleFr: 'Rangement ludique & étoile', titleEn: 'Toy cleanup & victory star', completed: false },
     ],
@@ -194,7 +194,7 @@ export const DEFAULT_PROFILES: Record<'yanis' | 'amina', ChildProfileData> = {
     routines: [
       { id: 'a1', iconName: 'sun', titleAr: 'فترة الهدوء الصباحي وشرب الماء', titleFr: 'Temps calme et verre d\'eau', titleEn: 'Calm morning pause & water', completed: true },
       { id: 'a2', iconName: 'utensils', titleAr: 'اختيار بطاقة الوجبة الخفيفة', titleFr: 'Choix du goûter par pictogramme', titleEn: 'Snack pictogram choice', completed: true },
-      { id: 'a3', iconName: 'wind', titleAr: 'تمرين التنفس البطيء مع باني', titleFr: 'Respiration synchronisée avec Bunny', titleEn: 'Deep breathing with Bunny', completed: true },
+      { id: 'a3', iconName: 'wind', titleAr: 'تمرين التنفس البطيء مع باني', titleFr: 'Respiration synchronisée avec Banny', titleEn: 'Deep breathing with Banny', completed: true },
       { id: 'a4', iconName: 'book', titleAr: 'وقت القصة المصورة قبل القيلولة', titleFr: 'Histoire imagée avant la sieste', titleEn: 'Picture story before rest', completed: false },
     ],
   },

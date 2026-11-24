@@ -76,7 +76,7 @@ export const ChildWorldWizard: React.FC<ChildWorldWizardProps> = ({
           specialistRoleEn: 'Autism Specialist & Family Support',
           routines: [
             { id: 'c1', iconName: 'sunrise', titleAr: 'الروتين الصباحي وشرب الماء', titleFr: 'Routine du matin', titleEn: 'Morning routine', completed: true },
-            { id: 'c2', iconName: 'bot', titleAr: 'تحية الصديق نور بالصوت', titleFr: 'Bonjour à Nour', titleEn: 'Say hello to Nour', completed: true },
+            { id: 'c2', iconName: 'bot', titleAr: 'تحية الصديق باني بالصوت', titleFr: 'Bonjour à Banny', titleEn: 'Say hello to Banny', completed: true },
             { id: 'c3', iconName: 'layers', titleAr: 'اختيار بطاقتين على شريط التواصل', titleFr: '2 pictogrammes choisis', titleEn: 'Pick 2 cards', completed: false },
           ],
         };
