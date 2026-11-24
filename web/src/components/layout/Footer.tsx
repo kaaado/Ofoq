@@ -45,12 +45,9 @@ export const Footer: React.FC<FooterProps> = ({ onOpenPrivacy, onOpenLegal }) =>
             <div className="flex items-center gap-3">
               <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full overflow-hidden shadow-sm border-2 border-white/20 bg-[#FDFDFD] flex items-center justify-center shrink-0 p-0.5">
                 <img
-                  src="/OFOQlogo.png"
+                  src="/logo.webp"
                   alt="OFOQ"
                   className="w-full h-full object-contain rounded-full"
-                  onError={(e) => {
-                    (e.currentTarget as HTMLImageElement).src = '/logo.png';
-                  }}
                 />
               </div>
 

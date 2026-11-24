@@ -208,7 +208,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenWaitlist }) => {
                   {/* Contact shadow under device for grounded depth without filter repaints */}
                   <div className="absolute -bottom-6 w-3/4 h-8 bg-[#172B46]/25 rounded-full blur-xl pointer-events-none transform-gpu" />
                   <img
-                    src="/mobile.png"
+                    src="/mobile.webp"
                     alt={isAr ? 'تطبيق أفق على الهاتف' : 'Application mobile OFOQ'}
                     className="w-full h-auto object-contain transform-gpu will-change-transform filter drop-shadow-[0_20px_30px_rgba(23,43,70,0.22)] drop-shadow-[0_4px_12px_rgba(40,104,199,0.15)] group-hover:scale-[1.02] transition-transform duration-300"
                     loading="eager"

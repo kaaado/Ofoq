@@ -136,13 +136,9 @@ export const Header: React.FC<HeaderProps> = ({
             >
               <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full overflow-hidden shadow-sm border-2 border-[#2868C7]/20 bg-[#FDFDFD] flex items-center justify-center shrink-0 p-0.5 group-hover:scale-105 transition-transform">
                 <img
-                  src="/OFOQlogo.png"
+                  src="/logo.webp"
                   alt="OFOQ"
                   className="w-full h-full object-contain rounded-full"
-                  onError={(e) => {
-                    e.currentTarget.onerror = null;
-                    (e.currentTarget as HTMLImageElement).src = '/logo.png';
-                  }}
                 />
               </div>
 

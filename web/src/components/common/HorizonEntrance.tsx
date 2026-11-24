@@ -232,13 +232,9 @@ export const HorizonEntrance: React.FC<HorizonEntranceProps> = ({
               className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full p-1.5 bg-white/10 backdrop-blur-md border border-[#D8BE83]/60 shadow-[0_12px_40px_rgba(0,0,0,0.45),0_0_20px_rgba(216,190,131,0.35)] mb-5 flex items-center justify-center transform-gpu"
             >
               <img
-                src="/OFOQlogo.png"
+                src="/logo.webp"
                 alt="OFOQ"
                 className="w-full h-full object-contain rounded-full"
-                onError={(e) => {
-                  e.currentTarget.onerror = null;
-                  (e.currentTarget as HTMLImageElement).src = '/logo.png';
-                }}
               />
               <motion.div
                 initial={{ opacity: 0 }}
